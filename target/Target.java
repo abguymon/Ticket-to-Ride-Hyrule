@@ -12,7 +12,7 @@ import result.LeaveResult;
 import result.SignInResult;
 
 //implements IServer
-public class Target {
+public class Target implements IServer {
     public static final Target SINGLETON = new Target();
 
     private ArrayList<User> registeredUsers;
