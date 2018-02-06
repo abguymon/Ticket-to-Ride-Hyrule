@@ -33,6 +33,34 @@ public class Target implements IServer {
         return registeredUsers;
     }
 
+    public void setRegisteredUsers(ArrayList<User> registeredUsers) {
+        this.registeredUsers = registeredUsers;
+    }
+
+    public ArrayList<Login> getLoggedinUsers() {
+        return loggedinUsers;
+    }
+
+    public void setLoggedinUsers(ArrayList<Login> loggedinUsers) {
+        this.loggedinUsers = loggedinUsers;
+    }
+
+    public ArrayList<Game> getAvailableGames() {
+        return availableGames;
+    }
+
+    public void setAvailableGames(ArrayList<Game> availableGames) {
+        this.availableGames = availableGames;
+    }
+
+    public ArrayList<Game> getActiveGames() {
+        return activeGames;
+    }
+
+    public void setActiveGames(ArrayList<Game> activeGames) {
+        this.activeGames = activeGames;
+    }
+
     public SignInResult login(String username, String password) {
         SignInResult result = new SignInResult();
         if (username.equals("") || username == null) {
