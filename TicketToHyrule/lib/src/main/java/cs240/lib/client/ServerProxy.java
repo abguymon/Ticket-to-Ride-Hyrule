@@ -1,12 +1,13 @@
-package client;
+package cs240.lib.client;
 
-import common.Command;
-import common.IServer;
-import common.results.CreateResult;
-import common.results.JoinResult;
-import common.results.LeaveResult;
-import common.results.SignInResult;
-import communicator.ClientCommunicator;
+
+import cs240.lib.common.Command;
+import cs240.lib.common.IServer;
+import cs240.lib.common.results.CreateResult;
+import cs240.lib.common.results.JoinResult;
+import cs240.lib.common.results.LeaveResult;
+import cs240.lib.common.results.SignInResult;
+import cs240.lib.communicator.ClientCommunicator;
 
 /**
  * Created by David on 1/17/2018.

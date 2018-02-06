@@ -1,4 +1,4 @@
-package communicator;
+package cs240.lib.communicator;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
@@ -11,9 +11,9 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import common.Command;
-import common.EncoderDecoder;
-import common.ResultTransferObject;
+import cs240.lib.common.Command;
+import cs240.lib.common.EncoderDecoder;
+import cs240.lib.common.ResultTransferObject;
 
 /**
  * Created by David on 1/13/2018.

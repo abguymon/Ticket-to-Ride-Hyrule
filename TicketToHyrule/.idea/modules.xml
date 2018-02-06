@@ -3,11 +3,11 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/TicketToHyrule.iml" filepath="$PROJECT_DIR$/TicketToHyrule.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../../../../../eholm/OneDrive/Documents/GitHub/Ticket-to-Ride-Hyrule/TicketToHyrule/TicketToHyrule.iml" filepath="$PROJECT_DIR$/../../../../../eholm/OneDrive/Documents/GitHub/Ticket-to-Ride-Hyrule/TicketToHyrule/TicketToHyrule.iml" />
+      <module fileurl="file://C:\Users\eholm\OneDrive\Documents\GitHub\Ticket-to-Ride-Hyrule\TicketToHyrule\TicketToHyrule.iml" filepath="C:\Users\eholm\OneDrive\Documents\GitHub\Ticket-to-Ride-Hyrule\TicketToHyrule\TicketToHyrule.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../../../../../eholm/OneDrive/Documents/GitHub/Ticket-to-Ride-Hyrule/TicketToHyrule/app/app.iml" filepath="$PROJECT_DIR$/../../../../../eholm/OneDrive/Documents/GitHub/Ticket-to-Ride-Hyrule/TicketToHyrule/app/app.iml" />
+      <module fileurl="file://C:\Users\eholm\OneDrive\Documents\GitHub\Ticket-to-Ride-Hyrule\TicketToHyrule\app\app.iml" filepath="C:\Users\eholm\OneDrive\Documents\GitHub\Ticket-to-Ride-Hyrule\TicketToHyrule\app\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/lib/lib.iml" filepath="$PROJECT_DIR$/lib/lib.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../../../../../eholm/OneDrive/Documents/GitHub/Ticket-to-Ride-Hyrule/TicketToHyrule/lib/lib.iml" filepath="$PROJECT_DIR$/../../../../../eholm/OneDrive/Documents/GitHub/Ticket-to-Ride-Hyrule/TicketToHyrule/lib/lib.iml" />
+      <module fileurl="file://C:\Users\eholm\OneDrive\Documents\GitHub\Ticket-to-Ride-Hyrule\TicketToHyrule\lib\lib.iml" filepath="C:\Users\eholm\OneDrive\Documents\GitHub\Ticket-to-Ride-Hyrule\TicketToHyrule\lib\lib.iml" />
     </modules>
   </component>
 </project>

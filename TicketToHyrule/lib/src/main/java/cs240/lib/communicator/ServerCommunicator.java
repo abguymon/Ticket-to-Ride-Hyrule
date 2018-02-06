@@ -1,4 +1,4 @@
-package communicator;
+package cs240.lib.communicator;
 
 import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
@@ -11,8 +11,8 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.InetSocketAddress;
 
-import common.Command;
-import common.ResultTransferObject;
+import cs240.lib.common.Command;
+import cs240.lib.common.ResultTransferObject;
 
 
 /**

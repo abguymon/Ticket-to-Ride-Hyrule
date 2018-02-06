@@ -1,4 +1,4 @@
-package common;
+package cs240.lib.common;
 
 import com.google.gson.Gson;
 
@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import server.ServerFacade;
+import cs240.lib.server.ServerFacade;
 
 /**
  * Created by David on 1/13/2018.

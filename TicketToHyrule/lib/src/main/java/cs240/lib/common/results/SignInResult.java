@@ -1,4 +1,4 @@
-package common.results;
+package cs240.lib.common.results;
 
 /**
  * Created by David on 1/31/2018.

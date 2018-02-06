@@ -1,9 +1,9 @@
-package common;
+package cs240.lib.common;
 
-import common.results.CreateResult;
-import common.results.JoinResult;
-import common.results.LeaveResult;
-import common.results.SignInResult;
+import cs240.lib.common.results.CreateResult;
+import cs240.lib.common.results.JoinResult;
+import cs240.lib.common.results.LeaveResult;
+import cs240.lib.common.results.SignInResult;
 
 /**
  * Created by David on 1/31/2018.

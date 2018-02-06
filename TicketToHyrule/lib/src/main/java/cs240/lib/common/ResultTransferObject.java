@@ -1,4 +1,4 @@
-package common;
+package cs240.lib.common;
 
 import com.google.gson.Gson;
 
