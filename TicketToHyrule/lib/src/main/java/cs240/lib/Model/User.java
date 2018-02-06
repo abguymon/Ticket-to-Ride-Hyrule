@@ -1,8 +1,7 @@
-package model;
+package cs240.lib.Model;
 
 import java.util.ArrayList;
 
-import model.Game;
 
 public class User {
     private String username;

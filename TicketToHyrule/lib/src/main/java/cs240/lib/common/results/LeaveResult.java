@@ -11,9 +11,11 @@ public class LeaveResult {
 
     public LeaveResult() {}
 
-    public LeaveResult(String gameName, int newPlayerNumber, String errorMessage) {
+    public LeaveResult(String gameName, int newPlayerNumber) {
         this.gameName = gameName;
         this.newPlayerNumber = newPlayerNumber;
+    }
+    public LeaveResult(String errorMessage) {
         this.errorMessage = errorMessage;
     }
 

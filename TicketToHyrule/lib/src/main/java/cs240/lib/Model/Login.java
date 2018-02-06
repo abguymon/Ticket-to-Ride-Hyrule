@@ -1,4 +1,4 @@
-package model;
+package cs240.lib.Model;
 
 public class Login {
     private String username;

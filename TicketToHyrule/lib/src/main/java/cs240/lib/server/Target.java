@@ -1,15 +1,17 @@
-package target;
+package cs240.lib.server;
 
 import java.util.ArrayList;
 import java.util.UUID;
 
-import model.Game;
-import model.Login;
-import model.User;
-import result.CreateResult;
-import result.JoinResult;
-import result.LeaveResult;
-import result.SignInResult;
+import cs240.lib.Model.Game;
+import cs240.lib.Model.Login;
+import cs240.lib.Model.User;
+import cs240.lib.common.IServer;
+import cs240.lib.common.results.CreateResult;
+import cs240.lib.common.results.JoinResult;
+import cs240.lib.common.results.LeaveResult;
+import cs240.lib.common.results.SignInResult;
+
 
 //implements IServer
 public class Target implements IServer {

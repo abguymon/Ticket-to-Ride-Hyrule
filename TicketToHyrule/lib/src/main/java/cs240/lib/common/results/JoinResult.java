@@ -11,9 +11,11 @@ public class JoinResult {
 
     public JoinResult() {}
 
-    public JoinResult(String gameName, int newPlayerNumber, String errorMessage) {
+    public JoinResult(String gameName, int newPlayerNumber) {
         this.gameName = gameName;
         this.newPlayerNumber = newPlayerNumber;
+    }
+    public JoinResult(String errorMessage) {
         this.errorMessage = errorMessage;
     }
 

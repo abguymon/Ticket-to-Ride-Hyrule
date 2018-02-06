@@ -1,4 +1,4 @@
-package model;
+package cs240.lib.Model;
 
 import java.util.ArrayList;
 
