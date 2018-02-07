@@ -131,12 +131,14 @@ public class Target implements IServer {
                 registeredUsers.get(index).addGame(targetGame);
                 User player = findPlayer(username);
                 try {
+                    //TODO: how to send game started message with join result?
                     targetGame.addPlayer(player);
+                    String result = null;
                     if (targetGame.getPlayersJoined() == targetGame.getMaxPlayers()) {
-                        startGame(targetGame.getGameName());
-                    }else {
-                        return new JoinResult(targetGame.getGameName(), targetGame.getPlayersJoined());
+                        result = startGame(targetGame.getGameName());
                     }
+                    return new JoinResult(targetGame.getGameName(), targetGame.getPlayersJoined());
+
                 } catch(Exception e) {
                     String message = e.getMessage();
                     return new JoinResult(message);
@@ -163,6 +165,7 @@ public class Target implements IServer {
                 User player = findPlayer(username);
                 try {
                     targetGame.removePlayer(player);
+
                 } catch(Exception e) {
                     String message = e.getMessage();
                     return new LeaveResult(message);
