@@ -1,5 +1,6 @@
 package cs340.tickettohyrule;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -105,6 +106,42 @@ public class SignInFragment extends Fragment implements View.OnClickListener {
                 //LoginAsync loginAsync = new LoginAsync();
                 //loginAsync.execute();
                 break;
+        }
+    }
+
+    //login with the server
+    class LoginAsync extends AsyncTask<Void, Void, String> {
+        //private LoginRequest loginRequest = new LoginRequest(username.getText().toString(),password.getText().toString());
+        String serverHost = host.getText().toString();
+        String serverPort = port.getText().toString();
+        @Override
+        protected String doInBackground(Void... v) {
+            try {
+                //loginData.setUsername(username.getText().toString());
+                //loginData.setPassword(password.getText().toString());
+                //loginData.setServerHost(serverHost.getText().toString());
+                //loginData.setServerPort(serverPort.getText().toString());
+
+                //LoginResponse loginResponse = serverProxy.login(loginRequest,host,port);
+
+                //setUser(loginResponse.getPersonID());
+                //serverProxy.clear(host,port);
+                //return loginResponse.getAuthToken();
+                return null;//temp
+                //Toast.makeText(getActivity(),"Login Successful",Toast.LENGTH_SHORT).show();
+            } catch (Exception e) {
+                Toast.makeText(getActivity(),"Login Failed",Toast.LENGTH_SHORT).show();
+                System.out.print(e.getMessage());
+                e.printStackTrace();
+                return "error";
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            //DataAsync dataAsync = new DataAsync();
+            //dataAsync.execute(s);
         }
     }
 }
