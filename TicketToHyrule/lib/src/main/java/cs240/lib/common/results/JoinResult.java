@@ -14,6 +14,7 @@ public class JoinResult {
     public JoinResult(String gameName, int newPlayerNumber) {
         this.gameName = gameName;
         this.newPlayerNumber = newPlayerNumber;
+        errorMessage = "";
     }
     public JoinResult(String errorMessage) {
         this.errorMessage = errorMessage;
