@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import cs240.lib.Model.Login;
 import cs240.lib.common.Command;
 import cs240.lib.common.ResultTransferObject;
+import cs240.lib.server.ServerFacade;
 import cs240.lib.server.Target;
 
 
@@ -68,20 +69,26 @@ public class ServerCommunicator {
                          new InputStreamReader(exchange.getRequestBody()))
             {
                 Command command = new Command(inputStreamReader);
-                String authToken = null;
-                Headers requestHeaders = exchange.getRequestHeaders();
-                if (requestHeaders.containsKey("Authorization")){
-                    authToken = exchange.getRequestHeaders().getFirst("Authorization");
-                }
-                if (authToken != null){
-                    ArrayList<Login> loggedInUsers = Target.SINGLETON.getLoggedinUsers();
-                    Object[] parameters = command.getParameters();
+                if (!command.getMethodName().equals("login") && !command.getMethodName().equals("register")) {
+                    String authToken = null;
+                    Headers requestHeaders = exchange.getRequestHeaders();
+                    if (requestHeaders.containsKey("Authorization")) {
+                        authToken = exchange.getRequestHeaders().getFirst("Authorization");
+                    }
+                    if (authToken != null) {
+                        Object[] parameters = command.getParameters();
                     /*if (command.getParameterTypeNames()[0].equals(String.class)) {*/
-                    String username = (String) parameters[0];
-                    boolean isValidAuthToken = Target.SINGLETON.isValidAuthToken(username, authToken);
-
+                        String username = (String) parameters[0];
+                        boolean isValidAuthToken = Target.SINGLETON.isValidAuthToken(username, authToken);
+                        if (isValidAuthToken) {
+                            ServerFacade.SINGLETON.addCommand(command);
+                            result = command.execute();
+                        }
+                    }
+                }else {
+                    ServerFacade.SINGLETON.addCommand(command);
+                    result = command.execute();
                 }
-                result = command.execute();
             }
 
             try (OutputStreamWriter outputStreamWriter =
