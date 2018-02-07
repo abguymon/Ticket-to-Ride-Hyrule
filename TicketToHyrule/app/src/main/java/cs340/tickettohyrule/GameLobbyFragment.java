@@ -31,11 +31,16 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener 
     private ImageButton createButton;
     private RecyclerView gameListRecycler;
     private Adapter gameAdapter;
+    private String currentGame;
+    private boolean inGame;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_game_lobby, container, false);
+
+        inGame = false;
+        currentGame = "";
 
         joinButton = (ImageButton) view.findViewById(R.id.join_game_button);
         leaveButton = (ImageButton) view.findViewById(R.id.leave_game_button);
@@ -45,7 +50,7 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener 
         leaveButton.setOnClickListener(this);
         createButton.setOnClickListener(this);
 
-        joinButton.setEnabled(true);
+        joinButton.setEnabled(false);
         leaveButton.setEnabled(false);
         createButton.setEnabled(true);
 
@@ -93,6 +98,10 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener 
                 public void onClick(View view) {
                     Toast.makeText(getActivity(), recyclerGame.getGameName() + " selected",
                             Toast.LENGTH_SHORT).show();
+                    if(!inGame)
+                    {
+                        currentGame = recyclerGame.getGameName();
+                    }
                     //select game
                 }
             });
@@ -105,11 +114,13 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener 
         switch (v.getId()) {
             case R.id.join_game_button:
                 Toast.makeText(getActivity(), "join called", Toast.LENGTH_SHORT).show();
+                inGame = true;
                 //RegisterAsync registerAsync = new RegisterAsync();
                 //registerAsync.execute();
                 break;
             case R.id.leave_game_button:
                 Toast.makeText(getActivity(), "leave called", Toast.LENGTH_SHORT).show();
+                inGame = false;
                 //LoginAsync loginAsync = new LoginAsync();
                 //loginAsync.execute();
                 break;

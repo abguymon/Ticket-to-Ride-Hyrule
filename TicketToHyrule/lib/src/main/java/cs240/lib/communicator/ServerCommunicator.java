@@ -1,6 +1,7 @@
 package cs240.lib.communicator;
 
 import com.google.gson.Gson;
+import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
@@ -10,9 +11,12 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.InetSocketAddress;
+import java.util.ArrayList;
 
+import cs240.lib.Model.Login;
 import cs240.lib.common.Command;
 import cs240.lib.common.ResultTransferObject;
+import cs240.lib.server.Target;
 
 
 /**
@@ -64,7 +68,19 @@ public class ServerCommunicator {
                          new InputStreamReader(exchange.getRequestBody()))
             {
                 Command command = new Command(inputStreamReader);
+                String authToken = null;
+                Headers requestHeaders = exchange.getRequestHeaders();
+                if (requestHeaders.containsKey("Authorization")){
+                    authToken = exchange.getRequestHeaders().getFirst("Authorization");
+                }
+                if (authToken != null){
+                    ArrayList<Login> loggedInUsers = Target.SINGLETON.getLoggedinUsers();
+                    Object[] parameters = command.getParameters();
+                    /*if (command.getParameterTypeNames()[0].equals(String.class)) {*/
+                    String username = (String) parameters[0];
+                    boolean isValidAuthToken = Target.SINGLETON.isValidAuthToken(username, authToken);
 
+                }
                 result = command.execute();
             }
 
