@@ -14,6 +14,7 @@ public class LeaveResult {
     public LeaveResult(String gameName, int newPlayerNumber) {
         this.gameName = gameName;
         this.newPlayerNumber = newPlayerNumber;
+        errorMessage = "";
     }
     public LeaveResult(String errorMessage) {
         this.errorMessage = errorMessage;

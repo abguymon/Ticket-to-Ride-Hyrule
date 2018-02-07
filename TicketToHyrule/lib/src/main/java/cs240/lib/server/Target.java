@@ -32,31 +32,21 @@ public class Target implements IServer {
     public ArrayList<User> getRegisteredUsers() {
         return registeredUsers;
     }
-
-    public void setRegisteredUsers(ArrayList<User> registeredUsers) {
-        this.registeredUsers = registeredUsers;
-    }
+    public void setRegisteredUsers(ArrayList<User> registeredUsers) {this.registeredUsers = registeredUsers;}
 
     public ArrayList<Login> getLoggedinUsers() {
         return loggedinUsers;
     }
-
-    public void setLoggedinUsers(ArrayList<Login> loggedinUsers) {
-        this.loggedinUsers = loggedinUsers;
-    }
+    public void setLoggedinUsers(ArrayList<Login> loggedinUsers) {this.loggedinUsers = loggedinUsers;}
 
     public ArrayList<Game> getAvailableGames() {
         return availableGames;
     }
-
-    public void setAvailableGames(ArrayList<Game> availableGames) {
-        this.availableGames = availableGames;
-    }
+    public void setAvailableGames(ArrayList<Game> availableGames) {this.availableGames = availableGames;}
 
     public ArrayList<Game> getActiveGames() {
         return activeGames;
     }
-
     public void setActiveGames(ArrayList<Game> activeGames) {
         this.activeGames = activeGames;
     }
@@ -185,7 +175,8 @@ public class Target implements IServer {
                 return new CreateResult("Game name already in use");
             }
         }
-        if (maxPlayers >= 2 && maxPlayers <= 5) {
+        if (maxPlayers < 2 || maxPlayers > 5) {
+            System.out.println(maxPlayers);
             return new CreateResult("Invalid number of players");
         }
         if (gameName.equals("") || gameName == null) {

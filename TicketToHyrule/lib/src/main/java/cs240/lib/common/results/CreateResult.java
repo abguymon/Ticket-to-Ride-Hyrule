@@ -14,6 +14,7 @@ public class CreateResult {
     public CreateResult(String gameName, int totalPlayers) {
         this.gameName = gameName;
         this.totalPlayers = totalPlayers;
+        errorMessage = "";
     }
     public CreateResult(String errorMessage) {
         this.errorMessage = errorMessage;
