@@ -259,4 +259,15 @@ public class Target implements IServer {
         }
         return null;
     }
+
+    public boolean isValidAuthToken(String username, String authToken){
+        for (int i = 0; i < loggedinUsers.size(); ++i){
+            if (loggedinUsers.get(i).getUsername().equals(username)){
+                if (loggedinUsers.get(i).getAuthToken().equals(authToken)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }
