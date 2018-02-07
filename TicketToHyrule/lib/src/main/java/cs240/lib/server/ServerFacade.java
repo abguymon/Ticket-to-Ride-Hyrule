@@ -2,6 +2,9 @@ package cs240.lib.server;
 
 import com.sun.corba.se.spi.activation.Server;
 
+import java.util.Stack;
+
+import cs240.lib.common.Command;
 import cs240.lib.common.IServer;
 import cs240.lib.common.results.CreateResult;
 import cs240.lib.common.results.JoinResult;
@@ -16,7 +19,15 @@ public class ServerFacade implements IServer {
 
     public static final ServerFacade SINGLETON = new ServerFacade();
 
+    private Stack<Command> commands;
+
     public ServerFacade(){}
+
+    public Stack<Command> getCommands() {return commands;}
+    public void setCommands(Stack<Command> commands) {this.commands = commands;}
+    public void addCommand(Command toadd){
+        commands.push(toadd);
+    }
 
     @Override
     public SignInResult login(String username, String password) {

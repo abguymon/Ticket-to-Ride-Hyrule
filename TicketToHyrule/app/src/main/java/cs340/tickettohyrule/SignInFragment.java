@@ -13,6 +13,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import cs340.tickettohyrule.Presenters.SignInPresenter;
+
 /**
  * Created by eholm on 2/6/2018.
  */
@@ -93,16 +95,21 @@ public class SignInFragment extends Fragment implements View.OnClickListener {
     //handle the clicking of register and login buttons
     @Override
     public void onClick(View v) {
+        SignInPresenter signInPresenter = new SignInPresenter();
         switch (v.getId()) {
             case R.id.register_button:
                 Toast.makeText(getActivity(), "register called", Toast.LENGTH_SHORT).show();
-                ((SignInActivity) getActivity()).moveToLobby();
+                if(signInPresenter.register() == "") {
+                    ((SignInActivity) getActivity()).moveToLobby();
+                }
                 //RegisterAsync registerAsync = new RegisterAsync();
                 //registerAsync.execute();
                 break;
             case R.id.login_button:
                 Toast.makeText(getActivity(), "login called", Toast.LENGTH_SHORT).show();
-                ((SignInActivity) getActivity()).moveToLobby();
+                if(signInPresenter.login() == "") {
+                    ((SignInActivity) getActivity()).moveToLobby();
+                }
                 //LoginAsync loginAsync = new LoginAsync();
                 //loginAsync.execute();
                 break;
