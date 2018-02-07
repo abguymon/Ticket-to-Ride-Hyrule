@@ -81,12 +81,10 @@ public class ServerCommunicator {
                         String username = (String) parameters[0];
                         boolean isValidAuthToken = Target.SINGLETON.isValidAuthToken(username, authToken);
                         if (isValidAuthToken) {
-                            ServerFacade.SINGLETON.addCommand(command);
                             result = command.execute();
                         }
                     }
                 }else {
-                    ServerFacade.SINGLETON.addCommand(command);
                     result = command.execute();
                 }
             }
