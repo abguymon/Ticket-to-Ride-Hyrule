@@ -1,6 +1,7 @@
 package cs240.lib.communicator;
 
 import com.google.gson.Gson;
+import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
@@ -64,7 +65,11 @@ public class ServerCommunicator {
                          new InputStreamReader(exchange.getRequestBody()))
             {
                 Command command = new Command(inputStreamReader);
-
+                String authToken = null;
+                Headers requestHeaders = exchange.getRequestHeaders();
+                if (requestHeaders.containsKey("Authorization")){
+                    authToken = exchange.getRequestHeaders().getFirst("Authorization");
+                }
                 result = command.execute();
             }
 

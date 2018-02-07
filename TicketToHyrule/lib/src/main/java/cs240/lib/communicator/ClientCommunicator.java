@@ -24,12 +24,20 @@ public class ClientCommunicator {
     public static ClientCommunicator SINGLETON = new ClientCommunicator();
     //Static variables
     private static Gson gson = new Gson();
+    private String authToken;
 
 
-    //Attributes
 
     //Constructors
     public ClientCommunicator() {}
+
+    public String getAuthToken() {
+        return authToken;
+    }
+
+    public void setAuthToken(String authToken) {
+        this.authToken = authToken;
+    }
 
     //Commands
     public Object send(Command command) {
@@ -46,6 +54,7 @@ public class ClientCommunicator {
             URL url = new URL(URL_PREFIX + contextIdentifier);
             result = (HttpURLConnection)url.openConnection();
             result.setRequestMethod(HTTP_POST);
+            result.addRequestProperty("Authorization", authToken);
             result.setDoOutput(true);
             result.connect();
         } catch (MalformedURLException e) {
