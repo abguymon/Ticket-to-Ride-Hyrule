@@ -5,4 +5,10 @@ package cs340.tickettohyrule.Presenters;
  */
 
 public class CreateGamePresenter {
+    ModelFacade modelFacade = ModelFacade.getInstance();
+
+    public String createGame(String userName, String gameName, int maxPlayers)
+    {
+       return modelFacade.createGame(userName, gameName, maxPlayers);
+    }
 }

@@ -14,6 +14,8 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import cs340.tickettohyrule.Presenters.CreateGamePresenter;
+
 /**
  * Created by eholm on 2/6/2018.
  */
@@ -49,11 +51,24 @@ public class CreateGameFragment extends Fragment implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
+        CreateGamePresenter createGamePresenter = new CreateGamePresenter();
+        CurrentUserSingleton currentUser = new CurrentUserSingleton();
         switch (v.getId()) {
             case R.id.create_game_button:
                 Toast.makeText(getActivity(), "create called, num players: " + numPlayers.getSelectedItem(),
                         Toast.LENGTH_SHORT).show();
-                ((SignInActivity) getActivity()).moveToLobby();
+                String createMessage = createGamePresenter.createGame(currentUser.getUserName(),
+                        gameName.getText().toString(),
+                        Integer.parseInt(numPlayers.getSelectedItem().toString()));
+                if(createMessage.equals(""))
+                {
+                    ((SignInActivity) getActivity()).moveToLobby();
+                }
+                else
+                {
+                    Toast.makeText(getActivity(),  createMessage, Toast.LENGTH_SHORT).show();
+                }
+
                 //LoginAsync loginAsync = new LoginAsync();
                 //loginAsync.execute();
                 break;
