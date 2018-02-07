@@ -49,6 +49,7 @@ public class Game {
             String currentPlayer = playerArray.get(i).getUsername();
             if (currentPlayer.equals(playerToRemove)) {
                 playerArray.remove(i);
+                --playersJoined;
                 return;
             }
         }

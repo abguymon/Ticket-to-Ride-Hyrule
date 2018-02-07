@@ -165,14 +165,15 @@ public class Target implements IServer {
                 User player = findPlayer(username);
                 try {
                     targetGame.removePlayer(player);
-
+                    if (targetGame.getPlayersJoined() == 0) {
+                        removeGame(targetGame.getGameName());
+                    }
+                    return new LeaveResult(targetGame.getGameName(), targetGame.getPlayersJoined());
                 } catch(Exception e) {
                     String message = e.getMessage();
                     return new LeaveResult(message);
                 }
-                if (targetGame.getPlayersJoined() == 0) {
-                    removeGame(targetGame.getGameName());
-                }
+
             }
         }
         return new LeaveResult("Game name not found");
