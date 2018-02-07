@@ -5,4 +5,13 @@ package cs340.tickettohyrule.Presenters;
  */
 
 public class SignInPresenter {
+    ModelFacade modelFacade = ModelFacade.getInstance();
+    public String login(String userName, String password)
+    {
+        return modelFacade.login(userName,password);
+    }
+    public String register(String userName, String password)
+    {
+        return modelFacade.register(userName,password);
+    }
 }
