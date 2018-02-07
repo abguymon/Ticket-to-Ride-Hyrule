@@ -132,13 +132,16 @@ public class Target implements IServer {
                 User player = findPlayer(username);
                 try {
                     targetGame.addPlayer(player);
+                    if (targetGame.getPlayersJoined() == targetGame.getMaxPlayers()) {
+                        startGame(targetGame.getGameName());
+                    }else {
+                        return new JoinResult(targetGame.getGameName(), targetGame.getPlayersJoined());
+                    }
                 } catch(Exception e) {
                     String message = e.getMessage();
                     return new JoinResult(message);
                 }
-                if (targetGame.getPlayersJoined() == targetGame.getMaxPlayers()) {
-                    startGame(targetGame.getGameName());
-                }
+
             }
         }
         return new JoinResult("Game name not found");
@@ -194,7 +197,7 @@ public class Target implements IServer {
         if (username.equals("") || username == null) {
             return new CreateResult("Invalid username");
         }
-        Game newGame = new Game(maxPlayers, 1, gameName);
+        Game newGame = new Game(maxPlayers, 0, gameName);
         int index = findPlayerIndex(username);
         registeredUsers.get(index).addGame(newGame);
         User player = findPlayer(username);
