@@ -185,7 +185,7 @@ public class Target implements IServer {
                 return new CreateResult("Game name already in use");
             }
         }
-        if (maxPlayers >= 2 && maxPlayers <= 5) {
+        if (maxPlayers < 2 && maxPlayers > 5) {
             return new CreateResult("Invalid number of players");
         }
         if (gameName.equals("") || gameName == null) {
