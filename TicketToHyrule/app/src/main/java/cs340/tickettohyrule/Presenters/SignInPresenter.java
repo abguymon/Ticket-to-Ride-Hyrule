@@ -1,5 +1,7 @@
 package cs340.tickettohyrule.Presenters;
 
+import cs240.lib.Model.ModelFacade;
+
 /**
  * Created by eholm on 2/7/2018.
  */
