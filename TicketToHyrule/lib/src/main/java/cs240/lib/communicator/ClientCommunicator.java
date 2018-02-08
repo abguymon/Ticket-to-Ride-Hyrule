@@ -98,6 +98,7 @@ public class ClientCommunicator {
                 throw new Exception(String.format("http code %d",	connection.getResponseCode()));
             }
         } catch (JsonSyntaxException | JsonIOException | IOException e) {
+            result = e;
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();

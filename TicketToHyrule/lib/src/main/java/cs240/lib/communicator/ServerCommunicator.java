@@ -115,5 +115,5 @@ public class ServerCommunicator {
 
     public static final String COMMAND_DESIGNATOR = "/command";
     public static final String DEFAULT_DESIGNATOR = "/";
-    public static final String SERVER_HOST = "localhost";
+    public static final String SERVER_HOST = "10.0.2.2";
 }

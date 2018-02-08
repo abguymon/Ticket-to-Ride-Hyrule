@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import cs240.lib.common.results.SignInResult;
 import cs340.tickettohyrule.Presenters.SignInPresenter;
 
 /**
@@ -100,34 +101,71 @@ public class SignInFragment extends Fragment implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.register_button:
                 Toast.makeText(getActivity(), "register called", Toast.LENGTH_SHORT).show();
-                String registerMessage = signInPresenter.register(username.getText().toString(),
-                        password.getText().toString());
-                if(registerMessage.equals("")) {
-                    currentUser.setUserName(username.getText().toString());
-                    currentUser.setPassword(password.getText().toString());
-                    ((SignInActivity) getActivity()).moveToLobby();
-                }
-                else
-                {
-                    Toast.makeText(getActivity(), registerMessage, Toast.LENGTH_SHORT).show();
-                }
-                //RegisterAsync registerAsync = new RegisterAsync();
-                //registerAsync.execute();
+//                String registerMessage = signInPresenter.register(username.getText().toString(),
+//                        password.getText().toString());
+//                if(registerMessage.equals("")) {
+//                    currentUser.setUserName(username.getText().toString());
+//                    currentUser.setPassword(password.getText().toString());
+//                    ((SignInActivity) getActivity()).moveToLobby();
+//                }
+//                else
+//                {
+//                    Toast.makeText(getActivity(), registerMessage, Toast.LENGTH_SHORT).show();
+//                }
+                RegisterTask registerTask = new RegisterTask();
+                registerTask.execute();
                 break;
             case R.id.login_button:
                 Toast.makeText(getActivity(), "login called", Toast.LENGTH_SHORT).show();
-                String loginMessage = signInPresenter.login(username.getText().toString(),
-                        password.getText().toString());
-                if(loginMessage.equals("")) {
-                    currentUser.setUserName(username.getText().toString());
-                    currentUser.setPassword(password.getText().toString());
-                    ((SignInActivity) getActivity()).moveToLobby();
-                }
-                else
-                {
-                    Toast.makeText(getActivity(), loginMessage, Toast.LENGTH_SHORT).show();
-                }
+                LoginTask loginTask = new LoginTask();
+                loginTask.execute();
+//                String loginMessage = signInPresenter.login(username.getText().toString(),
+//                        password.getText().toString());
+//                if(loginMessage.equals("")) {
+//                    currentUser.setUserName(username.getText().toString());
+//                    currentUser.setPassword(password.getText().toString());
+//                    ((SignInActivity) getActivity()).moveToLobby();
+//                }
+//                else
+//                {
+//                    Toast.makeText(getActivity(), loginMessage, Toast.LENGTH_SHORT).show();
+//                }
                 break;
+        }
+    }
+    private class LoginTask extends AsyncTask<Void, Void, String>{
+        SignInPresenter signInPresenter = new SignInPresenter();
+        @Override
+        protected String doInBackground(Void... params){
+            String message = signInPresenter.login(username.getText().toString(), password.getText().toString());
+            return message;
+        }
+        @Override protected void onPostExecute(String message){
+            super.onPostExecute(message);
+            if(message.equals("")){
+                ((SignInActivity) getActivity()).moveToLobby();
+            }
+            else{
+                Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private class RegisterTask extends AsyncTask<Void, Void, String>{
+        SignInPresenter signInPresenter = new SignInPresenter();
+        @Override
+        protected String doInBackground(Void... params){
+            String message = signInPresenter.register(username.getText().toString(), password.getText().toString());
+            return message;
+        }
+        @Override protected void onPostExecute(String message){
+            super.onPostExecute(message);
+            if(message.equals("")){
+                ((SignInActivity) getActivity()).moveToLobby();
+            }
+            else{
+                Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }
