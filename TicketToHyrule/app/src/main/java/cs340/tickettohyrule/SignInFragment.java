@@ -13,6 +13,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import cs340.tickettohyrule.Presenters.SignInPresenter;
+
 /**
  * Created by eholm on 2/6/2018.
  */
@@ -93,55 +95,39 @@ public class SignInFragment extends Fragment implements View.OnClickListener {
     //handle the clicking of register and login buttons
     @Override
     public void onClick(View v) {
+        SignInPresenter signInPresenter = new SignInPresenter();
+        CurrentUserSingleton currentUser = CurrentUserSingleton.getInstance();
         switch (v.getId()) {
             case R.id.register_button:
                 Toast.makeText(getActivity(), "register called", Toast.LENGTH_SHORT).show();
-                ((SignInActivity) getActivity()).moveToLobby();
+                String registerMessage = signInPresenter.register(username.getText().toString(),
+                        password.getText().toString());
+                if(registerMessage.equals("")) {
+                    currentUser.setUserName(username.getText().toString());
+                    currentUser.setPassword(password.getText().toString());
+                    ((SignInActivity) getActivity()).moveToLobby();
+                }
+                else
+                {
+                    Toast.makeText(getActivity(), registerMessage, Toast.LENGTH_SHORT).show();
+                }
                 //RegisterAsync registerAsync = new RegisterAsync();
                 //registerAsync.execute();
                 break;
             case R.id.login_button:
                 Toast.makeText(getActivity(), "login called", Toast.LENGTH_SHORT).show();
-                ((SignInActivity) getActivity()).moveToLobby();
-                //LoginAsync loginAsync = new LoginAsync();
-                //loginAsync.execute();
+                String loginMessage = signInPresenter.login(username.getText().toString(),
+                        password.getText().toString());
+                if(loginMessage.equals("")) {
+                    currentUser.setUserName(username.getText().toString());
+                    currentUser.setPassword(password.getText().toString());
+                    ((SignInActivity) getActivity()).moveToLobby();
+                }
+                else
+                {
+                    Toast.makeText(getActivity(), loginMessage, Toast.LENGTH_SHORT).show();
+                }
                 break;
-        }
-    }
-
-    //login with the server
-    class LoginAsync extends AsyncTask<Void, Void, String> {
-        //private LoginRequest loginRequest = new LoginRequest(username.getText().toString(),password.getText().toString());
-        String serverHost = host.getText().toString();
-        String serverPort = port.getText().toString();
-        @Override
-        protected String doInBackground(Void... v) {
-            try {
-                //loginData.setUsername(username.getText().toString());
-                //loginData.setPassword(password.getText().toString());
-                //loginData.setServerHost(serverHost.getText().toString());
-                //loginData.setServerPort(serverPort.getText().toString());
-
-                //LoginResponse loginResponse = serverProxy.login(loginRequest,host,port);
-
-                //setUser(loginResponse.getPersonID());
-                //serverProxy.clear(host,port);
-                //return loginResponse.getAuthToken();
-                return null;//temp
-                //Toast.makeText(getActivity(),"Login Successful",Toast.LENGTH_SHORT).show();
-            } catch (Exception e) {
-                Toast.makeText(getActivity(),"Login Failed",Toast.LENGTH_SHORT).show();
-                System.out.print(e.getMessage());
-                e.printStackTrace();
-                return "error";
-            }
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            //DataAsync dataAsync = new DataAsync();
-            //dataAsync.execute(s);
         }
     }
 }

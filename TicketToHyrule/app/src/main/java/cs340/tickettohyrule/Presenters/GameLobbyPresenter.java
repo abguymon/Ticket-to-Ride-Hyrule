@@ -5,4 +5,15 @@ package cs340.tickettohyrule.Presenters;
  */
 
 public class GameLobbyPresenter {
+    ModelFacade modelFacade = ModelFacade.getInstance();
+
+    public String joinGame(String userName, String gameName)
+    {
+        return modelFacade.joinGame(userName, gameName);
+    }
+
+    public String leaveGame(String userName, String gameName)
+    {
+        return modelFacade.leaveGame(userName, gameName);
+    }
 }

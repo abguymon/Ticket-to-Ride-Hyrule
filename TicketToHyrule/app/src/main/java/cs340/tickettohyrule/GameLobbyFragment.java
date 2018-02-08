@@ -1,8 +1,5 @@
 package cs340.tickettohyrule;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cs340.tickettohyrule.Model.Game;
+import cs340.tickettohyrule.Presenters.GameLobbyPresenter;
 
 /**
  * Created by eholm on 2/6/2018.
@@ -111,16 +108,37 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener 
     //handle the clicking of join,leave, and create buttons
     @Override
     public void onClick(View v) {
+        GameLobbyPresenter gameLobbyPresenter = new GameLobbyPresenter();
+        CurrentUserSingleton currentUser = CurrentUserSingleton.getInstance();
         switch (v.getId()) {
             case R.id.join_game_button:
                 Toast.makeText(getActivity(), "join called", Toast.LENGTH_SHORT).show();
-                inGame = true;
+                String joinMessage = gameLobbyPresenter.joinGame(currentUser.getUserName(),
+                        currentUser.getPassword());
+                if(joinMessage.equals(""))
+                {
+                    inGame = true;
+                }
+                else
+                {
+                    Toast.makeText(getActivity(), joinMessage, Toast.LENGTH_SHORT).show();
+                }
                 //RegisterAsync registerAsync = new RegisterAsync();
                 //registerAsync.execute();
                 break;
             case R.id.leave_game_button:
                 Toast.makeText(getActivity(), "leave called", Toast.LENGTH_SHORT).show();
-                inGame = false;
+                String leaveMessage = gameLobbyPresenter.leaveGame(currentUser.getUserName(),
+                        currentUser.getPassword());
+                if(leaveMessage.equals(""))
+                {
+                    inGame = false;
+                }
+                else
+                {
+                    Toast.makeText(getActivity(), leaveMessage, Toast.LENGTH_SHORT).show();
+                }
+
                 //LoginAsync loginAsync = new LoginAsync();
                 //loginAsync.execute();
                 break;
