@@ -16,7 +16,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import cs340.tickettohyrule.Model.Game;
+import cs240.lib.Model.Game;
+import cs240.lib.Model.ModelFacade;
 import cs340.tickettohyrule.Presenters.GameLobbyPresenter;
 
 /**
@@ -69,8 +70,10 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener 
     }
 
     private List<Game> getGames() {
-        List<Game> gamesToAdd = new ArrayList<Game>();
-        return gamesToAdd;
+        ModelFacade modelFacade = ModelFacade.getInstance();
+        //List<Game> gamesToAdd = new ArrayList<Game>();
+
+        return modelFacade.getGames();
     }
 
     private class Holder extends RecyclerView.ViewHolder {
@@ -99,8 +102,9 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener 
                     if(!inGame)
                     {
                         currentGame = recyclerGame.getGameName();
+                        joinButton.setEnabled(true);
                     }
-                    //select game
+
                 }
             });
         }
@@ -114,16 +118,17 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener 
         switch (v.getId()) {
             case R.id.join_game_button:
                 Toast.makeText(getActivity(), "join called", Toast.LENGTH_SHORT).show();
-                String joinMessage = gameLobbyPresenter.joinGame(currentUser.getUserName(),
-                        currentUser.getPassword());
-                if(joinMessage.equals(""))
-                {
-                    inGame = true;
-                }
-                else
-                {
-                    Toast.makeText(getActivity(), joinMessage, Toast.LENGTH_SHORT).show();
-                }
+//                String joinMessage = gameLobbyPresenter.joinGame(currentUser.getUserName(),
+//                        currentUser.getPassword());
+//                if(joinMessage.equals(""))
+//                {
+                    JoinAsync joinAsync = new JoinAsync();
+                    joinAsync.execute();
+//                }
+//                else
+//                {
+//                    Toast.makeText(getActivity(), joinMessage, Toast.LENGTH_SHORT).show();
+//                }
                 //RegisterAsync registerAsync = new RegisterAsync();
                 //registerAsync.execute();
                 break;
@@ -175,6 +180,26 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener 
         @Override
         public int getItemCount() {
             return mGames.size();
+        }
+    }
+
+    private class JoinAsync extends AsyncTask<Void, Void, String> {
+        GameLobbyPresenter gameLobbyPresenter = new GameLobbyPresenter();
+        ModelFacade modelFacade = ModelFacade.getInstance();
+        @Override
+        protected String doInBackground(Void... params){
+            String message = gameLobbyPresenter.joinGame(modelFacade.getCurrentUser().getUsername(), currentGame);
+            return message;
+        }
+        @Override protected void onPostExecute(String message){
+            super.onPostExecute(message);
+            if(message.equals("")){
+                inGame = true;
+                Toast.makeText(getActivity(), "Successfully joined game", Toast.LENGTH_SHORT).show();
+            }
+            else{
+                Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
