@@ -3,9 +3,9 @@ package cs240.lib.client;
 
 import cs240.lib.common.results.CreateResult;
 import cs240.lib.common.results.JoinResult;
-import cs240.lib.common.results.LeaveResult;
 import cs240.lib.common.results.SignInResult;
 import cs240.lib.communicator.ClientCommunicator;
+import cs240.lib.communicator.ServerCommunicator;
 
 /**
  * Created by David on 2/7/2018.
@@ -13,34 +13,28 @@ import cs240.lib.communicator.ClientCommunicator;
 
 public class TestMain {
     public static void main(String[] args){
-        SignInResult dadamsRegister = ServerProxy.SINGLETON.register("dadams", "dude");
-        System.out.println("dadams authToken: " + dadamsRegister.getAuthToken());
-        System.out.println("Error: " + dadamsRegister.getErrorMessage());
 
-        SignInResult badregisterResult = ServerProxy.SINGLETON.register("dadams", "dude");
-        System.out.println("bad authToken: " + badregisterResult.getAuthToken());
-        System.out.println("Error: " + badregisterResult.getErrorMessage());
+        SignInResult result = ServerProxy.SINGLETON.register("davidadams", "game1");
+        System.out.println(result.getAuthToken());
+        String authToken = result.getAuthToken();
+        if (result.getErrorMessage().equals("")) {
+            System.out.println("Success!!!!");
+        }
+        else {
+            System.out.println("Failure! Fix Your Code");
+            System.out.println(result.getErrorMessage());
+        }
 
-        SignInResult dudeRegister = ServerProxy.SINGLETON.register("dude", "dude");
-        System.out.println("dude authToken: " + dudeRegister.getAuthToken());
-        System.out.println("Error: " + dudeRegister.getErrorMessage());
-
-        ClientCommunicator.SINGLETON.setAuthToken(dadamsRegister.getAuthToken());
-        CreateResult createResult = ServerProxy.SINGLETON.createGame("dadams", "game1", 3);
-        System.out.println("creation: " + createResult.getGameName());
-        System.out.println("players: " + createResult.getTotalPlayers());
-        System.out.println("Error: " + createResult.getErrorMessage());
-
-        ClientCommunicator.SINGLETON.setAuthToken(dudeRegister.getAuthToken());
-        JoinResult joinResult = ServerProxy.SINGLETON.joinGame("dude", "game1");
-        System.out.println("joined: " + joinResult.getGameName());
-        System.out.println("players: " + joinResult.getNewPlayerNumber());
-        System.out.println("Error: " + joinResult.getErrorMessage());
-
-        ClientCommunicator.SINGLETON.setAuthToken(dudeRegister.getAuthToken());
-        LeaveResult leaveResult = ServerProxy.SINGLETON.leaveGame("dude", "game1");
-        System.out.println("left: " + leaveResult.getGameName());
-        System.out.println("players: " + leaveResult.getNewPlayerNumber());
-        System.out.println("Error: " + leaveResult.getErrorMessage());
+        ClientCommunicator.SINGLETON.setAuthToken(authToken);
+        CreateResult createResult = ServerProxy.SINGLETON.createGame("davidadams", "bestgame2", 4);
+        System.out.println(createResult.getGameName());
+        System.out.println(createResult.getTotalPlayers());
+        if (createResult.getErrorMessage().equals("")) {
+            System.out.println("Success!!!! You're Amazing");
+        }
+        else {
+            System.out.println("Failure! Fix Your Code");
+            System.out.println(createResult.getErrorMessage());
+        }
     }
 }
