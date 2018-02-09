@@ -31,14 +31,14 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener 
     private RecyclerView gameListRecycler;
     private Adapter gameAdapter;
     private String currentGame;
-    private boolean inGame;
+
+    private InGameSingleton inGameSingleton = InGameSingleton.getInstance();
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_game_lobby, container, false);
 
-        inGame = false;
         currentGame = "";
 
         joinButton = (ImageButton) view.findViewById(R.id.join_game_button);
@@ -51,7 +51,13 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener 
 
         joinButton.setEnabled(false);
         leaveButton.setEnabled(false);
-        createButton.setEnabled(true);
+        if(inGameSingleton.isInGame()) {
+            createButton.setEnabled(false);
+        }
+        else
+        {
+            createButton.setEnabled(true);
+        }
 
         gameListRecycler = (RecyclerView) view.findViewById(R.id.game_lobby_recycler);
         gameListRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -99,10 +105,14 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener 
                 public void onClick(View view) {
                     Toast.makeText(getActivity(), recyclerGame.getGameName() + " selected",
                             Toast.LENGTH_SHORT).show();
-                    if(!inGame)
+                    currentGame = recyclerGame.getGameName();
+                    if(!inGameSingleton.isInGame())
                     {
-                        currentGame = recyclerGame.getGameName();
                         joinButton.setEnabled(true);
+                    }
+                    else
+                    {
+                        leaveButton.setEnabled(true);
                     }
 
                 }
@@ -134,16 +144,17 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener 
                 break;
             case R.id.leave_game_button:
                 Toast.makeText(getActivity(), "leave called", Toast.LENGTH_SHORT).show();
-                String leaveMessage = gameLobbyPresenter.leaveGame(currentUser.getUserName(),
-                        currentUser.getPassword());
-                if(leaveMessage.equals(""))
-                {
-                    inGame = false;
-                }
-                else
-                {
-                    Toast.makeText(getActivity(), leaveMessage, Toast.LENGTH_SHORT).show();
-                }
+//                String leaveMessage = gameLobbyPresenter.leaveGame(currentUser.getUserName(),
+//                        currentUser.getPassword());
+//                if(leaveMessage.equals(""))
+//                {
+                LeaveAsync leaveAsync = new LeaveAsync();
+                leaveAsync.execute();
+//                }
+//                else
+//                {
+//                    Toast.makeText(getActivity(), leaveMessage, Toast.LENGTH_SHORT).show();
+//                }
 
                 //LoginAsync loginAsync = new LoginAsync();
                 //loginAsync.execute();
@@ -151,7 +162,7 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener 
             case R.id.create_button:
                 Toast.makeText(getActivity(), "create called", Toast.LENGTH_SHORT).show();
                 ((SignInActivity) getActivity()).moveToCreate();
-
+                //inGame = true;
                 break;
         }
     }
@@ -194,8 +205,30 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener 
         @Override protected void onPostExecute(String message){
             super.onPostExecute(message);
             if(message.equals("")){
-                inGame = true;
+                inGameSingleton.setInGame(true);
                 Toast.makeText(getActivity(), "Successfully joined game", Toast.LENGTH_SHORT).show();
+            }
+            else{
+                Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private class LeaveAsync extends AsyncTask<Void, Void, String> {
+        GameLobbyPresenter gameLobbyPresenter = new GameLobbyPresenter();
+        ModelFacade modelFacade = ModelFacade.getInstance();
+        @Override
+        protected String doInBackground(Void... params){
+            String message = gameLobbyPresenter.leaveGame(modelFacade.getCurrentUser().getUsername(), currentGame);
+            return message;
+        }
+        @Override protected void onPostExecute(String message){
+            super.onPostExecute(message);
+            if(message.equals("")){
+                inGameSingleton.setInGame(false);
+                Toast.makeText(getActivity(), "Successfully left game", Toast.LENGTH_SHORT).show();
+                createButton.setEnabled(true);
+                currentGame = "";
             }
             else{
                 Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();

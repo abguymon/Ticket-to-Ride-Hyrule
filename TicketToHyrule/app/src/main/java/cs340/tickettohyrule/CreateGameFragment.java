@@ -26,6 +26,7 @@ public class CreateGameFragment extends Fragment implements View.OnClickListener
     private ImageButton createButton;
     private EditText gameName;
     private Spinner numPlayers;
+    private InGameSingleton inGameSingleton = InGameSingleton.getInstance();
 
     @Nullable
     @Override
@@ -120,6 +121,7 @@ public class CreateGameFragment extends Fragment implements View.OnClickListener
         @Override protected void onPostExecute(String message){
             super.onPostExecute(message);
             if(message.equals("")){
+                inGameSingleton.setInGame(true);
                 ((SignInActivity) getActivity()).moveToLobby();
             }
             else{
