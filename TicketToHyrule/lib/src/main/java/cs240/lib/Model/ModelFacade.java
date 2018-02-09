@@ -1,5 +1,6 @@
 package cs240.lib.Model;
 
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Observable;
@@ -9,6 +10,7 @@ import cs240.lib.common.results.CreateResult;
 import cs240.lib.common.results.JoinResult;
 import cs240.lib.common.results.LeaveResult;
 import cs240.lib.common.results.SignInResult;
+import cs240.lib.communicator.ClientCommunicator;
 
 /**
  * Created by adam on 2/7/18.
@@ -30,8 +32,9 @@ public class ModelFacade extends Observable{
 
 
     public String createGame(String userName, String gameName, int maxPlayers){
+        ClientCommunicator.SINGLETON.setAuthToken(currentUser.getPassword());
         CreateResult result = ServerProxy.SINGLETON.createGame(userName, gameName, maxPlayers);
-        if(!result.getErrorMessage().equals("")){
+        if(result.getErrorMessage() != null){
             return result.getErrorMessage();
         }
         else{
