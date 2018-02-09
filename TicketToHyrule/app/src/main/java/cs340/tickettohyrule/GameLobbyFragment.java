@@ -1,5 +1,6 @@
 package cs340.tickettohyrule;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -145,8 +146,7 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener 
             case R.id.create_button:
                 Toast.makeText(getActivity(), "create called", Toast.LENGTH_SHORT).show();
                 ((SignInActivity) getActivity()).moveToCreate();
-                //LoginAsync loginAsync = new LoginAsync();
-                //loginAsync.execute();
+
                 break;
         }
     }
@@ -177,4 +177,5 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener 
             return mGames.size();
         }
     }
+
 }

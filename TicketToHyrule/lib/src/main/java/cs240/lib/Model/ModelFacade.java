@@ -31,7 +31,7 @@ public class ModelFacade extends Observable{
 
     public String createGame(String userName, String gameName, int maxPlayers){
         CreateResult result = ServerProxy.SINGLETON.createGame(userName, gameName, maxPlayers);
-        if(result.getErrorMessage() != null){
+        if(!result.getErrorMessage().equals("")){
             return result.getErrorMessage();
         }
         else{
@@ -48,7 +48,7 @@ public class ModelFacade extends Observable{
 
     public String leaveGame(String userName, String gameName){
         LeaveResult result = ServerProxy.SINGLETON.leaveGame(userName, gameName);
-        if(result.getErrorMessage() != null){
+        if(!result.getErrorMessage().equals("")){
             return result.getErrorMessage();
         }
         else{
@@ -60,7 +60,7 @@ public class ModelFacade extends Observable{
 
     public String login(String userName, String password){
         SignInResult result = ServerProxy.SINGLETON.login(userName, password);
-        if(result.getErrorMessage() != null){
+        if(!result.getErrorMessage().equals("")){
             return result.getErrorMessage();
         }
         else{
@@ -70,7 +70,7 @@ public class ModelFacade extends Observable{
     }
     public String register(String userName, String password){
         SignInResult result = ServerProxy.SINGLETON.register(userName, password);
-        if(result.getErrorMessage() != null){
+        if(!result.getErrorMessage().equals("")){
             return result.getErrorMessage();
         }
         else{
@@ -81,7 +81,7 @@ public class ModelFacade extends Observable{
 
     public String joinGame(String userName, String gameName){
         JoinResult result = ServerProxy.SINGLETON.joinGame(userName,gameName);
-        if(result.getErrorMessage() != null){
+        if(!result.getErrorMessage().equals("")){
             return result.getErrorMessage();
         }
         else{

@@ -1,5 +1,6 @@
 package cs340.tickettohyrule;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import cs240.lib.Model.ModelFacade;
 import cs340.tickettohyrule.Presenters.CreateGamePresenter;
 
 /**
@@ -51,26 +53,24 @@ public class CreateGameFragment extends Fragment implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
-        CreateGamePresenter createGamePresenter = new CreateGamePresenter();
-        CurrentUserSingleton currentUser = new CurrentUserSingleton();
         switch (v.getId()) {
             case R.id.create_game_button:
-                Toast.makeText(getActivity(), "create called, num players: " + numPlayers.getSelectedItem(),
-                        Toast.LENGTH_SHORT).show();
-                String createMessage = createGamePresenter.createGame(currentUser.getUserName(),
-                        gameName.getText().toString(),
-                        Integer.parseInt(numPlayers.getSelectedItem().toString()));
-                if(createMessage.equals(""))
-                {
-                    ((SignInActivity) getActivity()).moveToLobby();
-                }
-                else
-                {
-                    Toast.makeText(getActivity(),  createMessage, Toast.LENGTH_SHORT).show();
-                }
+//                Toast.makeText(getActivity(), "create called, num players: " + numPlayers.getSelectedItem(),
+//                        Toast.LENGTH_SHORT).show();
+//                String createMessage = createGamePresenter.createGame(currentUser.getUserName(),
+//                        gameName.getText().toString(),
+//                        Integer.parseInt(numPlayers.getSelectedItem().toString()));
+//                if(createMessage.equals(""))
+//                {
+//                    ((SignInActivity) getActivity()).moveToLobby();
+//                }
+//                else
+//                {
+//                    Toast.makeText(getActivity(),  createMessage, Toast.LENGTH_SHORT).show();
+//                }
 
-                //LoginAsync loginAsync = new LoginAsync();
-                //loginAsync.execute();
+                CreateAsync createAsync = new CreateAsync();
+                createAsync.execute();
                 break;
         }
     }
@@ -104,6 +104,27 @@ public class CreateGameFragment extends Fragment implements View.OnClickListener
         else
         {
             createButton.setEnabled(false);
+        }
+    }
+
+
+    private class CreateAsync extends AsyncTask<Void, Void, String> {
+        CreateGamePresenter createGamePresenter = new CreateGamePresenter();
+        ModelFacade modelFacade = ModelFacade.getInstance();
+        @Override
+        protected String doInBackground(Void... params){
+            String message = createGamePresenter.createGame(modelFacade.getCurrentUser().getUsername(), gameName.getText().toString(),
+                    Integer.parseInt(numPlayers.getSelectedItem().toString()));
+            return message;
+        }
+        @Override protected void onPostExecute(String message){
+            super.onPostExecute(message);
+            if(message.equals("")){
+                ((SignInActivity) getActivity()).moveToLobby();
+            }
+            else{
+                Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }
