@@ -127,21 +127,27 @@ public class Target implements IServer {
             String curGame = availableGames.get(i).getGameName();
             if (curGame.equals(gameName)) {
                 Game targetGame = availableGames.get(i);
-                int index = findPlayerIndex(username);
-                registeredUsers.get(index).addGame(targetGame);
-                User player = findPlayer(username);
-                try {
-                    //TODO: how to send game started message with join result?
-                    targetGame.addPlayer(player);
-                    String result = null;
-                    if (targetGame.getPlayersJoined() == targetGame.getMaxPlayers()) {
-                        result = startGame(targetGame.getGameName());
-                    }
-                    return new JoinResult(targetGame.getGameName(), targetGame.getPlayersJoined());
+                boolean userInGame = isUserInGame(targetGame, username);
+                if (!userInGame) {
+                    int index = findPlayerIndex(username);
+                    registeredUsers.get(index).addGame(targetGame);
+                    User player = findPlayer(username);
+                    try {
+                        //TODO: how to send game started message with join result?
+                        targetGame.addPlayer(player);
+                        String result = null;
+                        if (targetGame.getPlayersJoined() == targetGame.getMaxPlayers()) {
+                            result = startGame(targetGame.getGameName());
+                        }
+                        return new JoinResult(targetGame.getGameName(), targetGame.getPlayersJoined());
 
-                } catch(Exception e) {
-                    String message = e.getMessage();
-                    return new JoinResult(message);
+                    } catch (Exception e) {
+                        String message = e.getMessage();
+                        return new JoinResult(message);
+                    }
+                }
+                else {
+                    return new JoinResult("User already in game");
                 }
 
             }
@@ -160,18 +166,24 @@ public class Target implements IServer {
             String curGame = availableGames.get(i).getGameName();
             if (curGame.equals(gameName)) {
                 Game targetGame = availableGames.get(i);
-                int index = findPlayerIndex(username);
-                registeredUsers.get(index).removeGame(targetGame);
-                User player = findPlayer(username);
-                try {
-                    targetGame.removePlayer(player);
-                    if (targetGame.getPlayersJoined() == 0) {
-                        removeGame(targetGame.getGameName());
+                boolean isUserInGame = isUserInGame(targetGame, username);
+                if (isUserInGame) {
+                    int index = findPlayerIndex(username);
+                    registeredUsers.get(index).removeGame(targetGame);
+                    User player = findPlayer(username);
+                    try {
+                        targetGame.removePlayer(player);
+                        if (targetGame.getPlayersJoined() == 0) {
+                            removeGame(targetGame.getGameName());
+                        }
+                        return new LeaveResult(targetGame.getGameName(), targetGame.getPlayersJoined());
+                    } catch (Exception e) {
+                        String message = e.getMessage();
+                        return new LeaveResult(message);
                     }
-                    return new LeaveResult(targetGame.getGameName(), targetGame.getPlayersJoined());
-                } catch(Exception e) {
-                    String message = e.getMessage();
-                    return new LeaveResult(message);
+                }
+                else {
+                    return new LeaveResult("User not in game");
                 }
 
             }
@@ -273,6 +285,16 @@ public class Target implements IServer {
                 if (loggedinUsers.get(i).getAuthToken().equals(authToken)){
                     return true;
                 }
+            }
+        }
+        return false;
+    }
+
+    private boolean isUserInGame (Game game, String username) {
+        for (int i = 0; i < game.getPlayersJoined(); ++i) {
+            String curUsername = game.getPlayerArray().get(i).getUsername();
+            if (curUsername.equals(username)) {
+                return true;
             }
         }
         return false;
