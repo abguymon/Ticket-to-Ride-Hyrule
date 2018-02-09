@@ -13,6 +13,10 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import java.util.Observable;
+import java.util.Observer;
+
+import cs240.lib.Model.ModelFacade;
 import cs240.lib.common.results.SignInResult;
 import cs340.tickettohyrule.Presenters.SignInPresenter;
 
@@ -101,17 +105,6 @@ public class SignInFragment extends Fragment implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.register_button:
                 Toast.makeText(getActivity(), "register called", Toast.LENGTH_SHORT).show();
-//                String registerMessage = signInPresenter.register(username.getText().toString(),
-//                        password.getText().toString());
-//                if(registerMessage.equals("")) {
-//                    currentUser.setUserName(username.getText().toString());
-//                    currentUser.setPassword(password.getText().toString());
-//                    ((SignInActivity) getActivity()).moveToLobby();
-//                }
-//                else
-//                {
-//                    Toast.makeText(getActivity(), registerMessage, Toast.LENGTH_SHORT).show();
-//                }
                 RegisterTask registerTask = new RegisterTask();
                 registerTask.execute();
                 break;
@@ -119,17 +112,6 @@ public class SignInFragment extends Fragment implements View.OnClickListener {
                 Toast.makeText(getActivity(), "login called", Toast.LENGTH_SHORT).show();
                 LoginTask loginTask = new LoginTask();
                 loginTask.execute();
-//                String loginMessage = signInPresenter.login(username.getText().toString(),
-//                        password.getText().toString());
-//                if(loginMessage.equals("")) {
-//                    currentUser.setUserName(username.getText().toString());
-//                    currentUser.setPassword(password.getText().toString());
-//                    ((SignInActivity) getActivity()).moveToLobby();
-//                }
-//                else
-//                {
-//                    Toast.makeText(getActivity(), loginMessage, Toast.LENGTH_SHORT).show();
-//                }
                 break;
         }
     }

@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 import cs240.lib.Model.Game;
 import cs240.lib.Model.ModelFacade;
@@ -24,13 +26,14 @@ import cs340.tickettohyrule.Presenters.GameLobbyPresenter;
  * Created by eholm on 2/6/2018.
  */
 
-public class GameLobbyFragment extends Fragment implements View.OnClickListener  {
+public class GameLobbyFragment extends Fragment implements View.OnClickListener, Observer {
     private ImageButton joinButton;
     private ImageButton leaveButton;
     private ImageButton createButton;
     private RecyclerView gameListRecycler;
     private Adapter gameAdapter;
     private String currentGame;
+    private ModelFacade modelFacade;
 
     private InGameSingleton inGameSingleton = InGameSingleton.getInstance();
 
@@ -38,6 +41,8 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_game_lobby, container, false);
+        modelFacade = ModelFacade.getInstance();
+        modelFacade.addObserver(this);
 
         currentGame = "";
 
@@ -76,9 +81,6 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener 
     }
 
     private List<Game> getGames() {
-        ModelFacade modelFacade = ModelFacade.getInstance();
-        //List<Game> gamesToAdd = new ArrayList<Game>();
-
         return modelFacade.getGames();
     }
 
@@ -128,36 +130,13 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener 
         switch (v.getId()) {
             case R.id.join_game_button:
                 Toast.makeText(getActivity(), "join called", Toast.LENGTH_SHORT).show();
-//                String joinMessage = gameLobbyPresenter.joinGame(currentUser.getUserName(),
-//                        currentUser.getPassword());
-//                if(joinMessage.equals(""))
-//                {
                     JoinAsync joinAsync = new JoinAsync();
                     joinAsync.execute();
-//                }
-//                else
-//                {
-//                    Toast.makeText(getActivity(), joinMessage, Toast.LENGTH_SHORT).show();
-//                }
-                //RegisterAsync registerAsync = new RegisterAsync();
-                //registerAsync.execute();
                 break;
             case R.id.leave_game_button:
                 Toast.makeText(getActivity(), "leave called", Toast.LENGTH_SHORT).show();
-//                String leaveMessage = gameLobbyPresenter.leaveGame(currentUser.getUserName(),
-//                        currentUser.getPassword());
-//                if(leaveMessage.equals(""))
-//                {
                 LeaveAsync leaveAsync = new LeaveAsync();
                 leaveAsync.execute();
-//                }
-//                else
-//                {
-//                    Toast.makeText(getActivity(), leaveMessage, Toast.LENGTH_SHORT).show();
-//                }
-
-                //LoginAsync loginAsync = new LoginAsync();
-                //loginAsync.execute();
                 break;
             case R.id.create_button:
                 Toast.makeText(getActivity(), "create called", Toast.LENGTH_SHORT).show();
@@ -234,6 +213,18 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener 
                 Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    @Override
+    public void update (Observable observable, Object o){
+        ModelFacade facade = (ModelFacade) observable;
+        //UPDATE ALL THE INFO FROM HERE
+        getActivity().runOnUiThread(new Runnable(){
+            @Override
+            public void run(){
+                updateUI();
+            }
+        });
     }
 
 }

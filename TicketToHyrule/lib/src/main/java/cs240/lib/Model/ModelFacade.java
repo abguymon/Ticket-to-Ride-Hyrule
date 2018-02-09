@@ -42,6 +42,8 @@ public class ModelFacade extends Observable{
             try{
                 g.addPlayer(currentUser);
                 gameList.add(g);
+                setChanged();
+                notifyObservers();
                 return "";
             }catch(Exception ex){
                 return("EXCEPTION " + ex);
@@ -57,6 +59,9 @@ public class ModelFacade extends Observable{
         else{
             Game g = getGame(gameName);
             g.removePlayer(currentUser);
+            if (g.getPlayersJoined() == 0) gameList.remove(g);
+            setChanged();
+            notifyObservers();
             return "";
         }
     }
@@ -68,6 +73,8 @@ public class ModelFacade extends Observable{
         }
         else{
             currentUser = new User(userName, result.getAuthToken());
+            setChanged();
+            notifyObservers();
             return "";
         }
     }
@@ -90,6 +97,8 @@ public class ModelFacade extends Observable{
         else{
             try{
                 getGame(gameName).addPlayer(currentUser);
+                setChanged();
+                notifyObservers();
                 return "";
             }catch(Exception ex){
                 return "EXCEPTION! " + ex;
