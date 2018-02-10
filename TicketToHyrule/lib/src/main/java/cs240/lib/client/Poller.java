@@ -33,15 +33,15 @@ public class Poller implements Runnable {
     }
 
     public void fullPoll() { //throws InterruptedException {
-        //Statement st = dbConnection.createStatement();
-        //ResultSet rs = st.executeQuery("select * from msg_new_to_bde where ACTION =  804 and SEQ >" + lastSeq + "order by SEQ DESC")
         ModelFacade.getInstance().pollerCheckServer();
-        //PollerResults myResult =
-        //currentFacade.saveResults(myResult);
     }
 }
 
 
+//PollerResults myResult =
+//currentFacade.saveResults(myResult);
+//Statement st = dbConnection.createStatement();
+//ResultSet rs = st.executeQuery("select * from msg_new_to_bde where ACTION =  804 and SEQ >" + lastSeq + "order by SEQ DESC")
 /*function doPoll(){
         $.post('ajax/test.html', function(data) {
             alert(data);  // process results here
