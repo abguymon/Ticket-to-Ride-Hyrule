@@ -65,6 +65,10 @@ public class Target implements IServer {
     }
 
     public SignInResult login(String username, String password) {
+        String[] parameterTypeNames = {String.class.getName(), String.class.getName()};
+        Object[] parameters = {username, password};
+        Command loginCommand = new Command("login", parameterTypeNames, parameters);
+        commandHistory.add(loginCommand);
         SignInResult result = new SignInResult();
         if (username.equals("") || username == null) {
             result.setErrorMessage("Invalid username");
@@ -97,6 +101,10 @@ public class Target implements IServer {
     }
 
     public SignInResult register(String username, String password) {
+        String[] parameterTypeNames = {String.class.getName(), String.class.getName()};
+        Object[] parameters = {username, password};
+        Command registerCommand = new Command("register", parameterTypeNames, parameters);
+        commandHistory.add(registerCommand);
         SignInResult result = new SignInResult();
 
         if (username.equals("") || username == null) {
@@ -120,6 +128,10 @@ public class Target implements IServer {
     }
 
     public JoinResult joinGame(String username, String gameName) {
+        String[] parameterTypeNames = {String.class.getName(), String.class.getName()};
+        Object[] parameters = {username, gameName};
+        Command joinGameCommand = new Command("joinGame", parameterTypeNames, parameters);
+        commandHistory.add(joinGameCommand);
         if (username.equals("") || username == null) {
             return new JoinResult("Invalid username");
         }
@@ -153,6 +165,10 @@ public class Target implements IServer {
     }
 
     public LeaveResult leaveGame(String username, String gameName) {
+        String[] parameterTypeNames = {String.class.getName(), String.class.getName()};
+        Object[] parameters = {username, gameName};
+        Command leaveCommand = new Command("leaveGame", parameterTypeNames, parameters);
+        commandHistory.add(leaveCommand);
         if (username.equals("") || username == null) {
             return new LeaveResult("Invalid username");
         }
@@ -183,6 +199,10 @@ public class Target implements IServer {
     }
 
     public CreateResult createGame(String username, String gameName, int maxPlayers) {
+        String[] parameterTypeNames = {String.class.getName(), String.class.getName(), int.class.getName()};
+        Object[] parameters = {username, gameName, maxPlayers};
+        Command createGameCommand = new Command("createGame", parameterTypeNames, parameters);
+        commandHistory.add(createGameCommand);
         for (int i = 0; i < availableGames.size(); ++i) {
             String curGame = availableGames.get(i).getGameName();
             if (curGame.equals(gameName)) {

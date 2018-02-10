@@ -3,6 +3,7 @@ package cs240.lib.common;
 import cs240.lib.common.results.CreateResult;
 import cs240.lib.common.results.JoinResult;
 import cs240.lib.common.results.LeaveResult;
+import cs240.lib.common.results.PollerResult;
 import cs240.lib.common.results.SignInResult;
 
 /**
@@ -16,4 +17,5 @@ public interface IServer {
     LeaveResult leaveGame(String username, String gameName);
     CreateResult createGame(String username, String gameName, int maxPlayers);
     String startGame(String gameName);
+    PollerResult pollerCheckServer();
 }
