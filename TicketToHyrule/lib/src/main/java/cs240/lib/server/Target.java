@@ -31,6 +31,7 @@ public class Target implements IServer {
         loggedinUsers = new ArrayList<>();
         availableGames = new ArrayList<>();
         activeGames = new ArrayList<>();
+        commandHistory = new ArrayList<>();
     }
 
     public ArrayList<User> getRegisteredUsers() {
