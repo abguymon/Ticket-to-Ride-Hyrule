@@ -6,10 +6,12 @@ import java.util.UUID;
 import cs240.lib.Model.Game;
 import cs240.lib.Model.Login;
 import cs240.lib.Model.User;
+import cs240.lib.common.Command;
 import cs240.lib.common.IServer;
 import cs240.lib.common.results.CreateResult;
 import cs240.lib.common.results.JoinResult;
 import cs240.lib.common.results.LeaveResult;
+import cs240.lib.common.results.PollerResult;
 import cs240.lib.common.results.SignInResult;
 
 
@@ -21,6 +23,7 @@ public class Target implements IServer {
     private ArrayList<Login> loggedinUsers;
     private ArrayList<Game> availableGames;
     private ArrayList<Game> activeGames;
+    private ArrayList<Command> commandHistory;
 
     private Target() {
         registeredUsers = new ArrayList<>();
@@ -228,6 +231,10 @@ public class Target implements IServer {
             }
         }
         return "Error: Game not started";
+    }
+
+    public PollerResult pollerCheckServer(){
+        return new PollerResult(commandHistory);
     }
 
     public void clear() {

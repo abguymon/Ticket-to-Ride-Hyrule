@@ -9,6 +9,7 @@ import cs240.lib.common.IServer;
 import cs240.lib.common.results.CreateResult;
 import cs240.lib.common.results.JoinResult;
 import cs240.lib.common.results.LeaveResult;
+import cs240.lib.common.results.PollerResult;
 import cs240.lib.common.results.SignInResult;
 
 /**
@@ -57,5 +58,10 @@ public class ServerFacade implements IServer {
     @Override
     public String startGame(String gameName) {
         return Target.SINGLETON.startGame(gameName);
+    }
+
+    @Override
+    public PollerResult pollerCheckServer() {
+        return Target.SINGLETON.pollerCheckServer();
     }
 }
