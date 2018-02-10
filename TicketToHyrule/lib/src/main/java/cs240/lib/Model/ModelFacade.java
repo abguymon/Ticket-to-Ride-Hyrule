@@ -36,7 +36,6 @@ public class ModelFacade extends Observable{
 
     public String createGame(String userName, String gameName, int maxPlayers){
         ModelFacade.getInstance().pollerCheckServer();
-        Poller.getInstance().incrementCommandIndex();
         ClientCommunicator.SINGLETON.setAuthToken(currentUser.getPassword());
         CreateResult result = ServerProxy.SINGLETON.createGame(userName, gameName, maxPlayers);
         if(result.getErrorMessage() != null){
@@ -58,7 +57,6 @@ public class ModelFacade extends Observable{
 
     public String leaveGame(String userName, String gameName){
         ModelFacade.getInstance().pollerCheckServer();
-        Poller.getInstance().incrementCommandIndex();
         LeaveResult result = ServerProxy.SINGLETON.leaveGame(userName, gameName);
         if(result.getErrorMessage() != null){
             return result.getErrorMessage();
@@ -75,7 +73,6 @@ public class ModelFacade extends Observable{
 
     public String login(String userName, String password){
         ModelFacade.getInstance().pollerCheckServer();
-        Poller.getInstance().incrementCommandIndex();
         SignInResult result = ServerProxy.SINGLETON.login(userName, password);
         if(!result.getErrorMessage().equals("")){
             return result.getErrorMessage();
@@ -89,7 +86,6 @@ public class ModelFacade extends Observable{
     }
     public String register(String userName, String password){
         ModelFacade.getInstance().pollerCheckServer();
-        Poller.getInstance().incrementCommandIndex();
         SignInResult result = ServerProxy.SINGLETON.register(userName, password);
         if(!result.getErrorMessage().equals("")){
             return result.getErrorMessage();
@@ -102,7 +98,6 @@ public class ModelFacade extends Observable{
 
     public String joinGame(String userName, String gameName){
         ModelFacade.getInstance().pollerCheckServer();
-        Poller.getInstance().incrementCommandIndex();
         JoinResult result = ServerProxy.SINGLETON.joinGame(userName,gameName);
         if(result.getErrorMessage() != null){
             return result.getErrorMessage();
@@ -145,7 +140,6 @@ public class ModelFacade extends Observable{
     public void updateModel(PollerResult result){
         for(int i = Poller.getInstance().getCommandIndex();i < result.getCommands().size(); i++){
             handleObject(result.getCommands().get(i));// (Command)ClientCommunicator.SINGLETON.send((result.getCommands().get(i))),
-
         }
         Poller.getInstance().setCommandIndex(result.getCommands().size());
     }

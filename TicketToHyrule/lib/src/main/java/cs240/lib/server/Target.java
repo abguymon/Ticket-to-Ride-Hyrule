@@ -6,6 +6,7 @@ import java.util.UUID;
 import cs240.lib.Model.Game;
 import cs240.lib.Model.Login;
 import cs240.lib.Model.User;
+import cs240.lib.client.Poller;
 import cs240.lib.common.Command;
 import cs240.lib.common.IServer;
 import cs240.lib.common.results.CreateResult;
@@ -69,6 +70,7 @@ public class Target implements IServer {
         Object[] parameters = {username, password};
         Command loginCommand = new Command("login", parameterTypeNames, parameters);
         commandHistory.add(loginCommand);
+        Poller.getInstance().incrementCommandIndex();
         SignInResult result = new SignInResult();
         if (username.equals("") || username == null) {
             result.setErrorMessage("Invalid username");
@@ -105,6 +107,7 @@ public class Target implements IServer {
         Object[] parameters = {username, password};
         Command registerCommand = new Command("register", parameterTypeNames, parameters);
         commandHistory.add(registerCommand);
+        Poller.getInstance().incrementCommandIndex();
         SignInResult result = new SignInResult();
 
         if (username.equals("") || username == null) {
@@ -132,6 +135,7 @@ public class Target implements IServer {
         Object[] parameters = {username, gameName};
         Command joinGameCommand = new Command("joinGame", parameterTypeNames, parameters);
         commandHistory.add(joinGameCommand);
+        Poller.getInstance().incrementCommandIndex();
         if (username.equals("") || username == null) {
             return new JoinResult("Invalid username");
         }
@@ -169,6 +173,7 @@ public class Target implements IServer {
         Object[] parameters = {username, gameName};
         Command leaveCommand = new Command("leaveGame", parameterTypeNames, parameters);
         commandHistory.add(leaveCommand);
+        Poller.getInstance().incrementCommandIndex();
         if (username.equals("") || username == null) {
             return new LeaveResult("Invalid username");
         }
@@ -203,6 +208,7 @@ public class Target implements IServer {
         Object[] parameters = {username, gameName, maxPlayers};
         Command createGameCommand = new Command("createGame", parameterTypeNames, parameters);
         commandHistory.add(createGameCommand);
+        Poller.getInstance().incrementCommandIndex();
         for (int i = 0; i < availableGames.size(); ++i) {
             String curGame = availableGames.get(i).getGameName();
             if (curGame.equals(gameName)) {
