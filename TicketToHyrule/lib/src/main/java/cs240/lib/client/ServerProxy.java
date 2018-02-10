@@ -6,6 +6,7 @@ import cs240.lib.common.IServer;
 import cs240.lib.common.results.CreateResult;
 import cs240.lib.common.results.JoinResult;
 import cs240.lib.common.results.LeaveResult;
+import cs240.lib.common.results.PollerResult;
 import cs240.lib.common.results.SignInResult;
 import cs240.lib.communicator.ClientCommunicator;
 
