@@ -1,5 +1,6 @@
 package cs340.tickettohyrule;
 
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -73,6 +74,10 @@ public class SignInFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_sign_in, container, false);
 
+        Typeface zeldaFont;
+
+        zeldaFont = Typeface.createFromAsset(getActivity().getAssets(),"fonts/HyliaSerifBeta-Regular.otf");
+
         loginButton = (ImageButton) view.findViewById(R.id.login_button);
         registerButton = (ImageButton) view.findViewById(R.id.register_button);
 
@@ -84,15 +89,19 @@ public class SignInFragment extends Fragment implements View.OnClickListener {
 
         host = (EditText) view.findViewById(R.id.host_text);
         host.addTextChangedListener(textWatcher);
+        host.setTypeface(zeldaFont);
 
         port = (EditText) view.findViewById(R.id.port_text);
         port.addTextChangedListener(textWatcher);
+        port.setTypeface(zeldaFont);
 
         username = (EditText) view.findViewById(R.id.username_text);
         username.addTextChangedListener(textWatcher);
+        username.setTypeface(zeldaFont);
 
         password = (EditText) view.findViewById(R.id.password_text);
         password.addTextChangedListener(textWatcher);
+        password.setTypeface(zeldaFont);
 
         return view;
     }

@@ -1,5 +1,6 @@
 package cs340.tickettohyrule;
 
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -30,6 +31,7 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener,
     private ImageButton joinButton;
     private ImageButton leaveButton;
     private ImageButton createButton;
+    private TextView title;
     private RecyclerView gameListRecycler;
     private Adapter gameAdapter;
     private String currentGame;
@@ -41,6 +43,14 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener,
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_game_lobby, container, false);
+
+        Typeface zeldaFont;
+
+        zeldaFont = Typeface.createFromAsset(getActivity().getAssets(),"fonts/HyliaSerifBeta-Regular.otf");
+
+        title = (TextView) view.findViewById(R.id.game_loby_title);
+        title.setTypeface(zeldaFont);
+
         modelFacade = ModelFacade.getInstance();
         modelFacade.addObserver(this);
 
