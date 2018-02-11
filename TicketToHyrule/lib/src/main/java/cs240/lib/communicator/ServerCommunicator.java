@@ -70,7 +70,8 @@ public class ServerCommunicator {
                          new InputStreamReader(exchange.getRequestBody()))
             {
                 Command command = new Command(inputStreamReader);
-                if (!command.getMethodName().equals("login") && !command.getMethodName().equals("register")) {
+                if (!command.getMethodName().equals("login") && !command.getMethodName().equals("register")
+                        && !command.getMethodName().equals("pollerCheckServer")) {
                     String authToken = null;
                     Headers requestHeaders = exchange.getRequestHeaders();
                     if (requestHeaders.containsKey("Authorization")) {

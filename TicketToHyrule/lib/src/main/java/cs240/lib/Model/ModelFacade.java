@@ -72,7 +72,7 @@ public class ModelFacade extends Observable{
     }
 
     public String login(String userName, String password){
-        ModelFacade.getInstance().pollerCheckServer();
+        //ModelFacade.getInstance().pollerCheckServer();
         SignInResult result = ServerProxy.SINGLETON.login(userName, password);
         if(!result.getErrorMessage().equals("")){
             return result.getErrorMessage();
@@ -85,7 +85,7 @@ public class ModelFacade extends Observable{
         }
     }
     public String register(String userName, String password){
-        ModelFacade.getInstance().pollerCheckServer();
+        //ModelFacade.getInstance().pollerCheckServer();
         SignInResult result = ServerProxy.SINGLETON.register(userName, password);
         if(!result.getErrorMessage().equals("")){
             return result.getErrorMessage();
