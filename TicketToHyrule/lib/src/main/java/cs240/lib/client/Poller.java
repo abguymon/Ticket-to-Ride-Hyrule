@@ -24,7 +24,7 @@ public class Poller implements Runnable {
         try {
             while (true) {
                 fullPoll();
-                Thread.sleep(6000);
+                Thread.sleep(60000);
             }
         }
         catch (InterruptedException myException){
