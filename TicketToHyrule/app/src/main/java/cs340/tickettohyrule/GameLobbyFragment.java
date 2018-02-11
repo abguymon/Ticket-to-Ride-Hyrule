@@ -36,6 +36,7 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener,
     private Adapter gameAdapter;
     private String currentGame;
     private ModelFacade modelFacade;
+    private Typeface zeldaFont;
 
     private InGameSingleton inGameSingleton = InGameSingleton.getInstance();
 
@@ -43,8 +44,6 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener,
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_game_lobby, container, false);
-
-        Typeface zeldaFont;
 
         zeldaFont = Typeface.createFromAsset(getActivity().getAssets(),"fonts/HyliaSerifBeta-Regular.otf");
 
@@ -112,6 +111,8 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener,
             recyclerGame = game;
             gameName.setText(recyclerGame.getGameName());
             numPlayers.setText(recyclerGame.getPlayersJoined() + "/" +recyclerGame.getMaxPlayers());
+            gameName.setTypeface(zeldaFont);
+            numPlayers.setTypeface(zeldaFont);
             gameName.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -196,6 +197,8 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener,
             if(message.equals("")){
                 inGameSingleton.setInGame(true);
                 Toast.makeText(getActivity(), "Successfully joined game", Toast.LENGTH_SHORT).show();
+                createButton.setEnabled(false);
+                joinButton.setEnabled(false);
             }
             else{
                 Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
@@ -217,6 +220,7 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener,
                 inGameSingleton.setInGame(false);
                 Toast.makeText(getActivity(), "Successfully left game", Toast.LENGTH_SHORT).show();
                 createButton.setEnabled(true);
+                leaveButton.setEnabled(false);
                 currentGame = "";
             }
             else{
