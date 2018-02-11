@@ -84,11 +84,18 @@ public class ServerCommunicator {
                         boolean isValidAuthToken = Target.SINGLETON.isValidAuthToken(username, authToken);
                         if (isValidAuthToken) {
                             result = command.execute();
+                        }else{
+                            throw new InvalidAuthTokenException("AuthToken is invalid");
                         }
+                    }else{
+                        throw new InvalidAuthTokenException("AuthToken is null");
                     }
                 }else {
                     result = command.execute();
                 }
+            }catch (InvalidAuthTokenException e){
+                System.out.println(e.getMessage());
+                e.printStackTrace();
             }
 
             try (OutputStreamWriter outputStreamWriter =
@@ -117,5 +124,5 @@ public class ServerCommunicator {
 
     public static final String COMMAND_DESIGNATOR = "/command";
     public static final String DEFAULT_DESIGNATOR = "/";
-    public static final String SERVER_HOST = "10.0.2.2";
+    public static final String SERVER_HOST = "10.0.0.104";
 }
