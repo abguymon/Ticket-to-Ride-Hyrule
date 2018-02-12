@@ -9,13 +9,13 @@ import cs240.lib.communicator.ClientCommunicator;
 
 public class SignInPresenter {
     ModelFacade modelFacade = ModelFacade.getInstance();
-    public String login(String userName, String password, String host, String port)
+    public Object login(String userName, String password, String host, String port)
     {
         ClientCommunicator.SINGLETON.setServerHost(host);
         ClientCommunicator.SINGLETON.setServerPort(port);
         return modelFacade.login(userName,password);
     }
-    public String register(String userName, String password, String host, String port)
+    public Object register(String userName, String password, String host, String port)
     {
         ClientCommunicator.SINGLETON.setServerHost(host);
         ClientCommunicator.SINGLETON.setServerPort(port);

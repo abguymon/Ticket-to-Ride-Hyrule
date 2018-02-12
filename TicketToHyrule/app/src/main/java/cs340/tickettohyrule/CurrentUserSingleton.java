@@ -9,7 +9,7 @@ import cs240.lib.Model.ModelFacade;
 public class CurrentUserSingleton {
     private ModelFacade modelFacade = new ModelFacade();
     private String userName;
-    private String password;
+    private String authToken;
 
     private static CurrentUserSingleton instance;
     public CurrentUserSingleton() {}
@@ -33,11 +33,11 @@ public class CurrentUserSingleton {
         this.userName = userName;
     }
 
-    public String getPassword() {
-        return password;
+    public String getAuthToken() {
+        return authToken;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setAuthToken(String authToken) {
+        this.authToken = authToken;
     }
 }

@@ -17,7 +17,9 @@ import android.widget.Toast;
 import java.util.Observable;
 import java.util.Observer;
 
+import cs240.lib.Model.Login;
 import cs240.lib.Model.ModelFacade;
+import cs240.lib.Model.User;
 import cs240.lib.common.results.SignInResult;
 import cs340.tickettohyrule.Presenters.SignInPresenter;
 
@@ -123,40 +125,46 @@ public class SignInFragment extends Fragment implements View.OnClickListener {
                 break;
         }
     }
-    private class LoginTask extends AsyncTask<Void, Void, String>{
+    private class LoginTask extends AsyncTask<Void, Void, Object>{
         SignInPresenter signInPresenter = new SignInPresenter();
         @Override
-        protected String doInBackground(Void... params){
-            String message = signInPresenter.login(username.getText().toString(), password.getText().toString(),
+        protected Object doInBackground(Void... params){
+            Object message = signInPresenter.login(username.getText().toString(), password.getText().toString(),
                     host.getText().toString(), port.getText().toString());
             return message;
         }
-        @Override protected void onPostExecute(String message){
+        @Override protected void onPostExecute(Object message){
             super.onPostExecute(message);
-            if(message.equals("")){
+            if(message instanceof Login){
+                CurrentUserSingleton currentUser = CurrentUserSingleton.getInstance();
+                currentUser.setUserName(((Login) message).getUsername());
+                currentUser.setAuthToken(((Login) message).getAuthToken());
                 ((SignInActivity) getActivity()).moveToLobby();
             }
             else{
-                Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), (String) message, Toast.LENGTH_SHORT).show();
             }
         }
     }
 
-    private class RegisterTask extends AsyncTask<Void, Void, String>{
+    private class RegisterTask extends AsyncTask<Void, Void, Object>{
         SignInPresenter signInPresenter = new SignInPresenter();
         @Override
-        protected String doInBackground(Void... params){
-            String message = signInPresenter.register(username.getText().toString(), password.getText().toString(),
+        protected Object doInBackground(Void... params){
+            Object message = signInPresenter.register(username.getText().toString(), password.getText().toString(),
                     host.getText().toString(), port.getText().toString());
             return message;
         }
-        @Override protected void onPostExecute(String message){
+        @Override protected void onPostExecute(Object message){
             super.onPostExecute(message);
-            if(message.equals("")){
+            if(message instanceof Login){
+                CurrentUserSingleton currentUser = CurrentUserSingleton.getInstance();
+                currentUser.setUserName(((Login) message).getUsername());
+                currentUser.setAuthToken(((Login) message).getAuthToken());
                 ((SignInActivity) getActivity()).moveToLobby();
             }
             else{
-                Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), (String) message, Toast.LENGTH_SHORT).show();
             }
         }
     }
