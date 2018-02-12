@@ -40,7 +40,7 @@ public class ClientFacade extends Observable{
             g.addPlayer(userName);
             if(g.getPlayersJoined() == g.getMaxPlayers()) gameList.remove(g);
             setChanged();
-            notifyObservers();
+            notifyObservers(gameList);
             return true;
         }catch(Exception ex){
             System.out.println("EXCEPTION "+ex);
@@ -53,20 +53,20 @@ public class ClientFacade extends Observable{
         g.removePlayer(userName);
         if(g.getPlayersJoined() == 0) gameList.remove(g);
         setChanged();
-        notifyObservers();
+        notifyObservers(gameList);
     }
 
     public void handleObject( Command myCommand){ // myCommand.getParameters()[0]
         if(myCommand.getMethodName().equals("login")){
             setChanged();
-            notifyAll();
+            notifyObservers(gameList);
             //SignInResult thisResult = (SignInResult)myResult;
             //login((String)myCommand.getParameters()[0], (String)myCommand.getParameters()[1]);
             return;
         }
         else if(myCommand.getMethodName().equals("register")){
             setChanged();
-            notifyAll();
+            notifyObservers(gameList);
             //register((String)myCommand.getParameters()[0], (String)myCommand.getParameters()[1]);
             return;
         }

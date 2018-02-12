@@ -40,6 +40,12 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener,
 
     private InGameSingleton inGameSingleton = InGameSingleton.getInstance();
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        ClientFacade.getInstance().deleteObserver(this);
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -231,7 +237,7 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener,
     @Override
     public void update (Observable observable, Object o){
         System.out.println("update was called");
-        CurrentUserSingleton.getInstance().getModelFacade().setGames(ClientFacade.getInstance().getGames());
+        CurrentUserSingleton.getInstance().getModelFacade().setGames((ArrayList<Game>) o);
         //UPDATE ALL THE INFO FROM HERE
         getActivity().runOnUiThread(new Runnable(){
             @Override
