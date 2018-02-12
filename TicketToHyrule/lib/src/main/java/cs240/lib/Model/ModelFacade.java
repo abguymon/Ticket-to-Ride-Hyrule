@@ -21,7 +21,6 @@ import cs240.lib.communicator.ClientCommunicator;
 
 public class ModelFacade extends Observable{
     private ArrayList<Game> gameList = new ArrayList<>();
-    private User currentUser = null;
 
     public ModelFacade(){}
 
@@ -74,8 +73,8 @@ public class ModelFacade extends Observable{
             return result.getErrorMessage();
         }
         else{
-            currentUser = new User(userName, result.getAuthToken());
-            return "";
+            Login currentUser = new Login(userName, result.getAuthToken());
+            return currentUser;
         }
     }
 
