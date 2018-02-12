@@ -38,6 +38,7 @@ public class ClientFacade extends Observable{
         Game g = getGame(gameName);
         try {
             g.addPlayer(userName);
+            if(g.getPlayersJoined() == g.getMaxPlayers()) gameList.remove(g);
             setChanged();
             notifyObservers();
             return true;
@@ -49,6 +50,7 @@ public class ClientFacade extends Observable{
     public void leaveGame(String userName, String gameName){
         Game g = getGame(gameName);
         g.removePlayer(userName);
+        if(g.getPlayersJoined() == 0) gameList.remove(g);
         setChanged();
         notifyObservers();
     }
@@ -106,5 +108,9 @@ public class ClientFacade extends Observable{
             if(g.getGameName().equals(gameName)) return g;
         }
         return null;
+    }
+
+    public ArrayList<Game> getGames(){
+        return gameList;
     }
 }

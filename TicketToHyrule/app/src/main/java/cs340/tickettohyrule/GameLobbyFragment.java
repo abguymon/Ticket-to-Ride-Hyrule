@@ -230,7 +230,7 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener,
 
     @Override
     public void update (Observable observable, Object o){
-        ModelFacade facade = (ModelFacade) observable;
+        CurrentUserSingleton.getInstance().getModelFacade().setGames(ClientFacade.getInstance().getGames());
         //UPDATE ALL THE INFO FROM HERE
         getActivity().runOnUiThread(new Runnable(){
             @Override
