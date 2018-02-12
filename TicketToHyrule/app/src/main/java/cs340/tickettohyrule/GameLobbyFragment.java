@@ -126,7 +126,7 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener,
                     if(!inGameSingleton.isInGame())
                     {
                         joinButton.setEnabled(true);
-                       // leaveButton.setEnabled(false);
+                        leaveButton.setEnabled(true);
                     }
 //                    else if (inGameSingleton.isInGame() && gameName.equals(inGameSingleton.getGameImIn()))
 //                    {
