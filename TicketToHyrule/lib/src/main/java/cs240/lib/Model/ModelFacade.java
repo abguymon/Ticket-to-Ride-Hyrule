@@ -46,6 +46,7 @@ public class ModelFacade extends Observable{
     }
 
     public String leaveGame(String userName, String gameName){
+        ClientCommunicator.SINGLETON.setAuthToken(currentUser.getAuthToken());
         LeaveResult result = ServerProxy.SINGLETON.leaveGame(userName, gameName);
         if(result.getErrorMessage() != null){
             return result.getErrorMessage();
@@ -81,6 +82,7 @@ public class ModelFacade extends Observable{
     }
 
     public String joinGame(String userName, String gameName){
+        ClientCommunicator.SINGLETON.setAuthToken(currentUser.getAuthToken());
         JoinResult result = ServerProxy.SINGLETON.joinGame(userName,gameName);
         if(result.getErrorMessage() != null){
             return result.getErrorMessage();
