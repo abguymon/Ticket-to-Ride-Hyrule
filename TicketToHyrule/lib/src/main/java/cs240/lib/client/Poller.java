@@ -1,5 +1,6 @@
 package cs240.lib.client;
 
+import cs240.lib.Model.ClientFacade;
 import cs240.lib.Model.ModelFacade;
 
 /**
@@ -34,7 +35,7 @@ public class Poller implements Runnable {
     }
 
     public void fullPoll() { //throws InterruptedException {
-        ModelFacade.getInstance().pollerCheckServer();
+        ClientFacade.getInstance().pollerCheckServer();
     }
 }
 
