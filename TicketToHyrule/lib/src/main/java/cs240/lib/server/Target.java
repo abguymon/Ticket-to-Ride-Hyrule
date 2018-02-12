@@ -1,6 +1,9 @@
 package cs240.lib.server;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.PriorityQueue;
+import java.util.Queue;
 import java.util.UUID;
 
 import cs240.lib.Model.Game;
@@ -25,6 +28,7 @@ public class Target implements IServer {
     private ArrayList<Game> availableGames;
     private ArrayList<Game> activeGames;
     private ArrayList<Command> commandHistory;
+    private Queue<Command> commandQueue;
 
     private Target() {
         registeredUsers = new ArrayList<>();
@@ -32,6 +36,7 @@ public class Target implements IServer {
         availableGames = new ArrayList<>();
         activeGames = new ArrayList<>();
         commandHistory = new ArrayList<>();
+        commandQueue = new LinkedList<>();
     }
 
     public ArrayList<User> getRegisteredUsers() {
@@ -71,6 +76,7 @@ public class Target implements IServer {
         Object[] parameters = {username, password};
         Command loginCommand = new Command("login", parameterTypeNames, parameters);
         commandHistory.add(loginCommand);
+        commandQueue.add(loginCommand);
         Poller.getInstance().incrementCommandIndex();
         SignInResult result = new SignInResult();
         if (username.equals("") || username == null) {
@@ -108,6 +114,7 @@ public class Target implements IServer {
         Object[] parameters = {username, password};
         Command registerCommand = new Command("register", parameterTypeNames, parameters);
         commandHistory.add(registerCommand);
+        commandQueue.add(registerCommand);
         Poller.getInstance().incrementCommandIndex();
         SignInResult result = new SignInResult();
 
@@ -136,6 +143,7 @@ public class Target implements IServer {
         Object[] parameters = {username, gameName};
         Command joinGameCommand = new Command("joinGame", parameterTypeNames, parameters);
         commandHistory.add(joinGameCommand);
+        commandQueue.add(joinGameCommand);
         Poller.getInstance().incrementCommandIndex();
         if (username.equals("") || username == null) {
             return new JoinResult("Invalid username");
@@ -173,6 +181,7 @@ public class Target implements IServer {
         Object[] parameters = {username, gameName};
         Command leaveCommand = new Command("leaveGame", parameterTypeNames, parameters);
         commandHistory.add(leaveCommand);
+        commandQueue.add(leaveCommand);
         Poller.getInstance().incrementCommandIndex();
         if (username.equals("") || username == null) {
             return new LeaveResult("Invalid username");
@@ -208,6 +217,7 @@ public class Target implements IServer {
         Object[] parameters = {username, gameName, maxPlayers};
         Command createGameCommand = new Command("createGame", parameterTypeNames, parameters);
         commandHistory.add(createGameCommand);
+        commandQueue.add(createGameCommand);
         Poller.getInstance().incrementCommandIndex();
         for (int i = 0; i < availableGames.size(); ++i) {
             String curGame = availableGames.get(i).getGameName();
@@ -260,7 +270,13 @@ public class Target implements IServer {
     }
 
     public PollerResult pollerCheckServer(){
-        return new PollerResult(commandHistory);
+        Queue<Command> execute = new LinkedList<>();
+        while(!commandQueue.isEmpty())
+        {
+            execute.add(commandQueue.remove());
+        }
+        commandQueue.clear();
+        return new PollerResult(execute);
     }
 
     public void clear() {

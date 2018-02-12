@@ -37,6 +37,7 @@ public class ModelFacade extends Observable{
             try{
                 g.addPlayer(userName);
                 gameList.add(g);
+                //ClientFacade.getInstance().createGame(userName,gameName,maxPlayers);
                 return "";
             }catch(Exception ex){
                 return("EXCEPTION " + ex);
@@ -51,8 +52,9 @@ public class ModelFacade extends Observable{
         }
         else{
             Game g = getGame(gameName);
-            g.removePlayer(userName);
-            if (g.getPlayersJoined() == 0) gameList.remove(g);
+           //g.removePlayer(userName);
+            //if (g.getPlayersJoined() == 0) gameList.remove(g);
+            //ClientFacade.getInstance().leaveGame(userName,gameName);
             return "";
         }
     }

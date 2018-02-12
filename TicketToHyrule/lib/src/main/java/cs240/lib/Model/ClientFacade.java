@@ -48,6 +48,7 @@ public class ClientFacade extends Observable{
         }
     }
     public void leaveGame(String userName, String gameName){
+        System.out.println("we got here");
         Game g = getGame(gameName);
         g.removePlayer(userName);
         if(g.getPlayersJoined() == 0) gameList.remove(g);
@@ -69,22 +70,35 @@ public class ClientFacade extends Observable{
         //    startGame((String)myCommand.getParameters()[0], (String)myCommand.getParameters()[1]);
         //}
         else if(myCommand.getMethodName().equals("joinGame")){
-            joinGame((String)myCommand.getParameters()[0], (String)myCommand.getParameters()[1]);
+            joinGame((String)myCommand.getParametersAsJsonStrings()[0].substring(1,myCommand.getParametersAsJsonStrings()[0].length()-1),
+                    (String)myCommand.getParametersAsJsonStrings()[1].substring(1,myCommand.getParametersAsJsonStrings()[1].length()-1));
         }
         else if(myCommand.getMethodName().equals("leaveGame")){
-            leaveGame((String)myCommand.getParameters()[0], (String)myCommand.getParameters()[1]);
+            System.out.println("leave game called");
+            leaveGame((String)myCommand.getParametersAsJsonStrings()[0].substring(1,myCommand.getParametersAsJsonStrings()[0].length()-1),
+                    (String)myCommand.getParametersAsJsonStrings()[1].substring(1,myCommand.getParametersAsJsonStrings()[1].length()-1));
         }
         else if(myCommand.getMethodName().equals("createGame")){
-            createGame((String)myCommand.getParameters()[0], (String)myCommand.getParameters()[1], (int)myCommand.getParameters()[2]);
+            System.out.println("create game called");
+            createGame((String)myCommand.getParametersAsJsonStrings()[0].substring(1,myCommand.getParametersAsJsonStrings()[0].length()-1),
+                    (String)myCommand.getParametersAsJsonStrings()[1].substring(1,myCommand.getParametersAsJsonStrings()[1].length()-1),
+                    Integer.parseInt(myCommand.getParametersAsJsonStrings()[2]));
         }
 
     }
 
     public void updateModel(PollerResult result){
-        for(int i = Poller.getInstance().getCommandIndex(); i < result.getCommands().size(); i++){
-            handleObject(result.getCommands().get(i));// (Command)ClientCommunicator.SINGLETON.send((result.getCommands().get(i))),
+
+        while(!result.getCommands().isEmpty())
+        {
+            System.out.println("parameter " +  result.getCommands().peek().toString());
+            handleObject(result.getCommands().remove());
         }
-        Poller.getInstance().setCommandIndex(result.getCommands().size());
+//        for(int i = Poller.getInstance().getCommandIndex(); i < result.getCommands().size(); i++){
+//            System.out.println("update model called for index " +  result.getCommands().size());
+//            handleObject(result.getCommands().get(i));// (Command)ClientCommunicator.SINGLETON.send((result.getCommands().get(i))),
+//        }
+//        Poller.getInstance().setCommandIndex(result.getCommands().size());
     }
 
     public String pollerCheckServer(){
