@@ -21,7 +21,6 @@ import cs240.lib.communicator.ClientCommunicator;
 
 public class ModelFacade extends Observable{
     private ArrayList<Game> gameList = new ArrayList<>();
-    private User currentUser = null;
 
     private static ModelFacade instance;
     private ModelFacade(){}
@@ -34,17 +33,17 @@ public class ModelFacade extends Observable{
 
 
 
-    public String createGame(String userName, String gameName, int maxPlayers){
+    public String createGame(Login currentUser, String gameName, int maxPlayers){
         ModelFacade.getInstance().pollerCheckServer();
-        ClientCommunicator.SINGLETON.setAuthToken(currentUser.getPassword());
-        CreateResult result = ServerProxy.SINGLETON.createGame(userName, gameName, maxPlayers);
+        ClientCommunicator.SINGLETON.setAuthToken(currentUser.getAuthToken());
+        CreateResult result = ServerProxy.SINGLETON.createGame(currentUser.getUsername(), gameName, maxPlayers);
         if(result.getErrorMessage() != null){
             return result.getErrorMessage();
         }
         else{
             Game g = new Game(maxPlayers, 0, gameName);
             try{
-                g.addPlayer(currentUser);
+                g.addPlayer(new User(currentUser.getUsername(),currentUser.getAuthToken()));
                 gameList.add(g);
                 setChanged();
                 notifyObservers();
@@ -55,15 +54,15 @@ public class ModelFacade extends Observable{
         }
     }
 
-    public String leaveGame(String userName, String gameName){
+    public String leaveGame(Login currentUser, String gameName){
         ModelFacade.getInstance().pollerCheckServer();
-        LeaveResult result = ServerProxy.SINGLETON.leaveGame(userName, gameName);
+        LeaveResult result = ServerProxy.SINGLETON.leaveGame(currentUser.getUsername(), gameName);
         if(result.getErrorMessage() != null){
             return result.getErrorMessage();
         }
         else{
             Game g = getGame(gameName);
-            g.removePlayer(currentUser);
+            g.removePlayer(new User(currentUser.getUsername(),currentUser.getAuthToken()));
             if (g.getPlayersJoined() == 0) gameList.remove(g);
             setChanged();
             notifyObservers();
@@ -71,40 +70,38 @@ public class ModelFacade extends Observable{
         }
     }
 
-    public String login(String userName, String password){
+    public Object login(String userName, String password){
         //ModelFacade.getInstance().pollerCheckServer();
         SignInResult result = ServerProxy.SINGLETON.login(userName, password);
         if(!result.getErrorMessage().equals("")){
             return result.getErrorMessage();
         }
         else{
-            currentUser = new User(userName, result.getAuthToken());
-            setChanged();
-            notifyObservers();
-            return "";
+            Login currentUser = new Login(userName, result.getAuthToken());
+            return currentUser;
         }
     }
-    public String register(String userName, String password){
+    public Object register(String userName, String password){
         //ModelFacade.getInstance().pollerCheckServer();
         SignInResult result = ServerProxy.SINGLETON.register(userName, password);
         if(!result.getErrorMessage().equals("")){
             return result.getErrorMessage();
         }
         else{
-            currentUser = new User(userName, result.getAuthToken());
-            return "";
+            Login currentUser = new Login(userName, result.getAuthToken());
+            return currentUser;
         }
     }
 
-    public String joinGame(String userName, String gameName){
+    public String joinGame(Login currentUser, String gameName){
         ModelFacade.getInstance().pollerCheckServer();
-        JoinResult result = ServerProxy.SINGLETON.joinGame(userName,gameName);
+        JoinResult result = ServerProxy.SINGLETON.joinGame(currentUser.getUsername(),gameName);
         if(result.getErrorMessage() != null){
             return result.getErrorMessage();
         }
         else{
             try{
-                getGame(gameName).addPlayer(currentUser);
+                getGame(gameName).addPlayer(new User(currentUser.getUsername(),currentUser.getAuthToken()));
                 /*int playersJoined = getGame(gameName).getPlayersJoined();
                 int maxPlayers = getGame(gameName).getMaxPlayers();
                 if (playersJoined == maxPlayers){

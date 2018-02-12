@@ -126,7 +126,7 @@ public class ClientCommunicator {
     }
 
     //Auxiliary Constants, Attributes, and Methods
-    private static final String URL_PREFIX =
-            "http://" + ServerCommunicator.SERVER_HOST + ":" + ServerCommunicator.getServerPortNumber();
+//    private static final String URL_PREFIX =
+//            "http://" + ServerCommunicator.SERVER_HOST + ":" + ServerCommunicator.getServerPortNumber();
     private static final String HTTP_POST = "POST";
 }
