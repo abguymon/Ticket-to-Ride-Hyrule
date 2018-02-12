@@ -277,6 +277,8 @@ public class Target implements IServer {
         for(int i = index; i < commandHistory.size(); i++){
             execute.add(commandHistory.get(i));
         }
+//        System.out.println("COMMAND HISTORY " + commandHistory.size());
+//        System.out.println("INDEX " + index);
         //commandQueue.clear();
         return new PollerResult(execute);
     }
