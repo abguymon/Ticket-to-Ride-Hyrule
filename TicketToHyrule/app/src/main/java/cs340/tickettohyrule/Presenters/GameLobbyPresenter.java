@@ -1,13 +1,14 @@
 package cs340.tickettohyrule.Presenters;
 
 import cs240.lib.Model.ModelFacade;
+import cs340.tickettohyrule.CurrentUserSingleton;
 
 /**
  * Created by eholm on 2/7/2018.
  */
 
 public class GameLobbyPresenter {
-    ModelFacade modelFacade = new ModelFacade();
+    ModelFacade modelFacade = CurrentUserSingleton.getInstance().getModelFacade();
 
     public String joinGame(String userName, String gameName)
     {

@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
+import cs240.lib.Model.ClientFacade;
 import cs240.lib.Model.Game;
 import cs240.lib.Model.ModelFacade;
 import cs340.tickettohyrule.Presenters.GameLobbyPresenter;
@@ -35,7 +36,6 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener,
     private RecyclerView gameListRecycler;
     private Adapter gameAdapter;
     private String currentGame;
-    private ModelFacade modelFacade;
     private Typeface zeldaFont;
 
     private InGameSingleton inGameSingleton = InGameSingleton.getInstance();
@@ -50,8 +50,7 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener,
         title = (TextView) view.findViewById(R.id.game_loby_title);
         title.setTypeface(zeldaFont);
 
-        modelFacade = ModelFacade.getInstance();
-        modelFacade.addObserver(this);
+        ClientFacade.getInstance().addObserver(this);
 
         currentGame = "";
 
@@ -90,7 +89,7 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener,
     }
 
     private List<Game> getGames() {
-        return modelFacade.getGames();
+        return CurrentUserSingleton.getInstance().getModelFacade().getGames();
     }
 
     private class Holder extends RecyclerView.ViewHolder {
@@ -186,7 +185,7 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener,
 
     private class JoinAsync extends AsyncTask<Void, Void, String> {
         GameLobbyPresenter gameLobbyPresenter = new GameLobbyPresenter();
-        ModelFacade modelFacade = ModelFacade.getInstance();
+        ModelFacade modelFacade = CurrentUserSingleton.getInstance().getModelFacade();
         @Override
         protected String doInBackground(Void... params){
             String message = gameLobbyPresenter.joinGame(modelFacade.getCurrentUser().getUsername(), currentGame);
@@ -208,7 +207,7 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener,
 
     private class LeaveAsync extends AsyncTask<Void, Void, String> {
         GameLobbyPresenter gameLobbyPresenter = new GameLobbyPresenter();
-        ModelFacade modelFacade = ModelFacade.getInstance();
+        ModelFacade modelFacade = CurrentUserSingleton.getInstance().getModelFacade();
         @Override
         protected String doInBackground(Void... params){
             String message = gameLobbyPresenter.leaveGame(modelFacade.getCurrentUser().getUsername(), currentGame);
