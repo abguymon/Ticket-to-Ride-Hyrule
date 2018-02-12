@@ -7,7 +7,7 @@ import cs240.lib.Model.ModelFacade;
  */
 
 public class GameLobbyPresenter {
-    ModelFacade modelFacade = ModelFacade.getInstance();
+    ModelFacade modelFacade = new ModelFacade();
 
     public String joinGame(String userName, String gameName)
     {
