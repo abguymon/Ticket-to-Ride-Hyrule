@@ -21,13 +21,13 @@ import cs240.lib.communicator.ClientCommunicator;
 
 public class ModelFacade extends Observable{
     private ArrayList<Game> gameList = new ArrayList<>();
-
+    private Login currentUser = null;
     public ModelFacade(){}
 
 
 
     public String createGame(String userName, String gameName, int maxPlayers){
-        ClientCommunicator.SINGLETON.setAuthToken(currentUser.getPassword());
+        ClientCommunicator.SINGLETON.setAuthToken(currentUser.getAuthToken());
         CreateResult result = ServerProxy.SINGLETON.createGame(userName, gameName, maxPlayers);
         if(result.getErrorMessage() != null){
             return result.getErrorMessage();
@@ -63,7 +63,7 @@ public class ModelFacade extends Observable{
             return result.getErrorMessage();
         }
         else{
-            currentUser = new User(userName, result.getAuthToken());
+            currentUser = new Login(userName, result.getAuthToken());
             return "";
         }
     }
@@ -74,7 +74,7 @@ public class ModelFacade extends Observable{
         }
         else{
             Login currentUser = new Login(userName, result.getAuthToken());
-            return currentUser;
+            return "";
         }
     }
 
@@ -108,11 +108,11 @@ public class ModelFacade extends Observable{
         return gameList;
     }
 
-    public User getCurrentUser() {
+    public Login getCurrentUser() {
         return currentUser;
     }
 
-    public void setCurrentUser(User currentUser) {
+    public void setCurrentUser(Login currentUser) {
         this.currentUser = currentUser;
     }
 }

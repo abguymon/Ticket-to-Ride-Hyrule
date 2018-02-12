@@ -89,7 +89,7 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener,
     }
 
     private List<Game> getGames() {
-        return modelFacade.getGames();
+        return CurrentUserSingleton.getInstance().getModelFacade().getGames();
     }
 
     private class Holder extends RecyclerView.ViewHolder {
