@@ -58,15 +58,11 @@ public class ClientFacade extends Observable{
 
     public void handleObject( Command myCommand){ // myCommand.getParameters()[0]
         if(myCommand.getMethodName().equals("login")){
-            setChanged();
-            notifyObservers(gameList);
             //SignInResult thisResult = (SignInResult)myResult;
             //login((String)myCommand.getParameters()[0], (String)myCommand.getParameters()[1]);
             return;
         }
         else if(myCommand.getMethodName().equals("register")){
-            setChanged();
-            notifyObservers(gameList);
             //register((String)myCommand.getParameters()[0], (String)myCommand.getParameters()[1]);
             return;
         }
