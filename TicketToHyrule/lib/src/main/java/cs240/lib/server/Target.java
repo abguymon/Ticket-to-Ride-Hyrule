@@ -274,7 +274,7 @@ public class Target implements IServer {
         {
             execute.add(commandQueue.remove());
         }
-        commandQueue.clear();
+        //commandQueue.clear();
         return new PollerResult(execute);
     }
 

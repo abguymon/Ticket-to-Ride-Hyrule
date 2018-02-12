@@ -33,10 +33,10 @@ public class ModelFacade extends Observable{
             return result.getErrorMessage();
         }
         else{
-//            Game g = new Game(maxPlayers, 0, gameName);
+            //Game g = new Game(maxPlayers, 0, gameName);
             try{
-//                g.addPlayer(userName);
-//                gameList.add(g);
+               // g.addPlayer(userName);
+                //gameList.add(g);
                 //ClientFacade.getInstance().createGame(userName,gameName,maxPlayers);
                 return "";
             }catch(Exception ex){
@@ -51,6 +51,10 @@ public class ModelFacade extends Observable{
             return result.getErrorMessage();
         }
         else{
+            //Game g = getGame(gameName);
+           // g.removePlayer(userName);
+            //if (g.getPlayersJoined() == 0) gameList.remove(g);
+            //ClientFacade.getInstance().leaveGame(userName,gameName);
             return "";
         }
     }

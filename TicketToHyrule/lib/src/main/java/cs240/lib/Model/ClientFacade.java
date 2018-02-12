@@ -92,6 +92,10 @@ public class ClientFacade extends Observable{
         while(!result.getCommands().isEmpty())
         {
            // System.out.println("parameter " +  result.getCommands().peek().toString());
+            for(Game g: gameList)
+            {
+                System.out.println(g.toString());
+            }
             handleObject(result.getCommands().remove());
         }
 //        for(int i = Poller.getInstance().getCommandIndex(); i < result.getCommands().size(); i++){
