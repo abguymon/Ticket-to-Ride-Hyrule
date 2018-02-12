@@ -73,7 +73,7 @@ public class ModelFacade extends Observable{
             return result.getErrorMessage();
         }
         else{
-            Login currentUser = new Login(userName, result.getAuthToken());
+            currentUser = new Login(userName, result.getAuthToken());
             return "";
         }
     }
