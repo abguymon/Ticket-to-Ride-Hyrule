@@ -25,7 +25,8 @@ public class ClientCommunicator {
     //Static variables
     private static Gson gson = new Gson();
     private String authToken;
-
+    private String serverHost;
+    private String serverPort;
 
 
     //Constructors
@@ -37,6 +38,22 @@ public class ClientCommunicator {
 
     public void setAuthToken(String authToken) {
         this.authToken = authToken;
+    }
+
+    public String getServerHost() {
+        return serverHost;
+    }
+
+    public void setServerHost(String serverHost) {
+        this.serverHost = serverHost;
+    }
+
+    public String getServerPort() {
+        return serverPort;
+    }
+
+    public void setServerPort(String serverPort) {
+        this.serverPort = serverPort;
     }
 
     //Commands
@@ -51,7 +68,8 @@ public class ClientCommunicator {
     private HttpURLConnection openConnection(String contextIdentifier) {
         HttpURLConnection result = null;
         try {
-            URL url = new URL(URL_PREFIX + contextIdentifier);
+            String urlPrefix = "http://" + serverHost + ":" + serverPort;
+            URL url = new URL(urlPrefix + contextIdentifier);
             result = (HttpURLConnection)url.openConnection();
             result.setRequestMethod(HTTP_POST);
             result.addRequestProperty("Authorization", authToken);

@@ -128,7 +128,8 @@ public class SignInFragment extends Fragment implements View.OnClickListener {
         SignInPresenter signInPresenter = new SignInPresenter();
         @Override
         protected String doInBackground(Void... params){
-            String message = signInPresenter.login(username.getText().toString(), password.getText().toString());
+            String message = signInPresenter.login(username.getText().toString(), password.getText().toString(),
+                    host.getText().toString(), port.getText().toString());
             return message;
         }
         @Override protected void onPostExecute(String message){
@@ -146,7 +147,8 @@ public class SignInFragment extends Fragment implements View.OnClickListener {
         SignInPresenter signInPresenter = new SignInPresenter();
         @Override
         protected String doInBackground(Void... params){
-            String message = signInPresenter.register(username.getText().toString(), password.getText().toString());
+            String message = signInPresenter.register(username.getText().toString(), password.getText().toString(),
+                    host.getText().toString(), port.getText().toString());
             return message;
         }
         @Override protected void onPostExecute(String message){
