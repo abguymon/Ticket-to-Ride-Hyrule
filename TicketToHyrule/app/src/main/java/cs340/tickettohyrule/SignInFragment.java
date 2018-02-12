@@ -1,5 +1,6 @@
 package cs340.tickettohyrule;
 
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,6 +14,10 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import java.util.Observable;
+import java.util.Observer;
+
+import cs240.lib.Model.ModelFacade;
 import cs240.lib.common.results.SignInResult;
 import cs340.tickettohyrule.Presenters.SignInPresenter;
 
@@ -69,6 +74,10 @@ public class SignInFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_sign_in, container, false);
 
+        Typeface zeldaFont;
+
+        zeldaFont = Typeface.createFromAsset(getActivity().getAssets(),"fonts/HyliaSerifBeta-Regular.otf");
+
         loginButton = (ImageButton) view.findViewById(R.id.login_button);
         registerButton = (ImageButton) view.findViewById(R.id.register_button);
 
@@ -80,15 +89,19 @@ public class SignInFragment extends Fragment implements View.OnClickListener {
 
         host = (EditText) view.findViewById(R.id.host_text);
         host.addTextChangedListener(textWatcher);
+        host.setTypeface(zeldaFont);
 
         port = (EditText) view.findViewById(R.id.port_text);
         port.addTextChangedListener(textWatcher);
+        port.setTypeface(zeldaFont);
 
         username = (EditText) view.findViewById(R.id.username_text);
         username.addTextChangedListener(textWatcher);
+        username.setTypeface(zeldaFont);
 
         password = (EditText) view.findViewById(R.id.password_text);
         password.addTextChangedListener(textWatcher);
+        password.setTypeface(zeldaFont);
 
         return view;
     }
@@ -101,17 +114,6 @@ public class SignInFragment extends Fragment implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.register_button:
                 Toast.makeText(getActivity(), "register called", Toast.LENGTH_SHORT).show();
-//                String registerMessage = signInPresenter.register(username.getText().toString(),
-//                        password.getText().toString());
-//                if(registerMessage.equals("")) {
-//                    currentUser.setUserName(username.getText().toString());
-//                    currentUser.setPassword(password.getText().toString());
-//                    ((SignInActivity) getActivity()).moveToLobby();
-//                }
-//                else
-//                {
-//                    Toast.makeText(getActivity(), registerMessage, Toast.LENGTH_SHORT).show();
-//                }
                 RegisterTask registerTask = new RegisterTask();
                 registerTask.execute();
                 break;
@@ -119,17 +121,6 @@ public class SignInFragment extends Fragment implements View.OnClickListener {
                 Toast.makeText(getActivity(), "login called", Toast.LENGTH_SHORT).show();
                 LoginTask loginTask = new LoginTask();
                 loginTask.execute();
-//                String loginMessage = signInPresenter.login(username.getText().toString(),
-//                        password.getText().toString());
-//                if(loginMessage.equals("")) {
-//                    currentUser.setUserName(username.getText().toString());
-//                    currentUser.setPassword(password.getText().toString());
-//                    ((SignInActivity) getActivity()).moveToLobby();
-//                }
-//                else
-//                {
-//                    Toast.makeText(getActivity(), loginMessage, Toast.LENGTH_SHORT).show();
-//                }
                 break;
         }
     }
@@ -137,7 +128,8 @@ public class SignInFragment extends Fragment implements View.OnClickListener {
         SignInPresenter signInPresenter = new SignInPresenter();
         @Override
         protected String doInBackground(Void... params){
-            String message = signInPresenter.login(username.getText().toString(), password.getText().toString());
+            String message = signInPresenter.login(username.getText().toString(), password.getText().toString(),
+                    host.getText().toString(), port.getText().toString());
             return message;
         }
         @Override protected void onPostExecute(String message){
@@ -155,7 +147,8 @@ public class SignInFragment extends Fragment implements View.OnClickListener {
         SignInPresenter signInPresenter = new SignInPresenter();
         @Override
         protected String doInBackground(Void... params){
-            String message = signInPresenter.register(username.getText().toString(), password.getText().toString());
+            String message = signInPresenter.register(username.getText().toString(), password.getText().toString(),
+                    host.getText().toString(), port.getText().toString());
             return message;
         }
         @Override protected void onPostExecute(String message){

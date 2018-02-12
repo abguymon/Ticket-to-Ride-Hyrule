@@ -6,6 +6,7 @@ import cs240.lib.common.IServer;
 import cs240.lib.common.results.CreateResult;
 import cs240.lib.common.results.JoinResult;
 import cs240.lib.common.results.LeaveResult;
+import cs240.lib.common.results.PollerResult;
 import cs240.lib.common.results.SignInResult;
 import cs240.lib.communicator.ClientCommunicator;
 
@@ -71,5 +72,14 @@ public class ServerProxy implements IServer {
         Command startCommand = new Command("startGame", parameterTypeNames, parameters);
         Object result = ClientCommunicator.SINGLETON.send(startCommand);
         return (String)result;
+    }
+
+    @Override
+    public PollerResult pollerCheckServer() {
+        String[] parameterTypeNames = {};
+        Object[] parameters = {};
+        Command pollerCommand = new Command("pollerCheckServer", parameterTypeNames, parameters);
+        Object result = ClientCommunicator.SINGLETON.send(pollerCommand);
+        return (PollerResult)result;
     }
 }

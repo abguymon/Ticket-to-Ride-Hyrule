@@ -1,5 +1,6 @@
 package cs340.tickettohyrule;
 
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import cs240.lib.Model.ModelFacade;
@@ -25,12 +27,19 @@ import cs340.tickettohyrule.Presenters.CreateGamePresenter;
 public class CreateGameFragment extends Fragment implements View.OnClickListener {
     private ImageButton createButton;
     private EditText gameName;
+    private TextView title;
+    private TextView playerNumText;
     private Spinner numPlayers;
+    private InGameSingleton inGameSingleton = InGameSingleton.getInstance();
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_create_game, container, false);
+
+        Typeface zeldaFont;
+
+        zeldaFont = Typeface.createFromAsset(getActivity().getAssets(),"fonts/HyliaSerifBeta-Regular.otf");
 
         createButton = (ImageButton) view.findViewById(R.id.create_game_button);
         createButton.setOnClickListener(this);
@@ -38,6 +47,13 @@ public class CreateGameFragment extends Fragment implements View.OnClickListener
 
         gameName = (EditText) view.findViewById(R.id.game_name_text);
         gameName.addTextChangedListener(textWatcher);
+        gameName.setTypeface(zeldaFont);
+
+        title = (TextView) view.findViewById(R.id.create_game_title);
+        title.setTypeface(zeldaFont);
+
+        playerNumText = (TextView) view.findViewById(R.id.num_players_text) ;
+        playerNumText.setTypeface(zeldaFont);
 
         numPlayers = (Spinner) view.findViewById(R.id.num_players_spinner);
         // Create an ArrayAdapter using the string array and a default spinner layout
@@ -120,6 +136,7 @@ public class CreateGameFragment extends Fragment implements View.OnClickListener
         @Override protected void onPostExecute(String message){
             super.onPostExecute(message);
             if(message.equals("")){
+                inGameSingleton.setInGame(true);
                 ((SignInActivity) getActivity()).moveToLobby();
             }
             else{

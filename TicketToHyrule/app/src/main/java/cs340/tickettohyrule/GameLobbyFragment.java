@@ -1,5 +1,6 @@
 package cs340.tickettohyrule;
 
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,29 +16,43 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
-import cs340.tickettohyrule.Model.Game;
+import cs240.lib.Model.Game;
+import cs240.lib.Model.ModelFacade;
 import cs340.tickettohyrule.Presenters.GameLobbyPresenter;
 
 /**
  * Created by eholm on 2/6/2018.
  */
 
-public class GameLobbyFragment extends Fragment implements View.OnClickListener  {
+public class GameLobbyFragment extends Fragment implements View.OnClickListener, Observer {
     private ImageButton joinButton;
     private ImageButton leaveButton;
     private ImageButton createButton;
+    private TextView title;
     private RecyclerView gameListRecycler;
     private Adapter gameAdapter;
     private String currentGame;
-    private boolean inGame;
+    private ModelFacade modelFacade;
+    private Typeface zeldaFont;
+
+    private InGameSingleton inGameSingleton = InGameSingleton.getInstance();
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_game_lobby, container, false);
 
-        inGame = false;
+        zeldaFont = Typeface.createFromAsset(getActivity().getAssets(),"fonts/HyliaSerifBeta-Regular.otf");
+
+        title = (TextView) view.findViewById(R.id.game_loby_title);
+        title.setTypeface(zeldaFont);
+
+        modelFacade = ModelFacade.getInstance();
+        modelFacade.addObserver(this);
+
         currentGame = "";
 
         joinButton = (ImageButton) view.findViewById(R.id.join_game_button);
@@ -50,7 +65,13 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener 
 
         joinButton.setEnabled(false);
         leaveButton.setEnabled(false);
-        createButton.setEnabled(true);
+        if(inGameSingleton.isInGame()) {
+            createButton.setEnabled(false);
+        }
+        else
+        {
+            createButton.setEnabled(true);
+        }
 
         gameListRecycler = (RecyclerView) view.findViewById(R.id.game_lobby_recycler);
         gameListRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -69,8 +90,7 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener 
     }
 
     private List<Game> getGames() {
-        List<Game> gamesToAdd = new ArrayList<Game>();
-        return gamesToAdd;
+        return modelFacade.getGames();
     }
 
     private class Holder extends RecyclerView.ViewHolder {
@@ -91,16 +111,23 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener 
             recyclerGame = game;
             gameName.setText(recyclerGame.getGameName());
             numPlayers.setText(recyclerGame.getPlayersJoined() + "/" +recyclerGame.getMaxPlayers());
+            gameName.setTypeface(zeldaFont);
+            numPlayers.setTypeface(zeldaFont);
             gameName.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Toast.makeText(getActivity(), recyclerGame.getGameName() + " selected",
                             Toast.LENGTH_SHORT).show();
-                    if(!inGame)
+                    currentGame = recyclerGame.getGameName();
+                    if(!inGameSingleton.isInGame())
                     {
-                        currentGame = recyclerGame.getGameName();
+                        joinButton.setEnabled(true);
                     }
-                    //select game
+                    else
+                    {
+                        leaveButton.setEnabled(true);
+                    }
+
                 }
             });
         }
@@ -114,39 +141,18 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener 
         switch (v.getId()) {
             case R.id.join_game_button:
                 Toast.makeText(getActivity(), "join called", Toast.LENGTH_SHORT).show();
-                String joinMessage = gameLobbyPresenter.joinGame(currentUser.getUserName(),
-                        currentUser.getPassword());
-                if(joinMessage.equals(""))
-                {
-                    inGame = true;
-                }
-                else
-                {
-                    Toast.makeText(getActivity(), joinMessage, Toast.LENGTH_SHORT).show();
-                }
-                //RegisterAsync registerAsync = new RegisterAsync();
-                //registerAsync.execute();
+                    JoinAsync joinAsync = new JoinAsync();
+                    joinAsync.execute();
                 break;
             case R.id.leave_game_button:
                 Toast.makeText(getActivity(), "leave called", Toast.LENGTH_SHORT).show();
-                String leaveMessage = gameLobbyPresenter.leaveGame(currentUser.getUserName(),
-                        currentUser.getPassword());
-                if(leaveMessage.equals(""))
-                {
-                    inGame = false;
-                }
-                else
-                {
-                    Toast.makeText(getActivity(), leaveMessage, Toast.LENGTH_SHORT).show();
-                }
-
-                //LoginAsync loginAsync = new LoginAsync();
-                //loginAsync.execute();
+                LeaveAsync leaveAsync = new LeaveAsync();
+                leaveAsync.execute();
                 break;
             case R.id.create_button:
                 Toast.makeText(getActivity(), "create called", Toast.LENGTH_SHORT).show();
                 ((SignInActivity) getActivity()).moveToCreate();
-
+                //inGame = true;
                 break;
         }
     }
@@ -176,6 +182,63 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener 
         public int getItemCount() {
             return mGames.size();
         }
+    }
+
+    private class JoinAsync extends AsyncTask<Void, Void, String> {
+        GameLobbyPresenter gameLobbyPresenter = new GameLobbyPresenter();
+        ModelFacade modelFacade = ModelFacade.getInstance();
+        @Override
+        protected String doInBackground(Void... params){
+            String message = gameLobbyPresenter.joinGame(modelFacade.getCurrentUser().getUsername(), currentGame);
+            return message;
+        }
+        @Override protected void onPostExecute(String message){
+            super.onPostExecute(message);
+            if(message.equals("")){
+                inGameSingleton.setInGame(true);
+                Toast.makeText(getActivity(), "Successfully joined game", Toast.LENGTH_SHORT).show();
+                createButton.setEnabled(false);
+                joinButton.setEnabled(false);
+            }
+            else{
+                Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private class LeaveAsync extends AsyncTask<Void, Void, String> {
+        GameLobbyPresenter gameLobbyPresenter = new GameLobbyPresenter();
+        ModelFacade modelFacade = ModelFacade.getInstance();
+        @Override
+        protected String doInBackground(Void... params){
+            String message = gameLobbyPresenter.leaveGame(modelFacade.getCurrentUser().getUsername(), currentGame);
+            return message;
+        }
+        @Override protected void onPostExecute(String message){
+            super.onPostExecute(message);
+            if(message.equals("")){
+                inGameSingleton.setInGame(false);
+                Toast.makeText(getActivity(), "Successfully left game", Toast.LENGTH_SHORT).show();
+                createButton.setEnabled(true);
+                leaveButton.setEnabled(false);
+                currentGame = "";
+            }
+            else{
+                Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    @Override
+    public void update (Observable observable, Object o){
+        ModelFacade facade = (ModelFacade) observable;
+        //UPDATE ALL THE INFO FROM HERE
+        getActivity().runOnUiThread(new Runnable(){
+            @Override
+            public void run(){
+                updateUI();
+            }
+        });
     }
 
 }

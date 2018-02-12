@@ -4,7 +4,9 @@
     android:id="@+id/sign_in"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/background"
+    android:gravity="center">
 
     <EditText
         android:id="@+id/host_text"
@@ -42,12 +44,16 @@
         android:id="@+id/login_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:srcCompat="@mipmap/ic_launcher" />
+        android:backgroundTint="@android:color/transparent"
+        app:srcCompat="@drawable/loginbutton"
+        android:layout_gravity="center"/>
 
     <ImageButton
         android:id="@+id/register_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        android:backgroundTint="@android:color/transparent"
+        app:srcCompat="@drawable/registerbutton"
+        android:layout_gravity="center"/>
 
 </LinearLayout>

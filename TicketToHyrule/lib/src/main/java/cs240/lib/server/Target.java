@@ -6,10 +6,13 @@ import java.util.UUID;
 import cs240.lib.Model.Game;
 import cs240.lib.Model.Login;
 import cs240.lib.Model.User;
+import cs240.lib.client.Poller;
+import cs240.lib.common.Command;
 import cs240.lib.common.IServer;
 import cs240.lib.common.results.CreateResult;
 import cs240.lib.common.results.JoinResult;
 import cs240.lib.common.results.LeaveResult;
+import cs240.lib.common.results.PollerResult;
 import cs240.lib.common.results.SignInResult;
 
 
@@ -21,12 +24,14 @@ public class Target implements IServer {
     private ArrayList<Login> loggedinUsers;
     private ArrayList<Game> availableGames;
     private ArrayList<Game> activeGames;
+    private ArrayList<Command> commandHistory;
 
     private Target() {
         registeredUsers = new ArrayList<>();
         loggedinUsers = new ArrayList<>();
         availableGames = new ArrayList<>();
         activeGames = new ArrayList<>();
+        commandHistory = new ArrayList<>();
     }
 
     public ArrayList<User> getRegisteredUsers() {
@@ -62,6 +67,11 @@ public class Target implements IServer {
     }
 
     public SignInResult login(String username, String password) {
+        String[] parameterTypeNames = {String.class.getName(), String.class.getName()};
+        Object[] parameters = {username, password};
+        Command loginCommand = new Command("login", parameterTypeNames, parameters);
+        commandHistory.add(loginCommand);
+        Poller.getInstance().incrementCommandIndex();
         SignInResult result = new SignInResult();
         if (username.equals("") || username == null) {
             result.setErrorMessage("Invalid username");
@@ -94,6 +104,11 @@ public class Target implements IServer {
     }
 
     public SignInResult register(String username, String password) {
+        String[] parameterTypeNames = {String.class.getName(), String.class.getName()};
+        Object[] parameters = {username, password};
+        Command registerCommand = new Command("register", parameterTypeNames, parameters);
+        commandHistory.add(registerCommand);
+        Poller.getInstance().incrementCommandIndex();
         SignInResult result = new SignInResult();
 
         if (username.equals("") || username == null) {
@@ -117,6 +132,11 @@ public class Target implements IServer {
     }
 
     public JoinResult joinGame(String username, String gameName) {
+        String[] parameterTypeNames = {String.class.getName(), String.class.getName()};
+        Object[] parameters = {username, gameName};
+        Command joinGameCommand = new Command("joinGame", parameterTypeNames, parameters);
+        commandHistory.add(joinGameCommand);
+        Poller.getInstance().incrementCommandIndex();
         if (username.equals("") || username == null) {
             return new JoinResult("Invalid username");
         }
@@ -127,27 +147,20 @@ public class Target implements IServer {
             String curGame = availableGames.get(i).getGameName();
             if (curGame.equals(gameName)) {
                 Game targetGame = availableGames.get(i);
-                boolean userInGame = isUserInGame(targetGame, username);
-                if (!userInGame) {
-                    int index = findPlayerIndex(username);
-                    registeredUsers.get(index).addGame(targetGame);
-                    User player = findPlayer(username);
-                    try {
-                        //TODO: how to send game started message with join result?
-                        targetGame.addPlayer(player);
-                        String result = null;
-                        if (targetGame.getPlayersJoined() == targetGame.getMaxPlayers()) {
-                            result = startGame(targetGame.getGameName());
-                        }
-                        return new JoinResult(targetGame.getGameName(), targetGame.getPlayersJoined());
-
-                    } catch (Exception e) {
-                        String message = e.getMessage();
-                        return new JoinResult(message);
+                int index = findPlayerIndex(username);
+                registeredUsers.get(index).addGame(targetGame);
+                User player = findPlayer(username);
+                try {
+                    targetGame.addPlayer(player);
+                    String result = null; //TODO: how to send game started message with join result? -David
+                    if (targetGame.getPlayersJoined() == targetGame.getMaxPlayers()) {
+                        result = startGame(targetGame.getGameName());
                     }
-                }
-                else {
-                    return new JoinResult("User already in game");
+                    return new JoinResult(targetGame.getGameName(), targetGame.getPlayersJoined());
+
+                } catch(Exception e) {
+                    String message = e.getMessage();
+                    return new JoinResult(message);
                 }
 
             }
@@ -156,6 +169,11 @@ public class Target implements IServer {
     }
 
     public LeaveResult leaveGame(String username, String gameName) {
+        String[] parameterTypeNames = {String.class.getName(), String.class.getName()};
+        Object[] parameters = {username, gameName};
+        Command leaveCommand = new Command("leaveGame", parameterTypeNames, parameters);
+        commandHistory.add(leaveCommand);
+        Poller.getInstance().incrementCommandIndex();
         if (username.equals("") || username == null) {
             return new LeaveResult("Invalid username");
         }
@@ -166,24 +184,18 @@ public class Target implements IServer {
             String curGame = availableGames.get(i).getGameName();
             if (curGame.equals(gameName)) {
                 Game targetGame = availableGames.get(i);
-                boolean isUserInGame = isUserInGame(targetGame, username);
-                if (isUserInGame) {
-                    int index = findPlayerIndex(username);
-                    registeredUsers.get(index).removeGame(targetGame);
-                    User player = findPlayer(username);
-                    try {
-                        targetGame.removePlayer(player);
-                        if (targetGame.getPlayersJoined() == 0) {
-                            removeGame(targetGame.getGameName());
-                        }
-                        return new LeaveResult(targetGame.getGameName(), targetGame.getPlayersJoined());
-                    } catch (Exception e) {
-                        String message = e.getMessage();
-                        return new LeaveResult(message);
+                int index = findPlayerIndex(username);
+                registeredUsers.get(index).removeGame(targetGame);
+                User player = findPlayer(username);
+                try {
+                    targetGame.removePlayer(player);
+                    if (targetGame.getPlayersJoined() == 0) {
+                        removeGame(targetGame.getGameName());
                     }
-                }
-                else {
-                    return new LeaveResult("User not in game");
+                    return new LeaveResult(targetGame.getGameName(), targetGame.getPlayersJoined());
+                } catch(Exception e) {
+                    String message = e.getMessage();
+                    return new LeaveResult(message);
                 }
 
             }
@@ -192,6 +204,11 @@ public class Target implements IServer {
     }
 
     public CreateResult createGame(String username, String gameName, int maxPlayers) {
+        String[] parameterTypeNames = {String.class.getName(), String.class.getName(), int.class.getName()};
+        Object[] parameters = {username, gameName, maxPlayers};
+        Command createGameCommand = new Command("createGame", parameterTypeNames, parameters);
+        commandHistory.add(createGameCommand);
+        Poller.getInstance().incrementCommandIndex();
         for (int i = 0; i < availableGames.size(); ++i) {
             String curGame = availableGames.get(i).getGameName();
             if (curGame.equals(gameName)) {
@@ -242,6 +259,10 @@ public class Target implements IServer {
         return "Error: Game not started";
     }
 
+    public PollerResult pollerCheckServer(){
+        return new PollerResult(commandHistory);
+    }
+
     public void clear() {
         registeredUsers.clear();
         loggedinUsers.clear();
@@ -285,16 +306,6 @@ public class Target implements IServer {
                 if (loggedinUsers.get(i).getAuthToken().equals(authToken)){
                     return true;
                 }
-            }
-        }
-        return false;
-    }
-
-    private boolean isUserInGame (Game game, String username) {
-        for (int i = 0; i < game.getPlayersJoined(); ++i) {
-            String curUsername = game.getPlayerArray().get(i).getUsername();
-            if (curUsername.equals(username)) {
-                return true;
             }
         }
         return false;
