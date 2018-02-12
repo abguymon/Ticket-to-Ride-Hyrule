@@ -1,12 +1,13 @@
 package cs240.lib.Model;
 
 import java.util.ArrayList;
+import java.util.Observable;
 
 /**
  * Created by adam on 2/12/18.
  */
 
-public class ClientFacade {
+public class ClientFacade extends Observable{
     private ArrayList<Game> gameList = new ArrayList<>();
     private static ClientFacade instance = null;
 
@@ -17,14 +18,29 @@ public class ClientFacade {
         return instance;
     }
 
-    public String createGame(String userName, String gameName, int maxPlayers){
+    public void createGame(String userName, String gameName, int maxPlayers){
         Game g = new Game(maxPlayers, 0, gameName);
         gameList.add(g);
-        joinGame();
+        joinGame(userName, gameName);
     }
-    public String joinGame(String userName, String gameName){
+
+    public boolean joinGame(String userName, String gameName){
         Game g = getGame(gameName);
-        g.addPlayer(userName);
+        try {
+            g.addPlayer(userName);
+            setChanged();
+            notifyObservers();
+            return true;
+        }catch(Exception ex){
+            System.out.println("EXCEPTION "+ex);
+            return false;
+        }
+    }
+    public void leaveGame(String userName, String gameName){
+        Game g = getGame(gameName);
+        g.removePlayer(userName);
+        setChanged();
+        notifyObservers();
     }
 
     public Game getGame(String gameName){

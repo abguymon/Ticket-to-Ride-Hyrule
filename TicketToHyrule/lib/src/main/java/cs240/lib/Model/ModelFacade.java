@@ -23,19 +23,11 @@ public class ModelFacade extends Observable{
     private ArrayList<Game> gameList = new ArrayList<>();
     private User currentUser = null;
 
-    private static ModelFacade instance;
-    private ModelFacade(){}
-    public static ModelFacade getInstance(){
-        if(instance == null){
-            instance = new ModelFacade();
-        }
-        return instance;
-    }
+    public ModelFacade(){}
 
 
 
     public String createGame(String userName, String gameName, int maxPlayers){
-        ModelFacade.getInstance().pollerCheckServer();
         ClientCommunicator.SINGLETON.setAuthToken(currentUser.getPassword());
         CreateResult result = ServerProxy.SINGLETON.createGame(userName, gameName, maxPlayers);
         if(result.getErrorMessage() != null){
@@ -44,10 +36,8 @@ public class ModelFacade extends Observable{
         else{
             Game g = new Game(maxPlayers, 0, gameName);
             try{
-                g.addPlayer(currentUser);
+                g.addPlayer(userName);
                 gameList.add(g);
-                setChanged();
-                notifyObservers();
                 return "";
             }catch(Exception ex){
                 return("EXCEPTION " + ex);
@@ -56,36 +46,29 @@ public class ModelFacade extends Observable{
     }
 
     public String leaveGame(String userName, String gameName){
-        ModelFacade.getInstance().pollerCheckServer();
         LeaveResult result = ServerProxy.SINGLETON.leaveGame(userName, gameName);
         if(result.getErrorMessage() != null){
             return result.getErrorMessage();
         }
         else{
             Game g = getGame(gameName);
-            g.removePlayer(currentUser);
+            g.removePlayer(userName);
             if (g.getPlayersJoined() == 0) gameList.remove(g);
-            setChanged();
-            notifyObservers();
             return "";
         }
     }
 
     public String login(String userName, String password){
-        //ModelFacade.getInstance().pollerCheckServer();
         SignInResult result = ServerProxy.SINGLETON.login(userName, password);
         if(!result.getErrorMessage().equals("")){
             return result.getErrorMessage();
         }
         else{
             currentUser = new User(userName, result.getAuthToken());
-            setChanged();
-            notifyObservers();
             return "";
         }
     }
     public String register(String userName, String password){
-        //ModelFacade.getInstance().pollerCheckServer();
         SignInResult result = ServerProxy.SINGLETON.register(userName, password);
         if(!result.getErrorMessage().equals("")){
             return result.getErrorMessage();
@@ -97,21 +80,18 @@ public class ModelFacade extends Observable{
     }
 
     public String joinGame(String userName, String gameName){
-        ModelFacade.getInstance().pollerCheckServer();
         JoinResult result = ServerProxy.SINGLETON.joinGame(userName,gameName);
         if(result.getErrorMessage() != null){
             return result.getErrorMessage();
         }
         else{
             try{
-                getGame(gameName).addPlayer(currentUser);
+                getGame(gameName).addPlayer(userName);
                 /*int playersJoined = getGame(gameName).getPlayersJoined();
                 int maxPlayers = getGame(gameName).getMaxPlayers();
                 if (playersJoined == maxPlayers){
                     String startGameResult = ServerProxy.SINGLETON.startGame(gameName);
                 }*/ //TODO: how does the observer pattern/poller work with start game code? -David
-                setChanged();
-                notifyObservers();
                 return "";
             }catch(Exception ex){
                 return "EXCEPTION! " + ex;
