@@ -37,7 +37,6 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener,
     private Adapter gameAdapter;
     private String currentGame;
     private Typeface zeldaFont;
-
     private InGameSingleton inGameSingleton = InGameSingleton.getInstance();
 
     @Override
@@ -127,10 +126,17 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener,
                     if(!inGameSingleton.isInGame())
                     {
                         joinButton.setEnabled(true);
+                        leaveButton.setEnabled(false);
+                    }
+                    else if (inGameSingleton.isInGame() && gameName.equals(inGameSingleton.getGameImIn()))
+                    {
+                        leaveButton.setEnabled(true);
+                        joinButton.setEnabled(false);
                     }
                     else
                     {
-                        leaveButton.setEnabled(true);
+                        joinButton.setEnabled(false);
+                        leaveButton.equals(false);
                     }
 
                 }
@@ -204,6 +210,7 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener,
                 Toast.makeText(getActivity(), "Successfully joined game", Toast.LENGTH_SHORT).show();
                 createButton.setEnabled(false);
                 joinButton.setEnabled(false);
+                inGameSingleton.setGameImIn(currentGame);
             }
             else{
                 Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
@@ -227,6 +234,7 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener,
                 createButton.setEnabled(true);
                 leaveButton.setEnabled(false);
                 currentGame = "";
+                inGameSingleton.setGameImIn("");
             }
             else{
                 Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
