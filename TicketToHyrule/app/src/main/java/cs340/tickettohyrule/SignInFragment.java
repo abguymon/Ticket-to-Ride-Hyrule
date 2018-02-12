@@ -110,7 +110,6 @@ public class SignInFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         SignInPresenter signInPresenter = new SignInPresenter();
-        CurrentUserSingleton currentUser = CurrentUserSingleton.getInstance();
         switch (v.getId()) {
             case R.id.register_button:
                 Toast.makeText(getActivity(), "register called", Toast.LENGTH_SHORT).show();

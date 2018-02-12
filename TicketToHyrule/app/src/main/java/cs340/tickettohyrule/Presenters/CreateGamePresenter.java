@@ -7,7 +7,7 @@ import cs240.lib.Model.ModelFacade;
  */
 
 public class CreateGamePresenter {
-    ModelFacade modelFacade = ModelFacade.getInstance();
+    ModelFacade modelFacade = new ModelFacade();
 
     public String createGame(String userName, String gameName, int maxPlayers)
     {

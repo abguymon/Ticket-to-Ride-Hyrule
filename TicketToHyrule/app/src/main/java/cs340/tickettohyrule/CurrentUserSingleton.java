@@ -1,10 +1,13 @@
 package cs340.tickettohyrule;
 
+import cs240.lib.Model.ModelFacade;
+
 /**
  * Created by eholm on 2/7/2018.
  */
 
 public class CurrentUserSingleton {
+    private ModelFacade modelFacade = new ModelFacade();
     private String userName;
     private String password;
 
@@ -16,6 +19,10 @@ public class CurrentUserSingleton {
             instance = new CurrentUserSingleton();
         }
         return instance;
+    }
+
+    public ModelFacade getModelFacade(){
+        return modelFacade;
     }
 
     public String getUserName() {
