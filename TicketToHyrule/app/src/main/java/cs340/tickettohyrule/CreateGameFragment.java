@@ -139,6 +139,7 @@ public class CreateGameFragment extends Fragment implements View.OnClickListener
             super.onPostExecute(message);
             if(message.equals("")){
                 inGameSingleton.setInGame(true);
+                inGameSingleton.setGameImIn(gameName.getText().toString());
                 ((SignInActivity) getActivity()).moveToLobby();
             }
             else{

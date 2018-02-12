@@ -6,6 +6,7 @@ package cs340.tickettohyrule;
 
 public class InGameSingleton {
     private boolean inGame;
+    private String gameImIn;
 
     private static InGameSingleton instance;
     private InGameSingleton(){inGame = false;}
@@ -22,5 +23,13 @@ public class InGameSingleton {
 
     public void setInGame(boolean inGame) {
         this.inGame = inGame;
+    }
+
+    public String getGameImIn() {
+        return gameImIn;
+    }
+
+    public void setGameImIn(String gameImIn) {
+        this.gameImIn = gameImIn;
     }
 }
