@@ -48,7 +48,7 @@ public class ClientFacade extends Observable{
         }
     }
     public void leaveGame(String userName, String gameName){
-        System.out.println("we got here");
+        //System.out.println("we got here");
         Game g = getGame(gameName);
         g.removePlayer(userName);
         if(g.getPlayersJoined() == 0) gameList.remove(g);
@@ -78,12 +78,12 @@ public class ClientFacade extends Observable{
                     (String)myCommand.getParametersAsJsonStrings()[1].substring(1,myCommand.getParametersAsJsonStrings()[1].length()-1));
         }
         else if(myCommand.getMethodName().equals("leaveGame")){
-            System.out.println("leave game called");
+            //System.out.println("leave game called");
             leaveGame((String)myCommand.getParametersAsJsonStrings()[0].substring(1,myCommand.getParametersAsJsonStrings()[0].length()-1),
                     (String)myCommand.getParametersAsJsonStrings()[1].substring(1,myCommand.getParametersAsJsonStrings()[1].length()-1));
         }
         else if(myCommand.getMethodName().equals("createGame")){
-            System.out.println("create game called");
+            //System.out.println("create game called");
             createGame((String)myCommand.getParametersAsJsonStrings()[0].substring(1,myCommand.getParametersAsJsonStrings()[0].length()-1),
                     (String)myCommand.getParametersAsJsonStrings()[1].substring(1,myCommand.getParametersAsJsonStrings()[1].length()-1),
                     Integer.parseInt(myCommand.getParametersAsJsonStrings()[2]));
@@ -95,10 +95,7 @@ public class ClientFacade extends Observable{
 
         while(!result.getCommands().isEmpty())
         {
-            System.out.println("parameter " +  result.getCommands().peek().toString());
-            for(Game g : gameList){
-                System.out.println(g.toString());
-            }
+           // System.out.println("parameter " +  result.getCommands().peek().toString());
             handleObject(result.getCommands().remove());
         }
 //        for(int i = Poller.getInstance().getCommandIndex(); i < result.getCommands().size(); i++){
