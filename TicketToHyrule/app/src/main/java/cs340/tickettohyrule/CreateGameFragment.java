@@ -126,7 +126,7 @@ public class CreateGameFragment extends Fragment implements View.OnClickListener
 
     private class CreateAsync extends AsyncTask<Void, Void, String> {
         CreateGamePresenter createGamePresenter = new CreateGamePresenter();
-        ModelFacade modelFacade = ModelFacade.getInstance();
+        ModelFacade modelFacade = CurrentUserSingleton.getInstance().getModelFacade();
         @Override
         protected String doInBackground(Void... params){
             String message = createGamePresenter.createGame(modelFacade.getCurrentUser().getUsername(), gameName.getText().toString(),
