@@ -19,7 +19,10 @@ public class ClientFacade extends Observable{
     private ClientFacade(){}
 
     public static ClientFacade getInstance(){
-        if(instance == null) instance = new ClientFacade();
+        if(instance == null){
+            instance = new ClientFacade();
+            Poller.getInstance().run();
+        }
         return instance;
     }
 
