@@ -6,7 +6,7 @@ public class Game {
     private int maxPlayers;
     private int playersJoined;
     private String gameName;
-    private ArrayList<User> playerArray;
+    private ArrayList<String> playerArray;
 
     public Game() {
         maxPlayers = 0;
@@ -31,10 +31,10 @@ public class Game {
     public String getGameName() {return gameName;}
     public void setGameName(String gameName) {this.gameName = gameName;}
 
-    public ArrayList<User> getPlayerArray() {return playerArray;}
-    public void setPlayerArray(ArrayList<User> playerArray) {this.playerArray = playerArray;}
+    public ArrayList<String> getPlayerArray() {return playerArray;}
+    public void setPlayerArray(ArrayList<String> playerArray) {this.playerArray = playerArray;}
 
-    public void addPlayer(User newPlayer) throws Exception{
+    public void addPlayer(String newPlayer) throws Exception{
         if (playersJoined >= maxPlayers) {
             throw new Exception("Game: " + gameName + " is already full");
         }
@@ -43,11 +43,10 @@ public class Game {
             ++playersJoined;
         }
     }
-    public void removePlayer(User player) {
-        String playerToRemove = player.getUsername();
+    public void removePlayer(String player) {
         for (int i = 0; i < playerArray.size(); ++i) {
-            String currentPlayer = playerArray.get(i).getUsername();
-            if (currentPlayer.equals(playerToRemove)) {
+            String currentPlayer = playerArray.get(i);
+            if (currentPlayer.equals(player)) {
                 playerArray.remove(i);
                 --playersJoined;
                 return;
