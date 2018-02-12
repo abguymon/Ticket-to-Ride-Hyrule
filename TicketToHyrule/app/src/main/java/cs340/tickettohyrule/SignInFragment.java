@@ -125,20 +125,17 @@ public class SignInFragment extends Fragment implements View.OnClickListener {
                 break;
         }
     }
-    private class LoginTask extends AsyncTask<Void, Void, Object>{
+    private class LoginTask extends AsyncTask<Void, Void, String>{
         SignInPresenter signInPresenter = new SignInPresenter();
         @Override
-        protected Object doInBackground(Void... params){
-            Object message = signInPresenter.login(username.getText().toString(), password.getText().toString(),
+        protected String doInBackground(Void... params){
+            String message = signInPresenter.login(username.getText().toString(), password.getText().toString(),
                     host.getText().toString(), port.getText().toString());
             return message;
         }
-        @Override protected void onPostExecute(Object message){
+        @Override protected void onPostExecute(String message){
             super.onPostExecute(message);
-            if(message instanceof Login){
-                CurrentUserSingleton currentUser = CurrentUserSingleton.getInstance();
-                currentUser.setUserName(((Login) message).getUsername());
-                currentUser.setAuthToken(((Login) message).getAuthToken());
+            if(message.equals("")){
                 ((SignInActivity) getActivity()).moveToLobby();
             }
             else{
@@ -147,20 +144,17 @@ public class SignInFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    private class RegisterTask extends AsyncTask<Void, Void, Object>{
+    private class RegisterTask extends AsyncTask<Void, Void, String>{
         SignInPresenter signInPresenter = new SignInPresenter();
         @Override
-        protected Object doInBackground(Void... params){
-            Object message = signInPresenter.register(username.getText().toString(), password.getText().toString(),
+        protected String doInBackground(Void... params){
+            String message = signInPresenter.register(username.getText().toString(), password.getText().toString(),
                     host.getText().toString(), port.getText().toString());
             return message;
         }
-        @Override protected void onPostExecute(Object message){
+        @Override protected void onPostExecute(String message){
             super.onPostExecute(message);
-            if(message instanceof Login){
-                CurrentUserSingleton currentUser = CurrentUserSingleton.getInstance();
-                currentUser.setUserName(((Login) message).getUsername());
-                currentUser.setAuthToken(((Login) message).getAuthToken());
+            if(message.equals("")){
                 ((SignInActivity) getActivity()).moveToLobby();
             }
             else{

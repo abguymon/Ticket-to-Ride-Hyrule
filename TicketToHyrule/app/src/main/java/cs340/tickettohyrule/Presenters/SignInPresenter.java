@@ -10,13 +10,13 @@ import cs340.tickettohyrule.CurrentUserSingleton;
 
 public class SignInPresenter {
     ModelFacade modelFacade = CurrentUserSingleton.getInstance().getModelFacade();
-    public Object login(String userName, String password, String host, String port)
+    public String login(String userName, String password, String host, String port)
     {
         ClientCommunicator.SINGLETON.setServerHost(host);
         ClientCommunicator.SINGLETON.setServerPort(port);
         return modelFacade.login(userName,password);
     }
-    public Object register(String userName, String password, String host, String port)
+    public String register(String userName, String password, String host, String port)
     {
         ClientCommunicator.SINGLETON.setServerHost(host);
         ClientCommunicator.SINGLETON.setServerPort(port);
