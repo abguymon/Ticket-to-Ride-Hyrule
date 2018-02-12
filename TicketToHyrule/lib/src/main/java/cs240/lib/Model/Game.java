@@ -53,4 +53,11 @@ public class Game {
             }
         }
     }
+    public String toString(){
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(gameName + "joined/max: ");
+        stringBuilder.append(playersJoined + "playerArray: ");
+        stringBuilder.append(playerArray);
+        return stringBuilder.toString();
+    }
 }
