@@ -105,6 +105,11 @@ public class ModelFacade extends Observable{
         else{
             try{
                 getGame(gameName).addPlayer(currentUser);
+                /*int playersJoined = getGame(gameName).getPlayersJoined();
+                int maxPlayers = getGame(gameName).getMaxPlayers();
+                if (playersJoined == maxPlayers){
+                    String startGameResult = ServerProxy.SINGLETON.startGame(gameName);
+                }*/ //TODO: how does the observer pattern/poller work with start game code? -David
                 setChanged();
                 notifyObservers();
                 return "";

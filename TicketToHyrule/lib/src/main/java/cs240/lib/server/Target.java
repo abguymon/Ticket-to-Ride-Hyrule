@@ -151,9 +151,8 @@ public class Target implements IServer {
                 registeredUsers.get(index).addGame(targetGame);
                 User player = findPlayer(username);
                 try {
-                    //TODO: how to send game started message with join result?
                     targetGame.addPlayer(player);
-                    String result = null;
+                    String result = null; //TODO: how to send game started message with join result? -David
                     if (targetGame.getPlayersJoined() == targetGame.getMaxPlayers()) {
                         result = startGame(targetGame.getGameName());
                     }
