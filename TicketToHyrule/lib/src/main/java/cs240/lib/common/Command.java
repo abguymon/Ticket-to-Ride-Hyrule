@@ -45,6 +45,15 @@ public class Command {
         }
     }
 
+    public String[] formatJsonParameterStrings(String[] parameterStrings) {
+        for (int i = 0; i < parameterStrings.length; ++i) {
+            String curParameter = parameterStrings[i];
+            curParameter = curParameter.substring(1, curParameter.length() - 1);
+        }
+        return parameterStrings;
+    }
+
+
     public String getMethodName() {
         return methodName;
     }
