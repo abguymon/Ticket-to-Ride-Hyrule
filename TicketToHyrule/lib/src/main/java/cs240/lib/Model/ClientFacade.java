@@ -21,7 +21,9 @@ public class ClientFacade extends Observable{
     public static ClientFacade getInstance(){
         if(instance == null){
             instance = new ClientFacade();
-            Poller.getInstance().run();
+            Thread thread = new Thread(Poller.getInstance());
+            thread.start();
+            //Poller.getInstance().run();
         }
         return instance;
     }
