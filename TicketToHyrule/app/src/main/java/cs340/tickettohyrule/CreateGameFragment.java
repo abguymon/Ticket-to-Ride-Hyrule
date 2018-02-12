@@ -132,6 +132,7 @@ public class CreateGameFragment extends Fragment implements View.OnClickListener
             String message = createGamePresenter.createGame(modelFacade.getCurrentUser().getUsername(),
                     gameName.getText().toString(),
                     Integer.parseInt(numPlayers.getSelectedItem().toString()));
+            //System.out.println("user: " + modelFacade.getCurrentUser().getUsername() + " game: " + gameName.getText());
             return message;
         }
         @Override protected void onPostExecute(String message){

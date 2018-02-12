@@ -39,8 +39,10 @@ public class Game {
             throw new Exception("Game: " + gameName + " is already full");
         }
         else {
-            playerArray.add(newPlayer);
-            ++playersJoined;
+
+                //System.out.println("player added: " + newPlayer + " to game " + gameName);
+                playerArray.add(newPlayer);
+                ++playersJoined;
         }
     }
     public void removePlayer(String player) {
