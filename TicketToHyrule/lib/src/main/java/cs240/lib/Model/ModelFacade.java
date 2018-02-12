@@ -115,4 +115,8 @@ public class ModelFacade extends Observable{
     public void setCurrentUser(Login currentUser) {
         this.currentUser = currentUser;
     }
+
+    public void setGames(ArrayList<Game> games){
+        this.gameList = games;
+    }
 }
