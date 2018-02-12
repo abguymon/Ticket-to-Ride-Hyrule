@@ -136,7 +136,7 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener,
                     else
                     {
                         //joinButton.setEnabled(false);
-                        leaveButton.equals(true);
+                        leaveButton.setEnabled(true);
                     }
 
                 }
