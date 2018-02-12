@@ -38,9 +38,15 @@ public class ClientFacade extends Observable{
         Game g = getGame(gameName);
         try {
             g.addPlayer(userName);
-            if(g.getPlayersJoined() == g.getMaxPlayers()) gameList.remove(g);
-            setChanged();
-            notifyObservers(gameList);
+            if(g.getPlayersJoined() == g.getMaxPlayers()) {
+                gameList.remove(g);
+                setChanged();
+                notifyObservers("STARTED");
+            }
+            else{
+                setChanged();
+                notifyObservers("");
+            }
             return true;
         }catch(Exception ex){
             System.out.println("EXCEPTION "+ex);
