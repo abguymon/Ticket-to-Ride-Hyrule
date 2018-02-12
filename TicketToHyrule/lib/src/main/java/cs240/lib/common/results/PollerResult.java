@@ -2,6 +2,7 @@ package cs240.lib.common.results;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Queue;
 
 import cs240.lib.common.Command;
 
@@ -10,24 +11,20 @@ import cs240.lib.common.Command;
  */
 
 public class PollerResult {
-    ArrayList<Command> myCommands;
+    Queue<Command> myCommands;
     private String errorMessage;
 
     public PollerResult() {}
 
-    public PollerResult(ArrayList<Command> newCommands) {
+    public PollerResult(Queue<Command> newCommands) {
         this.myCommands = newCommands;
     }
     public PollerResult(String errorMessage) {
         this.errorMessage = errorMessage;
     }
 
-    public ArrayList<Command> getCommands() {
+    public Queue<Command> getCommands() {
         return myCommands;
-    }
-
-    public void setCommands(ArrayList<Command> newCommands) {
-        this.myCommands = newCommands;
     }
 
     public String getErrorMessage() {
