@@ -277,7 +277,7 @@ public class Target implements IServer {
         for(int i = index; i < commandHistory.size(); i++){
             execute.add(commandHistory.get(i));
         }
-        commandQueue.clear();
+        //commandQueue.clear();
         return new PollerResult(execute);
     }
 
