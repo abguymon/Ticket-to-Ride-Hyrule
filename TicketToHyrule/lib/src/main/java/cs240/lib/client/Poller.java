@@ -35,7 +35,7 @@ public class Poller implements Runnable {
     }
 
     public void fullPoll() { //throws InterruptedException {
-        ClientFacade.getInstance().pollerCheckServer();
+        ClientFacade.getInstance().pollerCheckServer(commandIndex);
     }
 }
 

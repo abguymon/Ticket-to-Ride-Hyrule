@@ -17,5 +17,5 @@ public interface IServer {
     LeaveResult leaveGame(String username, String gameName);
     CreateResult createGame(String username, String gameName, int maxPlayers);
     String startGame(String gameName);
-    PollerResult pollerCheckServer();
+    PollerResult pollerCheckServer(int index);
 }

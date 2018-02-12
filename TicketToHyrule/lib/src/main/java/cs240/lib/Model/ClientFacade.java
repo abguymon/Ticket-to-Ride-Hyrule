@@ -101,8 +101,8 @@ public class ClientFacade extends Observable{
 //        Poller.getInstance().setCommandIndex(result.getCommands().size());
     }
 
-    public String pollerCheckServer(){
-        PollerResult result = ServerProxy.SINGLETON.pollerCheckServer();
+    public String pollerCheckServer(int index){
+        PollerResult result = ServerProxy.SINGLETON.pollerCheckServer(index);
         if(result.getErrorMessage() != null){
             return result.getErrorMessage();
         }
@@ -110,6 +110,7 @@ public class ClientFacade extends Observable{
             try{
                 //compareServerToClient(result);
                 updateModel(result);
+                Poller.getInstance().setCommandIndex(result.getCommands().size());
                 return "";
             }catch(Exception ex){
                 return "EXCEPTION! " + ex;

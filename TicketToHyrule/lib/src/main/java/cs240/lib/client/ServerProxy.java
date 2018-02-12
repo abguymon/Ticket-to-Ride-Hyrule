@@ -75,9 +75,9 @@ public class ServerProxy implements IServer {
     }
 
     @Override
-    public PollerResult pollerCheckServer() {
-        String[] parameterTypeNames = {};
-        Object[] parameters = {};
+    public PollerResult pollerCheckServer(int index) {
+        String[] parameterTypeNames = {int.class.getName()};
+        Object[] parameters = {index};
         Command pollerCommand = new Command("pollerCheckServer", parameterTypeNames, parameters);
         Object result = ClientCommunicator.SINGLETON.send(pollerCommand);
         return (PollerResult)result;

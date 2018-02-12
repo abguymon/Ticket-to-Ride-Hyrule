@@ -61,7 +61,7 @@ public class ServerFacade implements IServer {
     }
 
     @Override
-    public PollerResult pollerCheckServer() {
-        return Target.SINGLETON.pollerCheckServer();
+    public PollerResult pollerCheckServer(int index) {
+        return Target.SINGLETON.pollerCheckServer(index);
     }
 }

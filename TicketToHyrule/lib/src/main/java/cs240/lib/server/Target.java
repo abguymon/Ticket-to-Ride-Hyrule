@@ -268,11 +268,14 @@ public class Target implements IServer {
         return "Error: Game not started";
     }
 
-    public PollerResult pollerCheckServer(){
+    public PollerResult pollerCheckServer(int index){
         Queue<Command> execute = new LinkedList<>();
-        while(!commandQueue.isEmpty())
-        {
-            execute.add(commandQueue.remove());
+//        while(!commandQueue.isEmpty())
+//        {
+//            execute.add(commandQueue.remove());
+//        }
+        for(int i = index; i < commandHistory.size(); i++){
+            execute.add(commandHistory.get(i));
         }
         commandQueue.clear();
         return new PollerResult(execute);
