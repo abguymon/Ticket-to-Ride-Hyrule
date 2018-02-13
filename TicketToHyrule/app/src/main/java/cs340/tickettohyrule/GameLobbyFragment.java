@@ -89,6 +89,14 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener,
     //update list ui information
     private void updateUI()
     {
+        ClientFacade clientFacade = ClientFacade.getInstance();
+        Queue<Game> games = clientFacade.getStartedGames();
+        while (games.size()!=0)
+        {
+            Toast.makeText(getActivity(),
+                    games.remove().getGameName() + " Started", Toast.LENGTH_SHORT).show();
+        }
+
         List<Game> gameList = getGames();
         gameAdapter = new Adapter(gameList);
         gameListRecycler.setAdapter(gameAdapter);
@@ -245,13 +253,6 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener,
 
     @Override
     public void update (Observable observable, Object o){
-        ClientFacade clientFacade = ClientFacade.getInstance();
-        Queue<Game> games = clientFacade.getStartedGames();
-        while (games.size()!=0)
-        {
-            Toast.makeText(getActivity(),
-                    games.remove().getGameName() + " Started", Toast.LENGTH_SHORT).show();
-        }
         //System.out.println("update was called");
         CurrentUserSingleton.getInstance().getModelFacade().setGames(ClientFacade.getInstance().getGames());
 //        if(o!=null && ((String)o).equals("STARTED")){
