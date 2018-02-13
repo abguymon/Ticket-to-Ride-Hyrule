@@ -250,10 +250,10 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener,
 //            Toast.makeText(getActivity(), "Game Started", Toast.LENGTH_SHORT).show();
 //            //STARTED
 //        }
-        if(CurrentUserSingleton.getInstance().getModelFacade().getStartedGames().size()
-                < ClientFacade.getInstance().getStartedGames().size()){
-            Toast.makeText(getActivity(), "Game Started", Toast.LENGTH_SHORT).show();
-        }
+//        if(CurrentUserSingleton.getInstance().getModelFacade().getStartedGames().size()
+//                < ClientFacade.getInstance().getStartedGames().size()){
+//            Toast.makeText(getActivity(), "Game Started", Toast.LENGTH_SHORT).show();
+//        }
         //UPDATE ALL THE INFO FROM HERE
         getActivity().runOnUiThread(new Runnable(){
             @Override

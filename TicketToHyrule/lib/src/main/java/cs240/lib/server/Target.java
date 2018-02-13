@@ -161,7 +161,7 @@ public class Target implements IServer {
                 try {
                     targetGame.addPlayer(player.getUsername());
                     if (targetGame.getPlayersJoined() == targetGame.getMaxPlayers()) {
-                        startGame(targetGame.getGameName());
+                        return new JoinResult(startGame(targetGame.getGameName()));
                     }
                     return new JoinResult(targetGame.getGameName(), targetGame.getPlayersJoined());
 
@@ -262,7 +262,7 @@ public class Target implements IServer {
             if (curGame.getGameName().equals(gameName)) {
                 availableGames.remove(i);
                 activeGames.add(curGame);
-                return "";
+                return "Started";
             }
         }
         return "Error: Game not started";
