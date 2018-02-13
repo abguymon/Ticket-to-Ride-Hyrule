@@ -1,7 +1,9 @@
 package cs240.lib.Model;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Observable;
+import java.util.Queue;
 
 import cs240.lib.client.Poller;
 import cs240.lib.client.ServerProxy;
@@ -14,10 +16,11 @@ import cs240.lib.common.results.PollerResult;
 
 public class ClientFacade extends Observable{
     private ArrayList<Game> gameList = new ArrayList<>();
-    private ArrayList<Game> startedGames = new ArrayList<>();
+    private Queue<Game> startedGames = new LinkedList<>();
     private static ClientFacade instance = null;
 
     private ClientFacade(){}
+
 
     public static ClientFacade getInstance(){
         if(instance == null){
@@ -51,6 +54,19 @@ public class ClientFacade extends Observable{
             return false;
         }
     }
+
+    public boolean startGame(String gameName){
+        Game g = getGame(gameName);
+        try {
+            setChanged();
+            notifyObservers(gameList);
+            return true;
+        }catch(Exception ex){
+            System.out.println("EXCEPTION "+ex);
+            return false;
+        }
+    }
+
     public void leaveGame(String userName, String gameName){
         //System.out.println("we got here");
         Game g = getGame(gameName);
@@ -70,9 +86,9 @@ public class ClientFacade extends Observable{
             //register((String)myCommand.getParameters()[0], (String)myCommand.getParameters()[1]);
             return;
         }
-        //else if(myCommand.getMethodName().equals("startGame")){
-        //    startGame((String)myCommand.getParameters()[0], (String)myCommand.getParameters()[1]);
-        //}
+        else if(myCommand.getMethodName().equals("startGame")){
+            startGame((String)myCommand.getParametersAsJsonStrings()[0].substring(1,myCommand.getParametersAsJsonStrings()[0].length()-1));
+        }
         else if(myCommand.getMethodName().equals("joinGame")){
             joinGame((String)myCommand.getParametersAsJsonStrings()[0].substring(1,myCommand.getParametersAsJsonStrings()[0].length()-1),
                     (String)myCommand.getParametersAsJsonStrings()[1].substring(1,myCommand.getParametersAsJsonStrings()[1].length()-1));
@@ -137,11 +153,11 @@ public class ClientFacade extends Observable{
         return gameList;
     }
 
-    public ArrayList<Game> getStartedGames() {
+    public Queue<Game> getStartedGames() {
         return startedGames;
     }
 
-    public void setStartedGames(ArrayList<Game> startedGames) {
+    public void setStartedGames(Queue<Game> startedGames) {
         this.startedGames = startedGames;
     }
 }

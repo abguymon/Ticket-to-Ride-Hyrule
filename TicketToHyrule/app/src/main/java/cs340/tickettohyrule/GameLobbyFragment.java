@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Queue;
 
 import cs240.lib.Model.ClientFacade;
 import cs240.lib.Model.Game;
@@ -244,6 +245,13 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener,
 
     @Override
     public void update (Observable observable, Object o){
+        ClientFacade clientFacade = ClientFacade.getInstance();
+        Queue<Game> games = clientFacade.getStartedGames();
+        while (games.size()!=0)
+        {
+            Toast.makeText(getActivity(),
+                    games.remove().getGameName() + " Started", Toast.LENGTH_SHORT).show();
+        }
         //System.out.println("update was called");
         CurrentUserSingleton.getInstance().getModelFacade().setGames(ClientFacade.getInstance().getGames());
 //        if(o!=null && ((String)o).equals("STARTED")){
