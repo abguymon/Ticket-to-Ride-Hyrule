@@ -246,9 +246,13 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener,
     public void update (Observable observable, Object o){
         //System.out.println("update was called");
         CurrentUserSingleton.getInstance().getModelFacade().setGames(ClientFacade.getInstance().getGames());
-        if(o!=null && ((String)o).equals("STARTED")){
+//        if(o!=null && ((String)o).equals("STARTED")){
+//            Toast.makeText(getActivity(), "Game Started", Toast.LENGTH_SHORT).show();
+//            //STARTED
+//        }
+        if(CurrentUserSingleton.getInstance().getModelFacade().getStartedGames().size()
+                < ClientFacade.getInstance().getStartedGames().size()){
             Toast.makeText(getActivity(), "Game Started", Toast.LENGTH_SHORT).show();
-            //STARTED
         }
         //UPDATE ALL THE INFO FROM HERE
         getActivity().runOnUiThread(new Runnable(){

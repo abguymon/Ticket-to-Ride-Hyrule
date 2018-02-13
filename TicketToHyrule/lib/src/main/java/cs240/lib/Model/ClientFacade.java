@@ -14,6 +14,7 @@ import cs240.lib.common.results.PollerResult;
 
 public class ClientFacade extends Observable{
     private ArrayList<Game> gameList = new ArrayList<>();
+    private ArrayList<Game> startedGames = new ArrayList<>();
     private static ClientFacade instance = null;
 
     private ClientFacade(){}
@@ -40,13 +41,10 @@ public class ClientFacade extends Observable{
             g.addPlayer(userName);
             if(g.getPlayersJoined() == g.getMaxPlayers()) {
                 gameList.remove(g);
-                setChanged();
-                notifyObservers("STARTED");
+                startedGames.add(g);
             }
-            else{
-                setChanged();
-                notifyObservers("");
-            }
+            setChanged();
+            notifyObservers(gameList);
             return true;
         }catch(Exception ex){
             System.out.println("EXCEPTION "+ex);
@@ -137,5 +135,13 @@ public class ClientFacade extends Observable{
 
     public ArrayList<Game> getGames(){
         return gameList;
+    }
+
+    public ArrayList<Game> getStartedGames() {
+        return startedGames;
+    }
+
+    public void setStartedGames(ArrayList<Game> startedGames) {
+        this.startedGames = startedGames;
     }
 }

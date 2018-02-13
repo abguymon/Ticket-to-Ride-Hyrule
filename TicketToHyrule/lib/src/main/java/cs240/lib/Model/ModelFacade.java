@@ -21,6 +21,7 @@ import cs240.lib.communicator.ClientCommunicator;
 
 public class ModelFacade extends Observable{
     private ArrayList<Game> gameList = new ArrayList<>();
+    private ArrayList<Game> startedGames = new ArrayList<>();
     private Login currentUser = null;
     public ModelFacade(){}
 
@@ -122,5 +123,13 @@ public class ModelFacade extends Observable{
 
     public void setGames(ArrayList<Game> games){
         this.gameList = games;
+    }
+
+    public ArrayList<Game> getStartedGames() {
+        return startedGames;
+    }
+
+    public void setStartedGames(ArrayList<Game> startedGames) {
+        this.startedGames = startedGames;
     }
 }
