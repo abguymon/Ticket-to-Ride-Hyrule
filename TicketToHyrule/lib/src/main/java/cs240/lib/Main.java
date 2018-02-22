@@ -1,8 +1,13 @@
 package cs240.lib;
 
+import java.util.ArrayList;
+
+import cs240.lib.Model.cards.TrainCard;
+import cs240.lib.Model.colors.PlayerColor;
 import cs240.lib.Model.colors.TrainCardColor;
 import cs240.lib.Model.gameParts.City;
 import cs240.lib.Model.gameParts.CityPair;
+import cs240.lib.Model.gameParts.Player;
 import cs240.lib.Model.gameParts.Route;
 
 public class Main {
@@ -21,8 +26,31 @@ public class Main {
         CityPair castletownAndHylia = new CityPair(castletown, hylia);
         Route castletowntoHylia = new Route(castletownAndHylia, 4, TrainCardColor.BLUE);
         System.out.println(castletowntoHylia.toString());
-        castletowntoHylia.setSecondaryColor(TrainCardColor.ORANGE);
-        System.out.println(castletowntoHylia.toString());
+
+        Player link = new Player(PlayerColor.GREEN);
+        ArrayList<TrainCard> linksTrainCards = new ArrayList<>();
+        TrainCard blueCard = new TrainCard(TrainCardColor.BLUE);
+        TrainCard greenCard = new TrainCard(TrainCardColor.GREEN);
+        linksTrainCards.add(blueCard); linksTrainCards.add(greenCard);
+        linksTrainCards.add(blueCard); linksTrainCards.add(blueCard);
+        linksTrainCards.add(blueCard); linksTrainCards.add(blueCard);
+        link.setTrainCards(linksTrainCards);
+        castletowntoHylia.claim(link);
+        if(castletowntoHylia.isClaimed()){
+            System.out.println("Trains remaining for Link: " + link.getTrainsRemaining());
+        }
+        System.out.print("Link's cards:");
+        for (int i = 0; i < link.getTrainCards().size(); ++i){
+            System.out.print(" " + link.getTrainCards().get(i).getColor());
+        }
+        System.out.println();
+
+        Player gannon = new Player(PlayerColor.BLACK);
+        castletowntoHylia.claim(gannon);
+        System.out.println("Trains remaining for Gannon: " + gannon.getTrainsRemaining());
+
+        System.out.println("Color of route owner: " + castletowntoHylia.getOwner().getColor());
+
 
     }
 
