@@ -1,4 +1,4 @@
-package cs240.lib.Model;
+package cs240.lib.Model.gameParts;
 
 /**
  * Created by David on 2/21/2018.
