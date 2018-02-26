@@ -5,6 +5,7 @@ import cs240.lib.common.results.JoinResult;
 import cs240.lib.common.results.LeaveResult;
 import cs240.lib.common.results.PollerResult;
 import cs240.lib.common.results.SignInResult;
+import cs240.lib.common.results.StartGameResult;
 
 /**
  * Created by David on 1/31/2018.
@@ -16,6 +17,6 @@ public interface IServer {
     JoinResult joinGame(String username, String gameName);
     LeaveResult leaveGame(String username, String gameName);
     CreateResult createGame(String username, String gameName, int maxPlayers);
-    String startGame(String gameName);
+    StartGameResult startGame(String gameName);
     PollerResult pollerCheckServer(int index);
 }

@@ -11,6 +11,7 @@ import cs240.lib.common.results.JoinResult;
 import cs240.lib.common.results.LeaveResult;
 import cs240.lib.common.results.PollerResult;
 import cs240.lib.common.results.SignInResult;
+import cs240.lib.common.results.StartGameResult;
 
 /**
  * Created by David on 1/13/2018.
@@ -56,7 +57,7 @@ public class ServerFacade implements IServer {
     }
 
     @Override
-    public String startGame(String gameName) {
+    public StartGameResult startGame(String gameName) {
         return Target.SINGLETON.startGame(gameName);
     }
 

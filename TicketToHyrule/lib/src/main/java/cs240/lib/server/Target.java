@@ -17,6 +17,7 @@ import cs240.lib.common.results.JoinResult;
 import cs240.lib.common.results.LeaveResult;
 import cs240.lib.common.results.PollerResult;
 import cs240.lib.common.results.SignInResult;
+import cs240.lib.common.results.StartGameResult;
 
 
 //implements IServer
@@ -160,9 +161,6 @@ public class Target implements IServer {
                 User player = findPlayer(username);
                 try {
                     targetGame.addPlayer(player.getUsername());
-                    if (targetGame.getPlayersJoined() == targetGame.getMaxPlayers()) {
-                        return new JoinResult(startGame(targetGame.getGameName()));
-                    }
                     return new JoinResult(targetGame.getGameName(), targetGame.getPlayersJoined());
 
                 } catch(Exception e) {
@@ -253,19 +251,19 @@ public class Target implements IServer {
         return new CreateResult(gameName, maxPlayers);
     }
 
-    public String startGame(String gameName) {
+    public StartGameResult startGame(String gameName) {
         if (gameName.equals("") || gameName == null) {
-            return "Invalid username";
+            return new StartGameResult("Invalid username");
         }
         for (int i = 0; i < availableGames.size(); ++i) {
             Game curGame = availableGames.get(i);
             if (curGame.getGameName().equals(gameName)) {
                 availableGames.remove(i);
                 activeGames.add(curGame);
-                return "Started";
+                return new StartGameResult("Started");
             }
         }
-        return "Error: Game not started";
+        return new StartGameResult("Error: Game not started");
     }
 
     public PollerResult pollerCheckServer(int index){

@@ -8,6 +8,7 @@ import cs240.lib.common.results.JoinResult;
 import cs240.lib.common.results.LeaveResult;
 import cs240.lib.common.results.PollerResult;
 import cs240.lib.common.results.SignInResult;
+import cs240.lib.common.results.StartGameResult;
 import cs240.lib.communicator.ClientCommunicator;
 
 /**
@@ -66,12 +67,12 @@ public class ServerProxy implements IServer {
     }
 
     @Override
-    public String startGame(String gameName) {
+    public StartGameResult startGame(String gameName) {
         String[] parameterTypeNames = {String.class.getName()};
         Object[] parameters = {gameName};
         Command startCommand = new Command("startGame", parameterTypeNames, parameters);
         Object result = ClientCommunicator.SINGLETON.send(startCommand);
-        return (String)result;
+        return (StartGameResult) result;
     }
 
     @Override
