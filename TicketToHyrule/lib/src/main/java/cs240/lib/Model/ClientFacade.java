@@ -96,6 +96,7 @@ public class ClientFacade extends Observable{
                 createGame((String)myCommand.getParametersAsJsonStrings()[0].substring(1,myCommand.getParametersAsJsonStrings()[0].length()-1),
                         (String)myCommand.getParametersAsJsonStrings()[1].substring(1,myCommand.getParametersAsJsonStrings()[1].length()-1),
                         Integer.parseInt(myCommand.getParametersAsJsonStrings()[2]));
+                break;
             case "sendMessage":
                 //SEND MESSAGE
                 break;
