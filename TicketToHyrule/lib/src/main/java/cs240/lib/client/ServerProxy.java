@@ -1,14 +1,20 @@
 package cs240.lib.client;
 
 
+import cs240.lib.Model.cards.DestinationCard;
 import cs240.lib.common.Command;
 import cs240.lib.common.IServer;
+import cs240.lib.common.results.ChatResult;
 import cs240.lib.common.results.CreateResult;
+import cs240.lib.common.results.DrawDestinationCardResult;
+import cs240.lib.common.results.GameHistoryResult;
+import cs240.lib.common.results.GetGameResult;
 import cs240.lib.common.results.JoinResult;
 import cs240.lib.common.results.LeaveResult;
 import cs240.lib.common.results.PollerResult;
 import cs240.lib.common.results.SignInResult;
 import cs240.lib.common.results.StartGameResult;
+import cs240.lib.common.results.SubmitResult;
 import cs240.lib.communicator.ClientCommunicator;
 
 /**
@@ -83,4 +89,19 @@ public class ServerProxy implements IServer {
         Object result = ClientCommunicator.SINGLETON.send(pollerCommand);
         return (PollerResult)result;
     }
+
+    @Override
+    public GameHistoryResult getGameHistory(String gameName) {return null;}
+
+    @Override
+    public ChatResult chat(String playerName, String message) {return null;}
+
+    @Override
+    public DrawDestinationCardResult drawDestinationCard(String playerName, String gameName) {return null;}
+
+    @Override
+    public SubmitResult submitDestinationCards(String playerName, String gameName, DestinationCard card) {return null;}
+
+    @Override
+    public GetGameResult getGame(String gameName) {return null;}
 }

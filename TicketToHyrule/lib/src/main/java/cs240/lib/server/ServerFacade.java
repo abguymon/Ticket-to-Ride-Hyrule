@@ -4,14 +4,20 @@ import com.sun.corba.se.spi.activation.Server;
 
 import java.util.Stack;
 
+import cs240.lib.Model.cards.DestinationCard;
 import cs240.lib.common.Command;
 import cs240.lib.common.IServer;
+import cs240.lib.common.results.ChatResult;
 import cs240.lib.common.results.CreateResult;
+import cs240.lib.common.results.DrawDestinationCardResult;
+import cs240.lib.common.results.GameHistoryResult;
+import cs240.lib.common.results.GetGameResult;
 import cs240.lib.common.results.JoinResult;
 import cs240.lib.common.results.LeaveResult;
 import cs240.lib.common.results.PollerResult;
 import cs240.lib.common.results.SignInResult;
 import cs240.lib.common.results.StartGameResult;
+import cs240.lib.common.results.SubmitResult;
 
 /**
  * Created by David on 1/13/2018.
@@ -64,5 +70,30 @@ public class ServerFacade implements IServer {
     @Override
     public PollerResult pollerCheckServer(int index) {
         return Target.SINGLETON.pollerCheckServer(index);
+    }
+
+    @Override
+    public GameHistoryResult getGameHistory(String gameName) {
+        return Target.SINGLETON.getGameHistory(gameName);
+    }
+
+    @Override
+    public ChatResult chat(String playerName, String message) {
+        return Target.SINGLETON.chat(playerName, message);
+    }
+
+    @Override
+    public DrawDestinationCardResult drawDestinationCard(String playerName, String gameName) {
+        return Target.SINGLETON.drawDestinationCard(playerName, gameName);
+    }
+
+    @Override
+    public SubmitResult submitDestinationCards(String playerName, String gameName, DestinationCard card) {
+        return Target.SINGLETON.submitDestinationCards(playerName, gameName, card);
+    }
+
+    @Override
+    public GetGameResult getGame(String gameName) {
+        return Target.SINGLETON.getGame(gameName);
     }
 }

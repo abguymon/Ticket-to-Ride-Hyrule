@@ -1,5 +1,7 @@
 package cs240.lib.common.results;
 
+import java.util.ArrayList;
+
 import cs240.lib.Model.Game;
 
 /**
@@ -7,18 +9,23 @@ import cs240.lib.Model.Game;
  */
 
 public class StartGameResult {
-    private Game gameStarted;
+    private ArrayList<String> players;
     private String errorMessage;
 
-    public StartGameResult(String errorMessage){this.errorMessage = errorMessage;}
-    public StartGameResult(Game newGame) {this.gameStarted = newGame;}
-
-    public Game getGameStarted() {
-        return gameStarted;
+    public StartGameResult(ArrayList<String> players) {
+        this.players = players;
     }
 
-    public void setGameStarted(Game gameStarted) {
-        this.gameStarted = gameStarted;
+    public StartGameResult(String errorResult) {
+        this.errorMessage = errorResult;
+    }
+
+    public ArrayList<String> getPlayers() {
+        return players;
+    }
+
+    public void setPlayers(ArrayList<String> players) {
+        this.players = players;
     }
 
     public String getErrorMessage() {
