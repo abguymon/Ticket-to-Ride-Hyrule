@@ -91,17 +91,46 @@ public class ServerProxy implements IServer {
     }
 
     @Override
-    public GameHistoryResult getGameHistory(String gameName) {return null;}
+    public GameHistoryResult getGameHistory(String gameName) {
+        String[] parameterTypenames = {String.class.getName()};
+        Object[] parameters = {gameName};
+        Command getGameHistoryCommand = new Command("getGameHistory", parameterTypenames, parameters);
+        Object result = ClientCommunicator.SINGLETON.send(getGameHistoryCommand);
+        return (GameHistoryResult)result;
+    }
 
     @Override
-    public ChatResult chat(String playerName, String message) {return null;}
+    public ChatResult chat(String playerName, String message) {
+        String[] parameterTypenames = {String.class.getName(), String.class.getName()};
+        Object[] parameters = {playerName, message};
+        Command chatCommand = new Command("chat", parameterTypenames, parameters);
+        Object result = ClientCommunicator.SINGLETON.send(chatCommand);
+        return (ChatResult) result;}
 
     @Override
-    public DrawDestinationCardResult drawDestinationCard(String playerName, String gameName) {return null;}
+    public DrawDestinationCardResult drawDestinationCard(String playerName, String gameName) {
+        String[] parameterTypenames = {String.class.getName(), String.class.getName()};
+        Object[] parameters = {playerName, gameName};
+        Command drawDestinationCardCommand = new Command("drawDestinationCard", parameterTypenames, parameters);
+        Object result = ClientCommunicator.SINGLETON.send(drawDestinationCardCommand);
+        return (DrawDestinationCardResult) result;
+    }
 
     @Override
-    public SubmitResult submitDestinationCards(String playerName, String gameName, DestinationCard card) {return null;}
+    public SubmitResult submitDestinationCards(String playerName, String gameName, DestinationCard card) {
+        String[] parameterTypenames = {String.class.getName(), String.class.getName(), DestinationCard.class.getName()};
+        Object[] parameters = {playerName, gameName, card};
+        Command submitDestinationCardsCommand = new Command("submitDestinationCards", parameterTypenames, parameters);
+        Object result = ClientCommunicator.SINGLETON.send(submitDestinationCardsCommand);
+        return (SubmitResult) result;
+    }
 
     @Override
-    public GetGameResult getGame(String gameName) {return null;}
+    public GetGameResult getGame(String gameName) {
+        String[] parameterTypenames = {String.class.getName()};
+        Object[] parameters = {gameName};
+        Command getGameCommand = new Command("getGame", parameterTypenames, parameters);
+        Object result = ClientCommunicator.SINGLETON.send(getGameCommand);
+        return (GetGameResult) result;
+    }
 }
