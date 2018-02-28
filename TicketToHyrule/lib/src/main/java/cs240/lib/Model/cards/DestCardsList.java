@@ -13,7 +13,7 @@ import cs240.lib.Model.gameParts.SetupException;
 public class DestCardsList {
     public static DestCardsList SINGLETON = new DestCardsList();
 
-    private static ArrayList<DestinationCard> destinationCards;
+    private ArrayList<DestinationCard> destinationCards;
 
     private DestCardsList(){
         createDestinationCards();
@@ -124,7 +124,7 @@ public class DestCardsList {
         destinationCards.add(card30);
     }
 
-    public static ArrayList<DestinationCard> getDestinationCards() {
+    public ArrayList<DestinationCard> getDestinationCards() {
         return destinationCards;
     }
 }

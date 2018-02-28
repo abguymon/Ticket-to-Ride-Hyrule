@@ -11,14 +11,25 @@ import cs240.lib.Model.colors.TrainCardColor;
  */
 
 public class TrainCardDeck {
+    public static TrainCardDeck SINGLETON = new TrainCardDeck();
+
     private Stack<TrainCard> trainCards;
-    public TrainCardDeck(){
+    private TrainCardDeck(){
         createDeck();
     }
 
     public void shuffle(){
         //TODO: finish the shuffle
         System.out.println("Shuffle not finished yet");
+    }
+
+    public void shuffleInDiscard(ArrayList<TrainCard> discarded){
+
+    }
+
+    public TrainCard draw(){
+        TrainCard toDraw = trainCards.pop();
+        return toDraw;
     }
     
 
