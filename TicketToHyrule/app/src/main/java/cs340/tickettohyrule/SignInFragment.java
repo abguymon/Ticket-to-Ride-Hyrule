@@ -14,14 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import java.util.Observable;
-import java.util.Observer;
-
-import cs240.lib.Model.Login;
-import cs240.lib.Model.ModelFacade;
-import cs240.lib.Model.User;
-import cs240.lib.common.results.SignInResult;
-import cs340.tickettohyrule.Presenters.SignInPresenter;
+import cs340.tickettohyrule.PhaseOnePresenters.SignInPresenter;
 
 /**
  * Created by eholm on 2/6/2018.

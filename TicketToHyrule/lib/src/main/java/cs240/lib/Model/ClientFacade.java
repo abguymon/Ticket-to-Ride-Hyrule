@@ -27,7 +27,6 @@ public class ClientFacade extends Observable{
             instance = new ClientFacade();
             Thread thread = new Thread(Poller.getInstance());
             thread.start();
-            //Poller.getInstance().run();
         }
         return instance;
     }
@@ -68,61 +67,54 @@ public class ClientFacade extends Observable{
     }
 
     public void leaveGame(String userName, String gameName){
-        //System.out.println("we got here");
         Game g = getGame(gameName);
         g.removePlayer(userName);
         if(g.getPlayersJoined() == 0) gameList.remove(g);
         setChanged();
         notifyObservers(gameList);
     }
+    public void sendMessage(String message){
+        //ADD FUNCTION
+    }
 
-    public void handleObject( Command myCommand){ // myCommand.getParameters()[0]
-        if(myCommand.getMethodName().equals("login")){
-            //SignInResult thisResult = (SignInResult)myResult;
-            //login((String)myCommand.getParameters()[0], (String)myCommand.getParameters()[1]);
-            return;
+    public void handleObject( Command myCommand){
+        switch(myCommand.getMethodName()){
+            case "login": return;
+            case "register": return;
+            case "startGame":
+                startGame((String)myCommand.getParametersAsJsonStrings()[0].substring(1,myCommand.getParametersAsJsonStrings()[0].length()-1));
+                break;
+            case "joinGame":
+                joinGame((String)myCommand.getParametersAsJsonStrings()[0].substring(1,myCommand.getParametersAsJsonStrings()[0].length()-1),
+                        (String)myCommand.getParametersAsJsonStrings()[1].substring(1,myCommand.getParametersAsJsonStrings()[1].length()-1));
+                break;
+            case "leaveGame":
+                leaveGame((String)myCommand.getParametersAsJsonStrings()[0].substring(1,myCommand.getParametersAsJsonStrings()[0].length()-1),
+                        (String)myCommand.getParametersAsJsonStrings()[1].substring(1,myCommand.getParametersAsJsonStrings()[1].length()-1));
+                break;
+            case "createGame":
+                createGame((String)myCommand.getParametersAsJsonStrings()[0].substring(1,myCommand.getParametersAsJsonStrings()[0].length()-1),
+                        (String)myCommand.getParametersAsJsonStrings()[1].substring(1,myCommand.getParametersAsJsonStrings()[1].length()-1),
+                        Integer.parseInt(myCommand.getParametersAsJsonStrings()[2]));
+            case "sendMessage":
+                //SEND MESSAGE
+                break;
+            case "submitDestinationCards":
+                //ADD FUNCTIONS
+                break;
         }
-        else if(myCommand.getMethodName().equals("register")){
-            //register((String)myCommand.getParameters()[0], (String)myCommand.getParameters()[1]);
-            return;
-        }
-        else if(myCommand.getMethodName().equals("startGame")){
-            startGame((String)myCommand.getParametersAsJsonStrings()[0].substring(1,myCommand.getParametersAsJsonStrings()[0].length()-1));
-        }
-        else if(myCommand.getMethodName().equals("joinGame")){
-            joinGame((String)myCommand.getParametersAsJsonStrings()[0].substring(1,myCommand.getParametersAsJsonStrings()[0].length()-1),
-                    (String)myCommand.getParametersAsJsonStrings()[1].substring(1,myCommand.getParametersAsJsonStrings()[1].length()-1));
-        }
-        else if(myCommand.getMethodName().equals("leaveGame")){
-            //System.out.println("leave game called");
-            leaveGame((String)myCommand.getParametersAsJsonStrings()[0].substring(1,myCommand.getParametersAsJsonStrings()[0].length()-1),
-                    (String)myCommand.getParametersAsJsonStrings()[1].substring(1,myCommand.getParametersAsJsonStrings()[1].length()-1));
-        }
-        else if(myCommand.getMethodName().equals("createGame")){
-            //System.out.println("create game called");
-            createGame((String)myCommand.getParametersAsJsonStrings()[0].substring(1,myCommand.getParametersAsJsonStrings()[0].length()-1),
-                    (String)myCommand.getParametersAsJsonStrings()[1].substring(1,myCommand.getParametersAsJsonStrings()[1].length()-1),
-                    Integer.parseInt(myCommand.getParametersAsJsonStrings()[2]));
-        }
-
     }
 
     public void updateModel(PollerResult result){
 
         while(!result.getCommands().isEmpty())
         {
-           // System.out.println("parameter " +  result.getCommands().peek().toString());
             for(Game g: gameList)
             {
                 System.out.println(g.toString());
             }
             handleObject(result.getCommands().remove());
         }
-//        for(int i = Poller.getInstance().getCommandIndex(); i < result.getCommands().size(); i++){
-//            System.out.println("update model called for index " +  result.getCommands().size());
-//            handleObject(result.getCommands().get(i));// (Command)ClientCommunicator.SINGLETON.send((result.getCommands().get(i))),
-//        }
-//        Poller.getInstance().setCommandIndex(result.getCommands().size());
     }
 
     public String pollerCheckServer(int index){
@@ -132,7 +124,6 @@ public class ClientFacade extends Observable{
         }
         else{
             try{
-                //compareServerToClient(result);
                 Poller.getInstance().setCommandIndex(result.getCommands().size() + Poller.getInstance().getCommandIndex());
                 updateModel(result);
                 return "";

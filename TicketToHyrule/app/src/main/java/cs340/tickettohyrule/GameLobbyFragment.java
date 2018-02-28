@@ -14,7 +14,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -23,7 +22,7 @@ import java.util.Queue;
 import cs240.lib.Model.ClientFacade;
 import cs240.lib.Model.Game;
 import cs240.lib.Model.ModelFacade;
-import cs340.tickettohyrule.Presenters.GameLobbyPresenter;
+import cs340.tickettohyrule.PhaseOnePresenters.GameLobbyPresenter;
 
 /**
  * Created by eholm on 2/6/2018.

@@ -1,17 +1,12 @@
 package cs240.lib.Model;
 
 
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Observable;
-
-import cs240.lib.client.Poller;
 import cs240.lib.client.ServerProxy;
-import cs240.lib.common.Command;
+import cs240.lib.common.results.ChatResult;
 import cs240.lib.common.results.CreateResult;
 import cs240.lib.common.results.JoinResult;
 import cs240.lib.common.results.LeaveResult;
-import cs240.lib.common.results.PollerResult;
 import cs240.lib.common.results.SignInResult;
 import cs240.lib.communicator.ClientCommunicator;
 
@@ -19,7 +14,7 @@ import cs240.lib.communicator.ClientCommunicator;
  * Created by adam on 2/7/18.
  */
 
-public class ModelFacade extends Observable{
+public class ModelFacade {
     private ArrayList<Game> gameList = new ArrayList<>();
     private ArrayList<Game> startedGames = new ArrayList<>();
     private Login currentUser = null;
@@ -34,11 +29,7 @@ public class ModelFacade extends Observable{
             return result.getErrorMessage();
         }
         else{
-            //Game g = new Game(maxPlayers, 0, gameName);
             try{
-               // g.addPlayer(userName);
-                //gameList.add(g);
-                //ClientFacade.getInstance().createGame(userName,gameName,maxPlayers);
                 return "";
             }catch(Exception ex){
                 return("EXCEPTION " + ex);
@@ -53,10 +44,6 @@ public class ModelFacade extends Observable{
             return result.getErrorMessage();
         }
         else{
-            //Game g = getGame(gameName);
-           // g.removePlayer(userName);
-            //if (g.getPlayersJoined() == 0) gameList.remove(g);
-            //ClientFacade.getInstance().leaveGame(userName,gameName);
             return "";
         }
     }
@@ -90,18 +77,26 @@ public class ModelFacade extends Observable{
         }
         else{
             try{
-//                getGame(gameName).addPlayer(userName);
-                /*int playersJoined = getGame(gameName).getPlayersJoined();
-                int maxPlayers = getGame(gameName).getMaxPlayers();
-                if (playersJoined == maxPlayers){
-                    String startGameResult = ServerProxy.SINGLETON.startGame(gameName);
-                }*/ //TODO: how does the observer pattern/poller work with start game code? -David
+                //TODO: how does the observer pattern/poller work with start game code? -David
                 return "";
             }catch(Exception ex){
                 return "EXCEPTION! " + ex;
             }
         }
     }
+
+    public String sendMessage(String message){
+        ClientCommunicator.SINGLETON.setAuthToken(currentUser.getAuthToken());
+        ChatResult result = ServerProxy.SINGLETON.sendMessage(message);
+        //WILL THIS BE NULL OR EMPTY STRING???
+        if(result.getErrorMessage() != null){
+            return result.getErrorMessage();
+        }
+        else{
+            return "";
+        }
+    }
+
 
     public Game getGame(String gameName){
         for(Game g : gameList){

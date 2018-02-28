@@ -1,4 +1,4 @@
-package cs340.tickettohyrule.Presenters;
+package cs340.tickettohyrule.PhaseOnePresenters;
 
 import cs240.lib.Model.ModelFacade;
 import cs340.tickettohyrule.CurrentUserSingleton;

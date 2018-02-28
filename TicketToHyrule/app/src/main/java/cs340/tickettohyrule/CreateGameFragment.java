@@ -18,7 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import cs240.lib.Model.ModelFacade;
-import cs340.tickettohyrule.Presenters.CreateGamePresenter;
+import cs340.tickettohyrule.PhaseOnePresenters.CreateGamePresenter;
 
 /**
  * Created by eholm on 2/6/2018.
