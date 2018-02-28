@@ -6,7 +6,7 @@ import java.util.Observer;
 import cs240.lib.Model.ClientFacade;
 import cs240.lib.Model.ModelFacade;
 import cs340.tickettohyrule.CurrentUserSingleton;
-import cs340.tickettohyrule.GameChatFragment;
+import cs340.tickettohyrule.Fragments.GameChatFragment;
 
 /**
  * Created by adam on 2/28/18.

@@ -5,7 +5,7 @@ import java.util.Observable;
 import cs240.lib.Model.ClientFacade;
 import cs240.lib.Model.ModelFacade;
 import cs340.tickettohyrule.CurrentUserSingleton;
-import cs340.tickettohyrule.PreStartFragment;
+import cs340.tickettohyrule.Fragments.PreStartFragment;
 
 /**
  * Created by adam on 2/28/18.

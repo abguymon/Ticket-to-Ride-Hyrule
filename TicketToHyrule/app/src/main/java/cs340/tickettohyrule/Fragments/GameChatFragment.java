@@ -1,4 +1,4 @@
-package cs340.tickettohyrule;
+package cs340.tickettohyrule.Fragments;
 
 import android.support.v4.app.Fragment;
 

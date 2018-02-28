@@ -1,4 +1,4 @@
-package cs340.tickettohyrule;
+package cs340.tickettohyrule.Fragments;
 
 import android.graphics.Typeface;
 import android.os.AsyncTask;
@@ -22,7 +22,11 @@ import java.util.Queue;
 import cs240.lib.Model.ClientFacade;
 import cs240.lib.Model.Game;
 import cs240.lib.Model.ModelFacade;
+import cs340.tickettohyrule.CurrentUserSingleton;
+import cs340.tickettohyrule.InGameSingleton;
 import cs340.tickettohyrule.PhaseOnePresenters.GameLobbyPresenter;
+import cs340.tickettohyrule.R;
+import cs340.tickettohyrule.SignInActivity;
 
 /**
  * Created by eholm on 2/6/2018.

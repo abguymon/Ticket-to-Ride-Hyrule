@@ -1,4 +1,4 @@
-package cs340.tickettohyrule;
+package cs340.tickettohyrule.Fragments;
 
 import android.graphics.Typeface;
 import android.os.AsyncTask;
@@ -15,6 +15,8 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import cs340.tickettohyrule.PhaseOnePresenters.SignInPresenter;
+import cs340.tickettohyrule.R;
+import cs340.tickettohyrule.SignInActivity;
 
 /**
  * Created by eholm on 2/6/2018.

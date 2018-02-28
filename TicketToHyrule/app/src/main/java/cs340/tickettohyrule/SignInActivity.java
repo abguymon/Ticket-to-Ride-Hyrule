@@ -4,6 +4,10 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import cs340.tickettohyrule.Fragments.CreateGameFragment;
+import cs340.tickettohyrule.Fragments.GameLobbyFragment;
+import cs340.tickettohyrule.Fragments.SignInFragment;
+
 public class SignInActivity extends AppCompatActivity {
 
     @Override
