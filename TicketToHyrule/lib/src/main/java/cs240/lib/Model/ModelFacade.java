@@ -87,8 +87,9 @@ public class ModelFacade {
 
     public String sendMessage(String message){
         ClientCommunicator.SINGLETON.setAuthToken(currentUser.getAuthToken());
-        ChatResult result = ServerProxy.SINGLETON.sendMessage(message);
+        ChatResult result = ServerProxy.SINGLETON.chat(currentUser.getUsername(), message);
         //WILL THIS BE NULL OR EMPTY STRING???
+        //It'll be null
         if(result.getErrorMessage() != null){
             return result.getErrorMessage();
         }
