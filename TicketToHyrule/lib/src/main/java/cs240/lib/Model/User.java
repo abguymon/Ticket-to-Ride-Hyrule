@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class User {
     private String username;
     private String password;
-    private ArrayList<Game> gameArray;
+    private ArrayList<String> gameArray;
 
     public User() {
         username = "";
@@ -26,15 +26,14 @@ public class User {
     public String getPassword() {return password;}
     public void setPassword(String password) {this.password = password;}
 
-    public ArrayList<Game> getGameArray() {return gameArray;}
-    public void setGameArray(ArrayList<Game> gameArray) {this.gameArray = gameArray;}
+    public ArrayList<String> getGameArray() {return gameArray;}
+    public void setGameArray(ArrayList<String> gameArray) {this.gameArray = gameArray;}
 
-    public void addGame(Game newGame) {gameArray.add(newGame);}
-    public void removeGame(Game game) {
-        String gameToRemove = game.getGameName();
+    public void addGame(String newGame) {gameArray.add(newGame);}
+    public void removeGame(String game) {
         for (int i = 0; i < gameArray.size(); ++i) {
-            String currentGame = gameArray.get(i).getGameName();
-            if (currentGame.equals(gameToRemove)) {
+            String currentGame = gameArray.get(i);
+            if (currentGame.equals(game)) {
                 gameArray.remove(i);
                 return;
             }

@@ -7,6 +7,7 @@ import java.util.Queue;
 import java.util.UUID;
 
 import cs240.lib.Model.Game;
+import cs240.lib.Model.LobbyGame;
 import cs240.lib.Model.Login;
 import cs240.lib.Model.User;
 import cs240.lib.Model.cards.DestinationCard;
@@ -32,7 +33,7 @@ public class Target implements IServer {
 
     private ArrayList<User> registeredUsers;
     private ArrayList<Login> loggedinUsers;
-    private ArrayList<Game> availableGames;
+    private ArrayList<LobbyGame> availableGames;
     private ArrayList<Game> activeGames;
     private ArrayList<Command> commandHistory;
     private Queue<Command> commandQueue;
@@ -62,11 +63,11 @@ public class Target implements IServer {
         this.loggedinUsers = loggedinUsers;
     }
 
-    public ArrayList<Game> getAvailableGames() {
+    public ArrayList<LobbyGame> getAvailableGames() {
         return availableGames;
     }
 
-    public void setAvailableGames(ArrayList<Game> availableGames) {
+    public void setAvailableGames(ArrayList<LobbyGame> availableGames) {
         this.availableGames = availableGames;
     }
 
@@ -161,9 +162,9 @@ public class Target implements IServer {
         for (int i = 0; i < availableGames.size(); ++i) {
             String curGame = availableGames.get(i).getGameName();
             if (curGame.equals(gameName)) {
-                Game targetGame = availableGames.get(i);
+                LobbyGame targetGame = availableGames.get(i);
                 int index = findPlayerIndex(username);
-                registeredUsers.get(index).addGame(targetGame);
+                registeredUsers.get(index).addGame(targetGame.getGameName());
                 User player = findPlayer(username);
                 try {
                     targetGame.addPlayer(player.getUsername());
@@ -195,9 +196,9 @@ public class Target implements IServer {
         for (int i = 0; i < availableGames.size(); ++i) {
             String curGame = availableGames.get(i).getGameName();
             if (curGame.equals(gameName)) {
-                Game targetGame = availableGames.get(i);
+                LobbyGame targetGame = availableGames.get(i);
                 int index = findPlayerIndex(username);
-                registeredUsers.get(index).removeGame(targetGame);
+                registeredUsers.get(index).removeGame(targetGame.getGameName());
                 User player = findPlayer(username);
                 try {
                     targetGame.removePlayer(player.getUsername());
@@ -243,9 +244,9 @@ public class Target implements IServer {
         if (username.equals("") || username == null) {
             return new CreateResult("Invalid username");
         }
-        Game newGame = new Game(maxPlayers, 0, gameName);
+        LobbyGame newGame = new LobbyGame(maxPlayers, 0, gameName);
         int index = findPlayerIndex(username);
-        registeredUsers.get(index).addGame(newGame);
+        registeredUsers.get(index).addGame(newGame.getGameName());
         User player = findPlayer(username);
         try {
             newGame.addPlayer(player.getUsername());
@@ -258,14 +259,22 @@ public class Target implements IServer {
     }
 
     public StartGameResult startGame(String gameName) {
+        String[] parameterTypeNames = {String.class.getName()};
+        Object[] parameters = {gameName};
+        Command startGameCommand = new Command("startGame", parameterTypeNames, parameters);
+        commandHistory.add(startGameCommand);
+        commandQueue.add(startGameCommand);
+        Poller.getInstance().incrementCommandIndex();
+
         if (gameName.equals("") || gameName == null) {
             return new StartGameResult("Invalid username");
         }
         for (int i = 0; i < availableGames.size(); ++i) {
-            Game curGame = availableGames.get(i);
+            LobbyGame curGame = availableGames.get(i);
             if (curGame.getGameName().equals(gameName)) {
                 availableGames.remove(i);
-                activeGames.add(curGame);
+                Game newGame = initializeGame(curGame);
+                activeGames.add(newGame);
                 return new StartGameResult("Started");
             }
         }
@@ -348,5 +357,9 @@ public class Target implements IServer {
             }
         }
         return false;
+    }
+
+    private Game initializeGame(LobbyGame gameToStart) {
+        return null;
     }
 }
