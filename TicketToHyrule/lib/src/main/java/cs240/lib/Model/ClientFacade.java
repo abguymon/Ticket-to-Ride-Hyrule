@@ -55,10 +55,8 @@ public class ClientFacade extends Observable{
     }
 
     public boolean startGame(String gameName){
-        Game g = getGame(gameName);
         try {
-            setChanged();
-            notifyObservers(gameList);
+            //tell modelFacade to tell server to start game, maybe through presenter?
             return true;
         }catch(Exception ex){
             System.out.println("EXCEPTION "+ex);

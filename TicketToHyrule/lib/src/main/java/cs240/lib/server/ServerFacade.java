@@ -1,7 +1,5 @@
 package cs240.lib.server;
 
-import com.sun.corba.se.spi.activation.Server;
-
 import java.util.Stack;
 
 import cs240.lib.Model.cards.DestinationCard;
@@ -93,7 +91,7 @@ public class ServerFacade implements IServer {
     }
 
     @Override
-    public GetGameResult getGame(String gameName) {
-        return Target.SINGLETON.getGame(gameName);
+    public GetGameResult getGameData(String gameName) {
+        return Target.SINGLETON.getGameData(gameName);
     }
 }

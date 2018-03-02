@@ -309,7 +309,7 @@ public class Target implements IServer {
     public SubmitResult submitDestinationCards(String playerName, String gameName, DestinationCard card) {return null;}
 
     @Override
-    public GetGameResult getGame(String gameName) {return null;}
+    public GetGameResult getGameData(String gameName) {return null;}
 
     public void clear() {
         registeredUsers.clear();

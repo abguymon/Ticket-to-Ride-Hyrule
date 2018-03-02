@@ -96,8 +96,13 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener,
         Queue<Game> games = clientFacade.getStartedGames();
         while (games.size()!=0)
         {
+            Game g = games.remove();
             Toast.makeText(getActivity(),
-                    games.remove().getGameName() + " Started", Toast.LENGTH_SHORT).show();
+                    g.getGameName() + " Started", Toast.LENGTH_SHORT).show();
+            //THIS CODE IS WEIRD BUT BELOW IS ME TELLING THE SERVER TO START THESE GAMES
+            if(g.getPlayerArray().contains(CurrentUserSingleton.getInstance().getUserName())){
+                CurrentUserSingleton.getInstance().getModelFacade().getGameData();
+            }
         }
 
         List<Game> gameList = getGames();
