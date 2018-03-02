@@ -7,41 +7,743 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/zeldaMap"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:scaleType="fitXY"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/temp_map" />
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/zelda_map" />
 
     <ImageButton
-        android:id="@+id/imageButton4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/infoButon"
+        android:layout_width="50"
+        android:layout_height="50"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@mipmap/ic_launcher_round" />
 
     <ImageButton
-        android:id="@+id/imageButton3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/chatButton"
+        android:layout_width="50"
+        android:layout_height="50"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton4"
+        app:layout_constraintTop_toBottomOf="@+id/infoButon"
         app:srcCompat="@mipmap/ic_launcher" />
 
     <ImageButton
-        android:id="@+id/imageButton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/historyButton"
+        android:layout_width="50"
+        android:layout_height="50"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton3"
+        app:layout_constraintTop_toBottomOf="@+id/chatButton"
         app:srcCompat="@mipmap/ic_launcher_round" />
+
+    <ImageButton
+        android:id="@+id/route"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="759dp"
+        tools:layout_editor_absoluteY="506dp" />
+
+    <ImageButton
+        android:id="@+id/route9"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="699dp"
+        tools:layout_editor_absoluteY="490dp" />
+
+    <ImageButton
+        android:id="@+id/route94"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="669dp"
+        tools:layout_editor_absoluteY="499dp" />
+
+    <ImageButton
+        android:id="@+id/route8"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="566dp"
+        tools:layout_editor_absoluteY="536dp" />
+
+    <ImageButton
+        android:id="@+id/route7"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="885dp"
+        tools:layout_editor_absoluteY="536dp" />
+
+    <ImageButton
+        android:id="@+id/route6"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="1037dp"
+        tools:layout_editor_absoluteY="460dp" />
+
+    <ImageButton
+        android:id="@+id/route10"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="933dp"
+        tools:layout_editor_absoluteY="506dp" />
+
+    <ImageButton
+        android:id="@+id/route14"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="903dp"
+        tools:layout_editor_absoluteY="460dp" />
+
+    <ImageButton
+        android:id="@+id/route17"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="975dp"
+        tools:layout_editor_absoluteY="316dp" />
+
+    <ImageButton
+        android:id="@+id/route16"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="954dp"
+        tools:layout_editor_absoluteY="447dp" />
+
+    <ImageButton
+        android:id="@+id/route15"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="984dp"
+        tools:layout_editor_absoluteY="447dp" />
+
+    <ImageButton
+        android:id="@+id/route11"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="743dp"
+        tools:layout_editor_absoluteY="417dp" />
+
+    <ImageButton
+        android:id="@+id/route19"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="933dp"
+        tools:layout_editor_absoluteY="286dp" />
+
+    <ImageButton
+        android:id="@+id/route18"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="683dp"
+        tools:layout_editor_absoluteY="409dp" />
+
+    <ImageButton
+        android:id="@+id/route21"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="1007dp"
+        tools:layout_editor_absoluteY="506dp" />
+
+    <ImageButton
+        android:id="@+id/route20"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="1024dp"
+        tools:layout_editor_absoluteY="297dp" />
+
+    <ImageButton
+        android:id="@+id/route13"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="915dp"
+        tools:layout_editor_absoluteY="409dp" />
+
+    <ImageButton
+        android:id="@+id/route22"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="1054dp"
+        tools:layout_editor_absoluteY="297dp" />
+
+    <ImageButton
+        android:id="@+id/route23"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="895dp"
+        tools:layout_editor_absoluteY="363dp" />
+
+    <ImageButton
+        android:id="@+id/route24"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="1024dp"
+        tools:layout_editor_absoluteY="371dp" />
+
+    <ImageButton
+        android:id="@+id/route25"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="1054dp"
+        tools:layout_editor_absoluteY="387dp" />
+
+    <ImageButton
+        android:id="@+id/route42"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="214dp"
+        tools:layout_editor_absoluteY="116dp" />
+
+    <ImageButton
+        android:id="@+id/route43"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="171dp"
+        tools:layout_editor_absoluteY="247dp" />
+
+    <ImageButton
+        android:id="@+id/route82"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="625dp"
+        tools:layout_editor_absoluteY="217dp" />
+
+    <ImageButton
+        android:id="@+id/route90"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="984dp"
+        tools:layout_editor_absoluteY="226dp" />
+
+    <ImageButton
+        android:id="@+id/route91"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="954dp"
+        tools:layout_editor_absoluteY="226dp" />
+
+    <ImageButton
+        android:id="@+id/route92"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="925dp"
+        tools:layout_editor_absoluteY="178dp" />
+
+    <ImageButton
+        android:id="@+id/route93"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="885dp"
+        tools:layout_editor_absoluteY="273dp" />
+
+    <ImageButton
+        android:id="@+id/route89"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="823dp"
+        tools:layout_editor_absoluteY="286dp" />
+
+    <ImageButton
+        android:id="@+id/route83"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="683dp"
+        tools:layout_editor_absoluteY="297dp" />
+
+    <ImageButton
+        android:id="@+id/route84"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="653dp"
+        tools:layout_editor_absoluteY="327dp" />
+
+    <ImageButton
+        android:id="@+id/route85"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="615dp"
+        tools:layout_editor_absoluteY="379dp" />
+
+    <ImageButton
+        android:id="@+id/route78"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="766dp"
+        tools:layout_editor_absoluteY="187dp" />
+
+    <ImageButton
+        android:id="@+id/route79"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="704dp"
+        tools:layout_editor_absoluteY="204dp" />
+
+    <ImageButton
+        android:id="@+id/route80"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="653dp"
+        tools:layout_editor_absoluteY="217dp" />
+
+    <ImageButton
+        android:id="@+id/route81"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="605dp"
+        tools:layout_editor_absoluteY="346dp" />
+
+    <ImageButton
+        android:id="@+id/route74"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="796dp"
+        tools:layout_editor_absoluteY="286dp" />
+
+    <ImageButton
+        android:id="@+id/route75"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="750dp"
+        tools:layout_editor_absoluteY="256dp" />
+
+    <ImageButton
+        android:id="@+id/route76"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="841dp"
+        tools:layout_editor_absoluteY="226dp" />
+
+    <ImageButton
+        android:id="@+id/route77"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="766dp"
+        tools:layout_editor_absoluteY="217dp" />
+
+    <ImageButton
+        android:id="@+id/route70"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="853dp"
+        tools:layout_editor_absoluteY="76dp" />
+
+    <ImageButton
+        android:id="@+id/route71"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="823dp"
+        tools:layout_editor_absoluteY="66dp" />
+
+    <ImageButton
+        android:id="@+id/route72"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="823dp"
+        tools:layout_editor_absoluteY="124dp" />
+
+    <ImageButton
+        android:id="@+id/route73"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="759dp"
+        tools:layout_editor_absoluteY="116dp" />
+
+    <ImageButton
+        android:id="@+id/route66"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="674dp"
+        tools:layout_editor_absoluteY="174dp" />
+
+    <ImageButton
+        android:id="@+id/route67"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="504dp"
+        tools:layout_editor_absoluteY="196dp" />
+
+    <ImageButton
+        android:id="@+id/route68"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="933dp"
+        tools:layout_editor_absoluteY="135dp" />
+
+    <ImageButton
+        android:id="@+id/route69"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="903dp"
+        tools:layout_editor_absoluteY="144dp" />
+
+    <ImageButton
+        android:id="@+id/route58"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="304dp"
+        tools:layout_editor_absoluteY="238dp" />
+
+    <ImageButton
+        android:id="@+id/route62"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="566dp"
+        tools:layout_editor_absoluteY="333dp" />
+
+    <ImageButton
+        android:id="@+id/route63"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="536dp"
+        tools:layout_editor_absoluteY="333dp" />
+
+    <ImageButton
+        android:id="@+id/route64"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="555dp"
+        tools:layout_editor_absoluteY="273dp" />
+
+    <ImageButton
+        android:id="@+id/route65"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="575dp"
+        tools:layout_editor_absoluteY="217dp" />
+
+    <ImageButton
+        android:id="@+id/route59"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="444dp"
+        tools:layout_editor_absoluteY="247dp" />
+
+    <ImageButton
+        android:id="@+id/route60"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="413dp"
+        tools:layout_editor_absoluteY="273dp" />
+
+    <ImageButton
+        android:id="@+id/route61"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="221dp"
+        tools:layout_editor_absoluteY="286dp" />
+
+    <ImageButton
+        android:id="@+id/route44"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="296dp"
+        tools:layout_editor_absoluteY="400dp" />
+
+    <ImageButton
+        android:id="@+id/route54"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="383dp"
+        tools:layout_editor_absoluteY="76dp" />
+
+    <ImageButton
+        android:id="@+id/route55"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="334dp"
+        tools:layout_editor_absoluteY="135dp" />
+
+    <ImageButton
+        android:id="@+id/route56"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="274dp"
+        tools:layout_editor_absoluteY="208dp" />
+
+    <ImageButton
+        android:id="@+id/route57"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="244dp"
+        tools:layout_editor_absoluteY="135dp" />
+
+    <ImageButton
+        android:id="@+id/route50"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="691dp"
+        tools:layout_editor_absoluteY="66dp" />
+
+    <ImageButton
+        android:id="@+id/route51"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="536dp"
+        tools:layout_editor_absoluteY="144dp" />
+
+    <ImageButton
+        android:id="@+id/route52"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="555dp"
+        tools:layout_editor_absoluteY="66dp" />
+
+    <ImageButton
+        android:id="@+id/route53"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="435dp"
+        tools:layout_editor_absoluteY="144dp" />
+
+    <ImageButton
+        android:id="@+id/route46"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="458dp"
+        tools:layout_editor_absoluteY="316dp" />
+
+    <ImageButton
+        android:id="@+id/route47"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="349dp"
+        tools:layout_editor_absoluteY="333dp" />
+
+    <ImageButton
+        android:id="@+id/route48"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="132dp"
+        tools:layout_editor_absoluteY="387dp" />
+
+    <ImageButton
+        android:id="@+id/route49"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="162dp"
+        tools:layout_editor_absoluteY="371dp" />
+
+    <ImageButton
+        android:id="@+id/route45"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="141dp"
+        tools:layout_editor_absoluteY="238dp" />
+
+    <ImageButton
+        android:id="@+id/route26"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="729dp"
+        tools:layout_editor_absoluteY="333dp" />
+
+    <ImageButton
+        android:id="@+id/route27"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="759dp"
+        tools:layout_editor_absoluteY="333dp" />
+
+    <ImageButton
+        android:id="@+id/route30"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="458dp"
+        tools:layout_editor_absoluteY="430dp" />
+
+    <ImageButton
+        android:id="@+id/route34"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="474dp"
+        tools:layout_editor_absoluteY="499dp" />
+
+    <ImageButton
+        android:id="@+id/route38"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="391dp"
+        tools:layout_editor_absoluteY="447dp" />
+
+    <ImageButton
+        android:id="@+id/route39"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="391dp"
+        tools:layout_editor_absoluteY="520dp" />
+
+    <ImageButton
+        android:id="@+id/route40"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="274dp"
+        tools:layout_editor_absoluteY="576dp" />
+
+    <ImageButton
+        android:id="@+id/route41"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="555dp"
+        tools:layout_editor_absoluteY="499dp" />
+
+    <ImageButton
+        android:id="@+id/route35"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="326dp"
+        tools:layout_editor_absoluteY="400dp" />
+
+    <ImageButton
+        android:id="@+id/route36"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="214dp"
+        tools:layout_editor_absoluteY="476dp" />
+
+    <ImageButton
+        android:id="@+id/route37"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="244dp"
+        tools:layout_editor_absoluteY="506dp" />
+
+    <ImageButton
+        android:id="@+id/route31"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="545dp"
+        tools:layout_editor_absoluteY="417dp" />
+
+    <ImageButton
+        android:id="@+id/route32"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="585dp"
+        tools:layout_editor_absoluteY="447dp" />
+
+    <ImageButton
+        android:id="@+id/route33"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="653dp"
+        tools:layout_editor_absoluteY="400dp" />
+
+    <ImageButton
+        android:id="@+id/route28"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="853dp"
+        tools:layout_editor_absoluteY="439dp" />
+
+    <ImageButton
+        android:id="@+id/route29"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="853dp"
+        tools:layout_editor_absoluteY="333dp" />
+
+    <ImageButton
+        android:id="@+id/route12"
+        android:layout_width="30"
+        android:layout_height="30"
+        android:background="@drawable/blackCircle"
+        tools:layout_editor_absoluteX="823dp"
+        tools:layout_editor_absoluteY="430dp" />
 
 </android.support.constraint.ConstraintLayout>

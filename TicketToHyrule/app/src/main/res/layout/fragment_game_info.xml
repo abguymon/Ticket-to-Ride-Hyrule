@@ -2,14 +2,190 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/background">
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/destinationCardRecycler"
+        android:layout_width="94dp"
+        android:layout_height="141dp"
+        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/playerInfoRecycler"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="64dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:scrollbars="none"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/trainDeck"
+        android:layout_width="110"
+        android:layout_height="150"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/tcdeck"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/playerInfoRecycler" />
+
+    <ImageButton
+        android:id="@+id/tCardOne"
+        android:layout_width="100"
+        android:layout_height="140"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/blueTC"
+        app:layout_constraintStart_toEndOf="@+id/trainDeck"
+        app:layout_constraintTop_toBottomOf="@+id/playerInfoRecycler" />
+
+    <ImageButton
+        android:id="@+id/tCardTwo"
+        android:layout_width="100"
+        android:layout_height="140"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/greenTC"
+        app:layout_constraintStart_toEndOf="@+id/tCardOne"
+        app:layout_constraintTop_toBottomOf="@+id/playerInfoRecycler" />
+
+    <ImageButton
+        android:id="@+id/tCardThree"
+        android:layout_width="100"
+        android:layout_height="140"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/blackTC"
+        app:layout_constraintStart_toEndOf="@+id/tCardTwo"
+        app:layout_constraintTop_toBottomOf="@+id/playerInfoRecycler" />
+
+    <ImageButton
+        android:id="@+id/tCardFour"
+        android:layout_width="100"
+        android:layout_height="140"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/redTC"
+        app:layout_constraintStart_toEndOf="@+id/tCardThree"
+        app:layout_constraintTop_toBottomOf="@+id/playerInfoRecycler" />
+
+    <ImageButton
+        android:id="@+id/tCardFive"
+        android:layout_width="100"
+        android:layout_height="140"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/whiteTC"
+        app:layout_constraintStart_toEndOf="@+id/tCardFour"
+        app:layout_constraintTop_toBottomOf="@+id/playerInfoRecycler" />
+
+    <ImageButton
+        android:id="@+id/destinationDeck"
+        android:layout_width="110"
+        android:layout_height="150"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/dcdeck"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/trainDeck" />
+
+    <TextView
+        android:id="@+id/whiteTCtext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="32dp"
+        android:text="Number of White Cards: "
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/destinationCardRecycler" />
+
+    <TextView
+        android:id="@+id/pinkTCtext"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginEnd="32dp"
+        android:text="Number of Pink Cards: "
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/whiteTCtext"
+        app:layout_constraintEnd_toStartOf="@+id/destinationCardRecycler" />
+
+    <TextView
+        android:id="@+id/yellowTCtext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:text="Number of Yellow Cards: "
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/pinkTCtext"
+        app:layout_constraintEnd_toStartOf="@+id/destinationCardRecycler" />
+
+    <TextView
+        android:id="@+id/blackTCtext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:text="Number of Black Cards:"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/yellowTCtext"
+        app:layout_constraintEnd_toStartOf="@+id/destinationCardRecycler" />
+
+    <TextView
+        android:id="@+id/blueTCtext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:text="Number of Blue Cards: "
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/blackTCtext"
+        app:layout_constraintEnd_toStartOf="@+id/destinationCardRecycler" />
+
+    <TextView
+        android:id="@+id/orangeTCtext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:text="Number of Orange Cards: "
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/blueTCtext"
+        app:layout_constraintEnd_toStartOf="@+id/destinationCardRecycler" />
+
+    <TextView
+        android:id="@+id/greenTCtext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:text="Number of Green Cards: "
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/orangeTCtext"
+        app:layout_constraintEnd_toStartOf="@+id/destinationCardRecycler" />
+
+    <TextView
+        android:id="@+id/redTCtext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:text="Number of Red Cards: "
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/greenTCtext"
+        app:layout_constraintEnd_toStartOf="@+id/destinationCardRecycler" />
+
+    <TextView
+        android:id="@+id/locoTCtext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:text="Number of Locomotives: "
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/redTCtext"
+        app:layout_constraintEnd_toStartOf="@+id/destinationCardRecycler" />
 </android.support.constraint.ConstraintLayout>
