@@ -275,7 +275,7 @@ public class Target implements IServer {
                 availableGames.remove(i);
                 Game newGame = initializeGame(curGame);
                 activeGames.add(newGame);
-                return new StartGameResult("Started");
+                return new StartGameResult(curGame.getPlayerArray());
             }
         }
         return new StartGameResult("Error: Game not started");
@@ -296,11 +296,34 @@ public class Target implements IServer {
         return new PollerResult(execute);
     }
 
+    //finish me
     @Override
-    public GameHistoryResult getGameHistory(String gameName) {return null;}
+    public GameHistoryResult getGameHistory(String gameName) {
+        if (gameName == null) {
+            return new GameHistoryResult("Error: Invalid game name");
+        }
+        if (gameName.equals("")) {
+            return new GameHistoryResult("Invalid game name");
+        }
+        for (int i = 0; i < activeGames.size(); ++i) {
+            if (activeGames.get(i).getGameName().equals(gameName)) {
+                return new GameHistoryResult(commandHistory);
+            }
+        }
+        return new GameHistoryResult("Game not found");
+    }
 
+    //Finish me
     @Override
-    public ChatResult chat(String playerName, String message) {return null;}
+    public ChatResult chat(String playerName, String message) {
+        String[] parameterTypeNames = {String.class.getName(), String.class.getName()};
+        Object[] parameters = {playerName, message};
+        Command startGameCommand = new Command("chat", parameterTypeNames, parameters);
+        commandHistory.add(startGameCommand);
+        commandQueue.add(startGameCommand);
+        Poller.getInstance().incrementCommandIndex();
+        return null;
+    }
 
     @Override
     public DrawDestinationCardResult drawDestinationCard(String playerName, String gameName) {return null;}
@@ -309,7 +332,21 @@ public class Target implements IServer {
     public SubmitResult submitDestinationCards(String playerName, String gameName, DestinationCard card) {return null;}
 
     @Override
-    public GetGameResult getGame(String gameName) {return null;}
+    public GetGameResult getGame(String gameName) {
+        //command won't be added to the poller queue or game history
+        if (gameName == null) {
+            return new GetGameResult("Invalide game name");
+        }
+        if (gameName.equals("")) {
+            return new GetGameResult("Invalid game name");
+        }
+        for (int i = 0; i < activeGames.size(); ++i) {
+            if (activeGames.get(i).getGameName().equals(gameName)) {
+                return new GetGameResult(activeGames.get(i));
+            }
+        }
+        return new GetGameResult("Error: Game not found");
+    }
 
     public void clear() {
         registeredUsers.clear();
