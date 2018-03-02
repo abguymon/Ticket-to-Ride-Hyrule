@@ -1,5 +1,6 @@
 package cs340.tickettohyrule;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -32,5 +33,10 @@ public class SignInActivity extends AppCompatActivity {
         Fragment fragment = new CreateGameFragment();
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_frame, fragment, fragment.getClass().getSimpleName()).addToBackStack(null).commit();
+    }
+    public void moveToPreGame(){
+        //PROBABLY CHANGE THIS TO PASS AN INTENT ON WHETHER IT STARTS THE PREGAME OR JUST JUMPS INTO THE GAME
+        Intent intent = new Intent(SignInActivity.this, GameActivity.class);
+        startActivity(intent);
     }
 }

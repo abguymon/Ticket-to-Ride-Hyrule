@@ -23,12 +23,12 @@ public class GameHistoryPresenter implements Observer{
     @Override
     public void update (Observable observable, Object o){
         CurrentUserSingleton.getInstance().getModelFacade().setGames(ClientFacade.getInstance().getGames());
-        getActivity().runOnUiThread(new Runnable(){
-            @Override
-            public void run(){
-                updateUI();
-            }
-        });
+//        getActivity().runOnUiThread(new Runnable(){
+//            @Override
+//            public void run(){
+//                updateUI();
+//            }
+//        });
     }
 
     public void setView(GameHistoryFragment view){

@@ -110,10 +110,6 @@ public class ClientFacade extends Observable{
 
         while(!result.getCommands().isEmpty())
         {
-            for(Game g: gameList)
-            {
-                System.out.println(g.toString());
-            }
             handleObject(result.getCommands().remove());
         }
     }
