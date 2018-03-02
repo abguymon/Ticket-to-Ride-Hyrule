@@ -40,7 +40,7 @@ public class LobbyGame {
 
     public void addPlayer(String newPlayer) throws Exception{
         if (playersJoined >= maxPlayers) {
-            throw new Exception("Game: " + gameName + " is already full");
+            throw new Exception("LobbyGame: " + gameName + " is already full");
         }
         else {
 

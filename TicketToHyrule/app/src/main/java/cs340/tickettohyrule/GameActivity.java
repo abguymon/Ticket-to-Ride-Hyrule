@@ -5,12 +5,10 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 
 import cs240.lib.Model.ClientFacade;
-import cs240.lib.Model.Game;
 import cs340.tickettohyrule.Fragments.GameChatFragment;
 import cs340.tickettohyrule.Fragments.GameHistoryFragment;
 import cs340.tickettohyrule.Fragments.GameInfoFragment;
 import cs340.tickettohyrule.Fragments.PreStartFragment;
-import cs340.tickettohyrule.Fragments.SignInFragment;
 import cs340.tickettohyrule.PhaseTwoPresenters.GamePresenter;
 
 /**

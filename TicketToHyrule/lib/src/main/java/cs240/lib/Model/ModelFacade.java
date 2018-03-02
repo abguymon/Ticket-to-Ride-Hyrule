@@ -19,9 +19,9 @@ import cs240.lib.communicator.ClientCommunicator;
  */
 
 public class ModelFacade {
-    private ArrayList<Game> gameList = new ArrayList<>();
-    private ArrayList<Game> startedGames = new ArrayList<>();
-    private Game gameData = null;
+    private ArrayList<LobbyGame> lobbyGameList = new ArrayList<>();
+    private ArrayList<LobbyGame> startedLobbyGames = new ArrayList<>();
+    private LobbyGame gameData = null;
     private Login currentUser = null;
     public ModelFacade(){}
 
@@ -130,14 +130,14 @@ public class ModelFacade {
     }
 
 
-    public Game getGame(String gameName){
-        for(Game g : gameList){
+    public LobbyGame getGame(String gameName){
+        for(LobbyGame g : lobbyGameList){
             if(g.getGameName().equals(gameName)) return g;
         }
         return null;
     }
-    public ArrayList<Game> getGames(){
-        return gameList;
+    public ArrayList<LobbyGame> getGames(){
+        return lobbyGameList;
     }
 
     public Login getCurrentUser() {
@@ -148,23 +148,23 @@ public class ModelFacade {
         this.currentUser = currentUser;
     }
 
-    public void setGames(ArrayList<Game> games){
-        this.gameList = games;
+    public void setGames(ArrayList<LobbyGame> lobbyGames){
+        this.lobbyGameList = lobbyGames;
     }
 
-    public ArrayList<Game> getStartedGames() {
-        return startedGames;
+    public ArrayList<LobbyGame> getStartedLobbyGames() {
+        return startedLobbyGames;
     }
 
-    public void setStartedGames(ArrayList<Game> startedGames) {
-        this.startedGames = startedGames;
+    public void setStartedLobbyGames(ArrayList<LobbyGame> startedLobbyGames) {
+        this.startedLobbyGames = startedLobbyGames;
     }
 
-    public Game getGameData() {
+    public LobbyGame getGameData() {
         return gameData;
     }
 
-    public void setGameData(Game gameData) {
+    public void setGameData(LobbyGame gameData) {
         this.gameData = gameData;
     }
 }

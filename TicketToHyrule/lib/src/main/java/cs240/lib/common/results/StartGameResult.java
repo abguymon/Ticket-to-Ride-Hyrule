@@ -2,8 +2,6 @@ package cs240.lib.common.results;
 
 import java.util.ArrayList;
 
-import cs240.lib.Model.Game;
-
 /**
  * Created by savannah.jane on 2/26/2018.
  */

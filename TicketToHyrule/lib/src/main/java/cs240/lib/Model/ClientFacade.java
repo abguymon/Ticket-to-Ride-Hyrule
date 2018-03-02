@@ -15,9 +15,9 @@ import cs240.lib.common.results.PollerResult;
  */
 
 public class ClientFacade extends Observable{
-    private ArrayList<Game> gameList = new ArrayList<>();
-    private Queue<Game> startedGames = new LinkedList<>();
-    private Game gameData = null;
+    private ArrayList<LobbyGame> lobbyGameList = new ArrayList<>();
+    private Queue<LobbyGame> startedLobbyGames = new LinkedList<>();
+    private LobbyGame gameData = null;
     private static ClientFacade instance = null;
 
     private ClientFacade(){}
@@ -33,21 +33,21 @@ public class ClientFacade extends Observable{
     }
 
     public void createGame(String userName, String gameName, int maxPlayers){
-        Game g = new Game(maxPlayers, 0, gameName);
-        gameList.add(g);
+        LobbyGame g = new LobbyGame(maxPlayers, 0, gameName);
+        lobbyGameList.add(g);
         joinGame(userName, gameName);
     }
 
     public boolean joinGame(String userName, String gameName){
-        Game g = getGame(gameName);
+        LobbyGame g = getGame(gameName);
         try {
             g.addPlayer(userName);
             if(g.getPlayersJoined() == g.getMaxPlayers()) {
-                gameList.remove(g);
-                startedGames.add(g);
+                lobbyGameList.remove(g);
+                startedLobbyGames.add(g);
             }
             setChanged();
-            notifyObservers(gameList);
+            notifyObservers(lobbyGameList);
             return true;
         }catch(Exception ex){
             System.out.println("EXCEPTION "+ex);
@@ -66,11 +66,11 @@ public class ClientFacade extends Observable{
     }
 
     public void leaveGame(String userName, String gameName){
-        Game g = getGame(gameName);
+        LobbyGame g = getGame(gameName);
         g.removePlayer(userName);
-        if(g.getPlayersJoined() == 0) gameList.remove(g);
+        if(g.getPlayersJoined() == 0) lobbyGameList.remove(g);
         setChanged();
-        notifyObservers(gameList);
+        notifyObservers(lobbyGameList);
     }
     public void sendMessage(String message){
         //ADD FUNCTION
@@ -129,30 +129,30 @@ public class ClientFacade extends Observable{
         }
     }
 
-    public Game getGame(String gameName){
-        for(Game g : gameList){
+    public LobbyGame getGame(String gameName){
+        for(LobbyGame g : lobbyGameList){
             if(g.getGameName().equals(gameName)) return g;
         }
         return null;
     }
 
-    public ArrayList<Game> getGames(){
-        return gameList;
+    public ArrayList<LobbyGame> getGames(){
+        return lobbyGameList;
     }
 
-    public Queue<Game> getStartedGames() {
-        return startedGames;
+    public Queue<LobbyGame> getStartedLobbyGames() {
+        return startedLobbyGames;
     }
 
-    public void setStartedGames(Queue<Game> startedGames) {
-        this.startedGames = startedGames;
+    public void setStartedLobbyGames(Queue<LobbyGame> startedLobbyGames) {
+        this.startedLobbyGames = startedLobbyGames;
     }
 
-    public Game getGameData() {
+    public LobbyGame getGameData() {
         return gameData;
     }
 
-    public void setGameData(Game gameData) {
+    public void setGameData(LobbyGame gameData) {
         this.gameData = gameData;
     }
 }
