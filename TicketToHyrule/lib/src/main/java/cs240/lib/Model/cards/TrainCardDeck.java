@@ -11,12 +11,8 @@ import cs240.lib.Model.colors.TrainCardColor;
  */
 
 public class TrainCardDeck {
-    public static TrainCardDeck SINGLETON = new TrainCardDeck();
-
     private Stack<TrainCard> trainCards;
-    private TrainCardDeck(){
-        createDeck();
-    }
+    public TrainCardDeck(){createDeck();}
 
     public void shuffle(){
         //TODO: finish the shuffle

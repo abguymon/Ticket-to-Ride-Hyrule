@@ -415,29 +415,9 @@ public class Target implements IServer {
 
     private Game initializeGame(LobbyGame gameToStart) {
         Game game = new Game(gameToStart.getGameName());
-        initializeTrainCardDeck(game);
-        initializeDestinationCards(game);
-        initializeGameMap(game);
-        initializeFaceUpCards(game);
         initializePlayers(game);
         game.addToGameHistory(gameToStart.getGameName() + " started!");
         return game;
-    }
-
-    private void initializeTrainCardDeck(Game game) {
-
-    }
-
-    private void initializeDestinationCards(Game game) {
-
-    }
-
-    private void initializeGameMap(Game game) {
-
-    }
-
-    private void initializeFaceUpCards(Game game) {
-
     }
 
     private void initializePlayers(Game game) {

@@ -18,7 +18,6 @@ public class GameMap {
     public ArrayList<Route> getRoutes() {
         return routes;
     }
-
     public ArrayList<City> getCities() {
         return cities;
     }

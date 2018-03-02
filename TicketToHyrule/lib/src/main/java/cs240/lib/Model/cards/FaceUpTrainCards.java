@@ -13,6 +13,14 @@ public class FaceUpTrainCards {
         faceUpCards = new TrainCard[5];
     }
 
+    public TrainCard[] getFaceUpCards() {
+        return faceUpCards;
+    }
+
+    public void setFaceUpCards(TrainCard[] faceUpCards) {
+        this.faceUpCards = faceUpCards;
+    }
+
     public TrainCard pick(int positionPicked){
         TrainCard picked = faceUpCards[positionPicked];
         faceUpCards[positionPicked] = TrainCardDeck.SINGLETON.draw();
