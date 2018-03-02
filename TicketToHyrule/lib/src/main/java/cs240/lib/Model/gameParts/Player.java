@@ -11,6 +11,7 @@ import cs240.lib.Model.colors.PlayerColor;
  */
 
 public class Player {
+    private String playerName;
     private PlayerColor color;
     private int score;
     private int trainsRemaining;
@@ -19,13 +20,19 @@ public class Player {
 
     private final int MAX_TRAIN_CARS = 45;
 
-    public Player(PlayerColor color) {
+    public Player(PlayerColor color, String playerName) {
         this.color = color;
         this.score = 0;
         this.trainsRemaining = MAX_TRAIN_CARS;
         this.destinationCards = new ArrayList<>();
         this.trainCards = new ArrayList<>();
+        this.playerName = playerName;
+
     }
+
+    public String getPlayerName() {return playerName;}
+
+    public void setPlayerName(String playerName) {this.playerName = playerName;}
 
     public PlayerColor getColor(){
         return color;

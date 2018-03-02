@@ -76,8 +76,8 @@ public class ServerFacade implements IServer {
     }
 
     @Override
-    public ChatResult chat(String playerName, String message) {
-        return Target.SINGLETON.chat(playerName, message);
+    public ChatResult chat(String playerName, String message, String gameName) {
+        return Target.SINGLETON.chat(playerName, message, gameName);
     }
 
     @Override

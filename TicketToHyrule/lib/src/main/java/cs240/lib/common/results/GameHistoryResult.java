@@ -9,10 +9,10 @@ import cs240.lib.common.Command;
  */
 
 public class GameHistoryResult {
-    private ArrayList<Command> gameHistory;
+    private ArrayList<String> gameHistory;
     private String errorMessage;
 
-    public GameHistoryResult(ArrayList<Command> gameHistory) {
+    public GameHistoryResult(ArrayList<String> gameHistory) {
         this.gameHistory = gameHistory;
     }
 
@@ -20,11 +20,11 @@ public class GameHistoryResult {
         this.errorMessage = errorMessage;
     }
 
-    public ArrayList<Command> getGameHistory() {
+    public ArrayList<String> getGameHistory() {
         return gameHistory;
     }
 
-    public void setGameHistory(ArrayList<Command> gameHistory) {
+    public void setGameHistory(ArrayList<String> gameHistory) {
         this.gameHistory = gameHistory;
     }
 

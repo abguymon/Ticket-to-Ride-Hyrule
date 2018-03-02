@@ -2,14 +2,17 @@ package cs240.lib.Model;
 
 import java.util.ArrayList;
 
+import cs240.lib.Model.cards.DestinationCard;
 import cs240.lib.Model.cards.TrainCard;
 import cs240.lib.Model.gameParts.GameMap;
 import cs240.lib.Model.gameParts.Player;
+import cs240.lib.common.Command;
 
 public class Game {
     private String gameName;
     private ArrayList<Player> playerArray;
     private ArrayList<TrainCard> trainCardDeck;
+    private ArrayList<DestinationCard> destinationCardDeck;
     private GameMap map;
     private ArrayList<TrainCard> faceUpTrainCards;
     private ArrayList<String> gameHistory;
@@ -19,11 +22,14 @@ public class Game {
         this.gameName = newName;
         playerArray = new ArrayList<>();
         trainCardDeck = new ArrayList<>();
+        destinationCardDeck = new ArrayList<>();
         faceUpTrainCards = new ArrayList<>();
         gameHistory = new ArrayList<>();
         chatHistory = new ArrayList<>();
     }
 
+    public ArrayList<DestinationCard> getDestinationCardDeck() {return destinationCardDeck;}
+    public void setDestinationCardDeck(ArrayList<DestinationCard> destinationCardDeck) {this.destinationCardDeck = destinationCardDeck;}
     public String getGameName() {return gameName;}
     public void setGameName(String gameName) {this.gameName = gameName;}
     public ArrayList<Player> getPlayerArray() {return playerArray;}
@@ -38,4 +44,6 @@ public class Game {
     public void setGameHistory(ArrayList<String> gameHistory) {this.gameHistory = gameHistory;}
     public ArrayList<ChatEntry> getChatHistory() {return chatHistory;}
     public void setChatHistory(ArrayList<ChatEntry> chatHistory) {this.chatHistory = chatHistory;}
+    public void addToChatHistory(ChatEntry newEntry) {chatHistory.add(newEntry);}
+    public void addToGameHistory(String newEntry) {gameHistory.add(newEntry);}
 }

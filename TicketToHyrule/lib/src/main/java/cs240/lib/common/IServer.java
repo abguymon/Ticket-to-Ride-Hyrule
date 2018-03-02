@@ -28,7 +28,7 @@ public interface IServer {
     StartGameResult startGame(String gameName);
     PollerResult pollerCheckServer(int index);
     GameHistoryResult getGameHistory(String gameName);
-    ChatResult chat(String playerName, String message);
+    ChatResult chat(String playerName, String message, String gameName);
     DrawDestinationCardResult drawDestinationCard(String playerName,String gameName);
     SubmitResult submitDestinationCards(String playerName, String gameName, DestinationCard card);
     GetGameResult getGameData(String gameName);

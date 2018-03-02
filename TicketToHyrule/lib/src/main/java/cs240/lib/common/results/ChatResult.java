@@ -9,9 +9,12 @@ public class ChatResult {
     private String chatMessage;
     private String errorMessage;
 
-    public ChatResult(String playerName, String chatMessage, String errorMessage) {
+    public ChatResult(String playerName, String chatMessage) {
         this.playerName = playerName;
         this.chatMessage = chatMessage;
+    }
+
+    public ChatResult(String errorMessage) {
         this.errorMessage = errorMessage;
     }
 

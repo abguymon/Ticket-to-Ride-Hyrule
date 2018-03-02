@@ -6,11 +6,15 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.UUID;
 
+import cs240.lib.Model.ChatEntry;
 import cs240.lib.Model.Game;
 import cs240.lib.Model.LobbyGame;
 import cs240.lib.Model.Login;
 import cs240.lib.Model.User;
 import cs240.lib.Model.cards.DestinationCard;
+import cs240.lib.Model.cards.TrainCard;
+import cs240.lib.Model.gameParts.GameMap;
+import cs240.lib.Model.gameParts.Player;
 import cs240.lib.client.Poller;
 import cs240.lib.common.Command;
 import cs240.lib.common.IServer;
@@ -296,7 +300,6 @@ public class Target implements IServer {
         return new PollerResult(execute);
     }
 
-    //finish me
     @Override
     public GameHistoryResult getGameHistory(String gameName) {
         if (gameName == null) {
@@ -307,22 +310,36 @@ public class Target implements IServer {
         }
         for (int i = 0; i < activeGames.size(); ++i) {
             if (activeGames.get(i).getGameName().equals(gameName)) {
-                return new GameHistoryResult(commandHistory);
+                return new GameHistoryResult(activeGames.get(i).getGameHistory());
             }
         }
         return new GameHistoryResult("Game not found");
     }
 
-    //Finish me
+    //won't add to chat history here to avoid duplicate entries, but maybe should
     @Override
-    public ChatResult chat(String playerName, String message) {
-        String[] parameterTypeNames = {String.class.getName(), String.class.getName()};
-        Object[] parameters = {playerName, message};
-        Command startGameCommand = new Command("chat", parameterTypeNames, parameters);
-        commandHistory.add(startGameCommand);
-        commandQueue.add(startGameCommand);
+    public ChatResult chat(String playerName, String message, String gameName) {
+        String[] parameterTypeNames = {String.class.getName(), String.class.getName(), String.class.getName()};
+        Object[] parameters = {playerName, message, gameName};
+        Command chatGameCommand = new Command("chat", parameterTypeNames, parameters);
+        commandHistory.add(chatGameCommand);
+        commandQueue.add(chatGameCommand);
         Poller.getInstance().incrementCommandIndex();
-        return null;
+        if (playerName == null || message == null || gameName == null) {
+            return new ChatResult("1 or more null parameters");
+        }
+        for (int i = 0; i < activeGames.size(); ++i) {
+            if (activeGames.get(i).getGameName().equals(gameName)) {
+                Game game = activeGames.get(i);
+                for (int j = 0; j < game.getPlayerArray().size(); ++j) {
+                    Player player = game.getPlayerArray().get(j);
+                    if (player.getPlayerName().equals(playerName)) {
+                        return new ChatResult(playerName, message);
+                    }
+                }
+            }
+        }
+        return new ChatResult("Game not found");
     }
 
     @Override
@@ -332,10 +349,10 @@ public class Target implements IServer {
     public SubmitResult submitDestinationCards(String playerName, String gameName, DestinationCard card) {return null;}
 
     @Override
-    public GetGameResult getGame(String gameName) {
+    public GetGameResult getGameData(String gameName) {
         //command won't be added to the poller queue or game history
         if (gameName == null) {
-            return new GetGameResult("Invalide game name");
+            return new GetGameResult("Invalid game name");
         }
         if (gameName.equals("")) {
             return new GetGameResult("Invalid game name");
@@ -397,6 +414,33 @@ public class Target implements IServer {
     }
 
     private Game initializeGame(LobbyGame gameToStart) {
-        return null;
+        Game game = new Game(gameToStart.getGameName());
+        initializeTrainCardDeck(game);
+        initializeDestinationCards(game);
+        initializeGameMap(game);
+        initializeFaceUpCards(game);
+        initializePlayers(game);
+        game.addToGameHistory(gameToStart.getGameName() + " started!");
+        return game;
+    }
+
+    private void initializeTrainCardDeck(Game game) {
+
+    }
+
+    private void initializeDestinationCards(Game game) {
+
+    }
+
+    private void initializeGameMap(Game game) {
+
+    }
+
+    private void initializeFaceUpCards(Game game) {
+
+    }
+
+    private void initializePlayers(Game game) {
+
     }
 }

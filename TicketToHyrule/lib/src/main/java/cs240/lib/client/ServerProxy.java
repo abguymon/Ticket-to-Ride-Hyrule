@@ -100,9 +100,9 @@ public class ServerProxy implements IServer {
     }
 
     @Override
-    public ChatResult chat(String playerName, String message) {
-        String[] parameterTypenames = {String.class.getName(), String.class.getName()};
-        Object[] parameters = {playerName, message};
+    public ChatResult chat(String playerName, String message, String gameName) {
+        String[] parameterTypenames = {String.class.getName(), String.class.getName(), String.class.getName()};
+        Object[] parameters = {playerName, message, gameName};
         Command chatCommand = new Command("chat", parameterTypenames, parameters);
         Object result = ClientCommunicator.SINGLETON.send(chatCommand);
         return (ChatResult) result;}
