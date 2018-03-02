@@ -32,7 +32,7 @@ public class PreStartFragment extends Fragment implements View.OnClickListener{
         preStartPresenter.setView(this);
         ClientFacade.getInstance().addObserver(preStartPresenter);
 
-        checkBoxOne = (CheckBox) view.findViewById(R.id.checkBox);
+        checkBoxOne = (CheckBox) view.findViewById(R.id.checkBox2);
         checkBoxTwo = (CheckBox) view.findViewById(R.id.checkBox2);
         checkBoxThree = (CheckBox) view.findViewById(R.id.checkBox3);
         submitButton = (ImageButton) view.findViewById(R.id.imageButton5);
@@ -43,7 +43,7 @@ public class PreStartFragment extends Fragment implements View.OnClickListener{
     public void onCheckboxClicked(View v){
         boolean checked = ((CheckBox) v).isChecked();
         switch (v.getId()){
-            case R.id.checkBox:
+            case R.id.checkBox2:
                 if(checked) {
                     checkBoxOne.setChecked(false);
                     preStartPresenter.getRemovedDestinationCards().add(preStartPresenter.getDestinationCards().get(0));
