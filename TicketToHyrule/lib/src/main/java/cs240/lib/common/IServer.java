@@ -31,5 +31,5 @@ public interface IServer {
     ChatResult chat(String playerName, String message);
     DrawDestinationCardResult drawDestinationCard(String playerName,String gameName);
     SubmitResult submitDestinationCards(String playerName, String gameName, DestinationCard card);
-    GetGameResult getGame(String gameName);
+    GetGameResult getGameData(String gameName);
 }
