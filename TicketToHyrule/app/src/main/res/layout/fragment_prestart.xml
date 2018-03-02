@@ -100,6 +100,7 @@
         android:layout_marginTop="32dp"
         android:background="@drawable/background"
         android:text="Tingle\nto\nTingle"
+        android:textAlignment="center"
         app:layout_constraintEnd_toStartOf="@+id/dCardOne2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/checkBox1" />
@@ -113,6 +114,7 @@
         android:layout_marginTop="32dp"
         android:background="@drawable/background"
         android:text="Tingle\nto\nTingle"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/checkBox2" />
@@ -126,6 +128,7 @@
         android:layout_marginTop="32dp"
         android:background="@drawable/background"
         android:text="Tingle\nto\nTingle"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/dCardOne2"
         app:layout_constraintTop_toBottomOf="@+id/checkBox3" />
