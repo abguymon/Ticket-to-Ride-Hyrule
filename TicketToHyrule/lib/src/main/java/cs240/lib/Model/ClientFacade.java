@@ -17,6 +17,7 @@ import cs240.lib.common.results.PollerResult;
 public class ClientFacade extends Observable{
     private ArrayList<Game> gameList = new ArrayList<>();
     private Queue<Game> startedGames = new LinkedList<>();
+    private Game gameData = null;
     private static ClientFacade instance = null;
 
     private ClientFacade(){}
@@ -55,10 +56,8 @@ public class ClientFacade extends Observable{
     }
 
     public boolean startGame(String gameName){
-        Game g = getGame(gameName);
         try {
-            setChanged();
-            notifyObservers(gameList);
+            //tell modelFacade to tell server to start game, maybe through presenter?
             return true;
         }catch(Exception ex){
             System.out.println("EXCEPTION "+ex);
@@ -110,10 +109,6 @@ public class ClientFacade extends Observable{
 
         while(!result.getCommands().isEmpty())
         {
-            for(Game g: gameList)
-            {
-                System.out.println(g.toString());
-            }
             handleObject(result.getCommands().remove());
         }
     }
@@ -151,5 +146,13 @@ public class ClientFacade extends Observable{
 
     public void setStartedGames(Queue<Game> startedGames) {
         this.startedGames = startedGames;
+    }
+
+    public Game getGameData() {
+        return gameData;
+    }
+
+    public void setGameData(Game gameData) {
+        this.gameData = gameData;
     }
 }

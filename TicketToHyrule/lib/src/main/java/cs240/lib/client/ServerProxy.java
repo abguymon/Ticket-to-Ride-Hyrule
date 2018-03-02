@@ -126,10 +126,10 @@ public class ServerProxy implements IServer {
     }
 
     @Override
-    public GetGameResult getGame(String gameName) {
+    public GetGameResult getGameData(String gameName) {
         String[] parameterTypenames = {String.class.getName()};
         Object[] parameters = {gameName};
-        Command getGameCommand = new Command("getGame", parameterTypenames, parameters);
+        Command getGameCommand = new Command("getGameData", parameterTypenames, parameters);
         Object result = ClientCommunicator.SINGLETON.send(getGameCommand);
         return (GetGameResult) result;
     }

@@ -1,5 +1,6 @@
 package cs340.tickettohyrule.Fragments;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -22,7 +24,10 @@ import java.util.Queue;
 import cs240.lib.Model.ClientFacade;
 import cs240.lib.Model.Game;
 import cs240.lib.Model.ModelFacade;
+import cs240.lib.common.results.GetGameResult;
+import cs240.lib.communicator.ClientCommunicator;
 import cs340.tickettohyrule.CurrentUserSingleton;
+import cs340.tickettohyrule.GameActivity;
 import cs340.tickettohyrule.InGameSingleton;
 import cs340.tickettohyrule.PhaseOnePresenters.GameLobbyPresenter;
 import cs340.tickettohyrule.R;
@@ -96,8 +101,23 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener,
         Queue<Game> games = clientFacade.getStartedGames();
         while (games.size()!=0)
         {
+            Game g = games.remove();
             Toast.makeText(getActivity(),
-                    games.remove().getGameName() + " Started", Toast.LENGTH_SHORT).show();
+                    g.getGameName() + " Started", Toast.LENGTH_SHORT).show();
+            //THIS CODE IS WEIRD BUT BELOW IS ME TELLING THE SERVER TO START THESE GAMES
+            if(g.getPlayerArray().contains(CurrentUserSingleton.getInstance().getUserName())){
+                Object out = CurrentUserSingleton.getInstance().getModelFacade().getGameData(g.getGameName());
+                if(out instanceof GetGameResult) {
+                    Intent intent = new Intent(getActivity(), GameActivity.class);
+                    Game gameData = (Game) out;
+                    clientFacade.setGameData(gameData);
+                    CurrentUserSingleton.getInstance().getModelFacade().setGameData(gameData);
+                    startActivity(intent);
+                }
+                else{
+                    Toast.makeText(getActivity(), (String) out, Toast.LENGTH_SHORT).show();
+                }
+            }
         }
 
         List<Game> gameList = getGames();

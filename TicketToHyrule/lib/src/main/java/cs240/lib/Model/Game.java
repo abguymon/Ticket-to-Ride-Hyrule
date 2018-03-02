@@ -2,64 +2,40 @@ package cs240.lib.Model;
 
 import java.util.ArrayList;
 
+import cs240.lib.Model.cards.TrainCard;
+import cs240.lib.Model.gameParts.GameMap;
+import cs240.lib.Model.gameParts.Player;
+
 public class Game {
-    private int maxPlayers;
-    private int playersJoined;
     private String gameName;
-    private ArrayList<String> playerArray;
+    private ArrayList<Player> playerArray;
+    private ArrayList<TrainCard> trainCardDeck;
+    private GameMap map;
+    private ArrayList<TrainCard> faceUpTrainCards;
+    private ArrayList<String> gameHistory;
+    private ArrayList<ChatEntry> chatHistory;
 
-    public Game() {
-        maxPlayers = 0;
-        playersJoined = 0;
-        gameName = "";
+    public Game(String newName) {
+        this.gameName = newName;
         playerArray = new ArrayList<>();
+        trainCardDeck = new ArrayList<>();
+        faceUpTrainCards = new ArrayList<>();
+        gameHistory = new ArrayList<>();
+        chatHistory = new ArrayList<>();
     }
-
-    public Game(int maxPlayers, int playersJoined, String gameName) {
-        this.maxPlayers = maxPlayers;
-        this.playersJoined = playersJoined;
-        this.gameName = gameName;
-        playerArray = new ArrayList<>();
-    }
-
-    public int getMaxPlayers() {return maxPlayers;}
-    public void setMaxPlayers(int maxPlayers) {this.maxPlayers = maxPlayers;}
-
-    public int getPlayersJoined() {return playersJoined;}
-    public void setPlayersJoined(int playersJoined) {this.playersJoined = playersJoined;}
 
     public String getGameName() {return gameName;}
     public void setGameName(String gameName) {this.gameName = gameName;}
-
-    public ArrayList<String> getPlayerArray() {return playerArray;}
-    public void setPlayerArray(ArrayList<String> playerArray) {this.playerArray = playerArray;}
-
-    public void addPlayer(String newPlayer) throws Exception{
-        if (playersJoined >= maxPlayers) {
-            throw new Exception("Game: " + gameName + " is already full");
-        }
-        else {
-
-                //System.out.println("player added: " + newPlayer + " to game " + gameName);
-                playerArray.add(newPlayer);
-                ++playersJoined;
-        }
-    }
-    public void removePlayer(String player) {
-        for (int i = 0; i < playerArray.size(); ++i) {
-            String currentPlayer = playerArray.get(i);
-            if (currentPlayer.equals(player)) {
-                playerArray.remove(i);
-                --playersJoined;
-                return;
-            }
-        }
-    }
-    public String toString(){
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(gameName + "joined/max: ");
-        stringBuilder.append(playersJoined + "playerArray: ");
-        stringBuilder.append(playerArray);
-        return stringBuilder.toString();
-    }
+    public ArrayList<Player> getPlayerArray() {return playerArray;}
+    public void setPlayerArray(ArrayList<Player> playerArray) {this.playerArray = playerArray;}
+    public ArrayList<TrainCard> getTrainCardDeck() {return trainCardDeck;}
+    public void setTrainCardDeck(ArrayList<TrainCard> trainCardDeck) {this.trainCardDeck = trainCardDeck;}
+    public GameMap getMap() {return map;}
+    public void setMap(GameMap map) {this.map = map;}
+    public ArrayList<TrainCard> getFaceUpTrainCards() {return faceUpTrainCards;}
+    public void setFaceUpTrainCards(ArrayList<TrainCard> faceUpTrainCards) {this.faceUpTrainCards = faceUpTrainCards;}
+    public ArrayList<String> getGameHistory() {return gameHistory;}
+    public void setGameHistory(ArrayList<String> gameHistory) {this.gameHistory = gameHistory;}
+    public ArrayList<ChatEntry> getChatHistory() {return chatHistory;}
+    public void setChatHistory(ArrayList<ChatEntry> chatHistory) {this.chatHistory = chatHistory;}
 }
