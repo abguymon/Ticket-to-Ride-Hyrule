@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 
+import cs240.lib.Model.ClientFacade;
+import cs240.lib.Model.Game;
 import cs340.tickettohyrule.Fragments.GameChatFragment;
 import cs340.tickettohyrule.Fragments.GameHistoryFragment;
 import cs340.tickettohyrule.Fragments.GameInfoFragment;
@@ -17,11 +19,11 @@ import cs340.tickettohyrule.PhaseTwoPresenters.GamePresenter;
 
 public class GameActivity extends AppCompatActivity {
     private GamePresenter gamePresenter = new GamePresenter();
-//    gamePresenter.setView(this);  <-- links presenter and view, do this on create
-//    ClientFacade.getInstance().addObserver(gamePresenter);  <--- links presenter as observer do this in on create as well
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        gamePresenter.setView(this);
+        ClientFacade.getInstance().addObserver(gamePresenter);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);

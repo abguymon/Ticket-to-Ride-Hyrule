@@ -2,12 +2,16 @@ package cs240.lib.Model;
 
 
 import java.util.ArrayList;
+
+import cs240.lib.Model.cards.DestinationCard;
 import cs240.lib.client.ServerProxy;
 import cs240.lib.common.results.ChatResult;
 import cs240.lib.common.results.CreateResult;
+import cs240.lib.common.results.GetGameResult;
 import cs240.lib.common.results.JoinResult;
 import cs240.lib.common.results.LeaveResult;
 import cs240.lib.common.results.SignInResult;
+import cs240.lib.common.results.SubmitResult;
 import cs240.lib.communicator.ClientCommunicator;
 
 /**
@@ -17,10 +21,26 @@ import cs240.lib.communicator.ClientCommunicator;
 public class ModelFacade {
     private ArrayList<Game> gameList = new ArrayList<>();
     private ArrayList<Game> startedGames = new ArrayList<>();
+    private Game gameData = null;
     private Login currentUser = null;
     public ModelFacade(){}
 
 
+
+    public Object getGameData(String gameName){
+        ClientCommunicator.SINGLETON.setAuthToken(currentUser.getAuthToken());
+        GetGameResult result = ServerProxy.SINGLETON.getGameData(gameName);
+        if(result.getErrorMessage() != null){
+            return result.getErrorMessage();
+        }
+        else{
+            try{
+                return result;
+            }catch(Exception ex){
+                return("EXCEPTION" + ex);
+            }
+        }
+    }
 
     public String createGame(String userName, String gameName, int maxPlayers){
         ClientCommunicator.SINGLETON.setAuthToken(currentUser.getAuthToken());
@@ -98,6 +118,17 @@ public class ModelFacade {
         }
     }
 
+    public String submitDestinationCard(String gameName, DestinationCard card){
+        ClientCommunicator.SINGLETON.setAuthToken(currentUser.getAuthToken());
+        SubmitResult result = ServerProxy.SINGLETON.submitDestinationCards(currentUser.getUsername(), gameName, card);
+        if(result.getErrorMessage() != null){
+            return result.getErrorMessage();
+        }
+        else{
+            return "";
+        }
+    }
+
 
     public Game getGame(String gameName){
         for(Game g : gameList){
@@ -127,5 +158,13 @@ public class ModelFacade {
 
     public void setStartedGames(ArrayList<Game> startedGames) {
         this.startedGames = startedGames;
+    }
+
+    public Game getGameData() {
+        return gameData;
+    }
+
+    public void setGameData(Game gameData) {
+        this.gameData = gameData;
     }
 }

@@ -17,6 +17,7 @@ import cs240.lib.common.results.PollerResult;
 public class ClientFacade extends Observable{
     private ArrayList<Game> gameList = new ArrayList<>();
     private Queue<Game> startedGames = new LinkedList<>();
+    private Game gameData = null;
     private static ClientFacade instance = null;
 
     private ClientFacade(){}
@@ -145,5 +146,13 @@ public class ClientFacade extends Observable{
 
     public void setStartedGames(Queue<Game> startedGames) {
         this.startedGames = startedGames;
+    }
+
+    public Game getGameData() {
+        return gameData;
+    }
+
+    public void setGameData(Game gameData) {
+        this.gameData = gameData;
     }
 }

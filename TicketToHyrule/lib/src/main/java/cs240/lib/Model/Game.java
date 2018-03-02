@@ -1,8 +1,9 @@
 package cs240.lib.Model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Game {
+public class Game implements Serializable{
     private int maxPlayers;
     private int playersJoined;
     private String gameName;
