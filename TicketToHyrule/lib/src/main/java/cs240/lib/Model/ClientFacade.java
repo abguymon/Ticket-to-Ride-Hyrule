@@ -57,7 +57,7 @@ public class ClientFacade extends Observable{
 
     public boolean startGame(String gameName){
         try {
-            //tell modelFacade to tell server to start game, maybe through presenter?
+            //MAKE SURE WE ARE SETTING THE CLIENTFACADE GAMEDATA SOMEWHERE (I BELIEVE WE ARE)
             return true;
         }catch(Exception ex){
             System.out.println("EXCEPTION "+ex);
@@ -72,8 +72,12 @@ public class ClientFacade extends Observable{
         setChanged();
         notifyObservers(lobbyGameList);
     }
-    public void sendMessage(String message){
+    public void sendMessage(String playerName, String message){
         //ADD FUNCTION
+        ChatEntry chatEntry = new ChatEntry(playerName, message);
+        gameData.getChatHistory().add(chatEntry);
+        setChanged();
+        notifyObservers();
     }
 
     public void handleObject( Command myCommand){
@@ -97,7 +101,8 @@ public class ClientFacade extends Observable{
                         Integer.parseInt(myCommand.getParametersAsJsonStrings()[2]));
                 break;
             case "sendMessage":
-                //SEND MESSAGE
+                sendMessage((String)myCommand.getParametersAsJsonStrings()[0].substring(1,myCommand.getParametersAsJsonStrings()[0].length()-1),
+                        (String)myCommand.getParametersAsJsonStrings()[1].substring(1,myCommand.getParametersAsJsonStrings()[1].length()-1));
                 break;
             case "submitDestinationCards":
                 //ADD FUNCTIONS
