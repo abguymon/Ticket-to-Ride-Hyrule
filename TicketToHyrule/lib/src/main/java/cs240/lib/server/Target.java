@@ -13,6 +13,7 @@ import cs240.lib.Model.Login;
 import cs240.lib.Model.User;
 import cs240.lib.Model.cards.DestinationCard;
 import cs240.lib.Model.cards.TrainCard;
+import cs240.lib.Model.colors.PlayerColor;
 import cs240.lib.Model.gameParts.GameMap;
 import cs240.lib.Model.gameParts.Player;
 import cs240.lib.client.Poller;
@@ -343,10 +344,44 @@ public class Target implements IServer {
     }
 
     @Override
-    public DrawDestinationCardResult drawDestinationCard(String playerName, String gameName) {return null;}
+    public DrawDestinationCardResult drawDestinationCard(String playerName, String gameName) {
+        //Do we still need this if you can get a player's destination cards from the get game command?
+        return null;
+    }
 
     @Override
-    public SubmitResult submitDestinationCards(String playerName, String gameName, DestinationCard card) {return null;}
+    public SubmitResult submitDestinationCards(String playerName, String gameName, DestinationCard card) {
+        String[] parameterTypeNames = {String.class.getName(), String.class.getName(), DestinationCard.class.getName()};
+        Object[] parameters = {playerName, gameName, card};
+        Command submitCommand = new Command("submitDestinationCards", parameterTypeNames, parameters);
+        commandHistory.add(submitCommand);
+        commandQueue.add(submitCommand);
+        Poller.getInstance().incrementCommandIndex();
+        if (gameName == null || playerName == null) {
+            return new SubmitResult("Error: 1 more null fields");
+        }
+        for (int i = 0; i < activeGames.size(); ++i) {
+            if (activeGames.get(i).getGameName().equals(gameName)) {
+                Game game = activeGames.get(i);
+                ArrayList<Player> players = activeGames.get(i).getPlayerArray();
+                for (int j = 0; j < players.size(); ++j) {
+                    if (players.get(j).getPlayerName().equals(playerName)) {
+                        if (card == null) {
+                            game.addToGameHistory(playerName + " took 3 destination cards");
+                            return new SubmitResult(true);
+                        }
+                        Player player = players.get(j);
+                        player.dropDestinationCard(card);
+                        game.putbackDestinationCard(card);
+                        game.addToGameHistory(playerName + " took 2 destination cards");
+                        return new SubmitResult(true);
+                    }
+                }
+                return new SubmitResult("Error: Player nor found");
+            }
+        }
+        return new SubmitResult("Error: Game not found");
+    }
 
     @Override
     public GetGameResult getGameData(String gameName) {
@@ -415,12 +450,55 @@ public class Target implements IServer {
 
     private Game initializeGame(LobbyGame gameToStart) {
         Game game = new Game(gameToStart.getGameName());
-        initializePlayers(game);
+        initializePlayers(game, gameToStart);
         game.addToGameHistory(gameToStart.getGameName() + " started!");
         return game;
     }
 
-    private void initializePlayers(Game game) {
+    private void initializePlayers(Game game, LobbyGame gameToStart) {
+        ArrayList<String> playerNames = gameToStart.getPlayerArray();
+        for (int i = 0; i < playerNames.size(); ++i) {
+            makeNewPlayer(game, playerNames.get(i), i+1);
+        }
+    }
 
+    private void makeNewPlayer(Game game, String playerName, int playerNum) {
+        Player newPlayer;
+        switch (playerNum) {
+            case 1:
+                newPlayer = new Player(PlayerColor.GREEN, playerName);
+                newPlayer.setPlayerNum(1); break;
+            case 2:
+                newPlayer = new Player(PlayerColor.BLACK, playerName);
+                newPlayer.setPlayerNum(2) ;break;
+            case 3:
+                newPlayer = new Player(PlayerColor.PINK, playerName);
+                newPlayer.setPlayerNum(3); break;
+            case 4:
+                newPlayer = new Player(PlayerColor.YELLOW, playerName);
+                newPlayer.setPlayerNum(4); break;
+            case 5:
+                newPlayer = new Player(PlayerColor.BLUE, playerName);
+                newPlayer.setPlayerNum(5); break;
+            default:
+                newPlayer = new Player(PlayerColor.GREEN, "Error");
+        }
+        drawTrainCards(game, newPlayer);
+        drawDestinationCards(game, newPlayer);
+        game.addPlayer(newPlayer);
+    }
+
+    private void drawTrainCards(Game game, Player player) {
+        for (int i = 0; i < 4; ++i) {
+            TrainCard card = game.drawTrainCard();
+            player.addTrainCard(card);
+        }
+    }
+
+    private void drawDestinationCards(Game game, Player player) {
+        for (int i = 0; i < 3; ++i) {
+            DestinationCard card = game.drawDestinationCard();
+            player.addDestinationCard(card);
+        }
     }
 }

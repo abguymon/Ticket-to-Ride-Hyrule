@@ -28,4 +28,19 @@ public class DestinationCard {
     public City getEndCity() {
         return endCity;
     }
+
+    public boolean equals(DestinationCard card1) {
+        if (card1.getStartCity().getCityName().equals(this.getStartCity().getCityName())) {
+            if (card1.getEndCity().getCityName().equals(this.getEndCity().getCityName())) {
+                if (card1.getValue() == this.getValue()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public String toString() {
+        return startCity + "\n" + endCity + "\n" + value;
+    }
 }

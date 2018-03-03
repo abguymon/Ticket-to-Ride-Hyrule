@@ -13,6 +13,7 @@ import cs240.lib.Model.colors.PlayerColor;
 public class Player {
     private String playerName;
     private PlayerColor color;
+    private int playerNum;
     private int score;
     private int trainsRemaining;
     private ArrayList<DestinationCard> destinationCards;
@@ -21,6 +22,7 @@ public class Player {
     private final int MAX_TRAIN_CARS = 45;
 
     public Player(PlayerColor color, String playerName) {
+        playerNum = 0;
         this.color = color;
         this.score = 0;
         this.trainsRemaining = MAX_TRAIN_CARS;
@@ -29,6 +31,10 @@ public class Player {
         this.playerName = playerName;
 
     }
+    public void addTrainCard(TrainCard card) {trainCards.add(card);}
+    public void addDestinationCard(DestinationCard card) {destinationCards.add(card);}
+    public int getPlayerNum(){return playerNum;}
+    public void setPlayerNum(int newNum) {playerNum = newNum;}
 
     public String getPlayerName() {return playerName;}
 
@@ -76,5 +82,14 @@ public class Player {
 
     public void setTrainCards(ArrayList<TrainCard> trainCards) {
         this.trainCards = trainCards;
+    }
+
+    public void dropDestinationCard(DestinationCard card) {
+        for (int i = 0; i < destinationCards.size(); ++i) {
+            DestinationCard curCard = destinationCards.get(i);
+            if (curCard.equals(card)) {
+                destinationCards.remove(i);
+            }
+        }
     }
 }

@@ -56,7 +56,7 @@ public class CitiesList {
         City tingleIsland = new City("Tingle Island"); cities.add(tingleIsland);
         City shadowTemple = new City("Shadow Temple"); cities.add(shadowTemple);
         City greatDekuTree = new City("Great Deku Tree"); cities.add(greatDekuTree);
-        City tingle = new City("Tingle"); cities.add(tingle);
+        City tingle = new City("Tingle"); cities.add(tingle); //this makes me uncomfortable
         City kakarikoVillage = new City("Kakariko Village"); cities.add(kakarikoVillage);
         City hiddenVillage = new City("Hidden Village"); cities.add(hiddenVillage);
         City goronVillage = new City("Goron Village"); cities.add(goronVillage);

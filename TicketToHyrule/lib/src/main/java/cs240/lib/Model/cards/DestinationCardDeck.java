@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Stack;
 
+import sun.security.krb5.internal.crypto.Des;
+
 /**
  * Created by David on 2/28/2018.
  */
@@ -22,6 +24,11 @@ public class DestinationCardDeck {
     public DestinationCard draw(){
         DestinationCard toDraw = destinationCards.pop();
         return toDraw;
+    }
+
+    public void putback(DestinationCard card) {
+        destinationCards.add(card);
+        shuffle();
     }
 
     private void createDeck() {

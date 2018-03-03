@@ -62,6 +62,11 @@ public class Game {
     public void setChatHistory(ArrayList<ChatEntry> chatHistory) {this.chatHistory = chatHistory;}
     public void addToChatHistory(ChatEntry newEntry) {chatHistory.add(newEntry);}
     public void addToGameHistory(String newEntry) {gameHistory.add(newEntry);}
+    public void addPlayer(Player player) {playerArray.add(player);}
+    public TrainCard drawTrainCard() {return trainCardDeck.draw();}
+    public DestinationCard drawDestinationCard(){return destinationCardDeck.draw();}
+    public void putbackDestinationCard(DestinationCard card) {destinationCardDeck.putback(card);}
+    public void discardTrainCard(TrainCard card) {trainCardDiscard.add(card);}
 
     public void initializeGameMap(){
         ArrayList<City> cities = new ArrayList<>();
