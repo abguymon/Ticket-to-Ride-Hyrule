@@ -37,6 +37,7 @@ public class Game {
         gameHistory = new ArrayList<>();
         chatHistory = new ArrayList<>();
         trainCardDeck.shuffle();
+        destinationCardDeck.shuffle();
         initializeGameMap();
         initializeFaceUpCards();
     }
@@ -73,6 +74,7 @@ public class Game {
         }
         map = new GameMap(routes, cities);
     }
+
     public void initializeFaceUpCards(){
         TrainCard[] cards = new TrainCard[5];
         for (int i = 0; i < 5; ++i) {

@@ -1,6 +1,7 @@
 package cs240.lib.Model.cards;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Queue;
 import java.util.Stack;
 
@@ -15,8 +16,7 @@ public class TrainCardDeck {
     public TrainCardDeck(){createDeck();}
 
     public void shuffle(){
-        //TODO: finish the shuffle
-        System.out.println("Shuffle not finished yet");
+        Collections.shuffle(trainCards);
     }
 
     public void shuffleInDiscard(ArrayList<TrainCard> discarded){

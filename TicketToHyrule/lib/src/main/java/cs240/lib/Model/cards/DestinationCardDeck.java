@@ -1,6 +1,7 @@
 package cs240.lib.Model.cards;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Stack;
 
 /**
@@ -15,7 +16,7 @@ public class DestinationCardDeck {
     }
 
     public void shuffle(){
-
+        Collections.shuffle(destinationCards);
     }
 
     public DestinationCard draw(){
