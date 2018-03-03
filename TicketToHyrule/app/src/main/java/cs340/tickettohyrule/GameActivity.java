@@ -27,7 +27,7 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
         Fragment fragment = new PreStartFragment();
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_frame, fragment, fragment.getClass().getSimpleName()).addToBackStack(null).commit();
+                .replace(R.id.frameLayout, fragment, fragment.getClass().getSimpleName()).addToBackStack(null).commit();
     }
 
     //MOVE TO INFO SCREEN

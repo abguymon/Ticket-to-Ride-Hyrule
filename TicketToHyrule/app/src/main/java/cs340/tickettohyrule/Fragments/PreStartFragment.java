@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -18,7 +19,7 @@ import cs340.tickettohyrule.R;
  * Created by eholm on 2/25/2018.
  */
 
-public class PreStartFragment extends Fragment implements View.OnClickListener{
+public class PreStartFragment extends Fragment implements CompoundButton.OnCheckedChangeListener, View.OnClickListener{
     private PreStartPresenter preStartPresenter = new PreStartPresenter();
     private CheckBox checkBoxOne;
     private CheckBox checkBoxTwo;
@@ -32,19 +33,22 @@ public class PreStartFragment extends Fragment implements View.OnClickListener{
         preStartPresenter.setView(this);
         ClientFacade.getInstance().addObserver(preStartPresenter);
 
-        checkBoxOne = (CheckBox) view.findViewById(R.id.checkBox2);
+        checkBoxOne = (CheckBox) view.findViewById(R.id.checkBox1);
+        checkBoxOne.setOnCheckedChangeListener(this);
         checkBoxTwo = (CheckBox) view.findViewById(R.id.checkBox2);
+        checkBoxTwo.setOnCheckedChangeListener(this);
         checkBoxThree = (CheckBox) view.findViewById(R.id.checkBox3);
-        submitButton = (ImageButton) view.findViewById(R.id.imageButton5);
+        checkBoxThree.setOnCheckedChangeListener(this);
+        submitButton = (ImageButton) view.findViewById(R.id.submitButton);
         submitButton.setOnClickListener(this);
 
         return view;
     }
-    public void onCheckboxClicked(View v){
-        boolean checked = ((CheckBox) v).isChecked();
-        switch (v.getId()){
-            case R.id.checkBox2:
-                if(checked) {
+    @Override
+    public void onCheckedChanged(CompoundButton button, boolean isChecked){
+        switch (button.getId()){
+            case R.id.checkBox1:
+                if(isChecked) {
                     checkBoxOne.setChecked(false);
                     preStartPresenter.getRemovedDestinationCards().add(preStartPresenter.getDestinationCards().get(0));
                 }
@@ -54,7 +58,7 @@ public class PreStartFragment extends Fragment implements View.OnClickListener{
                 }
                 break;
             case R.id.checkBox2:
-                if(checked) {
+                if(isChecked) {
                     checkBoxTwo.setChecked(false);
                     preStartPresenter.getRemovedDestinationCards().add(preStartPresenter.getDestinationCards().get(0));
                 }
@@ -64,7 +68,7 @@ public class PreStartFragment extends Fragment implements View.OnClickListener{
                 }
                 break;
             case R.id.checkBox3:
-                if(checked) {
+                if(isChecked) {
                     checkBoxThree.setChecked(false);
                     preStartPresenter.getRemovedDestinationCards().add(preStartPresenter.getDestinationCards().get(0));
                 }

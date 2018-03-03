@@ -80,4 +80,11 @@ public class Game {
         }
         faceUpTrainCards.setFaceUpCards(cards);
     }
+
+    public Player getPlayer(String name){
+        for(int i = 0; i < playerArray.size(); i++){
+            if(playerArray.get(i).getPlayerName().equals(name)) return playerArray.get(i);
+        }
+        return null;
+    }
 }

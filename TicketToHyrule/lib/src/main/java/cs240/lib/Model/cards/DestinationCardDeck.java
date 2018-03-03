@@ -8,7 +8,7 @@ import java.util.Stack;
  */
 
 public class DestinationCardDeck {
-    private Stack<DestinationCard> destinationCards;
+    private Stack<DestinationCard> destinationCards = new Stack<DestinationCard>();
 
     public DestinationCardDeck(){
         createDeck();

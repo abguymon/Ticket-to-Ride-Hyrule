@@ -4,6 +4,7 @@ package cs240.lib.Model;
 import java.util.ArrayList;
 
 import cs240.lib.Model.cards.DestinationCard;
+import cs240.lib.Model.gameParts.Player;
 import cs240.lib.client.ServerProxy;
 import cs240.lib.common.results.ChatResult;
 import cs240.lib.common.results.CreateResult;
@@ -11,6 +12,7 @@ import cs240.lib.common.results.GetGameResult;
 import cs240.lib.common.results.JoinResult;
 import cs240.lib.common.results.LeaveResult;
 import cs240.lib.common.results.SignInResult;
+import cs240.lib.common.results.StartGameResult;
 import cs240.lib.common.results.SubmitResult;
 import cs240.lib.communicator.ClientCommunicator;
 
@@ -21,8 +23,9 @@ import cs240.lib.communicator.ClientCommunicator;
 public class ModelFacade {
     private ArrayList<LobbyGame> lobbyGameList = new ArrayList<>();
     private ArrayList<LobbyGame> startedLobbyGames = new ArrayList<>();
-    private LobbyGame gameData = null;
+    private Game gameData = null;
     private Login currentUser = null;
+    private Player currentPlayer = null;
     public ModelFacade(){}
 
 
@@ -35,6 +38,7 @@ public class ModelFacade {
         }
         else{
             try{
+                gameData = result.getGameStarted();
                 return result;
             }catch(Exception ex){
                 return("EXCEPTION" + ex);
@@ -91,6 +95,10 @@ public class ModelFacade {
 
     public String joinGame(String userName, String gameName){
         ClientCommunicator.SINGLETON.setAuthToken(currentUser.getAuthToken());
+        boolean start = false;
+        if(getGame(gameName).getPlayersJoined() == (getGame(gameName).getMaxPlayers() - 1)){
+            start = true;
+        }
         JoinResult result = ServerProxy.SINGLETON.joinGame(userName,gameName);
         if(result.getErrorMessage() != null){
             return result.getErrorMessage();
@@ -98,16 +106,27 @@ public class ModelFacade {
         else{
             try{
                 //TODO: how does the observer pattern/poller work with start game code? -David
-                return "";
+                if(start) return startGame(gameName);
+                else return "";
             }catch(Exception ex){
                 return "EXCEPTION! " + ex;
             }
         }
     }
-
-    public String sendMessage(String message){
+    public String startGame(String gameName){
         ClientCommunicator.SINGLETON.setAuthToken(currentUser.getAuthToken());
-        ChatResult result = ServerProxy.SINGLETON.chat(currentUser.getUsername(), message);
+        StartGameResult result = ServerProxy.SINGLETON.startGame(gameName);
+        if(result.getErrorMessage() != null){
+            return result.getErrorMessage();
+        }
+        else{
+            return "";
+        }
+    }
+
+    public String sendMessage(String message, String gameName){
+        ClientCommunicator.SINGLETON.setAuthToken(currentUser.getAuthToken());
+        ChatResult result = ServerProxy.SINGLETON.chat(currentUser.getUsername(), message, gameName);
         //WILL THIS BE NULL OR EMPTY STRING???
         //It'll be null
         if(result.getErrorMessage() != null){
@@ -160,11 +179,19 @@ public class ModelFacade {
         this.startedLobbyGames = startedLobbyGames;
     }
 
-    public LobbyGame getGameData() {
+    public Game getGameData() {
         return gameData;
     }
 
-    public void setGameData(LobbyGame gameData) {
+    public void setGameData(Game gameData) {
         this.gameData = gameData;
+    }
+
+    public Player getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public void setCurrentPlayer(Player currentPlayer) {
+        this.currentPlayer = currentPlayer;
     }
 }

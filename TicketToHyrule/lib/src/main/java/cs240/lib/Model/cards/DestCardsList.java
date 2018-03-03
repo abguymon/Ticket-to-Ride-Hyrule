@@ -28,6 +28,7 @@ public class DestCardsList {
     }
 
     private void createDestinationCards() {
+        destinationCards = new ArrayList<>();
         City outsetIsland = new City("Outset Island");
         City lordJabuJabu = new City("Lord Jabu Jabu");
         City marineResearchLab = new City("Marine Research Lab");
@@ -59,7 +60,7 @@ public class DestCardsList {
         City tingleIsland = new City("Tingle Island");
         City shadowTemple = new City("Shadow Temple");
 
-        DestinationCard card1 = new DestinationCard(21, outsetIsland, lordJabuJabu);
+        DestinationCard cardOne = new DestinationCard(21, outsetIsland, lordJabuJabu);
         DestinationCard card2 = new DestinationCard(8, marineResearchLab, dekuPalace);
         DestinationCard card3 = new DestinationCard(8, goronCity, templeOfLight);
         DestinationCard card4 = new DestinationCard(6, lordJabuJabu, gerudoFortress);
@@ -90,7 +91,7 @@ public class DestCardsList {
         DestinationCard card29 = new DestinationCard(9, dekuPalace, zorasDomain);
         DestinationCard card30 = new DestinationCard(9, tingleIsland, outsetIsland);
 
-        destinationCards.add(card1);
+        destinationCards.add(cardOne);
         destinationCards.add(card2);
         destinationCards.add(card3);
         destinationCards.add(card4);
