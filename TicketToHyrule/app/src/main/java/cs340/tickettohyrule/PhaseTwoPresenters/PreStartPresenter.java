@@ -29,9 +29,9 @@ public class PreStartPresenter implements Observer{
 
     public void submit(){
         if(removedDestinationCards.size() <= 1){
-            //SEND INFO TO SERVER
-//            SubmitDestinationCardAsync submitDestinationCardAsync = new SubmitDestinationCardAsync();
-//            submitDestinationCardAsync.execute();
+//            SEND INFO TO SERVER
+            SubmitDestinationCardAsync submitDestinationCardAsync = new SubmitDestinationCardAsync();
+            submitDestinationCardAsync.execute();
         }
         else{
             view.toast("Keep at least two cards");
@@ -40,7 +40,7 @@ public class PreStartPresenter implements Observer{
 
     @Override
     public void update (Observable observable, Object o){
-        CurrentUserSingleton.getInstance().getModelFacade().setGames(ClientFacade.getInstance().getGames());
+//        CurrentUserSingleton.getInstance().getModelFacade().setGames(ClientFacade.getInstance().getGames());
 //        getActivity().runOnUiThread(new Runnable(){
 //            @Override
 //            public void run(){
@@ -54,33 +54,30 @@ public class PreStartPresenter implements Observer{
     }
 
 
-//    private class SubmitDestinationCardAsync extends AsyncTask<Void, Void, String> {
-//        ModelFacade modelFacade = CurrentUserSingleton.getInstance().getModelFacade();
-//        @Override
-//        protected String doInBackground(Void... params){
-//            DestinationCard card = null;
-//            if(removedDestinationCards.size() > 0){
-//                card = removedDestinationCards.get(0);
-//            }
-//            String gameName = ""; //THIS WILL END UP EQUALING SOMETHING LIKE modelFacade.getGameData.getGameName();
-//            String message = modelFacade.submitDestinationCard(gameName, card);
-//
-//            return message;
-//        }
-//        @Override protected void onPostExecute(String message){
-//            super.onPostExecute(message);
-//            if(message.equals("")){
-//                inGameSingleton.setInGame(true);
-//                Toast.makeText(getActivity(), "Successfully joined game", Toast.LENGTH_SHORT).show();
-//                createButton.setEnabled(false);
-//                joinButton.setEnabled(false);
-//                inGameSingleton.setGameImIn(currentGame);
-//            }
-//            else{
-//                Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
-//            }
-//        }
-//    }
+    private class SubmitDestinationCardAsync extends AsyncTask<Void, Void, String> {
+        ModelFacade modelFacade = CurrentUserSingleton.getInstance().getModelFacade();
+        @Override
+        protected String doInBackground(Void... params){
+            DestinationCard card = null;
+            if(removedDestinationCards.size() > 0){
+                card = removedDestinationCards.get(0);
+            }
+            String gameName = modelFacade.getGameData().getGameName(); //THIS WILL END UP EQUALING SOMETHING LIKE modelFacade.getGameData.getGameName();
+            String message = modelFacade.submitDestinationCard(gameName, card);
+
+            return message;
+        }
+        @Override protected void onPostExecute(String message){
+            super.onPostExecute(message);
+            if(message.equals("")){
+                //MOVE TO REGULAR MAP (FRAGMENT IS CURRENTLY BLOWN UP IN THE CONSTRAINT VIEW
+
+            }
+            else{
+                view.toast(message);
+            }
+        }
+    }
     public ArrayList<DestinationCard> getDestinationCards(){return destinationCards;}
     public ArrayList<DestinationCard> getRemovedDestinationCards(){return removedDestinationCards;}
 }
