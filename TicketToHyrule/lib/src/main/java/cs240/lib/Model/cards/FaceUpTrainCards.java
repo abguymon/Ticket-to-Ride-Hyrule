@@ -23,7 +23,7 @@ public class FaceUpTrainCards {
 
     public TrainCard pick(int positionPicked){
         TrainCard picked = faceUpCards[positionPicked];
-        faceUpCards[positionPicked] = TrainCardDeck.SINGLETON.draw();
+//        faceUpCards[positionPicked] = TrainCardDeck.SINGLETON.draw();
         return picked;
     }
 
@@ -32,9 +32,9 @@ public class FaceUpTrainCards {
         for (int i = 0; i < faceUpCards.length; ++i){
             temp.add(faceUpCards[i]);
         }
-        TrainCardDeck.SINGLETON.shuffleInDiscard(temp);
+//        TrainCardDeck.SINGLETON.shuffleInDiscard(temp);
         for (int i = 0; i < faceUpCards.length; ++i){
-            faceUpCards[i] = TrainCardDeck.SINGLETON.draw();
+//            faceUpCards[i] = TrainCardDeck.SINGLETON.draw();
         }
     }
 }

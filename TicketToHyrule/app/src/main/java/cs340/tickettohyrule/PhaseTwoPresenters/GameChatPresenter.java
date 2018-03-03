@@ -17,7 +17,7 @@ public class GameChatPresenter implements Observer {
     private GameChatFragment view = null;
 
     public void sendMessage(String message){
-        modelFacade.sendMessage(message);
+        modelFacade.sendMessage(message, "this will change");
     }
     public void updateChat(){
 

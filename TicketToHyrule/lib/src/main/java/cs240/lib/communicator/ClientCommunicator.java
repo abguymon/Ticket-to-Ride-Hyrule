@@ -25,8 +25,8 @@ public class ClientCommunicator {
     //Static variables
     private static Gson gson = new Gson();
     private String authToken;
-    private String serverHost;
-    private String serverPort;
+    private String serverHost = "localhost";
+    private String serverPort = "8080";
 
 
     //Constructors
@@ -120,7 +120,6 @@ public class ClientCommunicator {
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
-
         }
         return result;
     }

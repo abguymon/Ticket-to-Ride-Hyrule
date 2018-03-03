@@ -27,7 +27,7 @@ public class Main {
         Route castletowntoHylia = new Route(castletownAndHylia, 4, TrainCardColor.BLUE);
         System.out.println(castletowntoHylia.toString());
 
-        Player link = new Player(PlayerColor.GREEN);
+        Player link = new Player(PlayerColor.GREEN, "green");
         ArrayList<TrainCard> linksTrainCards = new ArrayList<>();
         TrainCard blueCard = new TrainCard(TrainCardColor.BLUE);
         TrainCard greenCard = new TrainCard(TrainCardColor.GREEN);
@@ -45,7 +45,7 @@ public class Main {
         }
         System.out.println();
 
-        Player gannon = new Player(PlayerColor.BLACK);
+        Player gannon = new Player(PlayerColor.BLACK, "black");
         castletowntoHylia.claim(gannon);
         System.out.println("Trains remaining for Gannon: " + gannon.getTrainsRemaining());
 

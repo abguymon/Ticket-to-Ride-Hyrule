@@ -21,6 +21,7 @@ import java.util.Observer;
 import java.util.Queue;
 
 import cs240.lib.Model.ClientFacade;
+import cs240.lib.Model.Game;
 import cs240.lib.Model.LobbyGame;
 import cs240.lib.Model.ModelFacade;
 import cs240.lib.common.results.GetGameResult;
@@ -103,18 +104,10 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener,
             Toast.makeText(getActivity(),
                     g.getGameName() + " Started", Toast.LENGTH_SHORT).show();
             //THIS CODE IS WEIRD BUT BELOW IS ME TELLING THE SERVER TO START THESE GAMES
-            if(g.getPlayerArray().contains(CurrentUserSingleton.getInstance().getUserName())){
-                Object out = CurrentUserSingleton.getInstance().getModelFacade().getGameData(g.getGameName());
-                if(out instanceof GetGameResult) {
-                    Intent intent = new Intent(getActivity(), GameActivity.class);
-                    LobbyGame gameData = (LobbyGame) out;
-                    clientFacade.setGameData(gameData);
-                    CurrentUserSingleton.getInstance().getModelFacade().setGameData(gameData);
-                    startActivity(intent);
-                }
-                else{
-                    Toast.makeText(getActivity(), (String) out, Toast.LENGTH_SHORT).show();
-                }
+            if(g.getPlayerArray().contains(CurrentUserSingleton.getInstance().getModelFacade().getCurrentUser().getUsername())){
+                //STUFF BELOW GOES IN ASYNC TASK
+                GetGameAsync getGameAsync = new GetGameAsync();
+                getGameAsync.execute(g.getGameName());
             }
         }
 
@@ -268,6 +261,27 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener,
             }
             else{
                 Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+    private class GetGameAsync extends AsyncTask<String, Void, Object> {
+        GameLobbyPresenter gameLobbyPresenter = new GameLobbyPresenter();
+        @Override
+        protected Object doInBackground(String... game){
+            Object result = gameLobbyPresenter.getGame(game[0]);
+            return result;
+        }
+        @Override protected void onPostExecute(Object result){
+            super.onPostExecute(result);
+            if(result instanceof GetGameResult){
+                Intent intent = new Intent(getActivity(), GameActivity.class);
+                Game gameData = ((GetGameResult) result).getGameStarted();
+                ClientFacade.getInstance().setGameData(gameData);
+                CurrentUserSingleton.getInstance().getModelFacade().setGameData(gameData);
+                startActivity(intent);
+            }
+            else{
+                Toast.makeText(getActivity(), (String) result, Toast.LENGTH_SHORT).show();
             }
         }
     }

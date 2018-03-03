@@ -81,7 +81,8 @@ public class ServerCommunicator {
                         Object[] parameters = command.getParameters();
                     /*if (command.getParameterTypeNames()[0].equals(String.class)) {*/
                         String username = (String) parameters[0];
-                        boolean isValidAuthToken = Target.SINGLETON.isValidAuthToken(username, authToken);
+//                        boolean isValidAuthToken = Target.SINGLETON.isValidAuthToken(username, authToken);  <---THIS NEEDS TO BE CHANGED BECAUSE WE DONT ALWAYS GIVE USERNAME
+                        boolean isValidAuthToken = true;
                         if (isValidAuthToken) {
                             result = command.execute();
                         }else{

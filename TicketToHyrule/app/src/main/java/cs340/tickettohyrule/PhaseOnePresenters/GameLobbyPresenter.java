@@ -19,6 +19,8 @@ public class GameLobbyPresenter {
     {
         return modelFacade.leaveGame(userName, gameName);
     }
-
+    public Object getGame(String gameName){
+        return modelFacade.getGameData(gameName);
+    }
 
 }
