@@ -15,11 +15,11 @@
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/zelda_map" />
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/zelda_map_final" />
 
     <ImageButton
         android:id="@+id/infoButon"
@@ -274,38 +274,6 @@
         app:layout_constraintStart_toStartOf="@+id/zeldaMap"
         app:layout_constraintTop_toTopOf="@+id/zeldaMap"
         app:layout_constraintVertical_bias="0.68" />
-
-    <ImageButton
-        android:id="@+id/route19"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/black_circle"
-        app:layout_constraintBottom_toBottomOf="@+id/zeldaMap"
-        app:layout_constraintEnd_toEndOf="@+id/zeldaMap"
-        app:layout_constraintHorizontal_bias="0.714"
-        app:layout_constraintStart_toStartOf="@+id/zeldaMap"
-        app:layout_constraintTop_toTopOf="@+id/zeldaMap"
-        app:layout_constraintVertical_bias="0.42" />
-
-    <ImageButton
-        android:id="@+id/route20"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/black_circle"
-        app:layout_constraintBottom_toBottomOf="@+id/zeldaMap"
-        app:layout_constraintEnd_toEndOf="@+id/zeldaMap"
-        app:layout_constraintHorizontal_bias="0.753"
-        app:layout_constraintStart_toStartOf="@+id/zeldaMap"
-        app:layout_constraintTop_toTopOf="@+id/zeldaMap"
-        app:layout_constraintVertical_bias="0.451" />
 
     <ImageButton
         android:id="@+id/route21"
@@ -725,8 +693,8 @@
 
     <ImageButton
         android:id="@+id/route44"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="23dp"
+        android:layout_height="21dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -734,31 +702,15 @@
         android:background="@drawable/black_circle"
         app:layout_constraintBottom_toBottomOf="@+id/zeldaMap"
         app:layout_constraintEnd_toEndOf="@+id/zeldaMap"
-        app:layout_constraintHorizontal_bias="0.797"
+        app:layout_constraintHorizontal_bias="0.72"
         app:layout_constraintStart_toStartOf="@+id/zeldaMap"
         app:layout_constraintTop_toTopOf="@+id/zeldaMap"
-        app:layout_constraintVertical_bias="0.317" />
-
-    <ImageButton
-        android:id="@+id/route45"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/black_circle"
-        app:layout_constraintBottom_toBottomOf="@+id/zeldaMap"
-        app:layout_constraintEnd_toEndOf="@+id/zeldaMap"
-        app:layout_constraintHorizontal_bias="0.844"
-        app:layout_constraintStart_toStartOf="@+id/zeldaMap"
-        app:layout_constraintTop_toTopOf="@+id/zeldaMap"
-        app:layout_constraintVertical_bias="0.471" />
+        app:layout_constraintVertical_bias="0.42000002" />
 
     <ImageButton
         android:id="@+id/route46"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="23dp"
+        android:layout_height="21dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -766,10 +718,74 @@
         android:background="@drawable/black_circle"
         app:layout_constraintBottom_toBottomOf="@+id/zeldaMap"
         app:layout_constraintEnd_toEndOf="@+id/zeldaMap"
-        app:layout_constraintHorizontal_bias="0.814"
+        app:layout_constraintHorizontal_bias="0.77"
         app:layout_constraintStart_toStartOf="@+id/zeldaMap"
         app:layout_constraintTop_toTopOf="@+id/zeldaMap"
-        app:layout_constraintVertical_bias="0.451" />
+        app:layout_constraintVertical_bias="0.358" />
+
+    <ImageButton
+        android:id="@+id/route45"
+        android:layout_width="23dp"
+        android:layout_height="21dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/black_circle"
+        app:layout_constraintBottom_toBottomOf="@+id/zeldaMap"
+        app:layout_constraintEnd_toEndOf="@+id/zeldaMap"
+        app:layout_constraintHorizontal_bias="0.75"
+        app:layout_constraintStart_toStartOf="@+id/zeldaMap"
+        app:layout_constraintTop_toTopOf="@+id/zeldaMap"
+        app:layout_constraintVertical_bias="0.45999998" />
+
+    <ImageButton
+        android:id="@+id/route43"
+        android:layout_width="23dp"
+        android:layout_height="21dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/black_circle"
+        app:layout_constraintBottom_toBottomOf="@+id/zeldaMap"
+        app:layout_constraintEnd_toEndOf="@+id/zeldaMap"
+        app:layout_constraintHorizontal_bias="0.81"
+        app:layout_constraintStart_toStartOf="@+id/zeldaMap"
+        app:layout_constraintTop_toTopOf="@+id/zeldaMap"
+        app:layout_constraintVertical_bias="0.464" />
+
+    <ImageButton
+        android:id="@+id/route20"
+        android:layout_width="23dp"
+        android:layout_height="21dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/black_circle"
+        app:layout_constraintBottom_toBottomOf="@+id/zeldaMap"
+        app:layout_constraintEnd_toEndOf="@+id/zeldaMap"
+        app:layout_constraintHorizontal_bias="0.853"
+        app:layout_constraintStart_toStartOf="@+id/zeldaMap"
+        app:layout_constraintTop_toTopOf="@+id/zeldaMap"
+        app:layout_constraintVertical_bias="0.479" />
+
+    <ImageButton
+        android:id="@+id/route19"
+        android:layout_width="23dp"
+        android:layout_height="21dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/black_circle"
+        app:layout_constraintBottom_toBottomOf="@+id/zeldaMap"
+        app:layout_constraintEnd_toEndOf="@+id/zeldaMap"
+        app:layout_constraintHorizontal_bias="0.792"
+        app:layout_constraintStart_toStartOf="@+id/zeldaMap"
+        app:layout_constraintTop_toTopOf="@+id/zeldaMap"
+        app:layout_constraintVertical_bias="0.328" />
 
     <ImageButton
         android:id="@+id/route47"
@@ -914,22 +930,6 @@
         app:layout_constraintStart_toStartOf="@+id/zeldaMap"
         app:layout_constraintTop_toTopOf="@+id/zeldaMap"
         app:layout_constraintVertical_bias="0.283" />
-
-    <ImageButton
-        android:id="@+id/route43"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/black_circle"
-        app:layout_constraintBottom_toBottomOf="@+id/zeldaMap"
-        app:layout_constraintEnd_toEndOf="@+id/zeldaMap"
-        app:layout_constraintHorizontal_bias="0.776"
-        app:layout_constraintStart_toStartOf="@+id/zeldaMap"
-        app:layout_constraintTop_toTopOf="@+id/zeldaMap"
-        app:layout_constraintVertical_bias="0.369" />
 
     <ImageButton
         android:id="@+id/route14"
