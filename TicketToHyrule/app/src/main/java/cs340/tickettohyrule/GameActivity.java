@@ -8,6 +8,7 @@ import cs240.lib.Model.ClientFacade;
 import cs340.tickettohyrule.Fragments.GameChatFragment;
 import cs340.tickettohyrule.Fragments.GameHistoryFragment;
 import cs340.tickettohyrule.Fragments.GameInfoFragment;
+import cs340.tickettohyrule.Fragments.MapFragment;
 import cs340.tickettohyrule.Fragments.PreStartFragment;
 import cs340.tickettohyrule.PhaseTwoPresenters.GamePresenter;
 
@@ -16,6 +17,7 @@ import cs340.tickettohyrule.PhaseTwoPresenters.GamePresenter;
  */
 
 public class GameActivity extends AppCompatActivity {
+
     private GamePresenter gamePresenter = new GamePresenter();
 
     @Override
@@ -25,29 +27,41 @@ public class GameActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+        moveToPreStart();
+    }
+
+    //MOVE TO MAP SCREEN
+    public void moveToMap() {
+        Fragment fragment = new MapFragment();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.game_frame, fragment, fragment.getClass().getSimpleName()).addToBackStack(null).commit();
+    }
+
+    //MOVE TO PRESTART SCREEN
+    public void moveToPreStart() {
         Fragment fragment = new PreStartFragment();
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.frameLayout, fragment, fragment.getClass().getSimpleName()).addToBackStack(null).commit();
+                .replace(R.id.game_frame, fragment, fragment.getClass().getSimpleName()).addToBackStack(null).commit();
     }
 
     //MOVE TO INFO SCREEN
-    public void moveToInfro() {
+    public void moveToInfo() {
         Fragment fragment = new GameInfoFragment();
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_frame, fragment, fragment.getClass().getSimpleName()).addToBackStack(null).commit();
+                .replace(R.id.game_frame, fragment, fragment.getClass().getSimpleName()).addToBackStack(null).commit();
     }
 
     //MOVE TO CHAT SCREEN
     public void moveToChat() {
         Fragment fragment = new GameChatFragment();
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_frame, fragment, fragment.getClass().getSimpleName()).addToBackStack(null).commit();
+                .replace(R.id.game_frame, fragment, fragment.getClass().getSimpleName()).addToBackStack(null).commit();
     }
 
     //MOVE TO HISTORY SCREEN
     public void moveToHistory() {
         Fragment fragment = new GameHistoryFragment();
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_frame, fragment, fragment.getClass().getSimpleName()).addToBackStack(null).commit();
+                .replace(R.id.game_frame, fragment, fragment.getClass().getSimpleName()).addToBackStack(null).commit();
     }
 }
