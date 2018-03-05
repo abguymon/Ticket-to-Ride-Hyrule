@@ -41,6 +41,6 @@ public class DestinationCard {
     }
 
     public String toString() {
-        return startCity + "\n" + endCity + "\n" + value;
+        return startCity.getCityName() + "\nto\n" + endCity.getCityName() + "\n" + value + " points";
     }
 }

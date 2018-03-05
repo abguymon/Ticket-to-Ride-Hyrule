@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import cs240.lib.Model.ClientFacade;
@@ -25,6 +26,9 @@ public class PreStartFragment extends Fragment implements CompoundButton.OnCheck
     private CheckBox checkBoxTwo;
     private CheckBox checkBoxThree;
     private ImageButton submitButton;
+    private TextView cardOne;
+    private TextView cardTwo;
+    private TextView cardThree;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -39,42 +43,44 @@ public class PreStartFragment extends Fragment implements CompoundButton.OnCheck
         checkBoxTwo.setOnCheckedChangeListener(this);
         checkBoxThree = (CheckBox) view.findViewById(R.id.checkBox3);
         checkBoxThree.setOnCheckedChangeListener(this);
+        cardOne = (TextView) view.findViewById(R.id.dCardOne);
+        cardTwo = (TextView) view.findViewById(R.id.dCardOne2);
+        cardThree = (TextView) view.findViewById(R.id.dCardOne3);
         submitButton = (ImageButton) view.findViewById(R.id.submitButton);
         submitButton.setOnClickListener(this);
-
+        setText();
         return view;
+    }
+    public void setText(){
+        cardOne.setText(preStartPresenter.getDestinationCards().get(0).toString());
+        cardTwo.setText(preStartPresenter.getDestinationCards().get(1).toString());
+        cardThree.setText(preStartPresenter.getDestinationCards().get(2).toString());
     }
     @Override
     public void onCheckedChanged(CompoundButton button, boolean isChecked){
         switch (button.getId()){
             case R.id.checkBox1:
-                if(isChecked) {
-                    checkBoxOne.setChecked(false);
+                if(!isChecked) {
                     preStartPresenter.getRemovedDestinationCards().add(preStartPresenter.getDestinationCards().get(0));
                 }
                 else {
-                    checkBoxOne.setChecked(true);
                     preStartPresenter.getRemovedDestinationCards().remove(preStartPresenter.getDestinationCards().get(0));
                 }
                 break;
             case R.id.checkBox2:
-                if(isChecked) {
-                    checkBoxTwo.setChecked(false);
-                    preStartPresenter.getRemovedDestinationCards().add(preStartPresenter.getDestinationCards().get(0));
+                if(!isChecked) {
+                    preStartPresenter.getRemovedDestinationCards().add(preStartPresenter.getDestinationCards().get(1));
                 }
                 else {
-                    checkBoxTwo.setChecked(true);
-                    preStartPresenter.getRemovedDestinationCards().remove(preStartPresenter.getDestinationCards().get(0));
+                    preStartPresenter.getRemovedDestinationCards().remove(preStartPresenter.getDestinationCards().get(1));
                 }
                 break;
             case R.id.checkBox3:
-                if(isChecked) {
-                    checkBoxThree.setChecked(false);
-                    preStartPresenter.getRemovedDestinationCards().add(preStartPresenter.getDestinationCards().get(0));
+                if(!isChecked) {
+                    preStartPresenter.getRemovedDestinationCards().add(preStartPresenter.getDestinationCards().get(2));
                 }
                 else {
-                    checkBoxThree.setChecked(true);
-                    preStartPresenter.getRemovedDestinationCards().remove(preStartPresenter.getDestinationCards().get(0));
+                    preStartPresenter.getRemovedDestinationCards().remove(preStartPresenter.getDestinationCards().get(2));
                 }
                 break;
         }
@@ -82,6 +88,7 @@ public class PreStartFragment extends Fragment implements CompoundButton.OnCheck
     @Override
     public void onClick(View v){
         preStartPresenter.submit();
+        getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
     }
 
     public void toast(String s){
