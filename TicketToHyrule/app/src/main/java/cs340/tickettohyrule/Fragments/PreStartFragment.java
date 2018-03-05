@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import cs240.lib.Model.ClientFacade;
+import cs340.tickettohyrule.GameActivity;
 import cs340.tickettohyrule.PhaseTwoPresenters.PreStartPresenter;
 import cs340.tickettohyrule.R;
 
@@ -88,7 +89,7 @@ public class PreStartFragment extends Fragment implements CompoundButton.OnCheck
     @Override
     public void onClick(View v){
         preStartPresenter.submit();
-        getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
+        ((GameActivity) getActivity()).moveToMap();
     }
 
     public void toast(String s){

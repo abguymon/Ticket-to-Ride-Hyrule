@@ -7,7 +7,7 @@
     android:background="@drawable/background">
 
     <TextView
-        android:id="@+id/gameHistoryText"
+        android:id="@+id/game_history_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/gameHistoryRecycler"
+        android:id="@+id/game_history_recycler"
         android:layout_width="368dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -29,6 +29,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gameHistoryText" />
+        app:layout_constraintTop_toBottomOf="@+id/game_history_title" />
 
 </android.support.constraint.ConstraintLayout>
