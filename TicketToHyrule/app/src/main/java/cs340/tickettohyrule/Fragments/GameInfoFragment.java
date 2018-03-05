@@ -23,7 +23,7 @@ public class GameInfoFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_prestart, container, false);
+        View view = inflater.inflate(R.layout.fragment_game_info, container, false);
 
         gameInfoPresenter.setView(this);
         ClientFacade.getInstance().addObserver(gameInfoPresenter);

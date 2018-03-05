@@ -88,7 +88,6 @@ public class PreStartFragment extends Fragment implements CompoundButton.OnCheck
     @Override
     public void onClick(View v){
         preStartPresenter.submit();
-        getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
     }
 
     public void toast(String s){

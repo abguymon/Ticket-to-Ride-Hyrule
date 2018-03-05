@@ -45,13 +45,14 @@ public class GameChatPresenter implements Observer {
     private class SendMessageAsync extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... message){
-            String result = modelFacade.sendMessage(modelFacade.getCurrentPlayer().getPlayerName(), message[0]);
+            String result = modelFacade.sendMessage(message[0], modelFacade.getGameData().getGameName());
             return result;
         }
         @Override protected void onPostExecute(String message){
             super.onPostExecute(message);
             if(message.equals("")){
                 //DO WE NEED TO DO ANYTHING HERE??????
+                view.toast("message sent!");
             }
             else{
                 view.toast(message);

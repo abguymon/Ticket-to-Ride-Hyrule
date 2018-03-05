@@ -11,6 +11,7 @@ import cs240.lib.Model.ModelFacade;
 import cs240.lib.Model.cards.DestinationCard;
 import cs340.tickettohyrule.CurrentUserSingleton;
 import cs340.tickettohyrule.Fragments.PreStartFragment;
+import cs340.tickettohyrule.GameActivity;
 
 /**
  * Created by adam on 2/28/18.
@@ -70,8 +71,8 @@ public class PreStartPresenter implements Observer{
         @Override protected void onPostExecute(String message){
             super.onPostExecute(message);
             if(message.equals("")){
-                //MOVE TO REGULAR MAP (FRAGMENT IS CURRENTLY BLOWN UP IN THE CONSTRAINT VIEW
-
+//                view.getActivity().getSupportFragmentManager().beginTransaction().remove(view).commit();
+                ((GameActivity)view.getActivity()).switchToActivity(view);
             }
             else{
                 view.toast(message);
