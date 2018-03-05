@@ -39,7 +39,7 @@ public class GameInfoFragment extends Fragment {
         ClientFacade.getInstance().addObserver(gameInfoPresenter);
 
         trainCardDeck = (ImageButton) view.findViewById(R.id.train_deck);
-        destinationCardDeck = (ImageButton) view.findViewById(R.id.destinationDeck);
+        destinationCardDeck = (ImageButton) view.findViewById(R.id.destination_deck);
 
         dCardRecycler = (RecyclerView) view.findViewById(R.id.destination_card_recycler);
         dCardRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));

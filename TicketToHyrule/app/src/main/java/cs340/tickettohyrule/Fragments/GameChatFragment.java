@@ -97,7 +97,7 @@ public class GameChatFragment extends Fragment {
     }
 
     //update list ui information
-    private void updateUI()
+    public void updateUI()
     {
         List<String> chatList = getChat();
         chatAdapter = new Adapter(chatList);

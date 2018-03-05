@@ -72,7 +72,7 @@ public class PreStartPresenter implements Observer{
             super.onPostExecute(message);
             if(message.equals("")){
 //                view.getActivity().getSupportFragmentManager().beginTransaction().remove(view).commit();
-                ((GameActivity)view.getActivity()).switchToActivity(view);
+                ((GameActivity)view.getActivity()).moveToMap();
             }
             else{
                 view.toast(message);
