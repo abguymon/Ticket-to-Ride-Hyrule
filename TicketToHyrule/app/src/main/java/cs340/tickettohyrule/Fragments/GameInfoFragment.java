@@ -14,6 +14,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import cs240.lib.Model.ClientFacade;
+import cs240.lib.Model.cards.DestinationCard;
 import cs340.tickettohyrule.PhaseTwoPresenters.GameInfoPresenter;
 import cs340.tickettohyrule.R;
 
@@ -52,13 +53,13 @@ public class GameInfoFragment extends Fragment {
     //update list ui information
     private void updateUI()
     {
-        List<String> dCardList = getDCards();
+        List<DestinationCard> dCardList = getDCards();
         dCardAdapter = new Adapter(dCardList);
         dCardRecycler.setAdapter(dCardAdapter);
     }
 
-    private List<String> getDCards() {
-        return null;
+    private List<DestinationCard> getDCards() {
+        return gameInfoPresenter.getDestinationCards();
     }
 
     private class Holder extends RecyclerView.ViewHolder {
@@ -75,9 +76,9 @@ public class GameInfoFragment extends Fragment {
     //adapter for recycler
     private class Adapter extends RecyclerView.Adapter<Holder>
     {
-        private List<String> mDCards;
+        private List<DestinationCard> mDCards;
 
-        public Adapter(List<String> dCards){
+        public Adapter(List<DestinationCard> dCards){
             mDCards = dCards;
         }
 
