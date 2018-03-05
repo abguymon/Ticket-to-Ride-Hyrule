@@ -89,7 +89,6 @@ public class PreStartFragment extends Fragment implements CompoundButton.OnCheck
     @Override
     public void onClick(View v){
         preStartPresenter.submit();
-        ((GameActivity) getActivity()).moveToMap();
     }
 
     public void toast(String s){
