@@ -1,5 +1,6 @@
 package cs340.tickettohyrule.Fragments;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -30,6 +31,7 @@ public class GameInfoFragment extends Fragment {
     private RecyclerView dCardRecycler;
     private Adapter dCardAdapter;
     private Adapter playerAdapter;
+    private Typeface zeldaFont;
 
     @Nullable
     @Override
@@ -65,11 +67,20 @@ public class GameInfoFragment extends Fragment {
     private class Holder extends RecyclerView.ViewHolder {
 
         private TextView dCardText;
+        private DestinationCard mDestinationCard;
 
         public Holder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.log_text_list,parent,false));
 
             dCardText = (TextView) itemView.findViewById(R.id.log_text);
+        }
+
+        //bind object to recycler
+        public void bind(DestinationCard destinationCard)
+        {
+            this.mDestinationCard = destinationCard;
+            dCardText.setText(mDestinationCard.toString());
+            dCardText.setTypeface(zeldaFont);
         }
     }
 
@@ -90,6 +101,7 @@ public class GameInfoFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(Holder holder, int position) {
+            holder.bind(mDCards.get(position));
         }
 
         @Override
