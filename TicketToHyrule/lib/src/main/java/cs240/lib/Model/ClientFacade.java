@@ -1,14 +1,18 @@
 package cs240.lib.Model;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Observable;
 import java.util.Queue;
 
+import cs240.lib.Model.cards.DestinationCard;
 import cs240.lib.client.Poller;
 import cs240.lib.client.ServerProxy;
 import cs240.lib.common.Command;
 import cs240.lib.common.results.PollerResult;
+import sun.security.krb5.internal.crypto.Des;
 
 /**
  * Created by adam on 2/12/18.
@@ -79,6 +83,16 @@ public class ClientFacade extends Observable{
         setChanged();
         notifyObservers();
     }
+    public void submitDestinationCards(String playerName, String card){
+        Gson gson = new Gson();
+        DestinationCard dcard = gson.fromJson(card, DestinationCard.class);
+        if(card != null) {
+            gameData.getPlayer(playerName).dropDestinationCard(dcard);
+            gameData.putbackDestinationCard(dcard);
+        }
+        setChanged();
+        notifyObservers();
+    }
 
     public void handleObject( Command myCommand){
         switch(myCommand.getMethodName()){
@@ -105,7 +119,8 @@ public class ClientFacade extends Observable{
                         (String)myCommand.getParametersAsJsonStrings()[1].substring(1,myCommand.getParametersAsJsonStrings()[1].length()-1));
                 break;
             case "submitDestinationCards":
-                //ADD FUNCTIONS
+                submitDestinationCards((String)myCommand.getParametersAsJsonStrings()[0].substring(1,myCommand.getParametersAsJsonStrings()[0].length()-1),
+                        (String) myCommand.getParametersAsJsonStrings()[2]);
                 break;
         }
     }

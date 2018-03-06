@@ -28,14 +28,13 @@ public class GameInfoPresenter implements Observer{
 
     @Override
     public void update (Observable observable, Object o){
-        CurrentUserSingleton.getInstance().getModelFacade().setGames(ClientFacade.getInstance().getGames());
-        modelFacade.getGameData().getDestinationCardDeck();
-//        getActivity().runOnUiThread(new Runnable(){
-//            @Override
-//            public void run(){
-//                updateUI();
-//            }
-//        });
+        CurrentUserSingleton.getInstance().getModelFacade().setGameData(ClientFacade.getInstance().getGameData());
+        view.getActivity().runOnUiThread(new Runnable(){
+            @Override
+            public void run(){
+                view.updateUI();
+            }
+        });
     }
 
     public void setView(GameInfoFragment view){

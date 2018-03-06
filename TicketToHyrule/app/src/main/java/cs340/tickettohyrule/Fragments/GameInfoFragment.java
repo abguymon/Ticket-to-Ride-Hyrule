@@ -53,7 +53,7 @@ public class GameInfoFragment extends Fragment {
     }
 
     //update list ui information
-    private void updateUI()
+    public void updateUI()
     {
         List<DestinationCard> dCardList = getDCards();
         dCardAdapter = new Adapter(dCardList);

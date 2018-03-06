@@ -45,6 +45,10 @@ public class Command {
         }
     }
 
+    public Object jsonParamterToParameter(int parameter){
+        return gson.fromJson(parametersAsJsonStrings[parameter], parameterTypes[parameter]);
+    }
+
     public String[] formatJsonParameterStrings(String[] parameterStrings) {
         for (int i = 0; i < parameterStrings.length; ++i) {
             String curParameter = parameterStrings[i];
