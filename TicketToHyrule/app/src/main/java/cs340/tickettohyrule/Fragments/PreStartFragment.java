@@ -14,6 +14,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import cs240.lib.Model.ClientFacade;
+import cs240.lib.Model.colors.PlayerColor;
+import cs340.tickettohyrule.GameActivity;
 import cs340.tickettohyrule.PhaseTwoPresenters.PreStartPresenter;
 import cs340.tickettohyrule.R;
 
