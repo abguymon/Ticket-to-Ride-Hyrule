@@ -1,8 +1,10 @@
 package cs340.tickettohyrule.Fragments;
 
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,12 +12,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
 import cs240.lib.Model.ClientFacade;
 import cs240.lib.Model.cards.DestinationCard;
+import cs240.lib.Model.gameParts.Player;
 import cs340.tickettohyrule.PhaseTwoPresenters.GameInfoPresenter;
 import cs340.tickettohyrule.R;
 
@@ -30,7 +35,7 @@ public class GameInfoFragment extends Fragment {
     private RecyclerView playerRecycler;
     private RecyclerView dCardRecycler;
     private Adapter dCardAdapter;
-    private Adapter playerAdapter;
+    private HorizontalAdapter playerAdapter;
     private Typeface zeldaFont;
 
     @Nullable
@@ -47,6 +52,12 @@ public class GameInfoFragment extends Fragment {
         dCardRecycler = (RecyclerView) view.findViewById(R.id.destination_card_recycler);
         dCardRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+        playerRecycler = (RecyclerView) view.findViewById(R.id.player_info_recycler);
+        LinearLayoutManager horizontalLayoutManagaer
+                = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+        playerRecycler.setLayoutManager(horizontalLayoutManagaer);
+        playerRecycler.setAdapter(playerAdapter);
+
         updateUI();
 
         return view;
@@ -56,13 +67,17 @@ public class GameInfoFragment extends Fragment {
     private void updateUI()
     {
         List<DestinationCard> dCardList = getDCards();
+        List<Player> players = getPlayers();
+        playerAdapter = new HorizontalAdapter(players);
         dCardAdapter = new Adapter(dCardList);
+        playerRecycler.setAdapter(playerAdapter);
         dCardRecycler.setAdapter(dCardAdapter);
     }
 
     private List<DestinationCard> getDCards() {
         return gameInfoPresenter.getDestinationCards();
     }
+    private List<Player> getPlayers() {return null;};
 
     private class Holder extends RecyclerView.ViewHolder {
 
@@ -109,4 +124,61 @@ public class GameInfoFragment extends Fragment {
             return mDCards.size();
         }
     }
+    
+    public class HorizontalAdapter extends RecyclerView.Adapter<HorizontalAdapter.MyViewHolder> {
+
+        private List<Player> playerList;
+
+        public class MyViewHolder extends RecyclerView.ViewHolder {
+            public TextView txtView;
+            public ImageView imgView;
+
+            public MyViewHolder(View view) {
+                super(view);
+                txtView = (TextView) view.findViewById(R.id.playerInfo);
+                imgView = (ImageView) view.findViewById(R.id.playerImage);
+
+            }
+        }
+
+        public HorizontalAdapter(List<Player> playerList) {
+            this.playerList= playerList;
+        }
+
+        @Override
+        public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View itemView = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.player_image_list, parent, false);
+
+            return new MyViewHolder(itemView);
+        }
+
+        @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+        @Override
+        public void onBindViewHolder(final MyViewHolder holder, final int position) {
+            holder.txtView.setText(playerList.get(position).getPlayerName());
+            switch(playerList.get(position).getPlayerNum())
+            {
+                case 1:
+                    holder.imgView.setImageDrawable(getActivity().getDrawable(R.drawable.link));
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    break;
+                default:
+
+            }
+        }
+
+        @Override
+        public int getItemCount() {
+            return playerList.size();
+        }
+    }
+
 }
