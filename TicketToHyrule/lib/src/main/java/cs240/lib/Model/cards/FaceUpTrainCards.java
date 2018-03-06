@@ -9,8 +9,11 @@ import java.util.ArrayList;
 public class FaceUpTrainCards {
     private TrainCard[] faceUpCards;
 
-    public FaceUpTrainCards(){
+    public FaceUpTrainCards(TrainCardDeck deck){
         faceUpCards = new TrainCard[5];
+        for (int i = 0; i < 5; ++i){
+            faceUpCards[i] = deck.draw();
+        }
     }
 
     public TrainCard[] getFaceUpCards() {
@@ -21,20 +24,20 @@ public class FaceUpTrainCards {
         this.faceUpCards = faceUpCards;
     }
 
-    public TrainCard pick(int positionPicked){
+    public TrainCard pick(int positionPicked, TrainCardDeck deck){
         TrainCard picked = faceUpCards[positionPicked];
-//        faceUpCards[positionPicked] = TrainCardDeck.SINGLETON.draw();
+        faceUpCards[positionPicked] = deck.draw();
         return picked;
     }
 
-    public void shuffleIntoDeck(){
+    public void shuffleIntoDeck(TrainCardDeck deck){
         ArrayList<TrainCard> temp = new ArrayList<>();
         for (int i = 0; i < faceUpCards.length; ++i){
             temp.add(faceUpCards[i]);
         }
-//        TrainCardDeck.SINGLETON.shuffleInDiscard(temp);
+        deck.shuffleInDiscard(temp);
         for (int i = 0; i < faceUpCards.length; ++i){
-//            faceUpCards[i] = TrainCardDeck.SINGLETON.draw();
+            faceUpCards[i] = deck.draw();
         }
     }
 }

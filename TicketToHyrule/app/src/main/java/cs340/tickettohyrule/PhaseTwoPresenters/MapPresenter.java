@@ -8,8 +8,11 @@ import cs240.lib.Model.ClientFacade;
 import cs240.lib.Model.Game;
 import cs240.lib.Model.ModelFacade;
 import cs240.lib.Model.cards.DestCardsList;
+import cs240.lib.Model.cards.DestinationCard;
 import cs240.lib.Model.cards.DestinationCardDeck;
+import cs240.lib.Model.cards.FaceUpTrainCards;
 import cs240.lib.Model.cards.TrainCard;
+import cs240.lib.Model.cards.TrainCardDeck;
 import cs240.lib.Model.colors.TrainCardColor;
 import cs340.tickettohyrule.CurrentUserSingleton;
 import cs340.tickettohyrule.Fragments.MapFragment;
@@ -114,11 +117,14 @@ public class MapPresenter implements Observer {
     }
 
     private void updateDestinationCardDeck(Game temp) {
-
+        DestinationCardDeck deck = temp.getDestinationCardDeck();
+        temp.getPlayerArray().get(1).addDestinationCard(deck.draw());
     }
 
     private void updateTrainCardDeck(Game temp) {
-
+        FaceUpTrainCards faceUp = temp.getFaceUpTrainCards();
+        TrainCardDeck deck = temp.getTrainCardDeck();
+        temp.getPlayerArray().get(1).addTrainCard(faceUp.pick(0, deck));
     }
 
     private void updateDestinationCards(Game temp) {
