@@ -63,6 +63,12 @@ public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
 
             historyText = (TextView) itemView.findViewById(R.id.log_text);
         }
+        //bind object to recycler
+        public void bind(String historyText)
+        {
+            this.historyText.setText(historyText);
+            this.historyText.setTypeface(zeldaFont);
+        }
     }
 
     //adapter for recycler
@@ -82,6 +88,7 @@ public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
 
         @Override
         public void onBindViewHolder(Holder holder, int position) {
+            holder.bind(mHistory.get(position));
         }
 
         @Override

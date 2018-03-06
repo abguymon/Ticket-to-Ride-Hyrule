@@ -31,6 +31,7 @@ public class GameChatFragment extends Fragment {
     private ImageButton sendButton;
     private RecyclerView chatRecycler;
     private Adapter chatAdapter;
+    private Typeface zeldaFont;
 
     private TextWatcher textWatcher = new TextWatcher() {
         @Override
@@ -71,8 +72,6 @@ public class GameChatFragment extends Fragment {
 
         gameChatPresenter.setView(this);
         ClientFacade.getInstance().addObserver(gameChatPresenter);
-
-        Typeface zeldaFont;
 
         zeldaFont = Typeface.createFromAsset(getActivity().getAssets(),"fonts/HyliaSerifBeta-Regular.otf");
 
@@ -117,6 +116,13 @@ public class GameChatFragment extends Fragment {
 
             chatText = (TextView) itemView.findViewById(R.id.log_text);
         }
+
+        //bind object to recycler
+        public void bind(String chatText)
+        {
+            this.chatText.setText(chatText);
+            this.chatText.setTypeface(zeldaFont);
+        }
     }
 
     //adapter for recycler
@@ -136,6 +142,7 @@ public class GameChatFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(Holder holder, int position) {
+            holder.bind(mChat.get(position));
         }
 
         @Override
