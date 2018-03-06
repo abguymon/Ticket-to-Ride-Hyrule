@@ -155,7 +155,8 @@ public class GameInfoFragment extends Fragment {
         public void onBindViewHolder(final MyViewHolder holder, final int position) {
             Player mPlayer = playerList.get(position);
             holder.txtView.setText(mPlayer.getPlayerName() + "\n" + mPlayer.getColor() +
-                    "\n" + mPlayer.getTrainsRemaining() + " trains");
+                    "\n" + mPlayer.getTrainsRemaining() + " trains" +
+                    "\n" + "points: " + mPlayer.getScore());
             switch(playerList.get(position).getPlayerNum())
             {
                 case 1:
