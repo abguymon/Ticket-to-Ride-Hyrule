@@ -53,10 +53,9 @@ public class GameInfoFragment extends Fragment {
         dCardRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         playerRecycler = (RecyclerView) view.findViewById(R.id.player_info_recycler);
-        LinearLayoutManager horizontalLayoutManagaer
+        LinearLayoutManager horizontalLayoutManager
                 = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-        playerRecycler.setLayoutManager(horizontalLayoutManagaer);
-        playerRecycler.setAdapter(playerAdapter);
+        playerRecycler.setLayoutManager(horizontalLayoutManager);
 
         updateUI();
 
@@ -77,7 +76,7 @@ public class GameInfoFragment extends Fragment {
     private List<DestinationCard> getDCards() {
         return gameInfoPresenter.getDestinationCards();
     }
-    private List<Player> getPlayers() {return null;};
+    private List<Player> getPlayers() {return gameInfoPresenter.getPlayers();}
 
     private class Holder extends RecyclerView.ViewHolder {
 
@@ -124,7 +123,7 @@ public class GameInfoFragment extends Fragment {
             return mDCards.size();
         }
     }
-    
+
     public class HorizontalAdapter extends RecyclerView.Adapter<HorizontalAdapter.MyViewHolder> {
 
         private List<Player> playerList;
@@ -137,7 +136,6 @@ public class GameInfoFragment extends Fragment {
                 super(view);
                 txtView = (TextView) view.findViewById(R.id.playerInfo);
                 imgView = (ImageView) view.findViewById(R.id.playerImage);
-
             }
         }
 
@@ -156,22 +154,28 @@ public class GameInfoFragment extends Fragment {
         @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
         @Override
         public void onBindViewHolder(final MyViewHolder holder, final int position) {
-            holder.txtView.setText(playerList.get(position).getPlayerName());
+            Player mPlayer = playerList.get(position);
+            holder.txtView.setText(mPlayer.getPlayerName() + "\n" + mPlayer.getColor() +
+                    "\n" + mPlayer.getTrainsRemaining() + " trains");
             switch(playerList.get(position).getPlayerNum())
             {
-                case 1:
+                case 0:
                     holder.imgView.setImageDrawable(getActivity().getDrawable(R.drawable.link));
                     break;
-                case 2:
+                case 1:
+                    holder.imgView.setImageDrawable(getActivity().getDrawable(R.drawable.goron));
                     break;
                 case 3:
+                    holder.imgView.setImageDrawable(getActivity().getDrawable(R.drawable.zelda));
                     break;
                 case 4:
+                    holder.imgView.setImageDrawable(getActivity().getDrawable(R.drawable.bird_person));
                     break;
                 case 5:
+                    holder.imgView.setImageDrawable(getActivity().getDrawable(R.drawable.zora));
                     break;
                 default:
-
+                    holder.imgView.setImageDrawable(getActivity().getDrawable(R.drawable.gerudo));
             }
         }
 

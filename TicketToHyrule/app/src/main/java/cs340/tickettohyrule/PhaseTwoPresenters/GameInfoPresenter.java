@@ -1,12 +1,14 @@
 package cs340.tickettohyrule.PhaseTwoPresenters;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Observable;
 import java.util.Observer;
 
 import cs240.lib.Model.ClientFacade;
 import cs240.lib.Model.ModelFacade;
 import cs240.lib.Model.cards.DestinationCard;
+import cs240.lib.Model.gameParts.Player;
 import cs340.tickettohyrule.CurrentUserSingleton;
 import cs340.tickettohyrule.Fragments.GameInfoFragment;
 
@@ -18,6 +20,7 @@ public class GameInfoPresenter implements Observer{
     private ModelFacade modelFacade = CurrentUserSingleton.getInstance().getModelFacade();
     private GameInfoFragment view = null;
     private ArrayList<DestinationCard> destinationCards = modelFacade.getGameData().getPlayer(modelFacade.getCurrentUser().getUsername()).getDestinationCards();
+    private ArrayList<Player> players = modelFacade.getGameData().getPlayerArray();
     public void updateInfo(){
 
     }
@@ -25,6 +28,7 @@ public class GameInfoPresenter implements Observer{
     public ArrayList<DestinationCard> getDestinationCards(){
         return destinationCards;
     }
+    public ArrayList<Player> getPlayers() {return players;}
 
     @Override
     public void update (Observable observable, Object o){

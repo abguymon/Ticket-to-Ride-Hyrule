@@ -85,6 +85,7 @@ public class GameChatFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 gameChatPresenter.sendMessage(chatField.getText().toString());
+                chatField.setText("");
             }
         });
 
