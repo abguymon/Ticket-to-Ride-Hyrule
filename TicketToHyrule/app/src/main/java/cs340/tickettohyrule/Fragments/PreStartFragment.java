@@ -1,7 +1,9 @@
 package cs340.tickettohyrule.Fragments;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,8 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import cs240.lib.Model.ClientFacade;
-import cs240.lib.Model.colors.PlayerColor;
-import cs340.tickettohyrule.GameActivity;
+import cs240.lib.Model.gameParts.Player;
 import cs340.tickettohyrule.PhaseTwoPresenters.PreStartPresenter;
 import cs340.tickettohyrule.R;
 
@@ -34,6 +35,7 @@ public class PreStartFragment extends Fragment implements CompoundButton.OnCheck
     private TextView cardOne;
     private TextView cardTwo;
     private TextView cardThree;
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -42,10 +44,32 @@ public class PreStartFragment extends Fragment implements CompoundButton.OnCheck
         preStartPresenter.setView(this);
         ClientFacade.getInstance().addObserver(preStartPresenter);
 
-        playerImage = (ImageView) view.findViewById(R.id.player_image);
+        Player currentPlayer = preStartPresenter.getPlayer();
 
+        playerImage = (ImageView) view.findViewById(R.id.player_image);
+        switch(currentPlayer.getPlayerNum())
+        {
+            case 1:
+                playerImage.setImageDrawable(getActivity().getDrawable(R.drawable.link));
+                break;
+            case 2:
+                playerImage.setImageDrawable(getActivity().getDrawable(R.drawable.goron));
+                break;
+            case 3:
+                playerImage.setImageDrawable(getActivity().getDrawable(R.drawable.zelda));
+                break;
+            case 4:
+                playerImage.setImageDrawable(getActivity().getDrawable(R.drawable.bird_person));
+                break;
+            case 5:
+                playerImage.setImageDrawable(getActivity().getDrawable(R.drawable.zora));
+                break;
+            default:
+                playerImage.setImageDrawable(getActivity().getDrawable(R.drawable.gerudo));
+        }
 
         playerColor = (TextView) view.findViewById(R.id.player_color);
+        playerColor.setText(currentPlayer.getColor().toString());
 
         checkBoxOne = (CheckBox) view.findViewById(R.id.checkbox_one);
         checkBoxOne.setOnCheckedChangeListener(this);

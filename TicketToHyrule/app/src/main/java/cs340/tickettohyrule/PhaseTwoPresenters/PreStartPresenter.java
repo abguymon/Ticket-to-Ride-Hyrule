@@ -9,6 +9,7 @@ import java.util.Observer;
 import cs240.lib.Model.ClientFacade;
 import cs240.lib.Model.ModelFacade;
 import cs240.lib.Model.cards.DestinationCard;
+import cs240.lib.Model.gameParts.Player;
 import cs340.tickettohyrule.CurrentUserSingleton;
 import cs340.tickettohyrule.Fragments.PreStartFragment;
 import cs340.tickettohyrule.GameActivity;
@@ -26,6 +27,11 @@ public class PreStartPresenter implements Observer{
     public PreStartPresenter(){
         modelFacade.setCurrentPlayer(modelFacade.getGameData().getPlayer(modelFacade.getCurrentUser().getUsername()));
         destinationCards = modelFacade.getCurrentPlayer().getDestinationCards();
+    }
+
+    public Player getPlayer()
+    {
+        return modelFacade.getCurrentPlayer();
     }
 
     public void submit(){
