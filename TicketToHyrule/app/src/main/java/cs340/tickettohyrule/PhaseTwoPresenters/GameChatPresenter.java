@@ -3,9 +3,11 @@ package cs340.tickettohyrule.PhaseTwoPresenters;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
+import cs240.lib.Model.ChatEntry;
 import cs240.lib.Model.ClientFacade;
 import cs240.lib.Model.ModelFacade;
 import cs340.tickettohyrule.CurrentUserSingleton;
@@ -35,6 +37,10 @@ public class GameChatPresenter implements Observer {
                 view.updateUI();
             }
         });
+    }
+
+    public List<ChatEntry> getChat(){
+        return modelFacade.getGameData().getChatHistory();
     }
 
     public void setView(GameChatFragment view){

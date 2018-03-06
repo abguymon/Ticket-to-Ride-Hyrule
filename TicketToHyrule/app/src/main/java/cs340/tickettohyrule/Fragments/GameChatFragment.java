@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import cs240.lib.Model.ChatEntry;
 import cs240.lib.Model.ClientFacade;
 import cs340.tickettohyrule.PhaseTwoPresenters.GameChatPresenter;
 import cs340.tickettohyrule.R;
@@ -99,19 +100,19 @@ public class GameChatFragment extends Fragment {
     //update list ui information
     public void updateUI()
     {
-        List<String> chatList = getChat();
+        List<ChatEntry> chatList = getChat();
         chatAdapter = new Adapter(chatList);
         chatRecycler.setAdapter(chatAdapter);
     }
 
-    private List<String> getChat() {
-        return null;
+    private List<ChatEntry> getChat() {
+        return gameChatPresenter.getChat();
     }
 
     private class Holder extends RecyclerView.ViewHolder {
 
         private TextView chatText;
-
+        private ChatEntry chatEntry;
         public Holder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.log_text_list,parent,false));
 
@@ -119,9 +120,10 @@ public class GameChatFragment extends Fragment {
         }
 
         //bind object to recycler
-        public void bind(String chatText)
+        public void bind(ChatEntry chatText)
         {
-            this.chatText.setText(chatText);
+            chatEntry = chatText;
+            this.chatText.setText(chatEntry.getPlayerName() + ": " + chatEntry.getMessage());
             this.chatText.setTypeface(zeldaFont);
         }
     }
@@ -129,9 +131,9 @@ public class GameChatFragment extends Fragment {
     //adapter for recycler
     private class Adapter extends RecyclerView.Adapter<Holder>
     {
-        private List<String> mChat;
+        private List<ChatEntry> mChat;
 
-        public Adapter(List<String> chat){
+        public Adapter(List<ChatEntry> chat){
             mChat = chat;
         }
 
