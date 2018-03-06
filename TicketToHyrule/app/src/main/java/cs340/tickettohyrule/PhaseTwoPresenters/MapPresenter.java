@@ -131,7 +131,9 @@ public class MapPresenter implements Observer {
         DestinationCardDeck deck = temp.getDestinationCardDeck();
         temp.getPlayerArray().get(1).addDestinationCard(deck.draw());
     }
-
+    private void minusTrainCars(Game temp) {
+        temp.getPlayerArray().get(1).minusTrains(5);
+    }
     private void updateTrainCards(Game temp) {
         temp.getPlayerArray().get(1).addTrainCard(new TrainCard(TrainCardColor.GREEN));
     }
@@ -139,9 +141,6 @@ public class MapPresenter implements Observer {
     private void addDestinationCards(Game temp) {
         DestinationCardDeck deck = temp.getDestinationCardDeck();
         temp.getPlayerArray().get(0).addDestinationCard(deck.draw());
-    }
-    private void minusTrainCars(Game temp) {
-        temp.getPlayerArray().get(0).minusTrains(5);
     }
     private void addTrainCards(Game temp) {
         temp.getPlayerArray().get(0).addTrainCard(new TrainCard(TrainCardColor.BLUE));

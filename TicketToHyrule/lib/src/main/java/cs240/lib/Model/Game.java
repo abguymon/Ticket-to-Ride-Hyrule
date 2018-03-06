@@ -33,7 +33,7 @@ public class Game {
         trainCardDeck = new TrainCardDeck();
         trainCardDiscard = new TrainCardDiscard();
         destinationCardDeck = new DestinationCardDeck();
-        faceUpTrainCards = new FaceUpTrainCards();
+        faceUpTrainCards = new FaceUpTrainCards(trainCardDeck);
         gameHistory = new ArrayList<>();
         chatHistory = new ArrayList<>();
         trainCardDeck.shuffle();
