@@ -44,7 +44,7 @@ public class MapPresenter implements Observer {
 
     //test button functions
     public int runTest(){
-        int testRun = testNumber;
+        int testRun = testNumber + 1;
         Game temp = ClientFacade.getInstance().getGameData();
         switch(testNumber){
             case 0:
@@ -54,34 +54,37 @@ public class MapPresenter implements Observer {
                 addTrainCards(temp);
                 break;
             case 2:
-                addDestinationCards(temp);
+                minusTrainCars(temp);
                 break;
             case 3:
-                updateTrainCards(temp);
+                addDestinationCards(temp);
                 break;
             case 4:
-                updateDestinationCards(temp);
+                updateTrainCards(temp);
                 break;
             case 5:
-                updateTrainCardDeck(temp);
+                updateDestinationCards(temp);
                 break;
             case 6:
-                updateDestinationCardDeck(temp);
+                updateTrainCardDeck(temp);
                 break;
             case 7:
-                claimRoute(temp);
+                updateDestinationCardDeck(temp);
                 break;
             case 8:
-                chat(temp);
+                claimRoute(temp);
                 break;
             case 9:
+                chat(temp);
+                break;
+            case 10:
                 addToGameHistory(temp);
                 break;
         }
         ClientFacade.getInstance().setGameData(temp);
-        if (testNumber < 9) {
+        if (testNumber < 10) {
             testNumber++;
-        }else if (testNumber == 9){
+        }else if (testNumber == 10){
             testNumber = 0;
         }
         return testRun;
@@ -119,6 +122,9 @@ public class MapPresenter implements Observer {
     private void addDestinationCards(Game temp) {
         DestinationCardDeck deck = temp.getDestinationCardDeck();
         temp.getPlayerArray().get(0).addDestinationCard(deck.draw());
+    }
+    private void minusTrainCars(Game temp) {
+        temp.getPlayerArray().get(0).minusTrains(5);
     }
     private void addTrainCards(Game temp) {
         temp.getPlayerArray().get(0).addTrainCard(new TrainCard(TrainCardColor.BLUE));
