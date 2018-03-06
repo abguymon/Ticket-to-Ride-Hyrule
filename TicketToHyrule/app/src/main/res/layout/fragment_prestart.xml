@@ -9,7 +9,7 @@
 
 
     <ImageView
-        android:id="@+id/playerImage"
+        android:id="@+id/player_image"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginEnd="32dp"
@@ -22,7 +22,7 @@
         app:srcCompat="@drawable/link" />
 
     <TextView
-        android:id="@+id/playerInfo"
+        android:id="@+id/player_color"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -33,33 +33,35 @@
 
 
     <CheckBox
-        android:id="@+id/checkBox3"
+        android:id="@+id/checkbox_three"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
         android:layout_weight="1"
         android:checked="true"
         android:text="CheckBox"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/checkBox2"
-        tools:layout_editor_absoluteY="164dp" />
+        app:layout_constraintStart_toEndOf="@+id/checkbox_two"
+        app:layout_constraintTop_toBottomOf="@+id/player_image" />
 
     <CheckBox
-        android:id="@+id/checkBox1"
+        android:id="@+id/checkbox_one"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
         android:layout_weight="1"
         android:checked="true"
         android:text="CheckBox"
-        app:layout_constraintEnd_toStartOf="@+id/checkBox2"
+        app:layout_constraintEnd_toStartOf="@+id/checkbox_two"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="164dp" />
+        app:layout_constraintTop_toBottomOf="@+id/player_image" />
 
     <CheckBox
-        android:id="@+id/checkBox2"
+        android:id="@+id/checkbox_two"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
@@ -70,11 +72,11 @@
         android:text="CheckBox"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/playerImage" />
+        app:layout_constraintTop_toBottomOf="@+id/player_image" />
 
 
     <ImageButton
-        android:id="@+id/submitButton"
+        android:id="@+id/submit_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -89,7 +91,7 @@
         app:srcCompat="@drawable/joinbutton" />
 
     <TextView
-        android:id="@+id/dCardOne"
+        android:id="@+id/d_card_one"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginEnd="8dp"
@@ -98,12 +100,12 @@
         android:background="@drawable/background"
         android:text="Tingle\nto\nTingle"
         android:textAlignment="center"
-        app:layout_constraintEnd_toStartOf="@+id/dCardOne2"
+        app:layout_constraintEnd_toStartOf="@+id/d_card_two"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox1" />
+        app:layout_constraintTop_toBottomOf="@+id/checkbox_one" />
 
     <TextView
-        android:id="@+id/dCardOne2"
+        android:id="@+id/d_card_two"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginEnd="8dp"
@@ -114,10 +116,10 @@
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox2" />
+        app:layout_constraintTop_toBottomOf="@+id/checkbox_two" />
 
     <TextView
-        android:id="@+id/dCardOne3"
+        android:id="@+id/d_card_three"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginEnd="8dp"
@@ -127,8 +129,8 @@
         android:text="Tingle\nto\nTingle"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/dCardOne2"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox3" />
+        app:layout_constraintStart_toEndOf="@+id/d_card_two"
+        app:layout_constraintTop_toBottomOf="@+id/checkbox_three" />
 
 
 </android.support.constraint.ConstraintLayout>

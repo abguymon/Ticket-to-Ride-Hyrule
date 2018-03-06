@@ -30,7 +30,7 @@ public class GameHistoryFragment extends Fragment {
 @Nullable
 @Override
 public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-    View view = inflater.inflate(R.layout.fragment_prestart, container, false);
+    View view = inflater.inflate(R.layout.fragment_game_history, container, false);
 
     zeldaFont = Typeface.createFromAsset(getActivity().getAssets(),"fonts/HyliaSerifBeta-Regular.otf");
 
@@ -51,7 +51,7 @@ public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
     }
 
     private List<String> getHistory() {
-        return null;
+        return gameHistoryPresenter.getHistory();
     }
 
     private class Holder extends RecyclerView.ViewHolder {

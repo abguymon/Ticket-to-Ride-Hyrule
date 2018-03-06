@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -135,7 +134,7 @@ public class GameInfoFragment extends Fragment {
             public MyViewHolder(View view) {
                 super(view);
                 txtView = (TextView) view.findViewById(R.id.playerInfo);
-                imgView = (ImageView) view.findViewById(R.id.playerImage);
+                imgView = (ImageView) view.findViewById(R.id.player_image);
             }
         }
 
@@ -159,10 +158,10 @@ public class GameInfoFragment extends Fragment {
                     "\n" + mPlayer.getTrainsRemaining() + " trains");
             switch(playerList.get(position).getPlayerNum())
             {
-                case 0:
+                case 1:
                     holder.imgView.setImageDrawable(getActivity().getDrawable(R.drawable.link));
                     break;
-                case 1:
+                case 2:
                     holder.imgView.setImageDrawable(getActivity().getDrawable(R.drawable.goron));
                     break;
                 case 3:

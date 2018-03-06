@@ -1,5 +1,6 @@
 package cs340.tickettohyrule.PhaseTwoPresenters;
 
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -18,6 +19,11 @@ public class GameHistoryPresenter implements Observer{
 
     public void updateHistory(){
 
+    }
+
+    public List<String> getHistory()
+    {
+        return modelFacade.getGameData().getGameHistory();
     }
 
     @Override
