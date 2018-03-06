@@ -69,8 +69,8 @@ public class MapFragment extends Fragment implements View.OnClickListener{
                 ((GameActivity) getActivity()).moveToHistory();
                 break;
             case R.id.test_button:
-                int testRun = mapPresenter.runTest();
-                Toast.makeText(getActivity(), "test " + testRun + " called", Toast.LENGTH_SHORT).show();
+                String testRun = mapPresenter.runTest();
+                Toast.makeText(getActivity(), testRun, Toast.LENGTH_SHORT).show();
                 break;
         }
     }

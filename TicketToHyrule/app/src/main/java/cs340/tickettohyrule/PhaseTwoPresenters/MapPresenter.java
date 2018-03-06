@@ -43,42 +43,53 @@ public class MapPresenter implements Observer {
     }
 
     //test button functions
-    public int runTest(){
-        int testRun = testNumber + 1;
+    public String runTest(){
+        String testRun = "No test running";
         Game temp = ClientFacade.getInstance().getGameData();
         switch(testNumber){
             case 0:
                 updatePlayerPoints(temp);
+                testRun = "Updating Player Points";
                 break;
             case 1:
                 addTrainCards(temp);
+                testRun = "Adding Train Cards";
                 break;
             case 2:
                 minusTrainCars(temp);
+                testRun = "Removing Train Cars";
                 break;
             case 3:
                 addDestinationCards(temp);
+                testRun = "Adding Destination Cards";
                 break;
             case 4:
                 updateTrainCards(temp);
+                testRun = "Updating Train Cards";
                 break;
             case 5:
                 updateDestinationCards(temp);
+                testRun = "Updating Destination Cards";
                 break;
             case 6:
                 updateTrainCardDeck(temp);
+                testRun = "Updating Train Card Deck";
                 break;
             case 7:
                 updateDestinationCardDeck(temp);
+                testRun = "Updating Destination Card Deck";
                 break;
             case 8:
                 claimRoute(temp);
+                testRun = "Claiming Route";
                 break;
             case 9:
                 chat(temp);
+                testRun = "Sending chat";
                 break;
             case 10:
                 addToGameHistory(temp);
+                testRun = "Adding Game History Entry";
                 break;
         }
         ClientFacade.getInstance().setGameData(temp);
