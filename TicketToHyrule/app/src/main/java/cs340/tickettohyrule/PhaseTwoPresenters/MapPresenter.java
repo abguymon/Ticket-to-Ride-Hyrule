@@ -3,8 +3,14 @@ package cs340.tickettohyrule.PhaseTwoPresenters;
 import java.util.Observable;
 import java.util.Observer;
 
+import cs240.lib.Model.ChatEntry;
 import cs240.lib.Model.ClientFacade;
+import cs240.lib.Model.Game;
 import cs240.lib.Model.ModelFacade;
+import cs240.lib.Model.cards.DestCardsList;
+import cs240.lib.Model.cards.DestinationCardDeck;
+import cs240.lib.Model.cards.TrainCard;
+import cs240.lib.Model.colors.TrainCardColor;
 import cs340.tickettohyrule.CurrentUserSingleton;
 import cs340.tickettohyrule.Fragments.MapFragment;
 
@@ -37,81 +43,87 @@ public class MapPresenter implements Observer {
     }
 
     //test button functions
-    public void runTest(){
+    public int runTest(){
+        int testRun = testNumber;
+        Game temp = ClientFacade.getInstance().getGameData();
         switch(testNumber){
             case 0:
-                updatePlayerPoints();
+                updatePlayerPoints(temp);
                 break;
             case 1:
-                addTrainCards();
+                addTrainCards(temp);
                 break;
             case 2:
-                addDestinationCards();
+                addDestinationCards(temp);
                 break;
             case 3:
-                updateTrainCards();
+                updateTrainCards(temp);
                 break;
             case 4:
-                updateDestinationCards();
+                updateDestinationCards(temp);
                 break;
             case 5:
-                updateTrainCardDeck();
+                updateTrainCardDeck(temp);
                 break;
             case 6:
-                updateDestinationCardDeck();
+                updateDestinationCardDeck(temp);
                 break;
             case 7:
-                claimRoute();
+                claimRoute(temp);
                 break;
             case 8:
-                chat();
+                chat(temp);
                 break;
             case 9:
-                addToGameHistory();
+                addToGameHistory(temp);
                 break;
         }
-        if (testNumber > 9) {
+        ClientFacade.getInstance().setGameData(temp);
+        if (testNumber < 9) {
             testNumber++;
         }else if (testNumber == 9){
             testNumber = 0;
         }
+        return testRun;
     }
 
-    private void addToGameHistory() {
-
+    private void addToGameHistory(Game temp) {
+        temp.getGameHistory().add("Test");
     }
 
-    private void chat() {
-
+    private void chat(Game temp) {
+        temp.getChatHistory().add(new ChatEntry(temp.getPlayerArray().get(0).getPlayerName(), "This is a test"));
     }
 
-    private void claimRoute() {
-
+    private void claimRoute(Game temp) {
+        temp.getMap().getRoutes().get(0).claim(temp.getPlayerArray().get(0));
     }
 
-    private void updateDestinationCardDeck() {
-
-    }
-
-    private void updateTrainCardDeck() {
+    private void updateDestinationCardDeck(Game temp) {
 
     }
 
-    private void updateDestinationCards() {
+    private void updateTrainCardDeck(Game temp) {
 
     }
 
-    private void updateTrainCards() {
-
+    private void updateDestinationCards(Game temp) {
+        DestinationCardDeck deck = temp.getDestinationCardDeck();
+        temp.getPlayerArray().get(1).addDestinationCard(deck.draw());
     }
 
-    private void addDestinationCards() {
-
+    private void updateTrainCards(Game temp) {
+        temp.getPlayerArray().get(1).addTrainCard(new TrainCard(TrainCardColor.GREEN));
     }
-    private void addTrainCards() {
 
+    private void addDestinationCards(Game temp) {
+        DestinationCardDeck deck = temp.getDestinationCardDeck();
+        temp.getPlayerArray().get(0).addDestinationCard(deck.draw());
     }
-    private void updatePlayerPoints(){
-
+    private void addTrainCards(Game temp) {
+        temp.getPlayerArray().get(0).addTrainCard(new TrainCard(TrainCardColor.BLUE));
+    }
+    private void updatePlayerPoints(Game temp){
+        temp.getPlayerArray().get(0).addScore(5);
     }
 }

@@ -29,10 +29,14 @@ public class MapFragment extends Fragment implements View.OnClickListener{
     ImageButton bLonLonLordJW;
     ImageButton bLonLonLordJG;
 
+    MapPresenter mapPresenter = new MapPresenter();
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_map, container, false);
+
 
         chatButton = (ImageButton) view.findViewById(R.id.chat_button);
         infoButton = (ImageButton) view.findViewById(R.id.info_button);
@@ -50,7 +54,7 @@ public class MapFragment extends Fragment implements View.OnClickListener{
     //handle the clicking of join,leave, and create buttons
     @Override
     public void onClick(View v) {
-        MapPresenter mapPresenter = new MapPresenter();
+
         switch (v.getId()) {
             case R.id.info_button:
                 Toast.makeText(getActivity(), "info called", Toast.LENGTH_SHORT).show();
@@ -65,9 +69,8 @@ public class MapFragment extends Fragment implements View.OnClickListener{
                 ((GameActivity) getActivity()).moveToHistory();
                 break;
             case R.id.test_button:
-                Toast.makeText(getActivity(), "test called", Toast.LENGTH_SHORT).show();
-                //JoinAsync joinAsync = new JoinAsync();
-                //joinAsync.execute();
+                int testRun = mapPresenter.runTest();
+                Toast.makeText(getActivity(), "test " + testRun + " called", Toast.LENGTH_SHORT).show();
                 break;
         }
     }
