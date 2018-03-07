@@ -58,6 +58,11 @@ public class MapFragment extends Fragment implements View.OnClickListener{
         return view;
     }
 
+    public void updateUI(){
+        if(mapPresenter.isClaimed())
+            bKakarikoLonLon.setBackground(getActivity().getDrawable(R.drawable.green_circle));
+    }
+
     //handle the clicking of join,leave, and create buttons
     @Override
     public void onClick(View v) {

@@ -26,6 +26,7 @@ public class MapPresenter implements Observer {
     private ClientFacade clientFacade = ClientFacade.getInstance();
     private MapFragment view = null;
     private int testNumber = 0;
+    private boolean claimed = false;
 
     public void updateHistory(){
 
@@ -33,13 +34,13 @@ public class MapPresenter implements Observer {
 
     @Override
     public void update (Observable observable, Object o){
-        CurrentUserSingleton.getInstance().getModelFacade().setGames(ClientFacade.getInstance().getGames());
-//        getActivity().runOnUiThread(new Runnable(){
-//            @Override
-//            public void run(){
-//                updateUI();
-//            }
-//        });
+        CurrentUserSingleton.getInstance().getModelFacade().setGameData(ClientFacade.getInstance().getGameData());
+        view.getActivity().runOnUiThread(new Runnable(){
+            @Override
+            public void run(){
+                view.updateUI();
+            }
+        });
     }
 
     public void setView(MapFragment view){
@@ -69,6 +70,7 @@ public class MapPresenter implements Observer {
                 break;
             case 4:
                 clientFacade.claimRoute(modelFacade.getCurrentPlayer(), 0);
+                claimed = true;
                 testRun = "Claiming Route";
                 break;
             case 5:
@@ -88,6 +90,10 @@ public class MapPresenter implements Observer {
             testNumber = 0;
         }
         return testRun;
+    }
+
+    public boolean isClaimed(){
+        return claimed;
     }
 
     private void addToGameHistory(Game temp) {
