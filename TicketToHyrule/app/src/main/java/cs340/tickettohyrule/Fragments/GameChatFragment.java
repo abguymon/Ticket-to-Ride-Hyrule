@@ -34,6 +34,7 @@ public class GameChatFragment extends Fragment {
     private RecyclerView chatRecycler;
     private Adapter chatAdapter;
     private Typeface zeldaFont;
+    private TextView titleText;
 
     private TextWatcher textWatcher = new TextWatcher() {
         @Override
@@ -77,6 +78,9 @@ public class GameChatFragment extends Fragment {
         ClientFacade.getInstance().addObserver(gameChatPresenter);
 
         zeldaFont = Typeface.createFromAsset(getActivity().getAssets(),"fonts/HyliaSerifBeta-Regular.otf");
+
+        titleText = (TextView) view.findViewById(R.id.chat_title_text);
+        titleText.setTypeface(zeldaFont);
 
         chatField = (EditText) view.findViewById(R.id.my_chat_text);
         chatField.addTextChangedListener(textWatcher);
