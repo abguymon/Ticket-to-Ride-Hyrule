@@ -10,6 +10,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import cs240.lib.Model.ClientFacade;
 import cs340.tickettohyrule.GameActivity;
 import cs340.tickettohyrule.PhaseTwoPresenters.MapPresenter;
 import cs340.tickettohyrule.R;
@@ -32,6 +33,11 @@ public class MapFragment extends Fragment implements View.OnClickListener{
 
     MapPresenter mapPresenter = new MapPresenter();
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        ClientFacade.getInstance().deleteObserver(mapPresenter);
+    }
 
     @Nullable
     @Override

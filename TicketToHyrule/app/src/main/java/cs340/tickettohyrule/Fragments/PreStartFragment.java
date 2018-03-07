@@ -91,6 +91,12 @@ public class PreStartFragment extends Fragment implements CompoundButton.OnCheck
         cardThree.setText(preStartPresenter.getDestinationCards().get(2).toString());
     }
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+        ClientFacade.getInstance().deleteObserver(preStartPresenter);
+    }
+
+    @Override
     public void onCheckedChanged(CompoundButton button, boolean isChecked){
         switch (button.getId()){
             case R.id.checkbox_one:

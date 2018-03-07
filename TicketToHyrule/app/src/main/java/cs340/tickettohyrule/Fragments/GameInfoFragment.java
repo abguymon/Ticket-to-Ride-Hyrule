@@ -112,6 +112,13 @@ public class GameInfoFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        ClientFacade.getInstance().deleteObserver(gameInfoPresenter);
+    }
+
+
     //update list ui information
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void updateUI()
