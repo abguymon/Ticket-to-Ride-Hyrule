@@ -1,7 +1,9 @@
 package cs340.tickettohyrule.Fragments;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -64,9 +66,13 @@ public class MapFragment extends Fragment implements View.OnClickListener{
         return view;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void updateUI(){
-        if(mapPresenter.isClaimed())
+
+        if(mapPresenter.isClaimed()) {
+            Toast.makeText(getActivity(), "route", Toast.LENGTH_SHORT).show();
             bKakarikoLonLon.setBackground(getActivity().getDrawable(R.drawable.green_circle));
+        }
     }
 
     //handle the clicking of join,leave, and create buttons
