@@ -27,7 +27,11 @@ public class TrainCardDeck {
         TrainCard toDraw = trainCards.pop();
         return toDraw;
     }
-    
+
+    public int getSize()
+    {
+        return trainCards.size();
+    }
 
     private void createDeck() {
         trainCards = new Stack<>();

@@ -1,5 +1,8 @@
 package cs340.tickettohyrule.PhaseTwoPresenters;
 
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Observable;
@@ -8,6 +11,7 @@ import java.util.Observer;
 import cs240.lib.Model.ClientFacade;
 import cs240.lib.Model.ModelFacade;
 import cs240.lib.Model.cards.DestinationCard;
+import cs240.lib.Model.cards.TrainCard;
 import cs240.lib.Model.gameParts.Player;
 import cs340.tickettohyrule.CurrentUserSingleton;
 import cs340.tickettohyrule.Fragments.GameInfoFragment;
@@ -29,11 +33,16 @@ public class GameInfoPresenter implements Observer{
         return destinationCards;
     }
     public ArrayList<Player> getPlayers() {return players;}
+    public TrainCard[] getFaceUpTrainCards()
+    {return modelFacade.getGameData().getFaceUpTrainCards().getFaceUpCards();}
+    public int getnumCardsInDDeck() {return modelFacade.getGameData().getDestinationCardDeck().getSize();}
+    public int getNumCardsInTDeck() {return modelFacade.getGameData().getTrainCardDeck().getSize();}
 
     @Override
     public void update (Observable observable, Object o){
         CurrentUserSingleton.getInstance().getModelFacade().setGameData(ClientFacade.getInstance().getGameData());
         view.getActivity().runOnUiThread(new Runnable(){
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void run(){
                 view.updateUI();

@@ -26,6 +26,11 @@ public class DestinationCardDeck {
         return toDraw;
     }
 
+    public int getSize()
+    {
+        return destinationCards.size();
+    }
+
     public void putback(DestinationCard card) {
         destinationCards.add(card);
         shuffle();

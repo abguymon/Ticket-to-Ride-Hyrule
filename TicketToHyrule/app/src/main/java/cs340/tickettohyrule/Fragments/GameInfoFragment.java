@@ -14,11 +14,13 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
 import cs240.lib.Model.ClientFacade;
 import cs240.lib.Model.cards.DestinationCard;
+import cs240.lib.Model.cards.TrainCard;
 import cs240.lib.Model.gameParts.Player;
 import cs340.tickettohyrule.PhaseTwoPresenters.GameInfoPresenter;
 import cs340.tickettohyrule.R;
@@ -44,6 +46,7 @@ public class GameInfoFragment extends Fragment {
     private HorizontalAdapter playerAdapter;
     private Typeface zeldaFont;
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -78,9 +81,12 @@ public class GameInfoFragment extends Fragment {
     }
 
     //update list ui information
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void updateUI()
     {
-        gameInfoPresenter.getFaceUpTrainCards();
+        setFaceUpTrainCards();
+        numDDeck = gameInfoPresenter.getnumCardsInDDeck();
+        numTDeck = gameInfoPresenter.getNumCardsInTDeck();
 
         List<DestinationCard> dCardList = getDCards();
         List<Player> players = getPlayers();
@@ -88,6 +94,73 @@ public class GameInfoFragment extends Fragment {
         dCardAdapter = new Adapter(dCardList);
         playerRecycler.setAdapter(playerAdapter);
         dCardRecycler.setAdapter(dCardAdapter);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    private void setFaceUpTrainCards()
+    {
+        TrainCard[] faceUpCards = gameInfoPresenter.getFaceUpTrainCards();
+        for (int i = 0; i < 5; i++)
+        {
+            ImageView currentTrainCard;
+            switch (i)
+            {
+                case 0:
+                    currentTrainCard = tCardOne;
+                    break;
+                case 1:
+                    currentTrainCard = tCardTwo;
+                    break;
+                case 2:
+                    currentTrainCard = tCardThree;
+                    break;
+                case 3:
+                    currentTrainCard = tCardFour;
+                    break;
+                case 4:
+                    currentTrainCard = tCardFive;
+                    break;
+                default:
+                    currentTrainCard = tCardOne;
+                    break;
+            }
+            Toast.makeText(getActivity(),faceUpCards[i].getColor().toString(),Toast.LENGTH_SHORT).show();
+            switch (faceUpCards[i].getColor().toString())
+            {
+                case "GREEN":
+                    currentTrainCard.setBackground(getActivity().getDrawable(R.drawable.greentc));
+                    break;
+                case "RED":
+                    currentTrainCard.setBackground(getActivity().getDrawable(R.drawable.redtc));
+                    break;
+                case "BLACK":
+                    currentTrainCard.setBackground(getActivity().getDrawable(R.drawable.blacktc));
+                    break;
+                case "YELLOW":
+                    currentTrainCard.setBackground(getActivity().getDrawable(R.drawable.yellowtc));
+                    break;
+                case "PINK":
+                    currentTrainCard.setBackground(getActivity().getDrawable(R.drawable.pinktc));
+                    break;
+                case "ORANGE":
+                    currentTrainCard.setBackground(getActivity().getDrawable(R.drawable.orangetc));
+                    break;
+                case "WHITE":
+                    currentTrainCard.setBackground(getActivity().getDrawable(R.drawable.whitetc));
+                    break;
+                case "BLUE":
+                    currentTrainCard.setBackground(getActivity().getDrawable(R.drawable.bluetc));
+                    break;
+                case "WILD":
+                    currentTrainCard.setBackground(getActivity().getDrawable(R.drawable.locotc));
+                    break;
+                default:
+                    currentTrainCard.setBackground(getActivity().getDrawable(R.drawable.locotc));
+                    break;
+            }
+            //tCardOne = faceUpCards[0].getColor().toString();
+
+        }
     }
 
     private List<DestinationCard> getDCards() {
