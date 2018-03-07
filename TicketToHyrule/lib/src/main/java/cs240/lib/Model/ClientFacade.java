@@ -114,6 +114,8 @@ public class ClientFacade extends Observable{
     }
     public void claimRoute(Player player, int route){
         gameData.getMap().getRoutes().get(route).claim(player);
+        gameData.getPlayer(player.getPlayerName()).getTrainCards().remove(0);
+        gameData.getPlayer(player.getPlayerName()).dropDestinationCard(gameData.getPlayer(player.getPlayerName()).getDestinationCards().get(0));
         setChanged();
         notifyObservers();
     }
