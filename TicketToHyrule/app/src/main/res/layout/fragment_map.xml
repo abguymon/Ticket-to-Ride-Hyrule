@@ -701,7 +701,7 @@
         app:layout_constraintVertical_bias="0.297" />
 
     <ImageButton
-        android:id="@+id/route44"
+        android:id="@+id/b_kak_lon"
         android:layout_width="23dp"
         android:layout_height="21dp"
         android:layout_marginBottom="8dp"
@@ -717,7 +717,7 @@
         app:layout_constraintVertical_bias="0.42000002" />
 
     <ImageButton
-        android:id="@+id/route46"
+        android:id="@+id/b_lon_lord_white"
         android:layout_width="23dp"
         android:layout_height="21dp"
         android:layout_marginBottom="8dp"
@@ -733,7 +733,7 @@
         app:layout_constraintVertical_bias="0.358" />
 
     <ImageButton
-        android:id="@+id/route45"
+        android:id="@+id/b_hyr_lon"
         android:layout_width="23dp"
         android:layout_height="21dp"
         android:layout_marginBottom="8dp"
@@ -749,7 +749,7 @@
         app:layout_constraintVertical_bias="0.45999998" />
 
     <ImageButton
-        android:id="@+id/route43"
+        android:id="@+id/b_gor_lon"
         android:layout_width="23dp"
         android:layout_height="21dp"
         android:layout_marginBottom="8dp"
@@ -765,7 +765,7 @@
         app:layout_constraintVertical_bias="0.464" />
 
     <ImageButton
-        android:id="@+id/route20"
+        android:id="@+id/b_gor_lon_two"
         android:layout_width="23dp"
         android:layout_height="21dp"
         android:layout_marginBottom="8dp"
@@ -781,7 +781,7 @@
         app:layout_constraintVertical_bias="0.479" />
 
     <ImageButton
-        android:id="@+id/route19"
+        android:id="@+id/b_lon_lord_green"
         android:layout_width="23dp"
         android:layout_height="21dp"
         android:layout_marginBottom="8dp"
