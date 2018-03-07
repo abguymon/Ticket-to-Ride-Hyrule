@@ -93,6 +93,24 @@ public class ClientFacade extends Observable{
         setChanged();
         notifyObservers();
     }
+    public void addGameHistory(String gameName){
+
+    }
+    public void addToGameHistory(String newHistory){
+        gameData.getGameHistory().add(newHistory);
+        setChanged();
+        notifyObservers();
+    }
+    public void drawDestinationCard(String player){
+        gameData.getPlayer(player).addDestinationCard(gameData.getDestinationCardDeck().draw());
+        setChanged();
+        notifyObservers();
+    }
+    public void drawTrainCard(String player){
+        gameData.getPlayer(player).addTrainCard(gameData.getFaceUpTrainCards().pick(0, gameData.getTrainCardDeck()));
+        setChanged();
+        notifyObservers();
+    }
 
     public void handleObject( Command myCommand){
         switch(myCommand.getMethodName()){
@@ -122,6 +140,8 @@ public class ClientFacade extends Observable{
                 submitDestinationCards((String)myCommand.getParametersAsJsonStrings()[0].substring(1,myCommand.getParametersAsJsonStrings()[0].length()-1),
                         (String) myCommand.getParametersAsJsonStrings()[2]);
                 break;
+            case "getGameHistory":
+                addGameHistory((String)myCommand.getParametersAsJsonStrings()[0].substring(1,myCommand.getParametersAsJsonStrings()[0].length()-1));
         }
     }
 
