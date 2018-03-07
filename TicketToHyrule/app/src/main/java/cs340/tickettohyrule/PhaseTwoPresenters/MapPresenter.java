@@ -86,7 +86,7 @@ public class MapPresenter implements Observer {
         ClientFacade.getInstance().setGameData(temp);
         if (testNumber < 6) {
             testNumber++;
-        }else if (testNumber == 7){
+        }else if (testNumber == 6){
             testNumber = 0;
         }
         return testRun;
