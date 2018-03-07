@@ -74,7 +74,6 @@ public class MapFragment extends Fragment implements View.OnClickListener{
     public void updateUI(){
 
         if(mapPresenter.isClaimed()) {
-            Toast.makeText(getActivity(), "route", Toast.LENGTH_SHORT).show();
             bKakarikoLonLon.setBackground(getActivity().getDrawable(R.drawable.green_circle));
         }
     }
