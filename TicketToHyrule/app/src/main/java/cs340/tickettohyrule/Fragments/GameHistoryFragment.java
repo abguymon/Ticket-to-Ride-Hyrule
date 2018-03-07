@@ -15,6 +15,7 @@ import android.widget.Toast;
 import java.util.List;
 
 import cs240.lib.Model.ClientFacade;
+import cs240.lib.common.results.GameHistoryResult;
 import cs340.tickettohyrule.PhaseTwoPresenters.GameHistoryPresenter;
 import cs340.tickettohyrule.R;
 
@@ -51,6 +52,12 @@ public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
 
     return view;
 }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        ClientFacade.getInstance().deleteObserver(gameHistoryPresenter);
+    }
+
 
     //update list ui information
     private void updateUI()

@@ -65,6 +65,12 @@ public class GameChatFragment extends Fragment {
             sendButton.setEnabled(false);
         }
     }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        ClientFacade.getInstance().deleteObserver(gameChatPresenter);
+    }
+
 
     @Nullable
     @Override
