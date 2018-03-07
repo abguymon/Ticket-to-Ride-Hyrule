@@ -26,6 +26,7 @@ public class GameHistoryFragment extends Fragment {
     private RecyclerView historyRecycler;
     private Adapter historyAdapter;
     private Typeface zeldaFont;
+    private TextView titleText;
     private GameHistoryPresenter gameHistoryPresenter = new GameHistoryPresenter();
 //    gameHistoryPresenter.setView(this);  <-- links presenter and view, do this on create
 //    ClientFacade.getInstance().addObserver(gameHistoryPresenter);  <--- links presenter as observer do this in on create as well
@@ -39,6 +40,9 @@ public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
 
 
     zeldaFont = Typeface.createFromAsset(getActivity().getAssets(),"fonts/HyliaSerifBeta-Regular.otf");
+
+    titleText = (TextView) view.findViewById(R.id.game_history_title);
+    titleText.setTypeface(zeldaFont);
 
     historyRecycler = (RecyclerView) view.findViewById(R.id.game_history_recycler);
     historyRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
