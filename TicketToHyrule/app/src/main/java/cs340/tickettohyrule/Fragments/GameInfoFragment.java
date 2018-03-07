@@ -62,6 +62,8 @@ public class GameInfoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_game_info, container, false);
 
+        zeldaFont = Typeface.createFromAsset(getActivity().getAssets(),"fonts/HyliaSerifBeta-Regular.otf");
+
         gameInfoPresenter.setView(this);
         ClientFacade.getInstance().addObserver(gameInfoPresenter);
 
@@ -75,16 +77,27 @@ public class GameInfoFragment extends Fragment {
         tCardFive = (ImageButton) view.findViewById(R.id.tCardFive);
 
         numTDeck = (TextView) view.findViewById(R.id.num_t_deck);
+        numTDeck.setTypeface(zeldaFont);
         numDDeck = (TextView) view.findViewById(R.id.num_d_deck);
+        numDDeck.setTypeface(zeldaFont);
         numLoco = (TextView) view.findViewById(R.id.locoTCtext);
+        numLoco.setTypeface(zeldaFont);
         numRed = (TextView) view.findViewById(R.id.redTCtext);
+        numRed.setTypeface(zeldaFont);
         numGreen = (TextView) view.findViewById(R.id.greenTCtext);
+        numGreen.setTypeface(zeldaFont);
         numOrange = (TextView) view.findViewById(R.id.orangeTCtext);
+        numOrange.setTypeface(zeldaFont);
         numBlue = (TextView) view.findViewById(R.id.blueTCtext);
+        numBlue.setTypeface(zeldaFont);
         numBlack = (TextView) view.findViewById(R.id.blackTCtext);
+        numBlack.setTypeface(zeldaFont);
         numYellow = (TextView) view.findViewById(R.id.yellowTCtext);
+        numYellow.setTypeface(zeldaFont);
         numPink = (TextView) view.findViewById(R.id.pinkTCtext);
+        numPink.setTypeface(zeldaFont);
         numWhite = (TextView) view.findViewById(R.id.whiteTCtext);
+        numWhite.setTypeface(zeldaFont);
 
         dCardRecycler = (RecyclerView) view.findViewById(R.id.destination_card_recycler);
         dCardRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -255,6 +268,7 @@ public class GameInfoFragment extends Fragment {
             super(inflater.inflate(R.layout.log_text_list,parent,false));
 
             dCardText = (TextView) itemView.findViewById(R.id.log_text);
+            dCardText.setTypeface(zeldaFont);
         }
 
         //bind object to recycler
@@ -303,6 +317,7 @@ public class GameInfoFragment extends Fragment {
             public MyViewHolder(View view) {
                 super(view);
                 txtView = (TextView) view.findViewById(R.id.playerInfo);
+                txtView.setTypeface(zeldaFont);
                 imgView = (ImageView) view.findViewById(R.id.player_image);
             }
         }

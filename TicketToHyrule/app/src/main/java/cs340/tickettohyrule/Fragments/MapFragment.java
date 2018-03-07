@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import cs340.tickettohyrule.GameActivity;
@@ -37,6 +38,12 @@ public class MapFragment extends Fragment implements View.OnClickListener{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_map, container, false);
 
+        bKakarikoLonLon = (ImageButton) view.findViewById(R.id.b_kak_lon);
+        bHyruleCLonLon = (ImageButton) view.findViewById(R.id.b_hyr_lon);
+        bGoronVLonLonOne = (ImageButton) view.findViewById(R.id.b_gor_lon);
+        bGoronVLonLonTwo = (ImageButton) view.findViewById(R.id.b_gor_lon_two);
+        bLonLonLordJW = (ImageButton) view.findViewById(R.id.b_lon_lord_white);
+        bLonLonLordJG = (ImageButton) view.findViewById(R.id.b_lon_lord_green);
 
         chatButton = (ImageButton) view.findViewById(R.id.chat_button);
         infoButton = (ImageButton) view.findViewById(R.id.info_button);
