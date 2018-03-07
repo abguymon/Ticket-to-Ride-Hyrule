@@ -52,47 +52,39 @@ public class MapPresenter implements Observer {
         Game temp = ClientFacade.getInstance().getGameData();
         switch(testNumber){
             case 0:
-                updatePlayerPoints(temp);
-                testRun = "Updating Player Points";
-                break;
-            case 1:
                 clientFacade.drawTrainCard(modelFacade.getCurrentPlayer().getPlayerName());
                 testRun = "Adding Train Cards";
                 break;
-            case 2:
-                minusTrainCars(temp);
-                testRun = "Removing Train Cars";
-                break;
-            case 3:
+            case 1:
                 clientFacade.drawDestinationCard(modelFacade.getCurrentPlayer().getPlayerName());
                 testRun = "Adding Destination Cards";
                 break;
-            case 5:
+            case 2:
                 clientFacade.drawDestinationCard(modelFacade.getGameData().getPlayerArray().get(1).getPlayerName());
                 testRun = "Updating Destination Cards";
                 break;
-            case 6:
+            case 3:
                 clientFacade.drawTrainCard(modelFacade.getGameData().getPlayerArray().get(1).getPlayerName());
                 testRun = "Updating Train Card Deck";
                 break;
-            case 8:
-                claimRoute(temp);
+            case 4:
+                clientFacade.claimRoute(modelFacade.getCurrentPlayer(), 0);
                 testRun = "Claiming Route";
                 break;
-            case 9:
+            case 5:
                 clientFacade.sendMessage(modelFacade.getGameData().getPlayerArray().get(1).getPlayerName(), "This is a student");
                 testRun = "Sending chat";
                 break;
-            case 10:
+            case 6:
                 addToGameHistory(temp);
                 clientFacade.addToGameHistory("test");
                 testRun = "Adding Game History Entry";
                 break;
         }
         ClientFacade.getInstance().setGameData(temp);
-        if (testNumber < 10) {
+        if (testNumber < 7) {
             testNumber++;
-        }else if (testNumber == 10){
+        }else if (testNumber == 7){
             testNumber = 0;
         }
         return testRun;
@@ -102,51 +94,4 @@ public class MapPresenter implements Observer {
         temp.getGameHistory().add("Test");
     }
 
-//    private void chat(Game temp) {
-//        temp.getChatHistory().add(new ChatEntry(temp.getPlayerArray().get(0).getPlayerName(), "This is a test"));
-//
-//    }
-
-    private void claimRoute(Game temp) {
-        temp.getMap().getRoutes().get(0).claim(temp.getPlayerArray().get(0));
-    }
-
-//    private void updateDestinationCardDeck(Game temp) {
-//        DestinationCardDeck deck = temp.getDestinationCardDeck();
-//        temp.getPlayerArray().get(1).addDestinationCard(deck.draw());
-//    }
-
-//    private void updateTrainCardDeck(Game temp) {
-//        FaceUpTrainCards faceUp = temp.getFaceUpTrainCards();
-//        TrainCardDeck deck = temp.getTrainCardDeck();
-//        temp.getPlayerArray().get(1).addTrainCard(faceUp.pick(0, deck));
-//    }
-
-//    private void updateDestinationCards(Game temp) {
-//        DestinationCardDeck deck = temp.getDestinationCardDeck();
-//        temp.getPlayerArray().get(1).addDestinationCard(deck.draw());
-//    }
-    private void minusTrainCars(Game temp) {
-        temp.getPlayerArray().get(1).minusTrains(5);
-    }
-
-//    private void updateTrainCards(Game temp) {
-//        FaceUpTrainCards faceUp = temp.getFaceUpTrainCards();
-//        TrainCardDeck deck = temp.getTrainCardDeck();
-//        temp.getPlayerArray().get(1).addTrainCard(faceUp.pick(0, deck));
-//    }
-//
-//    private void addDestinationCards(Game temp) {
-//        DestinationCardDeck deck = temp.getDestinationCardDeck();
-//        temp.getPlayerArray().get(0).addDestinationCard(deck.draw());
-//    }
-//    private void addTrainCards(Game temp) {
-//        FaceUpTrainCards faceUp = temp.getFaceUpTrainCards();
-//        TrainCardDeck deck = temp.getTrainCardDeck();
-//        temp.getPlayerArray().get(0).addTrainCard(faceUp.pick(0, deck));
-//    }
-    private void updatePlayerPoints(Game temp){
-        temp.getPlayerArray().get(0).addScore(5);
-        temp.getPlayerArray().get(1).addScore(10);
-    }
 }

@@ -8,6 +8,7 @@ import java.util.Observable;
 import java.util.Queue;
 
 import cs240.lib.Model.cards.DestinationCard;
+import cs240.lib.Model.gameParts.Player;
 import cs240.lib.client.Poller;
 import cs240.lib.client.ServerProxy;
 import cs240.lib.common.Command;
@@ -108,6 +109,11 @@ public class ClientFacade extends Observable{
     }
     public void drawTrainCard(String player){
         gameData.getPlayer(player).addTrainCard(gameData.getFaceUpTrainCards().pick(0, gameData.getTrainCardDeck()));
+        setChanged();
+        notifyObservers();
+    }
+    public void claimRoute(Player player, int route){
+        gameData.getMap().getRoutes().get(route).claim(player);
         setChanged();
         notifyObservers();
     }
