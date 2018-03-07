@@ -73,8 +73,8 @@ public class MapPresenter implements Observer {
                 testRun = "Updating Train Card Deck";
                 break;
             case 4:
-                clientFacade.claimRoute(modelFacade.getCurrentPlayer(), 0);
                 claimed = true;
+                clientFacade.claimRoute(modelFacade.getCurrentPlayer(), 0);
                 testRun = "Claiming Route";
                 break;
             case 5:
