@@ -37,6 +37,7 @@ public class GameInfoPresenter implements Observer{
     {return modelFacade.getGameData().getFaceUpTrainCards().getFaceUpCards();}
     public int getnumCardsInDDeck() {return modelFacade.getGameData().getDestinationCardDeck().getSize();}
     public int getNumCardsInTDeck() {return modelFacade.getGameData().getTrainCardDeck().getSize();}
+    public ArrayList<TrainCard> getPlayerTCards() {return modelFacade.getCurrentPlayer().getTrainCards();}
 
     @Override
     public void update (Observable observable, Object o){

@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cs240.lib.Model.ClientFacade;
@@ -40,6 +41,15 @@ public class GameInfoFragment extends Fragment {
     private ImageButton tCardFive;
     private TextView numTDeck;
     private TextView numDDeck;
+    private TextView numLoco;
+    private TextView numRed;
+    private TextView numGreen;
+    private TextView numOrange;
+    private TextView numBlue;
+    private TextView numBlack;
+    private TextView numYellow;
+    private TextView numPink;
+    private TextView numWhite;
     private RecyclerView playerRecycler;
     private RecyclerView dCardRecycler;
     private Adapter dCardAdapter;
@@ -66,6 +76,15 @@ public class GameInfoFragment extends Fragment {
 
         numTDeck = (TextView) view.findViewById(R.id.num_t_deck);
         numDDeck = (TextView) view.findViewById(R.id.num_d_deck);
+        numLoco = (TextView) view.findViewById(R.id.locoTCtext);
+        numRed = (TextView) view.findViewById(R.id.redTCtext);
+        numGreen = (TextView) view.findViewById(R.id.greenTCtext);
+        numOrange = (TextView) view.findViewById(R.id.orangeTCtext);
+        numBlue = (TextView) view.findViewById(R.id.blueTCtext);
+        numBlack = (TextView) view.findViewById(R.id.blackTCtext);
+        numYellow = (TextView) view.findViewById(R.id.yellowTCtext);
+        numPink = (TextView) view.findViewById(R.id.pinkTCtext);
+        numWhite = (TextView) view.findViewById(R.id.whiteTCtext);
 
         dCardRecycler = (RecyclerView) view.findViewById(R.id.destination_card_recycler);
         dCardRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -85,8 +104,9 @@ public class GameInfoFragment extends Fragment {
     public void updateUI()
     {
         setFaceUpTrainCards();
-        numDDeck = gameInfoPresenter.getnumCardsInDDeck();
-        numTDeck = gameInfoPresenter.getNumCardsInTDeck();
+        setPlayerCards();
+        numDDeck.setText("num destination cards: " + gameInfoPresenter.getnumCardsInDDeck());
+        numTDeck.setText("num train cards: " + gameInfoPresenter.getNumCardsInTDeck());
 
         List<DestinationCard> dCardList = getDCards();
         List<Player> players = getPlayers();
@@ -94,6 +114,65 @@ public class GameInfoFragment extends Fragment {
         dCardAdapter = new Adapter(dCardList);
         playerRecycler.setAdapter(playerAdapter);
         dCardRecycler.setAdapter(dCardAdapter);
+    }
+
+    private void setPlayerCards()
+    {
+        ArrayList<TrainCard> playerTC = gameInfoPresenter.getPlayerTCards();
+        int loco = 0;
+        int red = 0;
+        int green = 0;
+        int orange = 0;
+        int blue = 0;
+        int black = 0;
+        int yellow = 0;
+        int pink = 0;
+        int white = 0;
+        for(TrainCard t :playerTC)
+        {
+            switch (t.getColor().toString())
+            {
+                case "GREEN":
+                    green++;
+                    break;
+                case "RED":
+                    red++;
+                    break;
+                case "BLACK":
+                    black++;
+                    break;
+                case "YELLOW":
+                    yellow++;
+                    break;
+                case "PINK":
+                    pink++;
+                    break;
+                case "ORANGE":
+                    orange++;
+                    break;
+                case "WHITE":
+                    white++;
+                    break;
+                case "BLUE":
+                    blue++;
+                    break;
+                case "WILD":
+                    loco++;
+                    break;
+                default:
+                    loco++;
+                    break;
+            }
+        }
+        numLoco.setText("number of locomotives: " + loco);
+        numRed.setText("number of red cards: " + red);
+        numGreen.setText("number of green cards: " + green);
+        numOrange.setText("number of orange cards: " + orange);
+        numBlue.setText("number of blue cards: " + blue);
+        numBlack.setText("number of black cards: " + black);
+        numYellow.setText("number of yellow cards: " + yellow);
+        numPink.setText("number of pink cards: " + pink);
+        numWhite.setText("number of white cards: " + white);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -124,7 +203,6 @@ public class GameInfoFragment extends Fragment {
                     currentTrainCard = tCardOne;
                     break;
             }
-            Toast.makeText(getActivity(),faceUpCards[i].getColor().toString(),Toast.LENGTH_SHORT).show();
             switch (faceUpCards[i].getColor().toString())
             {
                 case "GREEN":
