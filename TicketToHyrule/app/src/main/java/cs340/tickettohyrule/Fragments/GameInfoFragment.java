@@ -31,6 +31,13 @@ public class GameInfoFragment extends Fragment {
     private GameInfoPresenter gameInfoPresenter = new GameInfoPresenter();
     private ImageButton trainCardDeck;
     private ImageButton destinationCardDeck;
+    private ImageButton tCardOne;
+    private ImageButton tCardTwo;
+    private ImageButton tCardThree;
+    private ImageButton tCardFour;
+    private ImageButton tCardFive;
+    private TextView numTDeck;
+    private TextView numDDeck;
     private RecyclerView playerRecycler;
     private RecyclerView dCardRecycler;
     private Adapter dCardAdapter;
@@ -48,6 +55,15 @@ public class GameInfoFragment extends Fragment {
         trainCardDeck = (ImageButton) view.findViewById(R.id.train_deck);
         destinationCardDeck = (ImageButton) view.findViewById(R.id.destination_deck);
 
+        tCardOne = (ImageButton) view.findViewById(R.id.tCardOne);
+        tCardTwo = (ImageButton) view.findViewById(R.id.tCardTwo);
+        tCardThree = (ImageButton) view.findViewById(R.id.tCardThree);
+        tCardFour = (ImageButton) view.findViewById(R.id.tCardFour);
+        tCardFive = (ImageButton) view.findViewById(R.id.tCardFive);
+
+        numTDeck = (TextView) view.findViewById(R.id.num_t_deck);
+        numDDeck = (TextView) view.findViewById(R.id.num_d_deck);
+
         dCardRecycler = (RecyclerView) view.findViewById(R.id.destination_card_recycler);
         dCardRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -64,6 +80,8 @@ public class GameInfoFragment extends Fragment {
     //update list ui information
     public void updateUI()
     {
+        gameInfoPresenter.getFaceUpTrainCards();
+
         List<DestinationCard> dCardList = getDCards();
         List<Player> players = getPlayers();
         playerAdapter = new HorizontalAdapter(players);
@@ -156,7 +174,9 @@ public class GameInfoFragment extends Fragment {
             Player mPlayer = playerList.get(position);
             holder.txtView.setText(mPlayer.getPlayerName() + "\n" + mPlayer.getColor() +
                     "\n" + mPlayer.getTrainsRemaining() + " trains" +
-                    "\n" + "points: " + mPlayer.getScore());
+                    "\n" + "points: " + mPlayer.getScore() + "\nnum train cards: " +
+                    mPlayer.getTrainCards().size() + "\nnum dest cards: " +
+                    mPlayer.getDestinationCards().size());
             switch(playerList.get(position).getPlayerNum())
             {
                 case 1:
