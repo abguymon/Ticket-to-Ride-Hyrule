@@ -46,6 +46,10 @@ public class MapFragment extends Fragment implements View.OnClickListener{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_map, container, false);
 
+        mapPresenter.setView(this);
+        ClientFacade.getInstance().addObserver(mapPresenter);
+
+
         bKakarikoLonLon = (ImageButton) view.findViewById(R.id.b_kak_lon);
         bHyruleCLonLon = (ImageButton) view.findViewById(R.id.b_hyr_lon);
         bGoronVLonLonOne = (ImageButton) view.findViewById(R.id.b_gor_lon);
@@ -66,7 +70,7 @@ public class MapFragment extends Fragment implements View.OnClickListener{
         return view;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+
     public void updateUI(){
 
         if(mapPresenter.isClaimed()) {

@@ -39,7 +39,6 @@ public class MapPresenter implements Observer {
     public void update (Observable observable, Object o){
         CurrentUserSingleton.getInstance().getModelFacade().setGameData(ClientFacade.getInstance().getGameData());
         view.getActivity().runOnUiThread(new Runnable(){
-            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void run(){
                 view.updateUI();
