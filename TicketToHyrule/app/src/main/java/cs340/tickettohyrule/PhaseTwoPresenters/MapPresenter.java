@@ -23,6 +23,7 @@ import cs340.tickettohyrule.Fragments.MapFragment;
 
 public class MapPresenter implements Observer {
     private ModelFacade modelFacade = CurrentUserSingleton.getInstance().getModelFacade();
+    private ClientFacade clientFacade = ClientFacade.getInstance();
     private MapFragment view = null;
     private int testNumber = 0;
 
@@ -75,11 +76,11 @@ public class MapPresenter implements Observer {
                 testRun = "Updating Destination Cards";
                 break;
             case 6:
-                updateTrainCardDeck(temp);
+                clientFacade.drawTrainCard(modelFacade.getCurrentPlayer().getPlayerName());
                 testRun = "Updating Train Card Deck";
                 break;
             case 7:
-                updateDestinationCardDeck(temp);
+                clientFacade.drawDestinationCard(modelFacade.getCurrentPlayer().getPlayerName());
                 testRun = "Updating Destination Card Deck";
                 break;
             case 8:
@@ -87,11 +88,12 @@ public class MapPresenter implements Observer {
                 testRun = "Claiming Route";
                 break;
             case 9:
-                chat(temp);
+                clientFacade.sendMessage(modelFacade.getCurrentPlayer().getPlayerName(), "This is a student");
                 testRun = "Sending chat";
                 break;
             case 10:
                 addToGameHistory(temp);
+                clientFacade.addToGameHistory("test");
                 testRun = "Adding Game History Entry";
                 break;
         }
@@ -108,24 +110,25 @@ public class MapPresenter implements Observer {
         temp.getGameHistory().add("Test");
     }
 
-    private void chat(Game temp) {
-        temp.getChatHistory().add(new ChatEntry(temp.getPlayerArray().get(0).getPlayerName(), "This is a test"));
-    }
+//    private void chat(Game temp) {
+//        temp.getChatHistory().add(new ChatEntry(temp.getPlayerArray().get(0).getPlayerName(), "This is a test"));
+//
+//    }
 
     private void claimRoute(Game temp) {
         temp.getMap().getRoutes().get(0).claim(temp.getPlayerArray().get(0));
     }
 
-    private void updateDestinationCardDeck(Game temp) {
-        DestinationCardDeck deck = temp.getDestinationCardDeck();
-        temp.getPlayerArray().get(1).addDestinationCard(deck.draw());
-    }
+//    private void updateDestinationCardDeck(Game temp) {
+//        DestinationCardDeck deck = temp.getDestinationCardDeck();
+//        temp.getPlayerArray().get(1).addDestinationCard(deck.draw());
+//    }
 
-    private void updateTrainCardDeck(Game temp) {
-        FaceUpTrainCards faceUp = temp.getFaceUpTrainCards();
-        TrainCardDeck deck = temp.getTrainCardDeck();
-        temp.getPlayerArray().get(1).addTrainCard(faceUp.pick(0, deck));
-    }
+//    private void updateTrainCardDeck(Game temp) {
+//        FaceUpTrainCards faceUp = temp.getFaceUpTrainCards();
+//        TrainCardDeck deck = temp.getTrainCardDeck();
+//        temp.getPlayerArray().get(1).addTrainCard(faceUp.pick(0, deck));
+//    }
 
     private void updateDestinationCards(Game temp) {
         DestinationCardDeck deck = temp.getDestinationCardDeck();

@@ -10,9 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
+import cs240.lib.Model.ClientFacade;
 import cs340.tickettohyrule.PhaseTwoPresenters.GameHistoryPresenter;
 import cs340.tickettohyrule.R;
 
@@ -31,6 +33,10 @@ public class GameHistoryFragment extends Fragment {
 @Override
 public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.fragment_game_history, container, false);
+
+    gameHistoryPresenter.setView(this);
+    ClientFacade.getInstance().addObserver(gameHistoryPresenter);
+
 
     zeldaFont = Typeface.createFromAsset(getActivity().getAssets(),"fonts/HyliaSerifBeta-Regular.otf");
 
@@ -69,6 +75,9 @@ public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
             this.historyText.setText(historyText);
             this.historyText.setTypeface(zeldaFont);
         }
+    }
+    public void toast(String s){
+        Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
     }
 
     //adapter for recycler

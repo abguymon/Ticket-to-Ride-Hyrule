@@ -8,6 +8,7 @@ import cs240.lib.Model.gameParts.Player;
 import cs240.lib.client.ServerProxy;
 import cs240.lib.common.results.ChatResult;
 import cs240.lib.common.results.CreateResult;
+import cs240.lib.common.results.GameHistoryResult;
 import cs240.lib.common.results.GetGameResult;
 import cs240.lib.common.results.JoinResult;
 import cs240.lib.common.results.LeaveResult;
@@ -143,6 +144,16 @@ public class ModelFacade {
         }
         else{
             return "";
+        }
+    }
+
+    public String getGameHistory(String gameName){
+        ClientCommunicator.SINGLETON.setAuthToken(currentUser.getAuthToken());
+        GameHistoryResult result = ServerProxy.SINGLETON.getGameHistory(gameName);
+        if(result.getErrorMessage()!= null)
+            return result.getErrorMessage();
+        else{
+            return"";
         }
     }
 
