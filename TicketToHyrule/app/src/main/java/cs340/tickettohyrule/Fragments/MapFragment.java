@@ -72,7 +72,6 @@ public class MapFragment extends Fragment implements View.OnClickListener{
 
 
     public void updateUI(){
-
         if(mapPresenter.isClaimed()) {
             bKakarikoLonLon.setBackground(getActivity().getDrawable(R.drawable.green_circle));
         }
