@@ -21,12 +21,29 @@ import cs240.lib.communicator.ClientCommunicator;
  * Created by David on 1/17/2018.
  */
 
+/**
+ * Server proxy is responsible for packaging parameters into commands
+ * to be sent through the Client Communicator singleton to the server
+ */
 public class ServerProxy implements IServer {
 
     public static final ServerProxy SINGLETON = new ServerProxy();
 
+    /**
+     * Private Class Constructor for the singleton instance of the proxy.
+     */
     private ServerProxy() {}
 
+    /**
+     * Prepares entered parameters for attempted login by a user.
+     * Returns SignInResult of attempted login with potential error message.
+     * @param username The entered username of the user trying to log in.
+     * @param password The entered password of the user trying to log in.
+     * @return Sign in result (success or failure) of the login with potential error message
+     *
+     * pre username and password must not be null
+     * post a SignInResult with potential error message displaying what went wrong.
+     */
     @Override
     public SignInResult login(String username, String password) {
         String[] parameterTypeNames = {String.class.getName(), String.class.getName()};
@@ -36,6 +53,17 @@ public class ServerProxy implements IServer {
         return (SignInResult) result;
     }
 
+    /**
+     * Prepares entered parameters for attempted register by a user.
+     * Returns SignInResult of attempted register with potential error message.
+     * @param username The entered username of the user trying to register.
+     * @param password The entered password of the user trying to register.
+     * @return Sign in result (success or failure) of the register with potential error message
+     *
+     * pre username and password are not null
+     * post SignInResult with success or failure of register with potential error message
+     *
+     */
     @Override
     public SignInResult register(String username, String password) {
         String[] parameterTypeNames = {String.class.getName(), String.class.getName()};
@@ -45,6 +73,16 @@ public class ServerProxy implements IServer {
         return (SignInResult) result;
     }
 
+    /**
+     * Prepares entered parameters for user attempting to join a created game
+     * Returns JoinResult of attempted join with potential error message.
+     * @param username username of user attempting to join a game
+     * @param gameName name of game user is attempting to join
+     * @return JoinResult with potential error message
+     *
+     * pre - username and gameName are not null
+     * post - JoinResult with potential error message
+     */
     @Override
     public JoinResult joinGame(String username, String gameName) {
         String[] parameterTypeNames = {String.class.getName(), String.class.getName()};
@@ -54,6 +92,15 @@ public class ServerProxy implements IServer {
         return (JoinResult) result;
     }
 
+    /**
+     * Prepares parameters for user attempting to leave a game
+     * @param username name of user attempting to leave a game
+     * @param gameName name of game user is attempting to leave
+     * @return LeaveResult with potential error message.
+     *
+     * pre - username and gameName are not null
+     * post - LeaveResult with potential error message
+     */
     @Override
     public LeaveResult leaveGame(String username, String gameName) {
         String[] parameterTypeNames = {String.class.getName(), String.class.getName()};
@@ -63,6 +110,16 @@ public class ServerProxy implements IServer {
         return (LeaveResult) result;
     }
 
+    /**
+     * Prepares parameters for user attempting to create a game.
+     * @param username name of user attempting to create a game
+     * @param gameName name of game user is attempting to create
+     * @param maxPlayers number of players required to start the game
+     * @return CreateResult with potential error message
+     *
+     * pre username, gameName, and maxPlayers are not null
+     * post CreateResult with potential error messsage
+     */
     @Override
     public CreateResult createGame(String username, String gameName, int maxPlayers) {
         String[] parameterTypeNames = {String.class.getName(), String.class.getName(), int.class.getName()};
@@ -72,6 +129,14 @@ public class ServerProxy implements IServer {
         return (CreateResult) result;
     }
 
+    /**
+     * Prepares parameters for attempted start of a game
+     * @param gameName name of game attempting to be started
+     * @return StartGameResult with potential error message
+     *
+     * pre  gameName is not null
+     * post StartGameResult with potential error message
+     */
     @Override
     public StartGameResult startGame(String gameName) {
         String[] parameterTypeNames = {String.class.getName()};
@@ -81,6 +146,14 @@ public class ServerProxy implements IServer {
         return (StartGameResult) result;
     }
 
+    /**
+     * Retrieves unexecuted server commands
+     * @param index position in the command queue of the server, enables query of entire command history
+     * @return PollerResult with queue of unexecuted commands
+     *
+     * pre index is not null
+     * post PollerResult with queue of unexecuted commands
+     */
     @Override
     public PollerResult pollerCheckServer(int index) {
         String[] parameterTypeNames = {int.class.getName()};
@@ -90,6 +163,14 @@ public class ServerProxy implements IServer {
         return (PollerResult)result;
     }
 
+    /**
+     * Prepares paramters for retrieving game history for specified game
+     * @param gameName name of game containing game history
+     * @return GameHistoryResult with game history object with potential error message
+     *
+     * pre gameName is not null
+     * post GameHistoryResult with game history object with potential error message
+     */
     @Override
     public GameHistoryResult getGameHistory(String gameName) {
         String[] parameterTypenames = {String.class.getName()};
@@ -99,6 +180,16 @@ public class ServerProxy implements IServer {
         return (GameHistoryResult)result;
     }
 
+    /**
+     * Prepares parameters to send specified message to specified gameName
+     * @param playerName player who is sending specified message
+     * @param message message to be sent
+     * @param gameName name of game player is sending chat to
+     * @return ChatResult with potential error message
+     *
+     * pre playerName, message, and gameName are not null
+     * post ChatResult with potential error message
+     */
     @Override
     public ChatResult chat(String playerName, String message, String gameName) {
         String[] parameterTypenames = {String.class.getName(), String.class.getName(), String.class.getName()};
@@ -107,6 +198,16 @@ public class ServerProxy implements IServer {
         Object result = ClientCommunicator.SINGLETON.send(chatCommand);
         return (ChatResult) result;}
 
+    /**
+     * Prepares paramters for drawing destination card from server.
+     * Returns DrawDestinationCardResult with result of command.
+     * @param playerName name of player drawing card
+     * @param gameName name of game player is in
+     * @return DrawDestinationCardResult with Destination card object and potential error message
+     *
+     * pre playerName and gameName are not null
+     * post DrawDestinationCardResult with Destination card object and potential error message
+     */
     @Override
     public DrawDestinationCardResult drawDestinationCard(String playerName, String gameName) {
         String[] parameterTypenames = {String.class.getName(), String.class.getName()};
@@ -116,6 +217,16 @@ public class ServerProxy implements IServer {
         return (DrawDestinationCardResult) result;
     }
 
+    /**
+     * Prepares paramters for submitting chosen 0 or 1 destination card
+     * @param playerName name of player submitting chosen 0 or 1 destination card
+     * @param gameName name of game player belongs to
+     * @param card 0 or 1 chosen destination card to submit
+     * @return SubmitResult with potential error message
+     *
+     * pre playerName and gameName are not null
+     * post SubmitResult with potential error message
+     */
     @Override
     public SubmitResult submitDestinationCards(String playerName, String gameName, DestinationCard card) {
         String[] parameterTypenames = {String.class.getName(), String.class.getName(), DestinationCard.class.getName()};
@@ -125,6 +236,14 @@ public class ServerProxy implements IServer {
         return (SubmitResult) result;
     }
 
+    /**
+     * Prepares parameters for retrieving game data from the server.
+     * @param gameName name of game to retrieve game data
+     * @return GetGameResult with game data and potential error message
+     *
+     * pre gameName is not null
+     * post GetGameResult with game data and potential error message
+     */
     @Override
     public GetGameResult getGameData(String gameName) {
         String[] parameterTypenames = {String.class.getName()};
