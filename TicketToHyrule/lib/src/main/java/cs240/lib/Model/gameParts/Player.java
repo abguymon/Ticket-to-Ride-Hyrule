@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import cs240.lib.Model.cards.DestinationCard;
 import cs240.lib.Model.cards.TrainCard;
 import cs240.lib.Model.colors.PlayerColor;
+import cs240.lib.Model.states.IState;
+import cs240.lib.Model.states.OtherPlayersTurn;
 
 /**
  * Created by David on 2/21/2018.
@@ -18,6 +20,7 @@ public class Player {
     private int trainsRemaining;
     private ArrayList<DestinationCard> destinationCards;
     private ArrayList<TrainCard> trainCards;
+    private IState state;
 
     private final int MAX_TRAIN_CARS = 45;
 
@@ -29,6 +32,7 @@ public class Player {
         this.destinationCards = new ArrayList<>();
         this.trainCards = new ArrayList<>();
         this.playerName = playerName;
+        this.state = new OtherPlayersTurn();
 
     }
     public void addTrainCard(TrainCard card) {trainCards.add(card);}
@@ -82,6 +86,14 @@ public class Player {
 
     public void setTrainCards(ArrayList<TrainCard> trainCards) {
         this.trainCards = trainCards;
+    }
+
+    public IState getState() {
+        return state;
+    }
+
+    public void setState(IState state) {
+        this.state = state;
     }
 
     public void dropDestinationCard(DestinationCard card) {
