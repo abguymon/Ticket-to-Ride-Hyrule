@@ -2,11 +2,15 @@ package cs240.lib.client;
 
 
 import cs240.lib.Model.cards.DestinationCard;
+import cs240.lib.Model.gameParts.Route;
 import cs240.lib.common.Command;
 import cs240.lib.common.IServer;
 import cs240.lib.common.results.ChatResult;
+import cs240.lib.common.results.ClaimRouteResult;
 import cs240.lib.common.results.CreateResult;
 import cs240.lib.common.results.DrawDestinationCardResult;
+import cs240.lib.common.results.DrawFaceUpTrainCardResult;
+import cs240.lib.common.results.DrawTrainCardResult;
 import cs240.lib.common.results.GameHistoryResult;
 import cs240.lib.common.results.GetGameResult;
 import cs240.lib.common.results.JoinResult;
@@ -196,7 +200,35 @@ public class ServerProxy implements IServer {
         Object[] parameters = {playerName, message, gameName};
         Command chatCommand = new Command("chat", parameterTypenames, parameters);
         Object result = ClientCommunicator.SINGLETON.send(chatCommand);
-        return (ChatResult) result;}
+        return (ChatResult) result;
+    }
+
+    @Override
+    public ClaimRouteResult claimRoute(String playerName, String gameName, Route route) {
+        String[] parameterTypenames = {String.class.getName(), String.class.getName(), Route.class.getName()};
+        Object[] parameters = {playerName, gameName, route};
+        Command claimRouteCommand = new Command("claimRoute", parameterTypenames, parameters);
+        Object result = ClientCommunicator.SINGLETON.send(claimRouteCommand);
+        return (ClaimRouteResult) result;
+    }
+
+    @Override
+    public DrawTrainCardResult drawTrainCard(String playerName, String gameName) {
+        String[] parameterTypenames = {String.class.getName(), String.class.getName()};
+        Object[] parameters = {playerName, gameName};
+        Command drawTrainCardCommand = new Command("drawTrainCard", parameterTypenames, parameters);
+        Object result = ClientCommunicator.SINGLETON.send(drawTrainCardCommand);
+        return (DrawTrainCardResult) result;
+    }
+
+    @Override
+    public DrawFaceUpTrainCardResult drawFaceUpTrainCard(String playerName, String gameName, int positionPicked) {
+        String[] parameterTypenames = {String.class.getName(), String.class.getName(), int.class.getName()};
+        Object[] parameters = {playerName, gameName, positionPicked};
+        Command drawFaceUpTrainCardCommand = new Command("drawFaceUpTrainCard", parameterTypenames, parameters);
+        Object result = ClientCommunicator.SINGLETON.send(drawFaceUpTrainCardCommand);
+        return (DrawFaceUpTrainCardResult) result;
+    }
 
     /**
      * Prepares paramters for drawing destination card from server.

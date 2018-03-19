@@ -6,7 +6,7 @@ import cs240.lib.Model.cards.DestinationCard;
 import cs240.lib.Model.cards.TrainCard;
 import cs240.lib.Model.colors.PlayerColor;
 import cs240.lib.Model.states.IState;
-import cs240.lib.Model.states.OtherPlayersTurn;
+import cs240.lib.Model.states.TurnEnded;
 
 /**
  * Created by David on 2/21/2018.
@@ -32,9 +32,26 @@ public class Player {
         this.destinationCards = new ArrayList<>();
         this.trainCards = new ArrayList<>();
         this.playerName = playerName;
-        this.state = new OtherPlayersTurn();
+        this.state = new TurnEnded();
 
     }
+
+    void claimRoute(String gameName, Route route){
+        state.claimRoute(this, gameName, route);
+    }
+    void drawTrainCard(String gameName){
+        state.drawTrainCard(this, gameName);
+    }
+    void drawDestinationCard(String gameName){
+        state.drawDestinationCard(this, gameName);
+    }
+    void drawFaceUpTrainCard(String gameName, int positionPicked){
+        state.drawFaceUpTrainCard(this, gameName, positionPicked);
+    }
+    void drawLocomotive(String gameName, int positionPicked){
+        state.drawLocomotive(this, gameName, positionPicked);
+    }
+
     public void addTrainCard(TrainCard card) {trainCards.add(card);}
     public void addDestinationCard(DestinationCard card) {destinationCards.add(card);}
     public int getPlayerNum(){return playerNum;}
