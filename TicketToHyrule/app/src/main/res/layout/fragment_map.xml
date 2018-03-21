@@ -717,9 +717,9 @@
         app:layout_constraintVertical_bias="0.66999996" />
 
     <ImageButton
-        android:id="@+id/route21"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:id="@+id/b_hyrc_temt"
+        android:layout_width="25dp"
+        android:layout_height="24dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -727,7 +727,7 @@
         android:background="@drawable/black_circle"
         app:layout_constraintBottom_toBottomOf="@+id/zeldaMap"
         app:layout_constraintEnd_toEndOf="@+id/zeldaMap"
-        app:layout_constraintHorizontal_bias="0.714"
+        app:layout_constraintHorizontal_bias="0.72"
         app:layout_constraintStart_toStartOf="@+id/zeldaMap"
         app:layout_constraintTop_toTopOf="@+id/zeldaMap"
         app:layout_constraintVertical_bias="0.576" />
