@@ -102,21 +102,29 @@ public class ClientFacade extends Observable{
         setChanged();
         notifyObservers();
     }
-    public void drawDestinationCard(String player){
-        gameData.getPlayer(player).addDestinationCard(gameData.getDestinationCardDeck().draw());
-        setChanged();
-        notifyObservers();
+    public void drawDestinationCard(String player, String gameName){
+        //POSSIBLY DO NOTHING HERE? MAYBE DO SOMETHING WHEN THE DESTINATION CARDS ARE ACTUALLY SUBMITTED
     }
-    public void drawTrainCard(String player){
-        gameData.getPlayer(player).addTrainCard(gameData.getFaceUpTrainCards().pick(0, gameData.getTrainCardDeck()));
-        setChanged();
-        notifyObservers();
-    }
+//    public void drawTrainCard(String player){
+//        gameData.getPlayer(player).addTrainCard(gameData.getFaceUpTrainCards().pick(0, gameData.getTrainCardDeck()));
+//        setChanged();
+//        notifyObservers();
+//    }
     public void claimRoute(Player player, int route){
         gameData.getMap().getRoutes().get(route).claim(player);
         gameData.getPlayer(player.getPlayerName()).getTrainCards().remove(0);
         gameData.getPlayer(player.getPlayerName()).dropDestinationCard(gameData.getPlayer(player.getPlayerName()).getDestinationCards().get(0));
         gameData.getPlayer(player.getPlayerName()).setTrainsRemaining(gameData.getPlayer(player.getPlayerName()).getTrainsRemaining() - 7);
+        setChanged();
+        notifyObservers();
+    }
+    public void drawFaceUpTrainCard(String playerName, String gameName, int card){
+        gameData.getPlayer(playerName).addTrainCard(gameData.getFaceUpTrainCards().pick(card, gameData.getTrainCardDeck()));
+        setChanged();
+        notifyObservers();
+    }
+    public void drawTrainCard(String playerName, String gameName){
+        gameData.getPlayer(playerName).addTrainCard(gameData.getTrainCardDeck().draw());
         setChanged();
         notifyObservers();
     }
@@ -151,6 +159,20 @@ public class ClientFacade extends Observable{
                 break;
             case "getGameHistory":
                 addGameHistory((String)myCommand.getParametersAsJsonStrings()[0].substring(1,myCommand.getParametersAsJsonStrings()[0].length()-1));
+                break;
+            case ("drawFaceUpTrainCard"):
+                drawFaceUpTrainCard((String)myCommand.getParametersAsJsonStrings()[0].substring(1,myCommand.getParametersAsJsonStrings()[0].length()-1),
+                        (String)myCommand.getParametersAsJsonStrings()[1].substring(1,myCommand.getParametersAsJsonStrings()[1].length()-1),
+                        Integer.parseInt(myCommand.getParametersAsJsonStrings()[2]));
+                break;
+            case("drawTrainCard"):
+                drawTrainCard((String)myCommand.getParametersAsJsonStrings()[0].substring(1,myCommand.getParametersAsJsonStrings()[0].length()-1),
+                        (String)myCommand.getParametersAsJsonStrings()[1].substring(1,myCommand.getParametersAsJsonStrings()[1].length()-1));
+                break;
+            case("drawDestinationCard"):
+                drawDestinationCard((String)myCommand.getParametersAsJsonStrings()[0].substring(1,myCommand.getParametersAsJsonStrings()[0].length()-1),
+                        (String)myCommand.getParametersAsJsonStrings()[1].substring(1,myCommand.getParametersAsJsonStrings()[1].length()-1));
+                break;
         }
     }
 

@@ -23,8 +23,11 @@ import cs240.lib.Model.ClientFacade;
 import cs240.lib.Model.cards.DestinationCard;
 import cs240.lib.Model.cards.TrainCard;
 import cs240.lib.Model.gameParts.Player;
+import cs340.tickettohyrule.CurrentUserSingleton;
+import cs340.tickettohyrule.PhaseOnePresenters.GameLobbyPresenter;
 import cs340.tickettohyrule.PhaseTwoPresenters.GameInfoPresenter;
 import cs340.tickettohyrule.R;
+import cs340.tickettohyrule.SignInActivity;
 
 /**
  * Created by eholm on 2/25/2018.
@@ -82,13 +85,30 @@ public class GameInfoFragment extends Fragment {
         ClientFacade.getInstance().addObserver(gameInfoPresenter);
 
         trainCardDeck = (ImageButton) view.findViewById(R.id.train_deck);
+        trainCardDeck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gameInfoPresenter.drawTrainCard();
+            }
+        });
         destinationCardDeck = (ImageButton) view.findViewById(R.id.destination_deck);
+        destinationCardDeck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gameInfoPresenter.drawDestinationCards();
+            }
+        });
 
         tCardOne = (ImageButton) view.findViewById(R.id.tCardOne);
+        tCardOne.setOnClickListener(new FaceUpTrainCardListner());
         tCardTwo = (ImageButton) view.findViewById(R.id.tCardTwo);
+        tCardTwo.setOnClickListener(new FaceUpTrainCardListner());
         tCardThree = (ImageButton) view.findViewById(R.id.tCardThree);
+        tCardThree.setOnClickListener(new FaceUpTrainCardListner());
         tCardFour = (ImageButton) view.findViewById(R.id.tCardFour);
+        tCardFour.setOnClickListener(new FaceUpTrainCardListner());
         tCardFive = (ImageButton) view.findViewById(R.id.tCardFive);
+        tCardFive.setOnClickListener(new FaceUpTrainCardListner());
 
         numTDeck = (TextView) view.findViewById(R.id.num_t_deck);
         numTDeck.setTypeface(zeldaFont);
@@ -137,6 +157,18 @@ public class GameInfoFragment extends Fragment {
         ClientFacade.getInstance().deleteObserver(gameInfoPresenter);
     }
 
+    public class FaceUpTrainCardListner implements View.OnClickListener{
+        @Override
+        public void onClick(View v) {
+            gameInfoPresenter.drawFaceUpTrainCard(v.getId());
+        }
+    }
+
+
+
+    public void toast(String s){
+        Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+    }
 
     /**
      * Updates the screen information depending on input from the user or other users which the main user needs to see.
@@ -148,7 +180,7 @@ public class GameInfoFragment extends Fragment {
     public void updateUI()
     {
         setFaceUpTrainCards();
-        setPlayerCards();
+        gameInfoPresenter.setPlayerTrainCards();
         numDDeck.setText("num destination cards: " + gameInfoPresenter.getnumCardsInDDeck());
         numTDeck.setText("num train cards: " + gameInfoPresenter.getNumCardsInTDeck());
 
@@ -166,54 +198,7 @@ public class GameInfoFragment extends Fragment {
      * pre- valid ui exists for the player cards
      * post- the ui for the player cards is updated for the user
      */
-    private void setPlayerCards()
-    {
-        ArrayList<TrainCard> playerTC = gameInfoPresenter.getPlayerTCards();
-        int loco = 0;
-        int red = 0;
-        int green = 0;
-        int orange = 0;
-        int blue = 0;
-        int black = 0;
-        int yellow = 0;
-        int pink = 0;
-        int white = 0;
-        for(TrainCard t :playerTC)
-        {
-            switch (t.getColor().toString())
-            {
-                case "GREEN":
-                    green++;
-                    break;
-                case "RED":
-                    red++;
-                    break;
-                case "BLACK":
-                    black++;
-                    break;
-                case "YELLOW":
-                    yellow++;
-                    break;
-                case "PINK":
-                    pink++;
-                    break;
-                case "ORANGE":
-                    orange++;
-                    break;
-                case "WHITE":
-                    white++;
-                    break;
-                case "BLUE":
-                    blue++;
-                    break;
-                case "WILD":
-                    loco++;
-                    break;
-                default:
-                    loco++;
-                    break;
-            }
-        }
+    public void setPlayerTrainCards(int loco, int red, int green, int orange, int blue, int black, int yellow, int pink, int white){
         numLoco.setText("number of locomotives: " + loco);
         numRed.setText("number of red cards: " + red);
         numGreen.setText("number of green cards: " + green);
@@ -291,7 +276,6 @@ public class GameInfoFragment extends Fragment {
                     currentTrainCard.setBackground(getActivity().getDrawable(R.drawable.locotc));
                     break;
             }
-            //tCardOne = faceUpCards[0].getColor().toString();
 
         }
     }
