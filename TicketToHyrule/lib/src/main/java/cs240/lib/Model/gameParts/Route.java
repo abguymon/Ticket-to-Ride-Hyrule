@@ -95,7 +95,7 @@ public class Route {
                 points = 15;
                 break;
         }
-        claimingPlayer.addScore(points);
+        claimingPlayer.addRoutePoints(points);
     }
 
     public CityPair getCityNodes() {

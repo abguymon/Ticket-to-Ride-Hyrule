@@ -20,18 +20,27 @@ public class Player {
     private String playerName;
     private PlayerColor color;
     private int playerNum;
-    private int score;
     private int trainsRemaining;
     private ArrayList<DestinationCard> destinationCards;
     private ArrayList<TrainCard> trainCards;
     private IState state;
+
+    private int totalPoints;
+    private int routePoints;
+    private int positiveDestinationPoints;
+    private int negativeDestinationPoints;
+    private int bonusPoints;
 
     private final int MAX_TRAIN_CARS = 45;
 
     public Player(PlayerColor color, String playerName) {
         playerNum = 0;
         this.color = color;
-        this.score = 0;
+        this.totalPoints = 0;
+        this.routePoints = 0;
+        this.positiveDestinationPoints = 0;
+        this.negativeDestinationPoints = 0;
+        this.bonusPoints = 0;
         this.trainsRemaining = MAX_TRAIN_CARS;
         this.destinationCards = new ArrayList<>();
         this.trainCards = new ArrayList<>();
@@ -56,6 +65,25 @@ public class Player {
         return state.drawLocomotive(this, gameName, positionPicked);
     }
 
+    public int getTotalPoints() {return totalPoints;}
+    public void setTotalPoints(int totalPoints) {this.totalPoints = totalPoints;}
+    public int getRoutePoints() {return routePoints;}
+    public void setRoutePoints(int routePoints) {this.routePoints = routePoints;}
+    public int getPositiveDestinationPoints() {return positiveDestinationPoints;}
+    public void setPositiveDestinationPoints(int positiveDestinationPoints) {this.positiveDestinationPoints = positiveDestinationPoints;}
+    public int getNegativeDestinationPoints() {return negativeDestinationPoints;}
+    public void setNegativeDestinationPoints(int negativeDestinationPoints) {this.negativeDestinationPoints = negativeDestinationPoints;}
+    public int getBonusPoints() {return bonusPoints;}
+    public void setBonusPoints(int bonusPoints) {this.bonusPoints = bonusPoints;}
+    public void addRoutePoints(int points) {routePoints += points;}
+    public void addPositiveDestinationPoints(int points) {positiveDestinationPoints += points;}
+    public void addNegativeDestinationPoints(int points) {negativeDestinationPoints += points;}
+    public void addBonusPoints(int points) {bonusPoints += points;}
+    public int calculateScore() {
+        totalPoints = routePoints + positiveDestinationPoints + bonusPoints - negativeDestinationPoints;
+        return totalPoints;
+    }
+
     public void addTrainCard(TrainCard card) {trainCards.add(card);}
     public void addDestinationCard(DestinationCard card) {destinationCards.add(card);}
     public int getPlayerNum(){return playerNum;}
@@ -70,15 +98,7 @@ public class Player {
     }
 
     public int getScore() {
-        return score;
-    }
-
-    public void setScore(int score) {
-        this.score = score;
-    }
-
-    public void addScore(int toAdd){
-        score += toAdd;
+        return calculateScore();
     }
 
     public int getTrainsRemaining() {
