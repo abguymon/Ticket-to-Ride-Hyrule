@@ -11,6 +11,7 @@ import cs240.lib.common.results.CreateResult;
 import cs240.lib.common.results.DrawDestinationCardResult;
 import cs240.lib.common.results.DrawFaceUpTrainCardResult;
 import cs240.lib.common.results.DrawTrainCardResult;
+import cs240.lib.common.results.EndTurnResult;
 import cs240.lib.common.results.GameHistoryResult;
 import cs240.lib.common.results.GetGameResult;
 import cs240.lib.common.results.JoinResult;
@@ -266,6 +267,15 @@ public class ServerProxy implements IServer {
         Command submitDestinationCardsCommand = new Command("submitDestinationCards", parameterTypenames, parameters);
         Object result = ClientCommunicator.SINGLETON.send(submitDestinationCardsCommand);
         return (SubmitResult) result;
+    }
+
+    @Override
+    public EndTurnResult endTurn(String gameName) {
+        String[] parameterTypenames = {String.class.getName()};
+        Object[] parameters = {gameName};
+        Command submitDestinationCardsCommand = new Command("endTurn", parameterTypenames, parameters);
+        Object result = ClientCommunicator.SINGLETON.send(submitDestinationCardsCommand);
+        return (EndTurnResult) result;
     }
 
     /**

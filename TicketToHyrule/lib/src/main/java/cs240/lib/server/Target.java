@@ -26,6 +26,7 @@ import cs240.lib.common.results.CreateResult;
 import cs240.lib.common.results.DrawDestinationCardResult;
 import cs240.lib.common.results.DrawFaceUpTrainCardResult;
 import cs240.lib.common.results.DrawTrainCardResult;
+import cs240.lib.common.results.EndTurnResult;
 import cs240.lib.common.results.GameHistoryResult;
 import cs240.lib.common.results.GetGameResult;
 import cs240.lib.common.results.JoinResult;
@@ -685,7 +686,7 @@ public class Target implements IServer {
     }
 
     //This should be added to Iserver in the future
-    public void endTurn(String gameName) {
+    public EndTurnResult endTurn(String gameName) {
         String[] parameterTypeNames = {String.class.getName()};
         Object[] parameters = {gameName};
         Command submitCommand = new Command("endTurn", parameterTypeNames, parameters);
@@ -697,11 +698,9 @@ public class Target implements IServer {
         if (game != null) {
             int newTurn = game.endTurn();
             game.addToGameHistory("new turn!");
-            //return new EndTurnResult(newTurn);
+            return new EndTurnResult(newTurn);
         }
-        else {
-            //return new EndTurnResult("Game not found");
-        }
+        return new EndTurnResult("Game not found");
     }
 
     /**

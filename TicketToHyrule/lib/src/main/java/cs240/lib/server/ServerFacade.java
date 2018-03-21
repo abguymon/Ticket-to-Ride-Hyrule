@@ -3,11 +3,16 @@ package cs240.lib.server;
 import java.util.Stack;
 
 import cs240.lib.Model.cards.DestinationCard;
+import cs240.lib.Model.gameParts.Route;
 import cs240.lib.common.Command;
 import cs240.lib.common.IServer;
 import cs240.lib.common.results.ChatResult;
+import cs240.lib.common.results.ClaimRouteResult;
 import cs240.lib.common.results.CreateResult;
 import cs240.lib.common.results.DrawDestinationCardResult;
+import cs240.lib.common.results.DrawFaceUpTrainCardResult;
+import cs240.lib.common.results.DrawTrainCardResult;
+import cs240.lib.common.results.EndTurnResult;
 import cs240.lib.common.results.GameHistoryResult;
 import cs240.lib.common.results.GetGameResult;
 import cs240.lib.common.results.JoinResult;
@@ -88,6 +93,26 @@ public class ServerFacade implements IServer {
     @Override
     public SubmitResult submitDestinationCards(String playerName, String gameName, DestinationCard card) {
         return Target.SINGLETON.submitDestinationCards(playerName, gameName, card);
+    }
+
+    @Override
+    public ClaimRouteResult claimRoute(String playerName, String gameName, Route route) {
+        return Target.SINGLETON.claimRoute(playerName, gameName, route);
+    }
+
+    @Override
+    public DrawTrainCardResult drawTrainCard(String playerName, String gameName) {
+        return Target.SINGLETON.drawTrainCard(playerName, gameName);
+    }
+
+    @Override
+    public EndTurnResult endTurn(String gameName) {
+        return Target.SINGLETON.endTurn(gameName);
+    }
+
+    @Override
+    public DrawFaceUpTrainCardResult drawFaceUpTrainCard(String playerName, String gameName, int positionPicked) {
+        return Target.SINGLETON.drawFaceUpTrainCard(playerName, gameName, positionPicked);
     }
 
     @Override
