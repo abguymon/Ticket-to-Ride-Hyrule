@@ -1,5 +1,6 @@
 package cs240.lib.server;
 
+import java.util.ArrayList;
 import java.util.Stack;
 
 import cs240.lib.Model.cards.DestinationCard;
@@ -93,6 +94,11 @@ public class ServerFacade implements IServer {
     @Override
     public SubmitResult submitDestinationCards(String playerName, String gameName, DestinationCard card) {
         return Target.SINGLETON.submitDestinationCards(playerName, gameName, card);
+    }
+
+    @Override
+    public SubmitResult submitDestinationCards(String playerName, String gameName, ArrayList<DestinationCard> cards) {
+        return Target.SINGLETON.submitDestinationCards(playerName, gameName, cards);
     }
 
     @Override

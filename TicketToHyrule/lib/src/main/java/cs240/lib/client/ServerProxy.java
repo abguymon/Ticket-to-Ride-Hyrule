@@ -1,6 +1,8 @@
 package cs240.lib.client;
 
 
+import java.util.ArrayList;
+
 import cs240.lib.Model.cards.DestinationCard;
 import cs240.lib.Model.gameParts.Route;
 import cs240.lib.common.Command;
@@ -264,6 +266,16 @@ public class ServerProxy implements IServer {
     public SubmitResult submitDestinationCards(String playerName, String gameName, DestinationCard card) {
         String[] parameterTypenames = {String.class.getName(), String.class.getName(), DestinationCard.class.getName()};
         Object[] parameters = {playerName, gameName, card};
+        Command submitDestinationCardsCommand = new Command("submitDestinationCards", parameterTypenames, parameters);
+        Object result = ClientCommunicator.SINGLETON.send(submitDestinationCardsCommand);
+        return (SubmitResult) result;
+    }
+
+    @Override
+    public SubmitResult submitDestinationCards(String playerName, String gameName, ArrayList<DestinationCard> cards) {
+        //Check parameter type names
+        String[] parameterTypenames = {String.class.getName(), String.class.getName(), DestinationCard.class.getName()};
+        Object[] parameters = {playerName, gameName, cards};
         Command submitDestinationCardsCommand = new Command("submitDestinationCards", parameterTypenames, parameters);
         Object result = ClientCommunicator.SINGLETON.send(submitDestinationCardsCommand);
         return (SubmitResult) result;

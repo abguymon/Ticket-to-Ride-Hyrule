@@ -532,6 +532,42 @@ public class Target implements IServer {
         return new DrawDestinationCardResult("Game not found");
     }
 
+    @Override
+    public SubmitResult submitDestinationCards(String playerName, String gameName, ArrayList<DestinationCard> cards) {
+        String[] parameterTypeNames = {String.class.getName(), String.class.getName(), DestinationCard.class.getName()};
+        Object[] parameters = {playerName, gameName, cards};
+        Command submitCommand = new Command("submitDestinationCards", parameterTypeNames, parameters);
+        commandHistory.add(submitCommand);
+        commandQueue.add(submitCommand);
+        Poller.getInstance().incrementCommandIndex();
+        if (gameName == null || playerName == null) {
+            return new SubmitResult("Error: 1 more null fields");
+        }
+        Game game = getActiveGame(gameName);
+        if (game != null) {
+            Player player = game.getPlayer(playerName);
+            if (player != null) {
+                if (cards == null) {
+                    game.addToGameHistory(playerName + " took 3 destination cards");
+                    return new SubmitResult(true);
+                }
+                if (cards.size() == 1) {
+                    game.addToGameHistory(playerName + " took 2 destination cards");
+                }
+                else if (cards.size() == 2) {
+                    game.addToGameHistory(playerName + " took 1 destination card");
+                }
+                for (int i = 0; i < cards.size(); ++i) {
+                    player.dropDestinationCard(cards.get(i));
+                    game.putbackDestinationCard(cards.get(i));
+                }
+                return new SubmitResult(true);
+            }
+            return new SubmitResult("Player not found");
+        }
+        return new SubmitResult("Game not found");
+    }
+
     /**
      *@pre playerName and gameName can't be null nor the empty string
      * gameName must match an active game
