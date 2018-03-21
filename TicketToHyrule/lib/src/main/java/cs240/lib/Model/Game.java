@@ -71,10 +71,29 @@ public class Game {
     public void addToChatHistory(ChatEntry newEntry) {chatHistory.add(newEntry);}
     public void addToGameHistory(String newEntry) {gameHistory.add(newEntry);}
     public void addPlayer(Player player) {playerArray.add(player);}
-    public TrainCard drawTrainCard() {return trainCardDeck.draw();}
     public DestinationCard drawDestinationCard(){return destinationCardDeck.draw();}
     public void putbackDestinationCard(DestinationCard card) {destinationCardDeck.putback(card);}
+
     public void discardTrainCard(TrainCard card) {trainCardDiscard.add(card);}
+
+    public TrainCard drawTrainCard() {
+        TrainCard card = trainCardDeck.draw();
+        if (trainCardDeck.getSize() == 0) {
+            shuffleInDiscard();
+        }
+        return card;
+    }
+
+    private void shuffleInDiscard() {
+        for (int i = 0; i < trainCardDiscard.getTrainCards().size(); ++i) {
+            TrainCard cardToAdd = trainCardDiscard.getTrainCards().get(i);
+            trainCardDeck.add(cardToAdd);
+        }
+        trainCardDeck.shuffle();
+        trainCardDiscard.reset();
+    }
+
+
 
     public int endTurn() {
         int numPlayers = playerArray.size();

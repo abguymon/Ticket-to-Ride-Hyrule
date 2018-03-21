@@ -14,4 +14,5 @@ public class TrainCardDiscard {
     public ArrayList<TrainCard> getTrainCards() {return trainCards;}
     public void setTrainCards(ArrayList<TrainCard> trainCards) {this.trainCards = trainCards;}
     public void add(TrainCard card) {trainCards.add(card);}
+    public void reset() {trainCards = new ArrayList<>();}
 }

@@ -19,6 +19,16 @@ public class TrainCardDeck {
         Collections.shuffle(trainCards);
     }
 
+    public Stack<TrainCard> getTrainCards() {
+        return trainCards;
+    }
+
+    public void setTrainCards(Stack<TrainCard> trainCards) {
+        this.trainCards = trainCards;
+    }
+
+    public void add(TrainCard newCard) {trainCards.add(newCard);}
+
     public void shuffleInDiscard(ArrayList<TrainCard> discarded){
 
     }
