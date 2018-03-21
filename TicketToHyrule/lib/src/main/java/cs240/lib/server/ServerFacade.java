@@ -13,6 +13,7 @@ import cs240.lib.common.results.CreateResult;
 import cs240.lib.common.results.DrawDestinationCardResult;
 import cs240.lib.common.results.DrawFaceUpTrainCardResult;
 import cs240.lib.common.results.DrawTrainCardResult;
+import cs240.lib.common.results.EndGameResult;
 import cs240.lib.common.results.EndTurnResult;
 import cs240.lib.common.results.GameHistoryResult;
 import cs240.lib.common.results.GetGameResult;
@@ -114,6 +115,11 @@ public class ServerFacade implements IServer {
     @Override
     public EndTurnResult endTurn(String gameName) {
         return Target.SINGLETON.endTurn(gameName);
+    }
+
+    @Override
+    public EndGameResult endGame(String gameName) {
+        return Target.SINGLETON.endGame(gameName);
     }
 
     @Override

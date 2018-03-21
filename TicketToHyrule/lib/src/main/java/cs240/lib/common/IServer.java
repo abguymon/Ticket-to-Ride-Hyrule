@@ -10,6 +10,7 @@ import cs240.lib.common.results.CreateResult;
 import cs240.lib.common.results.DrawDestinationCardResult;
 import cs240.lib.common.results.DrawFaceUpTrainCardResult;
 import cs240.lib.common.results.DrawTrainCardResult;
+import cs240.lib.common.results.EndGameResult;
 import cs240.lib.common.results.EndTurnResult;
 import cs240.lib.common.results.GameHistoryResult;
 import cs240.lib.common.results.GetGameResult;
@@ -41,5 +42,6 @@ public interface IServer {
     SubmitResult submitDestinationCards(String playerName, String gameName, DestinationCard card);
     SubmitResult submitDestinationCards(String playerName, String gameName, ArrayList<DestinationCard> cards);
     EndTurnResult endTurn(String gameName);
+    EndGameResult endGame(String gameName);
     GetGameResult getGameData(String gameName);
 }

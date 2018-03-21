@@ -27,6 +27,7 @@ public class Game {
     private ArrayList<String> gameHistory;
     private ArrayList<ChatEntry> chatHistory;
     private int playerTurn;
+    private boolean isFinalRound;
 
     public Game(String newName) {
         this.gameName = newName;
@@ -42,8 +43,11 @@ public class Game {
         initializeGameMap();
         initializeFaceUpCards();
         playerTurn = 1;
+        isFinalRound = false;
     }
 
+    public boolean isFinalRound() {return isFinalRound;}
+    public void setFinalRound(boolean T_F) {isFinalRound = T_F;}
     public int getPlayerTurn() {return playerTurn;}
     public void setPlayerTurn(int newTurn) {playerTurn = newTurn;}
     public TrainCardDiscard getTrainCardDiscard() {return trainCardDiscard;}
@@ -99,9 +103,22 @@ public class Game {
     public boolean claimRoute(Player player, Route route) {
         Route gameRoute = getRoute(route);
         if (route != null) {
-            gameRoute.claim(player);
+            if (gameRoute.claim(player)) {
+                if (player.getTrainsRemaining() == 0) {
+                    isFinalRound = true;
+                }
+                return true;
+            }
+            else {
+                return false;
+            }
         }
         return false;
+    }
+
+    public void endGame() {
+        //compute final scores for each player
+        //assign bonus points and destination points
     }
 
     public void initializeGameMap(){

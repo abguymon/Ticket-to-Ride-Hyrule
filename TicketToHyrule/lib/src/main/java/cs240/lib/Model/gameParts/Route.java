@@ -22,7 +22,7 @@ public class Route {
         this.color = color;
     }
 
-    public void claim(Player claimingPlayer){
+    public boolean claim(Player claimingPlayer){
         //for real claim route
         if (!claimed) {
             ArrayList<TrainCard> playerCards = claimingPlayer.getTrainCards();
@@ -34,14 +34,19 @@ public class Route {
                     foundColorCardsIndex.add(i);
                 }
             }
-            if (cardColorNum >= length) {
+            if (cardColorNum >= length && claimingPlayer.getTrainsRemaining() >= length) {
                 setClaimed(true);
                 setOwner(claimingPlayer);
                 addPoints(claimingPlayer);
                 claimingPlayer.minusTrains(length);
                 discardCards(claimingPlayer, foundColorCardsIndex);
+                return true;
+            }
+            else {
+                return false;
             }
         }
+        return false;
         //for test, needs to be deleted for real game
         /*if (!claimed){
             setClaimed(true);

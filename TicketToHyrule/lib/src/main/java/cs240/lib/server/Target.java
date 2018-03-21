@@ -26,6 +26,7 @@ import cs240.lib.common.results.CreateResult;
 import cs240.lib.common.results.DrawDestinationCardResult;
 import cs240.lib.common.results.DrawFaceUpTrainCardResult;
 import cs240.lib.common.results.DrawTrainCardResult;
+import cs240.lib.common.results.EndGameResult;
 import cs240.lib.common.results.EndTurnResult;
 import cs240.lib.common.results.GameHistoryResult;
 import cs240.lib.common.results.GetGameResult;
@@ -649,9 +650,15 @@ public class Target implements IServer {
                 if (player != null) {
                     if (game.claimRoute(player, route)) {
                         game.addToGameHistory(playerName + " claimed the route " + route.toString());
-                        return new ClaimRouteResult();
+                        if (game.isFinalRound()) {
+                            game.addToGameHistory("Final Round!!!");
+                            return new ClaimRouteResult(true);
+                        }
+                        else {
+                            return new ClaimRouteResult(false);
+                        }
                     }
-                    return  new ClaimRouteResult("Route not found");
+                    return  new ClaimRouteResult("Route unsuccessfully claimed");
                 }
                 else {
                     return new ClaimRouteResult("Player not found");
@@ -721,7 +728,7 @@ public class Target implements IServer {
         return new DrawFaceUpTrainCardResult("Game not found");
     }
 
-    //This should be added to Iserver in the future
+    @Override
     public EndTurnResult endTurn(String gameName) {
         String[] parameterTypeNames = {String.class.getName()};
         Object[] parameters = {gameName};
@@ -733,10 +740,32 @@ public class Target implements IServer {
         Game game = getActiveGame(gameName);
         if (game != null) {
             int newTurn = game.endTurn();
-            game.addToGameHistory("new turn!");
+            game.addToGameHistory("New Turn!");
             return new EndTurnResult(newTurn);
         }
         return new EndTurnResult("Game not found");
+    }
+
+    @Override
+    public EndGameResult endGame(String gameName) {
+        String[] parameterTypeNames = {String.class.getName()};
+        Object[] parameters = {gameName};
+        Command submitCommand = new Command("endGame", parameterTypeNames, parameters);
+        commandHistory.add(submitCommand);
+        commandQueue.add(submitCommand);
+        Poller.getInstance().incrementCommandIndex();
+
+        if (gameName == null) {
+            return new EndGameResult("1 or more null fields");
+        }
+        Game game = getActiveGame(gameName);
+        if (game != null) {
+            game.endGame();
+            game.addToGameHistory(gameName + " finished");
+            removeActiveGame(gameName);
+            return new EndGameResult(game);
+        }
+        return new EndGameResult("Game not found");
     }
 
     /**
@@ -778,6 +807,15 @@ public class Target implements IServer {
             }
         }
         return null;
+    }
+
+    private void removeActiveGame(String gameName) {
+        for (int i = 0; i < activeGames.size(); ++i) {
+            if (gameName.equals(activeGames.get(i).getGameName())) {
+                activeGames.remove(i);
+                return;
+            }
+        }
     }
 
     private boolean isValidAuthToken(String username, String authToken){

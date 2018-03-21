@@ -6,8 +6,9 @@ package cs240.lib.common.results;
 
 public class ClaimRouteResult {
     private String errorMessage;
+    private boolean isFinalRound;
 
-    public ClaimRouteResult(){}
+    public ClaimRouteResult(boolean isFinalRound){this.isFinalRound = isFinalRound;}
     public ClaimRouteResult(String errorMessage) {
         this.errorMessage = errorMessage;
     }
