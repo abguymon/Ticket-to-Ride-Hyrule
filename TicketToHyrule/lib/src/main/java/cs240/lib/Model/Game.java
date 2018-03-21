@@ -68,6 +68,27 @@ public class Game {
     public void putbackDestinationCard(DestinationCard card) {destinationCardDeck.putback(card);}
     public void discardTrainCard(TrainCard card) {trainCardDiscard.add(card);}
 
+    public TrainCard drawFaceUpTrainCard(int position) {
+        return faceUpTrainCards.pick(position, trainCardDeck);
+    }
+
+    public Route getRoute(Route route) {
+        for (int i = 0; i < map.getRoutes().size(); ++i) {
+            if (map.getRoutes().get(i).equals(route)) {
+                return map.getRoutes().get(i);
+            }
+        }
+        return null;
+    }
+
+    public boolean claimRoute(Player player, Route route) {
+        Route gameRoute = getRoute(route);
+        if (route != null) {
+            gameRoute.claim(player);
+        }
+        return false;
+    }
+
     public void initializeGameMap(){
         ArrayList<City> cities = new ArrayList<>();
         ArrayList<Route> routes = new ArrayList<>();

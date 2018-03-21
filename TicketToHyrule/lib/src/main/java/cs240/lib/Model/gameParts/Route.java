@@ -50,6 +50,19 @@ public class Route {
         }*/
     }
 
+    public boolean equals (Route route) {
+        if (this.color == route.getColor()) {
+            if (this.length == route.getLength()) {
+                if (this.cityNodes.getCity1().getCityName().equals(route.getCityNodes().getCity1().getCityName())) {
+                    if (this.cityNodes.getCity2().getCityName().equals(route.getCityNodes().getCity2().getCityName())) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
     private void discardCards(Player claimingPlayer, ArrayList<Integer> foundColorCardsIndex) {
         ArrayList<TrainCard> cardsAfterDicard = claimingPlayer.getTrainCards();
         ArrayList<TrainCard> discarded = new ArrayList<>();
