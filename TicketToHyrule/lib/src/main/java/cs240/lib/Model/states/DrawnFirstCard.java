@@ -6,6 +6,8 @@ import cs240.lib.Model.cards.TrainCard;
 import cs240.lib.Model.gameParts.Player;
 import cs240.lib.Model.gameParts.Route;
 import cs240.lib.client.ServerProxy;
+import cs240.lib.common.results.ClaimRouteResult;
+import cs240.lib.common.results.DrawDestinationCardResult;
 import cs240.lib.common.results.DrawFaceUpTrainCardResult;
 import cs240.lib.common.results.DrawTrainCardResult;
 
@@ -15,34 +17,38 @@ import cs240.lib.common.results.DrawTrainCardResult;
 
 public class DrawnFirstCard implements IState {
     @Override
-    public void claimRoute(Player container, String gameName, Route route) {
+    public ClaimRouteResult claimRoute(Player container, String gameName, Route route) {
         //TODO: toast hand-slapping scold
+        ClaimRouteResult result = new ClaimRouteResult("Already drawn card");
+        return result;
     }
 
     @Override
-    public void drawTrainCard(Player container, String gameName) {
+    public DrawTrainCardResult drawTrainCard(Player container, String gameName) {
         DrawTrainCardResult result = ServerProxy.SINGLETON.drawTrainCard(container.getPlayerName(), gameName);
-        TrainCard drawnCard = result.getDrawnCard();
-        container.addTrainCard(drawnCard);
         container.setState(new TurnEnded());
+        return result;
     }
 
     @Override
-    public void drawDestinationCard(Player container, String gameName) {
+    public DrawDestinationCardResult drawDestinationCard(Player container, String gameName) {
         //TODO: toast hand-slapping scold
+        DrawDestinationCardResult result = new DrawDestinationCardResult("Card already drawn");
+        return result;
     }
 
     @Override
-    public void drawFaceUpTrainCard(Player container, String gameName, int positionPicked) {
+    public DrawFaceUpTrainCardResult drawFaceUpTrainCard(Player container, String gameName, int positionPicked) {
         DrawFaceUpTrainCardResult result =
                 ServerProxy.SINGLETON.drawFaceUpTrainCard(container.getPlayerName(), gameName, positionPicked);
-        TrainCard pickedCard = result.getDrawnCard();
-        container.addTrainCard(pickedCard);
         container.setState(new TurnEnded());
+        return  result;
     }
 
     @Override
-    public void drawLocomotive(Player container, String gameName, int positionPicked) {
+    public DrawFaceUpTrainCardResult drawLocomotive(Player container, String gameName, int positionPicked) {
         //TODO: toast hand-slapping scold
+        DrawFaceUpTrainCardResult result = new DrawFaceUpTrainCardResult("Cannot draw Locomotive as second card");
+        return result;
     }
 }

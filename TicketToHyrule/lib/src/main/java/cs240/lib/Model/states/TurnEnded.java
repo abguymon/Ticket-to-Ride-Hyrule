@@ -2,6 +2,10 @@ package cs240.lib.Model.states;
 
 import cs240.lib.Model.gameParts.Player;
 import cs240.lib.Model.gameParts.Route;
+import cs240.lib.common.results.ClaimRouteResult;
+import cs240.lib.common.results.DrawDestinationCardResult;
+import cs240.lib.common.results.DrawFaceUpTrainCardResult;
+import cs240.lib.common.results.DrawTrainCardResult;
 
 /**
  * Created by David on 3/19/2018.
@@ -10,27 +14,32 @@ import cs240.lib.Model.gameParts.Route;
 public class TurnEnded implements IState {
 
     @Override
-    public void claimRoute(Player container, String gameName, Route route) {
-
+    public ClaimRouteResult claimRoute(Player container, String gameName, Route route) {
+        ClaimRouteResult result = new ClaimRouteResult("Not your turn");
+        return result;
     }
 
     @Override
-    public void drawTrainCard(Player container, String gameName) {
-
+    public DrawTrainCardResult drawTrainCard(Player container, String gameName) {
+        DrawTrainCardResult result = new DrawTrainCardResult("Not your turn");
+        return result;
     }
 
     @Override
-    public void drawDestinationCard(Player container, String gameName) {
-
+    public DrawDestinationCardResult drawDestinationCard(Player container, String gameName) {
+        DrawDestinationCardResult result = new DrawDestinationCardResult("Not your turn");
+        return result;
     }
 
     @Override
-    public void drawFaceUpTrainCard(Player container, String gameName, int positionPicked) {
-
+    public DrawFaceUpTrainCardResult drawFaceUpTrainCard(Player container, String gameName, int positionPicked) {
+        DrawFaceUpTrainCardResult result = new DrawFaceUpTrainCardResult("Not your turn");
+        return result;
     }
 
     @Override
-    public void drawLocomotive(Player container, String gameName, int positionPicked) {
-
+    public DrawFaceUpTrainCardResult drawLocomotive(Player container, String gameName, int positionPicked) {
+        DrawFaceUpTrainCardResult result = new DrawFaceUpTrainCardResult("Not your turn");
+        return result;
     }
 }

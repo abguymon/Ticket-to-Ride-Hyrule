@@ -7,6 +7,10 @@ import cs240.lib.Model.cards.TrainCard;
 import cs240.lib.Model.colors.PlayerColor;
 import cs240.lib.Model.states.IState;
 import cs240.lib.Model.states.TurnEnded;
+import cs240.lib.common.results.ClaimRouteResult;
+import cs240.lib.common.results.DrawDestinationCardResult;
+import cs240.lib.common.results.DrawFaceUpTrainCardResult;
+import cs240.lib.common.results.DrawTrainCardResult;
 
 /**
  * Created by David on 2/21/2018.
@@ -36,20 +40,20 @@ public class Player {
 
     }
 
-    void claimRoute(String gameName, Route route){
-        state.claimRoute(this, gameName, route);
+    public ClaimRouteResult claimRoute(String gameName, Route route){
+        return state.claimRoute(this, gameName, route);
     }
-    void drawTrainCard(String gameName){
-        state.drawTrainCard(this, gameName);
+    public DrawTrainCardResult drawTrainCard(String gameName){
+        return state.drawTrainCard(this, gameName);
     }
-    void drawDestinationCard(String gameName){
-        state.drawDestinationCard(this, gameName);
+    public DrawDestinationCardResult drawDestinationCard(String gameName){
+        return state.drawDestinationCard(this, gameName);
     }
-    void drawFaceUpTrainCard(String gameName, int positionPicked){
-        state.drawFaceUpTrainCard(this, gameName, positionPicked);
+    public DrawFaceUpTrainCardResult drawFaceUpTrainCard(String gameName, int positionPicked){
+        return state.drawFaceUpTrainCard(this, gameName, positionPicked);
     }
-    void drawLocomotive(String gameName, int positionPicked){
-        state.drawLocomotive(this, gameName, positionPicked);
+    public DrawFaceUpTrainCardResult drawLocomotive(String gameName, int positionPicked){
+        return state.drawLocomotive(this, gameName, positionPicked);
     }
 
     public void addTrainCard(TrainCard card) {trainCards.add(card);}
