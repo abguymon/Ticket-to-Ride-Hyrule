@@ -684,6 +684,26 @@ public class Target implements IServer {
         return new DrawFaceUpTrainCardResult("Game not found");
     }
 
+    //This should be added to Iserver in the future
+    public void endTurn(String gameName) {
+        String[] parameterTypeNames = {String.class.getName()};
+        Object[] parameters = {gameName};
+        Command submitCommand = new Command("endTurn", parameterTypeNames, parameters);
+        commandHistory.add(submitCommand);
+        commandQueue.add(submitCommand);
+        Poller.getInstance().incrementCommandIndex();
+
+        Game game = getActiveGame(gameName);
+        if (game != null) {
+            int newTurn = game.endTurn();
+            game.addToGameHistory("new turn!");
+            //return new EndTurnResult(newTurn);
+        }
+        else {
+            //return new EndTurnResult("Game not found");
+        }
+    }
+
     /**
      *@pre none
      * @post clears all the stored data from the server

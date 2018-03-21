@@ -26,6 +26,7 @@ public class Game {
     private FaceUpTrainCards faceUpTrainCards;
     private ArrayList<String> gameHistory;
     private ArrayList<ChatEntry> chatHistory;
+    private int playerTurn;
 
     public Game(String newName) {
         this.gameName = newName;
@@ -40,8 +41,11 @@ public class Game {
         destinationCardDeck.shuffle();
         initializeGameMap();
         initializeFaceUpCards();
+        playerTurn = 1;
     }
 
+    public int getPlayerTurn() {return playerTurn;}
+    public void setPlayerTurn(int newTurn) {playerTurn = newTurn;}
     public TrainCardDiscard getTrainCardDiscard() {return trainCardDiscard;}
     public void setTrainCardDiscard(TrainCardDiscard trainCardDiscard) {this.trainCardDiscard = trainCardDiscard;}
     public DestinationCardDeck getDestinationCardDeck() {return destinationCardDeck;}
@@ -67,6 +71,17 @@ public class Game {
     public DestinationCard drawDestinationCard(){return destinationCardDeck.draw();}
     public void putbackDestinationCard(DestinationCard card) {destinationCardDeck.putback(card);}
     public void discardTrainCard(TrainCard card) {trainCardDiscard.add(card);}
+
+    public int endTurn() {
+        int numPlayers = playerArray.size();
+        if (playerTurn == numPlayers) {
+            playerTurn = 1;
+        }
+        else {
+            ++playerTurn;
+        }
+        return playerTurn;
+    }
 
     public TrainCard drawFaceUpTrainCard(int position) {
         return faceUpTrainCards.pick(position, trainCardDeck);
