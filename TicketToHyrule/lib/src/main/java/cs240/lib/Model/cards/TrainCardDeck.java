@@ -33,9 +33,21 @@ public class TrainCardDeck {
 
     }
 
-    public TrainCard draw(){
+    public TrainCard draw(TrainCardDiscard discard){
         TrainCard toDraw = trainCards.pop();
+        if (trainCards.size() == 0) {
+            shuffleInDiscard(discard);
+        }
         return toDraw;
+    }
+
+    private void shuffleInDiscard(TrainCardDiscard discard) {
+        for (int i = 0; i < discard.getTrainCards().size(); ++i) {
+            TrainCard cardToAdd = discard.getTrainCards().get(i);
+            trainCards.add(cardToAdd);
+        }
+        shuffle();
+        discard.reset();
     }
 
     public int getSize()

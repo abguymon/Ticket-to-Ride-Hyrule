@@ -2,18 +2,19 @@ package cs240.lib.Model.cards;
 
 import java.util.ArrayList;
 
+import cs240.lib.Model.colors.TrainCardColor;
+
 /**
  * Created by David on 2/28/2018.
  */
 
 public class FaceUpTrainCards {
     private TrainCard[] faceUpCards;
+    private int numWilds;
 
-    public FaceUpTrainCards(TrainCardDeck deck){
-        faceUpCards = new TrainCard[5];
-        for (int i = 0; i < 5; ++i){
-            faceUpCards[i] = deck.draw();
-        }
+    public FaceUpTrainCards(TrainCardDeck deck, TrainCardDiscard discard){
+        numWilds = 0;
+        resetFaceUpTrainCards(deck, discard);
     }
 
     public TrainCard[] getFaceUpCards() {
@@ -24,20 +25,40 @@ public class FaceUpTrainCards {
         this.faceUpCards = faceUpCards;
     }
 
-    public TrainCard pick(int positionPicked, TrainCardDeck deck){
+    public TrainCard pick(int positionPicked, TrainCardDeck deck, TrainCardDiscard discard){
         TrainCard picked = faceUpCards[positionPicked];
-        faceUpCards[positionPicked] = deck.draw();
+        if (picked.getColor() == TrainCardColor.WILD) {
+            --numWilds;
+        }
+        faceUpCards[positionPicked] = deck.draw(discard);
+        if (faceUpCards[positionPicked].getColor() == TrainCardColor.WILD) {
+            ++numWilds;
+        }
+        if (numWilds >= 3) {
+            discardFaceUpTrainCards(discard);
+            resetFaceUpTrainCards(deck, discard);
+        }
         return picked;
     }
 
-    public void shuffleIntoDeck(TrainCardDeck deck){
-        ArrayList<TrainCard> temp = new ArrayList<>();
-        for (int i = 0; i < faceUpCards.length; ++i){
-            temp.add(faceUpCards[i]);
+    public void discardFaceUpTrainCards(TrainCardDiscard discard) {
+        for (int i = 0; i < faceUpCards.length; ++i) {
+            discard.add(faceUpCards[i]);
         }
-        deck.shuffleInDiscard(temp);
+    }
+
+    public void resetFaceUpTrainCards(TrainCardDeck deck, TrainCardDiscard discard) {
+        faceUpCards = new TrainCard[5];
+        numWilds = 0;
         for (int i = 0; i < faceUpCards.length; ++i){
-            faceUpCards[i] = deck.draw();
+            faceUpCards[i] = deck.draw(discard);
+            if (faceUpCards[i].getColor() == TrainCardColor.WILD) {
+                ++numWilds;
+            }
+        }
+        if (numWilds >= 3) {
+            discardFaceUpTrainCards(discard);
+            resetFaceUpTrainCards(deck, discard);
         }
     }
 }

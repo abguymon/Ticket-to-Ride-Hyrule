@@ -35,13 +35,12 @@ public class Game {
         trainCardDeck = new TrainCardDeck();
         trainCardDiscard = new TrainCardDiscard();
         destinationCardDeck = new DestinationCardDeck();
-        faceUpTrainCards = new FaceUpTrainCards(trainCardDeck);
+        faceUpTrainCards = new FaceUpTrainCards(trainCardDeck, trainCardDiscard);
         gameHistory = new ArrayList<>();
         chatHistory = new ArrayList<>();
         trainCardDeck.shuffle();
         destinationCardDeck.shuffle();
         initializeGameMap();
-        initializeFaceUpCards();
         playerTurn = 1;
         isFinalRound = false;
     }
@@ -77,23 +76,9 @@ public class Game {
     public void discardTrainCard(TrainCard card) {trainCardDiscard.add(card);}
 
     public TrainCard drawTrainCard() {
-        TrainCard card = trainCardDeck.draw();
-        if (trainCardDeck.getSize() == 0) {
-            shuffleInDiscard();
-        }
+        TrainCard card = trainCardDeck.draw(trainCardDiscard);
         return card;
     }
-
-    private void shuffleInDiscard() {
-        for (int i = 0; i < trainCardDiscard.getTrainCards().size(); ++i) {
-            TrainCard cardToAdd = trainCardDiscard.getTrainCards().get(i);
-            trainCardDeck.add(cardToAdd);
-        }
-        trainCardDeck.shuffle();
-        trainCardDiscard.reset();
-    }
-
-
 
     public int endTurn() {
         int numPlayers = playerArray.size();
@@ -107,7 +92,7 @@ public class Game {
     }
 
     public TrainCard drawFaceUpTrainCard(int position) {
-        return faceUpTrainCards.pick(position, trainCardDeck);
+        return faceUpTrainCards.pick(position, trainCardDeck, trainCardDiscard);
     }
 
     public Route getRoute(Route route) {
@@ -122,7 +107,7 @@ public class Game {
     public boolean claimRoute(Player player, Route route) {
         Route gameRoute = getRoute(route);
         if (route != null) {
-            if (gameRoute.claim(player)) {
+            if (gameRoute.claim(player, trainCardDiscard)) {
                 if (player.getTrainsRemaining() == 0) {
                     isFinalRound = true;
                 }
@@ -150,14 +135,6 @@ public class Game {
             routes.add(route);
         }
         map = new GameMap(routes, cities);
-    }
-
-    public void initializeFaceUpCards(){
-        TrainCard[] cards = new TrainCard[5];
-        for (int i = 0; i < 5; ++i) {
-             cards[i] = trainCardDeck.draw();
-        }
-        faceUpTrainCards.setFaceUpCards(cards);
     }
 
     public Player getPlayer(String name){

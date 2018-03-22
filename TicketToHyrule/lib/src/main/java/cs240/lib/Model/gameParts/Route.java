@@ -3,6 +3,7 @@ package cs240.lib.Model.gameParts;
 import java.util.ArrayList;
 
 import cs240.lib.Model.cards.TrainCard;
+import cs240.lib.Model.cards.TrainCardDiscard;
 import cs240.lib.Model.colors.TrainCardColor;
 
 /**
@@ -22,7 +23,7 @@ public class Route {
         this.color = color;
     }
 
-    public boolean claim(Player claimingPlayer){
+    public boolean claim(Player claimingPlayer, TrainCardDiscard discard){
         //for real claim route
         if (!claimed) {
             ArrayList<TrainCard> playerCards = claimingPlayer.getTrainCards();
@@ -39,7 +40,7 @@ public class Route {
                 setOwner(claimingPlayer);
                 addPoints(claimingPlayer);
                 claimingPlayer.minusTrains(length);
-                discardCards(claimingPlayer, foundColorCardsIndex);
+                discardCards(claimingPlayer, foundColorCardsIndex, discard);
                 return true;
             }
             else {
@@ -68,11 +69,11 @@ public class Route {
         return false;
     }
 
-    private void discardCards(Player claimingPlayer, ArrayList<Integer> foundColorCardsIndex) {
+    private void discardCards(Player claimingPlayer, ArrayList<Integer> foundColorCardsIndex, TrainCardDiscard discard) {
         ArrayList<TrainCard> cardsAfterDicard = claimingPlayer.getTrainCards();
         ArrayList<TrainCard> discarded = new ArrayList<>();
         for (int i = length - 1; i >= 0; --i){
-            discarded.add(cardsAfterDicard.get(foundColorCardsIndex.get(i))); //TODO: should the cards be placed in a discard list?
+            discard.add(cardsAfterDicard.get(foundColorCardsIndex.get(i))); //TODO: should the cards be placed in a discard list? Yep, DONE
             cardsAfterDicard.remove(foundColorCardsIndex.get(i).intValue());
         }
         claimingPlayer.setTrainCards(cardsAfterDicard);
