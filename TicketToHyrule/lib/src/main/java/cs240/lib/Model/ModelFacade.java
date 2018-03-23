@@ -4,6 +4,7 @@ package cs240.lib.Model;
 import java.util.ArrayList;
 
 import cs240.lib.Model.cards.DestinationCard;
+import cs240.lib.Model.colors.TrainCardColor;
 import cs240.lib.Model.gameParts.Player;
 import cs240.lib.Model.gameParts.Route;
 import cs240.lib.client.ServerProxy;
@@ -53,9 +54,9 @@ public class ModelFacade {
     public ModelFacade(){}
 
 
-    public String claimRoute(Route route, String playerName, String gameName){
+    public String claimRoute(Route route, String playerName, String gameName, TrainCardColor chosenCardsColor){
         ClientCommunicator.SINGLETON.setAuthToken(currentUser.getAuthToken());
-        ClaimRouteResult result = currentPlayer.claimRoute(gameName, route);
+        ClaimRouteResult result = currentPlayer.claimRoute(gameName, route, chosenCardsColor);
         if(result.getErrorMessage() != null){
             return result.getErrorMessage();
         }

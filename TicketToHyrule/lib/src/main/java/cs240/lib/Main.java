@@ -17,7 +17,7 @@ public class Main {
 
         //cityTest();
         //cityPairTest();
-        routeTest();
+        //routeTest();
     }
 
     private static void routeTest() {
@@ -35,7 +35,7 @@ public class Main {
         linksTrainCards.add(blueCard); linksTrainCards.add(blueCard);
         linksTrainCards.add(blueCard); linksTrainCards.add(blueCard);
         link.setTrainCards(linksTrainCards);
-        castletowntoHylia.claim(link);
+        //castletowntoHylia.claim(link);
         if(castletowntoHylia.isClaimed()){
             System.out.println("Trains remaining for Link: " + link.getTrainsRemaining());
         }
@@ -46,7 +46,7 @@ public class Main {
         System.out.println();
 
         Player gannon = new Player(PlayerColor.BLACK, "black");
-        castletowntoHylia.claim(gannon);
+        //castletowntoHylia.claim(gannon);
         System.out.println("Trains remaining for Gannon: " + gannon.getTrainsRemaining());
 
         System.out.println("Color of route owner: " + castletowntoHylia.getOwner().getColor());

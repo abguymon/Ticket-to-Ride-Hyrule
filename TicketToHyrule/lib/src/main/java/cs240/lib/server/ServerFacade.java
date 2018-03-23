@@ -105,7 +105,7 @@ public class ServerFacade implements IServer {
 
     @Override
     public ClaimRouteResult claimRoute(String playerName, String gameName, Route route, TrainCardColor chosenCardsColor) {
-        return Target.SINGLETON.claimRoute(playerName, gameName, route);
+        return Target.SINGLETON.claimRoute(playerName, gameName, route, chosenCardsColor);
     }
 
     @Override

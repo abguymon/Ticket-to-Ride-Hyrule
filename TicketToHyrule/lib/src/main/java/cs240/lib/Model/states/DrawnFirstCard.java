@@ -1,7 +1,5 @@
 package cs240.lib.Model.states;
 
-import com.sun.security.ntlm.Server;
-
 import cs240.lib.Model.cards.TrainCard;
 import cs240.lib.Model.colors.TrainCardColor;
 import cs240.lib.Model.gameParts.Player;

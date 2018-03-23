@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import cs240.lib.Model.cards.DestinationCard;
 import cs240.lib.Model.cards.TrainCard;
 import cs240.lib.Model.colors.PlayerColor;
+import cs240.lib.Model.colors.TrainCardColor;
 import cs240.lib.Model.states.IState;
 import cs240.lib.Model.states.TurnEnded;
 import cs240.lib.common.results.ClaimRouteResult;
@@ -48,8 +49,8 @@ public class Player {
         this.state = new TurnEnded();
     }
 
-    public ClaimRouteResult claimRoute(String gameName, Route route){
-        return state.claimRoute(this, gameName, route);
+    public ClaimRouteResult claimRoute(String gameName, Route route, TrainCardColor chosenCardsColor){
+        return state.claimRoute(this, gameName, route, chosenCardsColor);
     }
     public DrawTrainCardResult drawTrainCard(String gameName){
         return state.drawTrainCard(this, gameName);
