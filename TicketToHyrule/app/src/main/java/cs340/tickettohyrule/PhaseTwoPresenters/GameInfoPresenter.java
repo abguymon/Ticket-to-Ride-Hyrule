@@ -16,6 +16,7 @@ import cs240.lib.Model.cards.TrainCard;
 import cs240.lib.Model.gameParts.Player;
 import cs340.tickettohyrule.CurrentUserSingleton;
 import cs340.tickettohyrule.Fragments.GameInfoFragment;
+import cs340.tickettohyrule.GameActivity;
 import cs340.tickettohyrule.R;
 
 /**
@@ -143,7 +144,10 @@ public class GameInfoPresenter implements Observer{
     private class DrawFaceUpTrainCardAsync extends AsyncTask<Integer, Void, String> {
         @Override
         protected String doInBackground(Integer... card){
-            String result = modelFacade.drawFaceUpTrainCard(card[0], modelFacade.getCurrentPlayer().getPlayerName() ,modelFacade.getGameData().getGameName());
+            String result;
+            if(modelFacade.getGameData().getFaceUpTrainCards().getFaceUpCards()[card[0]].getColor().equals("WILD"))
+                result = modelFacade.drawLocomotive(card[0], modelFacade.getCurrentPlayer().getPlayerName() ,modelFacade.getGameData().getGameName());
+            else result = modelFacade.drawFaceUpTrainCard(card[0], modelFacade.getCurrentPlayer().getPlayerName() ,modelFacade.getGameData().getGameName());
             return result;
         }
         @Override protected void onPostExecute(String message){
@@ -183,6 +187,7 @@ public class GameInfoPresenter implements Observer{
             super.onPostExecute(message);
             if(message.equals("")){
                 //MOVE TO SUBMIT DESTINATION CARDS PAGE WITH INTENT TO ATTACH THE NEW PRESENTER
+                ((GameActivity) view.getActivity()).moveToDrawDestinationCards();
             }
             else{
                 view.toast(message);

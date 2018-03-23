@@ -12,7 +12,11 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.util.HashMap;
+
 import cs240.lib.Model.ClientFacade;
+import cs240.lib.Model.gameParts.City;
+import cs240.lib.Model.gameParts.CityPair;
 import cs340.tickettohyrule.GameActivity;
 import cs340.tickettohyrule.PhaseTwoPresenters.MapPresenter;
 import cs340.tickettohyrule.R;
@@ -22,6 +26,7 @@ import cs340.tickettohyrule.R;
  */
 
 public class MapFragment extends Fragment implements View.OnClickListener{
+    HashMap<Integer, CityPair> mapToCityPair = new HashMap<>();
     ImageButton chatButton;
     ImageButton infoButton;
     ImageButton historyButton;
@@ -77,6 +82,17 @@ public class MapFragment extends Fragment implements View.OnClickListener{
         }
     }
 
+    public void toast(String s){
+        Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+    }
+
+    public class RouteButtonListener implements View.OnClickListener{
+        @Override
+        public void onClick(View v) {
+            mapPresenter.claimRoute(mapToCityPair.get(v.getId()));
+        }
+    }
+
     //handle the clicking of join,leave, and create buttons
     @Override
     public void onClick(View v) {
@@ -94,10 +110,47 @@ public class MapFragment extends Fragment implements View.OnClickListener{
                 Toast.makeText(getActivity(), "history called", Toast.LENGTH_SHORT).show();
                 ((GameActivity) getActivity()).moveToHistory();
                 break;
-            case R.id.test_button:
-                String testRun = mapPresenter.runTest();
-                Toast.makeText(getActivity(), testRun, Toast.LENGTH_SHORT).show();
-                break;
         }
+    }
+
+    //IS THIS THE BEST WAY TO DO IT?
+    public void createMap(){
+        City outsetIsland = new City("Outset Island");
+        City lordJabuJabu = new City("Lord Jabu Jabu");
+        City marineResearchLab = new City("Marine Research Lab");
+        City dekuPalace = new City("Deku Palace");
+        City goronCity = new City("Goron City");
+        City templeOfLight = new City("Temple of Light");
+        City gerudoFortress = new City("Gerudo Fortress");
+        City templeOfTime = new City("Temple of Time");
+        City zorasHall = new City("Zora's Hall");
+        City snowpeakRuins = new City("Snowpeak Ruins");
+        City hatenoVillage = new City("Hateno Village");
+        City clockTown = new City("Clock Town");
+        City dragonRoostIsland = new City("Dragon Roost Island");
+        City ordonVillage = new City("Ordon Village");
+        City forestTemple = new City("Forest Temple");
+        City ritoVillage = new City("Rito Village");
+        City lurelinVillage = new City("Lurelin Village"););
+        City fireTemple = new City("Fire Temple");
+        City spiritTemple = new City("Spirit Temple");
+        City waterTemple = new City("Water Temple");
+        City lostWoods = new City("Lost Woods");
+        City tarreyTown = new City("Tarrey Town");
+        City cityInTheSky = new City("City in the Sky");
+        City deathMountain = new City("Death Mountain");
+        City zorasDomain = new City("Zora's Domain");
+        City lakeHylia = new City("Lake Hylia");
+        City iceCavern = new City("Ice Cavern");
+        City hyruleCastle = new City("Hyrule Castle");
+        City tingleIsland = new City("Tingle Island");
+        City shadowTemple = new City("Shadow Temple");
+        City greatDekuTree = new City("Great Deku Tree");
+        City tingle = new City("Tingle");
+        City kakarikoVillage = new City("Kakariko Village");
+        City hiddenVillage = new City("Hidden Village");
+        City goronVillage = new City("Goron Village");
+        City lonLonRanch = new City("Lon Lon Ranch");
+        mapToCityPair.put(R.id.b_kak_lon, new CityPair(kakarikoVillage, lonLonRanch));
     }
 }

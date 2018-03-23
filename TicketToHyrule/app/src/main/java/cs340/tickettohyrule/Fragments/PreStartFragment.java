@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import cs240.lib.Model.ClientFacade;
 import cs240.lib.Model.gameParts.Player;
+import cs340.tickettohyrule.PhaseTwoPresenters.DrawDestinationCardsPresenter;
 import cs340.tickettohyrule.PhaseTwoPresenters.PreStartPresenter;
 import cs340.tickettohyrule.R;
 
@@ -26,6 +27,7 @@ import cs340.tickettohyrule.R;
 
 public class PreStartFragment extends Fragment implements CompoundButton.OnCheckedChangeListener, View.OnClickListener{
     private PreStartPresenter preStartPresenter = new PreStartPresenter();
+    private DrawDestinationCardsPresenter drawDestinationCardsPresenter = new DrawDestinationCardsPresenter();
     private ImageView playerImage;
     private TextView playerColor;
     private CheckBox checkBoxOne;
@@ -40,9 +42,15 @@ public class PreStartFragment extends Fragment implements CompoundButton.OnCheck
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_prestart, container, false);
-
-        preStartPresenter.setView(this);
-        ClientFacade.getInstance().addObserver(preStartPresenter);
+        Bundle bundle = this.getArguments();
+        if(bundle != null){
+            drawDestinationCardsPresenter.setView(this);
+            ClientFacade.getInstance().addObserver(drawDestinationCardsPresenter);
+        }
+        else {
+            preStartPresenter.setView(this);
+            ClientFacade.getInstance().addObserver(preStartPresenter);
+        }
 
         Player currentPlayer = preStartPresenter.getPlayer();
 

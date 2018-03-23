@@ -1,6 +1,7 @@
 package cs340.tickettohyrule;
 
 import android.os.Bundle;
+import android.support.v4.app.BundleCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 
@@ -61,6 +62,14 @@ public class GameActivity extends AppCompatActivity {
     //MOVE TO HISTORY SCREEN
     public void moveToHistory() {
         Fragment fragment = new GameHistoryFragment();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.game_frame, fragment, fragment.getClass().getSimpleName()).addToBackStack(null).commit();
+    }
+    public void moveToDrawDestinationCards(){
+        Fragment fragment = new PreStartFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("draw", "cards");
+        fragment.setArguments(bundle);
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.game_frame, fragment, fragment.getClass().getSimpleName()).addToBackStack(null).commit();
     }

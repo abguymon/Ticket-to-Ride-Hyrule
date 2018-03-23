@@ -5,8 +5,10 @@ import java.util.ArrayList;
 
 import cs240.lib.Model.cards.DestinationCard;
 import cs240.lib.Model.gameParts.Player;
+import cs240.lib.Model.gameParts.Route;
 import cs240.lib.client.ServerProxy;
 import cs240.lib.common.results.ChatResult;
+import cs240.lib.common.results.ClaimRouteResult;
 import cs240.lib.common.results.CreateResult;
 import cs240.lib.common.results.DrawDestinationCardResult;
 import cs240.lib.common.results.DrawFaceUpTrainCardResult;
@@ -51,12 +53,42 @@ public class ModelFacade {
     public ModelFacade(){}
 
 
+    public String claimRoute(Route route, String playerName, String gameName){
+        ClientCommunicator.SINGLETON.setAuthToken(currentUser.getAuthToken());
+        ClaimRouteResult result = currentPlayer.claimRoute(gameName, route);
+        if(result.getErrorMessage() != null){
+            return result.getErrorMessage();
+        }
+        else{
+            return "";
+        }
+    }
 
+    public String chooseDestinationCards(String playerName, String gameName, ArrayList<DestinationCard> cards){
+        ClientCommunicator.SINGLETON.setAuthToken(currentUser.getAuthToken());
+        SubmitResult result = currentPlayer.submitDestinationCards(); //THIS NEEDS TO BE A METHOD IN PLAYER I BELIEVE... ARE WE SUBMITTING CARDS KEPT OR CARDS SENT BACK?
+        if(result.getErrorMessage() != null){
+            return result.getErrorMessage();
+        }
+        else{
+            return "";
+        }
+    }
 
+    public String drawLocomotive(int card, String playerName, String gameName){
+        ClientCommunicator.SINGLETON.setAuthToken(currentUser.getAuthToken());
+        DrawFaceUpTrainCardResult result = currentPlayer.drawLocomotive(gameName, card);
+        if(result.getErrorMessage() != null){
+            return result.getErrorMessage();
+        }
+        else{
+            return "";
+        }
+    }
 
     public String drawFaceUpTrainCard(int card, String playerName, String gameName){
         ClientCommunicator.SINGLETON.setAuthToken(currentUser.getAuthToken());
-        DrawFaceUpTrainCardResult result = ServerProxy.SINGLETON.drawFaceUpTrainCard(playerName, gameName, card);
+        DrawFaceUpTrainCardResult result = currentPlayer. drawFaceUpTrainCard(gameName, card);
         if(result.getErrorMessage() != null){
             return result.getErrorMessage();
         }
@@ -66,7 +98,7 @@ public class ModelFacade {
     }
     public String drawTrainCard(String playerName, String gameName){
         ClientCommunicator.SINGLETON.setAuthToken(currentUser.getAuthToken());
-        DrawTrainCardResult result = ServerProxy.SINGLETON.drawTrainCard(playerName, gameName);
+        DrawTrainCardResult result = currentPlayer.drawTrainCard(gameName);
         if(result.getErrorMessage() != null){
             return result.getErrorMessage();
         }
@@ -76,7 +108,7 @@ public class ModelFacade {
     }
     public String drawDestinationCards(String playerName, String gameName){
         ClientCommunicator.SINGLETON.setAuthToken(currentUser.getAuthToken());
-        DrawDestinationCardResult result = ServerProxy.SINGLETON.drawDestinationCard(playerName, gameName);
+        DrawDestinationCardResult result = currentPlayer.drawDestinationCard(gameName);
         if(result.getErrorMessage() != null){
             return result.getErrorMessage();
         }

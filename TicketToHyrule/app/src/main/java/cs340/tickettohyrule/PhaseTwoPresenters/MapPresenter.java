@@ -1,5 +1,6 @@
 package cs340.tickettohyrule.PhaseTwoPresenters;
 
+import android.os.AsyncTask;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 
@@ -17,8 +18,11 @@ import cs240.lib.Model.cards.FaceUpTrainCards;
 import cs240.lib.Model.cards.TrainCard;
 import cs240.lib.Model.cards.TrainCardDeck;
 import cs240.lib.Model.colors.TrainCardColor;
+import cs240.lib.Model.gameParts.CityPair;
+import cs240.lib.Model.gameParts.Route;
 import cs340.tickettohyrule.CurrentUserSingleton;
 import cs340.tickettohyrule.Fragments.MapFragment;
+import cs340.tickettohyrule.GameActivity;
 
 /**
  * Created by eholm on 3/5/2018.
@@ -50,57 +54,80 @@ public class MapPresenter implements Observer {
         this.view = view;
     }
 
-    //test button functions
-    public String runTest(){
-        String testRun = "No test running";
-        Game temp = ClientFacade.getInstance().getGameData();
-        switch(testNumber){
-            case 0:
-                clientFacade.drawTrainCard(modelFacade.getCurrentPlayer().getPlayerName());
-                testRun = "Adding Train Cards";
-                break;
-            case 1:
-                clientFacade.drawDestinationCard(modelFacade.getCurrentPlayer().getPlayerName());
-                testRun = "Adding Destination Cards";
-                break;
-            case 2:
-                clientFacade.drawDestinationCard(modelFacade.getGameData().getPlayerArray().get(1).getPlayerName());
-                testRun = "Updating Destination Cards";
-                break;
-            case 3:
-                clientFacade.drawTrainCard(modelFacade.getGameData().getPlayerArray().get(1).getPlayerName());
-                testRun = "Updating Train Card Deck";
-                break;
-            case 4:
-                claimed = true;
-                clientFacade.claimRoute(modelFacade.getCurrentPlayer(), 0);
-                testRun = "Claiming Route";
-                break;
-            case 5:
-                clientFacade.sendMessage(modelFacade.getGameData().getPlayerArray().get(1).getPlayerName(), "This is a student");
-                testRun = "Sending chat";
-                break;
-            case 6:
-                addToGameHistory(temp);
-                clientFacade.addToGameHistory("test");
-                testRun = "Adding Game History Entry";
-                break;
-        }
-        ClientFacade.getInstance().setGameData(temp);
-        if (testNumber < 6) {
-            testNumber++;
-        }else if (testNumber == 6){
-            testNumber = 0;
-        }
-        return testRun;
+    public void claimRoute(CityPair cityPair){
+        modelFacade.getGameData().getRouteById(routeId);
+        ClaimRouteAsync claimRouteAsync = new ClaimRouteAsync();
+        claimRouteAsync.execute(route);
     }
+    public Route getRoute(int routeId){
+
+        return null;
+    }
+
+    //test button functions
+//    public String runTest(){
+//        String testRun = "No test running";
+//        Game temp = ClientFacade.getInstance().getGameData();
+//        switch(testNumber){
+//            case 0:
+//                clientFacade.drawTrainCard(modelFacade.getCurrentPlayer().getPlayerName());
+//                testRun = "Adding Train Cards";
+//                break;
+//            case 1:
+//                clientFacade.drawDestinationCard(modelFacade.getCurrentPlayer().getPlayerName());
+//                testRun = "Adding Destination Cards";
+//                break;
+//            case 2:
+//                clientFacade.drawDestinationCard(modelFacade.getGameData().getPlayerArray().get(1).getPlayerName());
+//                testRun = "Updating Destination Cards";
+//                break;
+//            case 3:
+//                clientFacade.drawTrainCard(modelFacade.getGameData().getPlayerArray().get(1).getPlayerName());
+//                testRun = "Updating Train Card Deck";
+//                break;
+//            case 4:
+//                claimed = true;
+//                clientFacade.claimRoute(modelFacade.getCurrentPlayer(), 0);
+//                testRun = "Claiming Route";
+//                break;
+//            case 5:
+//                clientFacade.sendMessage(modelFacade.getGameData().getPlayerArray().get(1).getPlayerName(), "This is a student");
+//                testRun = "Sending chat";
+//                break;
+//            case 6:
+//                addToGameHistory(temp);
+//                clientFacade.addToGameHistory("test");
+//                testRun = "Adding Game History Entry";
+//                break;
+//        }
+//        ClientFacade.getInstance().setGameData(temp);
+//        if (testNumber < 6) {
+//            testNumber++;
+//        }else if (testNumber == 6){
+//            testNumber = 0;
+//        }
+//        return testRun;
+//    }
 
     public boolean isClaimed(){
         return claimed;
     }
 
-    private void addToGameHistory(Game temp) {
-        temp.getGameHistory().add("Test");
+    private class ClaimRouteAsync extends AsyncTask<Route, Void, String> {
+        @Override
+        protected String doInBackground(Route... route){
+            String result = modelFacade.claimRoute(route[0], modelFacade.getCurrentPlayer().getPlayerName() ,modelFacade.getGameData().getGameName());
+            return result;
+        }
+        @Override protected void onPostExecute(String message){
+            super.onPostExecute(message);
+            if(message.equals("")){
+                //DO WE DO ANYTHING IN HERE? I DONT THINK SO.. MAYBE JUST TOAST SUCCESS??
+            }
+            else{
+                view.toast(message);
+            }
+        }
     }
 
 }
