@@ -66,13 +66,14 @@ public class ModelFacade {
 
     public String chooseDestinationCards(String playerName, String gameName, ArrayList<DestinationCard> cards){
         ClientCommunicator.SINGLETON.setAuthToken(currentUser.getAuthToken());
-        SubmitResult result = currentPlayer.submitDestinationCards(); //THIS NEEDS TO BE A METHOD IN PLAYER I BELIEVE... ARE WE SUBMITTING CARDS KEPT OR CARDS SENT BACK?
-        if(result.getErrorMessage() != null){
-            return result.getErrorMessage();
-        }
-        else{
-            return "";
-        }
+//        SubmitResult result = currentPlayer.submitDestinationCards(); //THIS NEEDS TO BE A METHOD IN PLAYER I BELIEVE... ARE WE SUBMITTING CARDS KEPT OR CARDS SENT BACK?
+//        if(result.getErrorMessage() != null){
+//            return result.getErrorMessage();
+//        }
+//        else{
+//            return "";
+//        }
+        return "";
     }
 
     public String drawLocomotive(int card, String playerName, String gameName){

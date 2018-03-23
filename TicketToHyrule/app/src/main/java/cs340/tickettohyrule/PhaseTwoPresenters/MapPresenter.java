@@ -55,9 +55,9 @@ public class MapPresenter implements Observer {
     }
 
     public void claimRoute(CityPair cityPair){
-        modelFacade.getGameData().getRouteById(routeId);
-        ClaimRouteAsync claimRouteAsync = new ClaimRouteAsync();
-        claimRouteAsync.execute(route);
+//        modelFacade.getGameData().getRouteById(routeId);
+//        ClaimRouteAsync claimRouteAsync = new ClaimRouteAsync();
+//        claimRouteAsync.execute(route);
     }
     public Route getRoute(int routeId){
 
