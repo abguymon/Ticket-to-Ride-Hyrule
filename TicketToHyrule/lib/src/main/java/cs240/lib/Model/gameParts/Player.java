@@ -46,7 +46,6 @@ public class Player {
         this.trainCards = new ArrayList<>();
         this.playerName = playerName;
         this.state = new TurnEnded();
-
     }
 
     public ClaimRouteResult claimRoute(String gameName, Route route){

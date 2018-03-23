@@ -4,6 +4,7 @@ package cs240.lib.client;
 import java.util.ArrayList;
 
 import cs240.lib.Model.cards.DestinationCard;
+import cs240.lib.Model.colors.TrainCardColor;
 import cs240.lib.Model.gameParts.Route;
 import cs240.lib.common.Command;
 import cs240.lib.common.IServer;
@@ -208,9 +209,9 @@ public class ServerProxy implements IServer {
     }
 
     @Override
-    public ClaimRouteResult claimRoute(String playerName, String gameName, Route route) {
-        String[] parameterTypenames = {String.class.getName(), String.class.getName(), Route.class.getName()};
-        Object[] parameters = {playerName, gameName, route};
+    public ClaimRouteResult claimRoute(String playerName, String gameName, Route route, TrainCardColor chosenCardsColor) {
+        String[] parameterTypenames = {String.class.getName(), String.class.getName(), Route.class.getName(), TrainCardColor.class.getName()};
+        Object[] parameters = {playerName, gameName, route, chosenCardsColor};
         Command claimRouteCommand = new Command("claimRoute", parameterTypenames, parameters);
         Object result = ClientCommunicator.SINGLETON.send(claimRouteCommand);
         return (ClaimRouteResult) result;

@@ -3,6 +3,8 @@ package cs240.lib.common;
 import java.util.ArrayList;
 
 import cs240.lib.Model.cards.DestinationCard;
+import cs240.lib.Model.cards.TrainCard;
+import cs240.lib.Model.colors.TrainCardColor;
 import cs240.lib.Model.gameParts.Route;
 import cs240.lib.common.results.ChatResult;
 import cs240.lib.common.results.ClaimRouteResult;
@@ -35,7 +37,7 @@ public interface IServer {
     PollerResult pollerCheckServer(int index);
     GameHistoryResult getGameHistory(String gameName);
     ChatResult chat(String playerName, String message, String gameName);
-    ClaimRouteResult claimRoute(String playerName, String gameName, Route route);
+    ClaimRouteResult claimRoute(String playerName, String gameName, Route route, TrainCardColor chosenCardsColor);
     DrawTrainCardResult drawTrainCard(String playerName, String gameName);
     DrawFaceUpTrainCardResult drawFaceUpTrainCard(String playerName, String gameName, int positionPicked);
     DrawDestinationCardResult drawDestinationCard(String playerName,String gameName);

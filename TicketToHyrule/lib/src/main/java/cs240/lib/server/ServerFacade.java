@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 import cs240.lib.Model.cards.DestinationCard;
+import cs240.lib.Model.colors.TrainCardColor;
 import cs240.lib.Model.gameParts.Route;
 import cs240.lib.common.Command;
 import cs240.lib.common.IServer;
@@ -103,7 +104,7 @@ public class ServerFacade implements IServer {
     }
 
     @Override
-    public ClaimRouteResult claimRoute(String playerName, String gameName, Route route) {
+    public ClaimRouteResult claimRoute(String playerName, String gameName, Route route, TrainCardColor chosenCardsColor) {
         return Target.SINGLETON.claimRoute(playerName, gameName, route);
     }
 

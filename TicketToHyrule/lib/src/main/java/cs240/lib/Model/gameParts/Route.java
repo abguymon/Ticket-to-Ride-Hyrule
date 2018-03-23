@@ -23,14 +23,14 @@ public class Route {
         this.color = color;
     }
 
-    public boolean claim(Player claimingPlayer, TrainCardDiscard discard){
+    public boolean claim(Player claimingPlayer, TrainCardDiscard discard, TrainCardColor chosenCardsColor){
         //for real claim route
         if (!claimed) {
             ArrayList<TrainCard> playerCards = claimingPlayer.getTrainCards();
             int cardColorNum = 0;
             ArrayList<Integer> foundColorCardsIndex = new ArrayList<>();
             for (int i = 0; i < playerCards.size(); ++i){
-                if (playerCards.get(i).getColor().equals(this.color)){
+                if (playerCards.get(i).getColor().equals(chosenCardsColor)){
                     cardColorNum++;
                     foundColorCardsIndex.add(i);
                 }

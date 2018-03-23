@@ -14,6 +14,7 @@ import cs240.lib.Model.User;
 import cs240.lib.Model.cards.DestinationCard;
 import cs240.lib.Model.cards.TrainCard;
 import cs240.lib.Model.colors.PlayerColor;
+import cs240.lib.Model.colors.TrainCardColor;
 import cs240.lib.Model.gameParts.GameMap;
 import cs240.lib.Model.gameParts.Player;
 import cs240.lib.Model.gameParts.Route;
@@ -633,7 +634,7 @@ public class Target implements IServer {
     }
 
     @Override
-    public ClaimRouteResult claimRoute(String playerName, String gameName, Route route) {
+    public ClaimRouteResult claimRoute(String playerName, String gameName, Route route, TrainCardColor chosenCardsColor) {
         String[] parameterTypeNames = {String.class.getName(), Route.class.getName()};
         Object[] parameters = {playerName, gameName, route};
         Command submitCommand = new Command("claimRoute", parameterTypeNames, parameters);
@@ -648,7 +649,7 @@ public class Target implements IServer {
             if (game.getGameName().equals(gameName)) {
                 Player player = game.getPlayer(playerName);
                 if (player != null) {
-                    if (game.claimRoute(player, route)) {
+                    if (game.claimRoute(player, route, chosenCardsColor)) {
                         game.addToGameHistory(playerName + " claimed the route " + route.toString());
                         if (game.isFinalRound()) {
                             game.addToGameHistory("Final Round!!!");

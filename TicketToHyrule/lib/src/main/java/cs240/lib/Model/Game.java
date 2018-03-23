@@ -8,6 +8,7 @@ import cs240.lib.Model.cards.FaceUpTrainCards;
 import cs240.lib.Model.cards.TrainCard;
 import cs240.lib.Model.cards.TrainCardDeck;
 import cs240.lib.Model.cards.TrainCardDiscard;
+import cs240.lib.Model.colors.TrainCardColor;
 import cs240.lib.Model.gameParts.CitiesList;
 import cs240.lib.Model.gameParts.City;
 import cs240.lib.Model.gameParts.GameMap;
@@ -104,10 +105,10 @@ public class Game {
         return null;
     }
 
-    public boolean claimRoute(Player player, Route route) {
+    public boolean claimRoute(Player player, Route route, TrainCardColor chosenCardsColor) {
         Route gameRoute = getRoute(route);
         if (route != null) {
-            if (gameRoute.claim(player, trainCardDiscard)) {
+            if (gameRoute.claim(player, trainCardDiscard, chosenCardsColor)) {
                 if (player.getTrainsRemaining() == 0) {
                     isFinalRound = true;
                 }
