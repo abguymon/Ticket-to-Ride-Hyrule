@@ -3,6 +3,7 @@ package cs240.lib.Model.states;
 import com.sun.security.ntlm.Server;
 
 import cs240.lib.Model.cards.TrainCard;
+import cs240.lib.Model.colors.TrainCardColor;
 import cs240.lib.Model.gameParts.Player;
 import cs240.lib.Model.gameParts.Route;
 import cs240.lib.client.ServerProxy;
@@ -17,7 +18,7 @@ import cs240.lib.common.results.DrawTrainCardResult;
 
 public class DrawnFirstCard implements IState {
     @Override
-    public ClaimRouteResult claimRoute(Player container, String gameName, Route route) {
+    public ClaimRouteResult claimRoute(Player container, String gameName, Route route, TrainCardColor chosenCardsColor) {
         //TODO: toast hand-slapping scold
         ClaimRouteResult result = new ClaimRouteResult("Already drawn card");
         return result;

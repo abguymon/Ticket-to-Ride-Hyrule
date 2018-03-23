@@ -1,5 +1,6 @@
 package cs240.lib.Model.states;
 
+import cs240.lib.Model.colors.TrainCardColor;
 import cs240.lib.Model.gameParts.Player;
 import cs240.lib.Model.gameParts.Route;
 import cs240.lib.common.results.ClaimRouteResult;
@@ -14,7 +15,7 @@ import cs240.lib.common.results.DrawTrainCardResult;
 public class TurnEnded implements IState {
 
     @Override
-    public ClaimRouteResult claimRoute(Player container, String gameName, Route route) {
+    public ClaimRouteResult claimRoute(Player container, String gameName, Route route, TrainCardColor chosenCardsColor) {
         ClaimRouteResult result = new ClaimRouteResult("Not your turn");
         return result;
     }

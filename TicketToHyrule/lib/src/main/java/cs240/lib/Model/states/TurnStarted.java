@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import cs240.lib.Model.cards.DestinationCard;
 import cs240.lib.Model.cards.TrainCard;
+import cs240.lib.Model.colors.TrainCardColor;
 import cs240.lib.Model.gameParts.Player;
 import cs240.lib.Model.gameParts.Route;
 import cs240.lib.client.ServerProxy;
@@ -19,8 +20,8 @@ import cs240.lib.common.results.DrawTrainCardResult;
 public class TurnStarted implements IState {
 
     @Override
-    public ClaimRouteResult claimRoute(Player container, String gameName, Route route) {
-        ClaimRouteResult result = ServerProxy.SINGLETON.claimRoute(container.getPlayerName(), gameName, route);
+    public ClaimRouteResult claimRoute(Player container, String gameName, Route route, TrainCardColor chosenCardsColor) {
+        ClaimRouteResult result = ServerProxy.SINGLETON.claimRoute(container.getPlayerName(), gameName, route, chosenCardsColor);
         container.setState(new TurnEnded());
         return result;
     }
