@@ -46,7 +46,7 @@ public class Player {
         this.destinationCards = new ArrayList<>();
         this.trainCards = new ArrayList<>();
         this.playerName = playerName;
-        this.state = new TurnEnded();
+        //this.state = new TurnEnded();
     }
 
     public ClaimRouteResult claimRoute(String gameName, Route route, TrainCardColor chosenCardsColor){
