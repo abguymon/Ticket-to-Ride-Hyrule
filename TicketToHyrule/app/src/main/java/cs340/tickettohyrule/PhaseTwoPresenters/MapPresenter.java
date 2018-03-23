@@ -116,8 +116,8 @@ public class MapPresenter implements Observer {
     private class ClaimRouteAsync extends AsyncTask<Route, Void, String> {
         @Override
         protected String doInBackground(Route... route){
-            String result = modelFacade.claimRoute(route[0], modelFacade.getCurrentPlayer().getPlayerName() ,modelFacade.getGameData().getGameName());
-            return result;
+  //          String result = modelFacade.claimRoute(route[0], modelFacade.getCurrentPlayer().getPlayerName() ,modelFacade.getGameData().getGameName());
+            return "";
         }
         @Override protected void onPostExecute(String message){
             super.onPostExecute(message);

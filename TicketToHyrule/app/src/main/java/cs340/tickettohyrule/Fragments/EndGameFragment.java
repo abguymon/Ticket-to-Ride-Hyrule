@@ -18,6 +18,7 @@ import java.util.List;
 import cs240.lib.Model.ClientFacade;
 import cs240.lib.Model.gameParts.Player;
 import cs340.tickettohyrule.GameActivity;
+import cs340.tickettohyrule.PhaseTwoPresenters.EndGamePresenter;
 import cs340.tickettohyrule.R;
 
 /**
@@ -55,7 +56,7 @@ public class EndGameFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onDestroy() {
         super.onDestroy();
-        ClientFacade.getInstance().deleteObserver(endGamePresenter);
+        //ClientFacade.getInstance().deleteObserver(endGamePresenter);
     }
 
     @Override
@@ -71,7 +72,8 @@ public class EndGameFragment extends Fragment implements View.OnClickListener{
     }
 
     private List<Player> getPlayerInfo() {
-        return endGamePresenter.getPlayers();
+   //     return endGamePresenter.getPlayers();
+        return null;
     }
 
     private class Holder extends RecyclerView.ViewHolder {
@@ -98,20 +100,20 @@ public class EndGameFragment extends Fragment implements View.OnClickListener{
         //bind object to recycler
         public void bind(Player player)
         {
-            playerRank.setText(player.getRank());
-            playerRank.setTypeface(zeldaFont);
-            playerName.setText(player.getPlayerName());
-            playerName.setTypeface(zeldaFont);
-            playerRScore.setText(player.getRScore());
-            playerRScore.setTypeface(zeldaFont);
-            playerDScore.setText(player.getDScore());
-            playerDScore.setTypeface(zeldaFont);
-            playerBScore.setText(player.getBScore());
-            playerBScore.setTypeface(zeldaFont);
-            playerNScore.setText(player.getNScore());
-            playerNScore.setTypeface(zeldaFont);
-            playerTScore.setText(player.getTScore());
-            playerTScore.setTypeface(zeldaFont);
+//            playerRank.setText(player.getRank());
+//            playerRank.setTypeface(zeldaFont);
+//            playerName.setText(player.getPlayerName());
+//            playerName.setTypeface(zeldaFont);
+//            playerRScore.setText(player.getRScore());
+//            playerRScore.setTypeface(zeldaFont);
+//            playerDScore.setText(player.getDScore());
+//            playerDScore.setTypeface(zeldaFont);
+//            playerBScore.setText(player.getBScore());
+//            playerBScore.setTypeface(zeldaFont);
+//            playerNScore.setText(player.getNScore());
+//            playerNScore.setTypeface(zeldaFont);
+//            playerTScore.setText(player.getTScore());
+//            playerTScore.setTypeface(zeldaFont);
         }
     }
 
