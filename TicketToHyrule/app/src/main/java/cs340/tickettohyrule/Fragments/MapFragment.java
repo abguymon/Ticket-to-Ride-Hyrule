@@ -131,7 +131,7 @@ public class MapFragment extends Fragment implements View.OnClickListener{
         City ordonVillage = new City("Ordon Village");
         City forestTemple = new City("Forest Temple");
         City ritoVillage = new City("Rito Village");
-        City lurelinVillage = new City("Lurelin Village"););
+        City lurelinVillage = new City("Lurelin Village");
         City fireTemple = new City("Fire Temple");
         City spiritTemple = new City("Spirit Temple");
         City waterTemple = new City("Water Temple");
