@@ -1,18 +1,23 @@
 package cs340.tickettohyrule.Fragments;
 
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.HashMap;
+import java.util.List;
 
 import cs240.lib.Model.ClientFacade;
 import cs240.lib.Model.gameParts.City;
@@ -27,6 +32,9 @@ import cs340.tickettohyrule.R;
 
 public class MapFragment extends Fragment implements View.OnClickListener{
     HashMap<Integer, CityPair> mapToCityPair = new HashMap<>();
+    RecyclerView colorRecycler;
+    Adapter colorAdapter;
+    Typeface zeldaFont;
     ImageButton chatButton;
     ImageButton infoButton;
     ImageButton historyButton;
@@ -51,9 +59,13 @@ public class MapFragment extends Fragment implements View.OnClickListener{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_map, container, false);
 
+        zeldaFont = Typeface.createFromAsset(getActivity().getAssets(),"fonts/HyliaSerifBeta-Regular.otf");
+
         mapPresenter.setView(this);
         ClientFacade.getInstance().addObserver(mapPresenter);
 
+        colorRecycler = (RecyclerView) view.findViewById(R.id.color_recycler);
+        colorRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         bKakarikoLonLon = (ImageButton) view.findViewById(R.id.b_kak_lon);
         bHyruleCLonLon = (ImageButton) view.findViewById(R.id.b_hyr_lon);
@@ -72,13 +84,65 @@ public class MapFragment extends Fragment implements View.OnClickListener{
         historyButton.setOnClickListener(this);
         testButton.setOnClickListener(this);
 
+        updateUI();
+
         return view;
     }
 
 
     public void updateUI(){
         if(mapPresenter.isClaimed()) {
-            bKakarikoLonLon.setBackground(getActivity().getDrawable(R.drawable.green_circle));
+            //bKakarikoLonLon.setBackground(getActivity().getDrawable(R.drawable.green_circle));
+        }
+
+        List<String> historyList = getColors();
+        colorAdapter = new Adapter(historyList);
+        colorRecycler.setAdapter(colorAdapter);
+    }
+
+    private List<String> getColors() {
+        return mapPresenter.getColors();
+    }
+
+    private class Holder extends RecyclerView.ViewHolder {
+
+        private TextView colorText;
+
+        public Holder(LayoutInflater inflater, ViewGroup parent) {
+            super(inflater.inflate(R.layout.log_text_list,parent,false));
+
+            colorText = (TextView) itemView.findViewById(R.id.log_text);
+        }
+        //bind object to recycler
+        public void bind(String colorText)
+        {
+            this.colorText.setText(colorText);
+            this.colorText.setTypeface(zeldaFont);
+        }
+    }
+
+    private class Adapter extends RecyclerView.Adapter<Holder>
+    {
+        private List<String> mColors;
+
+        public Adapter(List<String> colors){
+            mColors = colors;
+        }
+
+        @Override
+        public Holder onCreateViewHolder(ViewGroup parent, int viewType) {
+            LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
+            return new Holder(layoutInflater,parent);
+        }
+
+        @Override
+        public void onBindViewHolder(Holder holder, int position) {
+            holder.bind(mColors.get(position));
+        }
+
+        @Override
+        public int getItemCount() {
+            return mColors.size();
         }
     }
 
@@ -153,4 +217,6 @@ public class MapFragment extends Fragment implements View.OnClickListener{
         City lonLonRanch = new City("Lon Lon Ranch");
         mapToCityPair.put(R.id.b_kak_lon, new CityPair(kakarikoVillage, lonLonRanch));
     }
+
+
 }
