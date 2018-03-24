@@ -114,8 +114,8 @@ public class ServerFacade implements IServer {
     }
 
     @Override
-    public EndTurnResult endTurn(String gameName) {
-        return Target.SINGLETON.endTurn(gameName);
+    public EndTurnResult endTurn(String playerName, String gameName) {
+        return Target.SINGLETON.endTurn(playerName, gameName);
     }
 
     @Override

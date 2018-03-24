@@ -730,9 +730,9 @@ public class Target implements IServer {
     }
 
     @Override
-    public EndTurnResult endTurn(String gameName) {
-        String[] parameterTypeNames = {String.class.getName()};
-        Object[] parameters = {gameName};
+    public EndTurnResult endTurn(String playerName, String gameName) {
+        String[] parameterTypeNames = {String.class.getName(), String.class.getName()};
+        Object[] parameters = {playerName, gameName};
         Command submitCommand = new Command("endTurn", parameterTypeNames, parameters);
         commandHistory.add(submitCommand);
         commandQueue.add(submitCommand);

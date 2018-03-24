@@ -1,5 +1,8 @@
 package cs240.lib.Model.states;
 
+import java.util.ArrayList;
+
+import cs240.lib.Model.cards.DestinationCard;
 import cs240.lib.Model.colors.TrainCardColor;
 import cs240.lib.Model.gameParts.Player;
 import cs240.lib.Model.gameParts.Route;
@@ -17,6 +20,7 @@ public interface IState {
     ClaimRouteResult claimRoute(Player container, String gameName, Route route, TrainCardColor chosenCardsColor);
     DrawTrainCardResult drawTrainCard(Player container, String gameName);
     DrawDestinationCardResult drawDestinationCard(Player container, String gameName);
+    SubmitResult submitDestinationCard(Player container, String gameName, ArrayList<DestinationCard> submittedCards);
     DrawFaceUpTrainCardResult drawFaceUpTrainCard(Player container, String gameName, int positionPicked);
     DrawFaceUpTrainCardResult drawLocomotive(Player container, String gameName, int positionPicked);
 }

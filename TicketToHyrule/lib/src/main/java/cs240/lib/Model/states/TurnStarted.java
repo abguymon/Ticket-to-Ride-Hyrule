@@ -12,6 +12,8 @@ import cs240.lib.common.results.ClaimRouteResult;
 import cs240.lib.common.results.DrawDestinationCardResult;
 import cs240.lib.common.results.DrawFaceUpTrainCardResult;
 import cs240.lib.common.results.DrawTrainCardResult;
+import cs240.lib.common.results.EndTurnResult;
+import cs240.lib.common.results.SubmitResult;
 
 /**
  * Created by David on 3/19/2018.
@@ -23,6 +25,7 @@ public class TurnStarted implements IState {
     public ClaimRouteResult claimRoute(Player container, String gameName, Route route, TrainCardColor chosenCardsColor) {
         ClaimRouteResult result = ServerProxy.SINGLETON.claimRoute(container.getPlayerName(), gameName, route, chosenCardsColor);
         container.setState(new TurnEnded());
+        ServerProxy.SINGLETON.endTurn(container.getPlayerName(), gameName);
         return result;
     }
 
@@ -37,7 +40,13 @@ public class TurnStarted implements IState {
     public DrawDestinationCardResult drawDestinationCard(Player container, String gameName) {
         DrawDestinationCardResult result = ServerProxy.SINGLETON.drawDestinationCard(container.getPlayerName(), gameName);
         //TODO: how to integrate with card selection fragment
-        container.setState(new TurnEnded());
+        container.setState(new DrawnFirstCard());
+        return result;
+    }
+
+    @Override
+    public SubmitResult submitDestinationCard(Player container, String gameName, ArrayList<DestinationCard> submittedCards) {
+        SubmitResult result = new SubmitResult("How did you even get here?");
         return result;
     }
 
@@ -54,6 +63,7 @@ public class TurnStarted implements IState {
         DrawFaceUpTrainCardResult result =
                 ServerProxy.SINGLETON.drawFaceUpTrainCard(container.getPlayerName(), gameName, positionPicked);
         container.setState(new TurnEnded());
+        ServerProxy.SINGLETON.endTurn(container.getPlayerName(), gameName);
         return result;
     }
 }

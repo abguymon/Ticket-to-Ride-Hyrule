@@ -284,11 +284,11 @@ public class ServerProxy implements IServer {
     }
 
     @Override
-    public EndTurnResult endTurn(String gameName) {
-        String[] parameterTypenames = {String.class.getName()};
-        Object[] parameters = {gameName};
-        Command submitDestinationCardsCommand = new Command("endTurn", parameterTypenames, parameters);
-        Object result = ClientCommunicator.SINGLETON.send(submitDestinationCardsCommand);
+    public EndTurnResult endTurn(String playerName, String gameName) {
+        String[] parameterTypenames = {String.class.getName(), String.class.getName()};
+        Object[] parameters = {playerName, gameName};
+        Command endTurnCommand = new Command("endTurn", parameterTypenames, parameters);
+        Object result = ClientCommunicator.SINGLETON.send(endTurnCommand);
         return (EndTurnResult) result;
     }
 

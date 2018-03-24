@@ -1,5 +1,8 @@
 package cs240.lib.Model.states;
 
+import java.util.ArrayList;
+
+import cs240.lib.Model.cards.DestinationCard;
 import cs240.lib.Model.cards.TrainCard;
 import cs240.lib.Model.colors.TrainCardColor;
 import cs240.lib.Model.gameParts.Player;
@@ -9,6 +12,7 @@ import cs240.lib.common.results.ClaimRouteResult;
 import cs240.lib.common.results.DrawDestinationCardResult;
 import cs240.lib.common.results.DrawFaceUpTrainCardResult;
 import cs240.lib.common.results.DrawTrainCardResult;
+import cs240.lib.common.results.SubmitResult;
 
 /**
  * Created by David on 3/19/2018.
@@ -26,6 +30,7 @@ public class DrawnFirstCard implements IState {
     public DrawTrainCardResult drawTrainCard(Player container, String gameName) {
         DrawTrainCardResult result = ServerProxy.SINGLETON.drawTrainCard(container.getPlayerName(), gameName);
         container.setState(new TurnEnded());
+        ServerProxy.SINGLETON.endTurn(container.getPlayerName(), gameName);
         return result;
     }
 
@@ -37,10 +42,19 @@ public class DrawnFirstCard implements IState {
     }
 
     @Override
+    public SubmitResult submitDestinationCard(Player container, String gameName, ArrayList<DestinationCard> submittedCards) {
+        SubmitResult result = ServerProxy.SINGLETON.submitDestinationCards(container.getPlayerName(), gameName, submittedCards);
+        container.setState(new TurnEnded());
+        ServerProxy.SINGLETON.endTurn(container.getPlayerName(), gameName);
+        return result;
+    }
+
+    @Override
     public DrawFaceUpTrainCardResult drawFaceUpTrainCard(Player container, String gameName, int positionPicked) {
         DrawFaceUpTrainCardResult result =
                 ServerProxy.SINGLETON.drawFaceUpTrainCard(container.getPlayerName(), gameName, positionPicked);
         container.setState(new TurnEnded());
+        ServerProxy.SINGLETON.endTurn(container.getPlayerName(), gameName);
         return  result;
     }
 

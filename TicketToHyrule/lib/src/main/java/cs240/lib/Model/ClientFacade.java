@@ -9,6 +9,7 @@ import java.util.Queue;
 
 import cs240.lib.Model.cards.DestinationCard;
 import cs240.lib.Model.gameParts.Player;
+import cs240.lib.Model.states.TurnStarted;
 import cs240.lib.client.Poller;
 import cs240.lib.client.ServerProxy;
 import cs240.lib.common.Command;
@@ -129,6 +130,20 @@ public class ClientFacade extends Observable{
         notifyObservers();
     }
 
+    public void endTurn(String playerName, String gameName){
+        int playerTurnEnded = gameData.getPlayer(playerName).getPlayerNum();
+        int newPlayerTurn;
+        if (playerTurnEnded == gameData.getPlayerArray().size()){
+            newPlayerTurn = 1;
+        }else{
+            newPlayerTurn = playerTurnEnded + 1;
+        }
+        gameData.getPlayerArray().get(newPlayerTurn).setState(new TurnStarted());
+        //TODO: toast player name of turn started
+        setChanged();
+        notifyObservers();
+    }
+
     public void handleObject( Command myCommand){
         switch(myCommand.getMethodName()){
             case "login": return;
@@ -173,6 +188,9 @@ public class ClientFacade extends Observable{
                 drawDestinationCard((String)myCommand.getParametersAsJsonStrings()[0].substring(1,myCommand.getParametersAsJsonStrings()[0].length()-1),
                         (String)myCommand.getParametersAsJsonStrings()[1].substring(1,myCommand.getParametersAsJsonStrings()[1].length()-1));
                 break;
+            case("endTurn"):
+                endTurn((String)myCommand.getParametersAsJsonStrings()[0].substring(1,myCommand.getParametersAsJsonStrings()[0].length()-1),
+                        (String)myCommand.getParametersAsJsonStrings()[1].substring(1,myCommand.getParametersAsJsonStrings()[1].length()-1));
         }
     }
 

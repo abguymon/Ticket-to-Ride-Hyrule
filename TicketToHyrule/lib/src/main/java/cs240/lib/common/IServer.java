@@ -43,7 +43,7 @@ public interface IServer {
     DrawDestinationCardResult drawDestinationCard(String playerName,String gameName);
     SubmitResult submitDestinationCards(String playerName, String gameName, DestinationCard card);
     SubmitResult submitDestinationCards(String playerName, String gameName, ArrayList<DestinationCard> cards);
-    EndTurnResult endTurn(String gameName);
+    EndTurnResult endTurn(String playerName, String gameName);
     EndGameResult endGame(String gameName);
     GetGameResult getGameData(String gameName);
 }
