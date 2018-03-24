@@ -118,6 +118,13 @@ public class MapFragment extends Fragment implements View.OnClickListener{
         {
             this.colorText.setText(colorText);
             this.colorText.setTypeface(zeldaFont);
+
+            this.colorText.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //do stuff
+                }
+            });
         }
     }
 
