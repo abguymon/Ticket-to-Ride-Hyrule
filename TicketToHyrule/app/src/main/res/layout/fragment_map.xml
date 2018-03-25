@@ -260,7 +260,7 @@
         app:layout_constraintVertical_bias="0.642" />
 
     <ImageButton
-        android:id="@+id/b_spit_temt_two"
+        android:id="@+id/b_spit_temt_ora"
         android:layout_width="23dp"
         android:layout_height="21dp"
         android:layout_marginBottom="8dp"
@@ -708,7 +708,7 @@
         app:layout_constraintVertical_bias="0.292" />
 
     <ImageButton
-        android:id="@+id/b_spit_temt_one"
+        android:id="@+id/b_spit_temt_yel"
         android:layout_width="24dp"
         android:layout_height="22dp"
         android:layout_marginBottom="8dp"
@@ -836,7 +836,7 @@
         app:layout_constraintVertical_bias="0.51" />
 
     <ImageButton
-        android:id="@+id/b_losw_teml_pur"
+        android:id="@+id/b_losw_teml_pin"
         android:layout_width="24dp"
         android:layout_height="21dp"
         android:layout_marginBottom="8dp"
@@ -1428,7 +1428,7 @@
         app:layout_constraintVertical_bias="0.335" />
 
     <ImageButton
-        android:id="@+id/b_dekp_tart_two"
+        android:id="@+id/b_dekp_tart_one"
         android:layout_width="25dp"
         android:layout_height="22dp"
         android:layout_marginBottom="8dp"
