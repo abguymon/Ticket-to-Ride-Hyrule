@@ -32,19 +32,26 @@ public class Route {
         if (!claimed) {
             ArrayList<TrainCard> playerCards = claimingPlayer.getTrainCards();
             int cardColorNum = 0;
+            int wildCardNum = 0;
             ArrayList<Integer> foundColorCardsIndex = new ArrayList<>();
+            ArrayList<Integer> foundWildCardIndex = new ArrayList<>();
             for (int i = 0; i < playerCards.size(); ++i){
-                if (playerCards.get(i).getColor().equals(chosenCardsColor)){
+                if (playerCards.get(i).getColor() == chosenCardsColor){
                     cardColorNum++;
                     foundColorCardsIndex.add(i);
                 }
+                else if (playerCards.get(i).getColor() == TrainCardColor.WILD) {
+                    wildCardNum++;
+                    foundWildCardIndex.add(i);
+                }
             }
-            if (cardColorNum >= length && claimingPlayer.getTrainsRemaining() >= length) {
+            if ((cardColorNum + wildCardNum >= length) && claimingPlayer.getTrainsRemaining() >= length) {
                 setClaimed(true);
                 setOwner(claimingPlayer);
                 addPoints(claimingPlayer);
                 claimingPlayer.minusTrains(length);
-                discardCards(claimingPlayer, foundColorCardsIndex, discard);
+                discardCards(claimingPlayer, foundWildCardIndex, foundColorCardsIndex, discard, cardColorNum, wildCardNum);
+                claimingPlayer.addRoute(this);
                 return true;
             }
             else {
@@ -73,14 +80,34 @@ public class Route {
         return false;
     }
 
-    private void discardCards(Player claimingPlayer, ArrayList<Integer> foundColorCardsIndex, TrainCardDiscard discard) {
-        ArrayList<TrainCard> cardsAfterDicard = claimingPlayer.getTrainCards();
-        ArrayList<TrainCard> discarded = new ArrayList<>();
-        for (int i = length - 1; i >= 0; --i){
-            discard.add(cardsAfterDicard.get(foundColorCardsIndex.get(i))); //TODO: should the cards be placed in a discard list? Yep, DONE
-            cardsAfterDicard.remove(foundColorCardsIndex.get(i).intValue());
+    private void discardCards(Player claimingPlayer, ArrayList<Integer> wildCardsFound, ArrayList<Integer> foundColorCardsIndex, TrainCardDiscard discard, int numColorCards, int numWildCards) {
+        ArrayList<TrainCard> cardsAfterDiscard = claimingPlayer.getTrainCards();
+        if (numColorCards >= length) {
+            for (int i = length - 1; i >= 0; --i) {
+                discard.add(cardsAfterDiscard.get(foundColorCardsIndex.get(i)));
+                cardsAfterDiscard.remove(foundColorCardsIndex.get(i).intValue());
+            }
+            claimingPlayer.setTrainCards(cardsAfterDiscard);
         }
-        claimingPlayer.setTrainCards(cardsAfterDicard);
+        else {
+            int tempLength = length;
+            for (int i = numColorCards - 1; i >= 0; --i) {
+                discard.add(cardsAfterDiscard.get(foundColorCardsIndex.get(i)));
+                cardsAfterDiscard.remove(foundColorCardsIndex.get(i).intValue());
+                --tempLength;
+            }
+            while (tempLength != 0) {
+                for (int i = cardsAfterDiscard.size() - 1; i >= 0; --i) {
+                    if (cardsAfterDiscard.get(i).getColor() == TrainCardColor.WILD) {
+                        discard.add(cardsAfterDiscard.get(i));
+                        cardsAfterDiscard.remove(i);
+                        --tempLength;
+                        break;
+                    }
+                }
+            }
+            claimingPlayer.setTrainCards(cardsAfterDiscard);
+        }
     }
 
     private void addPoints(Player claimingPlayer) {

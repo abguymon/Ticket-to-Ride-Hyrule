@@ -677,6 +677,7 @@ public class Target implements IServer {
         commandHistory.add(submitCommand);
         commandQueue.add(submitCommand);
         Poller.getInstance().incrementCommandIndex();
+
         if (playerName == null || gameName == null) {
             return new DrawTrainCardResult("1 or more null fields");
         }
