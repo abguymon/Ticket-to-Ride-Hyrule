@@ -191,13 +191,13 @@ public class GameInfoPresenter implements Observer{
         protected String doInBackground(Void... card){
             String result = modelFacade.drawDestinationCards(modelFacade.getCurrentPlayer().getPlayerName() ,modelFacade.getGameData().getGameName());
             DrawnFirstCard state = (DrawnFirstCard) modelFacade.getCurrentPlayer().getState();
+            Game game = ((GetGameResult)modelFacade.getGameData(modelFacade.getGameData().getGameName())).getGameStarted();
+            ClientFacade.getInstance().setGameData(game);
+            modelFacade.setGameData(game);
             for(int i = 0; i < modelFacade.getGameData().getPlayerArray().size(); i++){
                 if(!modelFacade.getGameData().getPlayerArray().get(i).getPlayerName().equals(modelFacade.getCurrentPlayer().getPlayerName())) modelFacade.getGameData().getPlayerArray().get(i).setState(new TurnEnded());
                 else modelFacade.getGameData().getPlayerArray().get(i).setState(state);
             }
-            Game game = ((GetGameResult)modelFacade.getGameData(modelFacade.getGameData().getGameName())).getGameStarted();
-            ClientFacade.getInstance().setGameData(game);
-            modelFacade.setGameData(game);
             return result;
         }
         @Override protected void onPostExecute(String message){
