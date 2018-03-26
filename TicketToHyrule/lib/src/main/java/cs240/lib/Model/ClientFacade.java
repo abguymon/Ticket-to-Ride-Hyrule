@@ -155,7 +155,7 @@ public class ClientFacade extends Observable{
 //            gameData.getPlayer(playerName).dropDestinationCard(dcardOne);
             gameData.putbackDestinationCard(dcardOne);
             for(int i = 0; i < cardsDrawn.size(); i++){
-                if(cardsDrawn.get(i).equals(cardOne)){
+                if(cardsDrawn.get(i).equals(dcardOne)){
                     cardsDrawn.remove(i);
                     break;
                 }
@@ -164,7 +164,7 @@ public class ClientFacade extends Observable{
 //                gameData.getPlayer(playerName).dropDestinationCard(dcardTwo);
                 gameData.putbackDestinationCard(dcardTwo);
                 for (int i = 0; i < cardsDrawn.size(); i++) {
-                    if (cardsDrawn.get(i).equals(cardTwo)) {
+                    if (cardsDrawn.get(i).equals(dcardTwo)) {
                         cardsDrawn.remove(i);
                         break;
                     }
