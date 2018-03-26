@@ -7,6 +7,8 @@ import cs240.lib.Model.cards.DestinationCard;
 import cs240.lib.Model.colors.TrainCardColor;
 import cs240.lib.Model.gameParts.Player;
 import cs240.lib.Model.gameParts.Route;
+import cs240.lib.Model.states.IState;
+import cs240.lib.Model.states.TurnEnded;
 import cs240.lib.client.ServerProxy;
 import cs240.lib.common.results.ChatResult;
 import cs240.lib.common.results.ClaimRouteResult;
@@ -56,7 +58,23 @@ public class ModelFacade {
     public GetGameResult sync(){
         ClientCommunicator.SINGLETON.setAuthToken(currentUser.getAuthToken());
         GetGameResult getGameResult = ServerProxy.SINGLETON.sync(getGameData().getGameName());
+        ArrayList<Player> playerArray = gameData.getPlayerArray();
+        int currentPlayer = 0;
+        IState oldState = new TurnEnded();
+        for(int i = 0; i < playerArray.size(); i++){
+            if(playerArray.get(i).getState() instanceof TurnEnded){}
+            else {oldState = playerArray.get(i).getState();
+            currentPlayer = i;}
+        }
+
         setGameData(getGameResult.getGameStarted());
+
+        playerArray = gameData.getPlayerArray();
+        for(int i = 0; i <playerArray.size(); i++){
+            if(i == currentPlayer) playerArray.get(i).setState(oldState);
+            else playerArray.get(i).setState(new TurnEnded());
+        }
+
         return getGameResult;
     }
 
