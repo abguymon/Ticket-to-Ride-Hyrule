@@ -39,7 +39,6 @@ public class Game {
         faceUpTrainCards = new FaceUpTrainCards(trainCardDeck, trainCardDiscard);
         gameHistory = new ArrayList<>();
         chatHistory = new ArrayList<>();
-        trainCardDeck.shuffle();
         destinationCardDeck.shuffle();
         initializeGameMap();
         playerTurn = 1;
