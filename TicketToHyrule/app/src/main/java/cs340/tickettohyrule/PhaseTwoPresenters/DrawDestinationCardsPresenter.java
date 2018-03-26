@@ -12,6 +12,7 @@ import cs240.lib.Model.cards.DestinationCard;
 import cs240.lib.Model.gameParts.Player;
 import cs240.lib.Model.states.TurnEnded;
 import cs240.lib.Model.states.TurnStarted;
+import cs240.lib.communicator.ClientCommunicator;
 import cs340.tickettohyrule.CurrentUserSingleton;
 import cs340.tickettohyrule.Fragments.PreStartFragment;
 import cs340.tickettohyrule.GameActivity;
@@ -28,6 +29,7 @@ public class DrawDestinationCardsPresenter implements Observer{
 
     public DrawDestinationCardsPresenter(){
         destinationCards = new ArrayList<>();
+        modelFacade.setGameData(ClientFacade.getInstance().getGameData());
         modelFacade.setCurrentPlayer(modelFacade.getGameData().getPlayer(modelFacade.getCurrentUser().getUsername()));
         for(int i = modelFacade.getCurrentPlayer().getDestinationCards().size()-3; i < modelFacade.getCurrentPlayer().getDestinationCards().size(); i++){
             destinationCards.add(modelFacade.getCurrentPlayer().getDestinationCards().get(i));
