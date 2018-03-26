@@ -120,7 +120,7 @@ public class ClientFacade extends Observable{
 //        notifyObservers();
     }
 
-    public void claimRoute(String player, String city1, String city2, TrainCardColor){
+    public void claimRoute(String player, String city1, String city2){
         Gson gson = new Gson();
         Player newPlayer = gson.fromJson(player, Player.class);
         Route mRoute = gameData.findRoute(city1, city2);
@@ -256,7 +256,8 @@ public class ClientFacade extends Observable{
                 break;
             case("claimRoute"):
                 claimRoute((String)myCommand.getParametersAsJsonStrings()[0].substring(1,myCommand.getParametersAsJsonStrings()[0].length()-1),
-                        Integer.parseInt(myCommand.getParametersAsJsonStrings()[1].substring(1,myCommand.getParametersAsJsonStrings()[1].length()-1)));
+                        (String)myCommand.getParametersAsJsonStrings()[2].substring(1,myCommand.getParametersAsJsonStrings()[2].length()-1),
+                        (String)myCommand.getParametersAsJsonStrings()[3].substring(1,myCommand.getParametersAsJsonStrings()[3].length()-1));
             case("endTurn"):
                 endTurn((String)myCommand.getParametersAsJsonStrings()[0].substring(1,myCommand.getParametersAsJsonStrings()[0].length()-1),
                         (String)myCommand.getParametersAsJsonStrings()[1].substring(1,myCommand.getParametersAsJsonStrings()[1].length()-1));
