@@ -355,10 +355,6 @@ public class MapFragment extends Fragment implements View.OnClickListener{
 
     public void updateUI(){
         updateMap();
-
-        List<String> historyList = getColors();
-        colorAdapter = new Adapter(historyList);
-        colorRecycler.setAdapter(colorAdapter);
     }
 
     public void updateMap()
@@ -458,6 +454,12 @@ public class MapFragment extends Fragment implements View.OnClickListener{
             if(myRoute != null && myRoute.getColor() != GREY)
             {
                 mapPresenter.claimRoute();
+            }
+            else
+            {
+                List<String> colorList = getColors();
+                colorAdapter = new Adapter(colorList);
+                colorRecycler.setAdapter(colorAdapter);
             }
         }
     }
