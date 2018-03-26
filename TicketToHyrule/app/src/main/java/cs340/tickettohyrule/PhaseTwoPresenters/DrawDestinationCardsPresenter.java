@@ -12,6 +12,7 @@ import cs240.lib.Model.cards.DestinationCard;
 import cs240.lib.Model.gameParts.Player;
 import cs240.lib.Model.states.TurnEnded;
 import cs240.lib.Model.states.TurnStarted;
+import cs240.lib.common.results.GetGameResult;
 import cs240.lib.communicator.ClientCommunicator;
 import cs340.tickettohyrule.CurrentUserSingleton;
 import cs340.tickettohyrule.Fragments.PreStartFragment;
@@ -61,7 +62,6 @@ public class DrawDestinationCardsPresenter implements Observer{
 
 
     private class SubmitDestinationCardAsync extends AsyncTask<Void, Void, String> {
-        ModelFacade modelFacade = CurrentUserSingleton.getInstance().getModelFacade();
         @Override
         protected String doInBackground(Void... params){
 
@@ -87,16 +87,14 @@ public class DrawDestinationCardsPresenter implements Observer{
 
     public void syncGame(){new syncAsync().execute();}
 
-    private class syncAsync extends AsyncTask<Void, Void, Void> {
+    private class syncAsync extends AsyncTask<Void, Void, GetGameResult> {
         @Override
-        protected Void doInBackground(Void... card){
-            modelFacade.sync();
-            return null;
+        protected GetGameResult doInBackground(Void... card){
+            return modelFacade.sync();
         }
-        @Override protected void onPostExecute(Void message){
+        @Override protected void onPostExecute(GetGameResult message){
             modelFacade.setCurrentPlayer(modelFacade.getGameData().getPlayer(modelFacade.getCurrentUser().getUsername()));
             destinationCards = modelFacade.getCurrentPlayer().getDrawnDestinationCards();
-//            destinationCards = modelFacade.getGameData().getPlayerArray().get(1).getDrawnDestinationCards();
             view.setText();
         }
     }

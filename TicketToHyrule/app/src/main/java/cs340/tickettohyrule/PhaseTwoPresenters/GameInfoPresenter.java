@@ -68,8 +68,6 @@ public class GameInfoPresenter implements Observer{
     public void drawDestinationCards(){
         DrawDestinationCardsAsync drawDestinationCardsAsync = new DrawDestinationCardsAsync();
         drawDestinationCardsAsync.execute();
-        syncAsync test = new syncAsync();
-        test.execute();
     }
 
 
@@ -208,7 +206,8 @@ public class GameInfoPresenter implements Observer{
             super.onPostExecute(message);
             if(message.equals("")){
                 //MOVE TO SUBMIT DESTINATION CARDS PAGE WITH INTENT TO ATTACH THE NEW PRESENTER
-
+                syncAsync test = new syncAsync();
+                test.execute();
             }
             else{
                 view.toast(message);
