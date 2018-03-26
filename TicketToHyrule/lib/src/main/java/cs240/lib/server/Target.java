@@ -634,6 +634,15 @@ public class Target implements IServer {
     }
 
     @Override
+    public void sync(String gameName) {
+        String[] parameterTypeNames = {String.class.getName()};
+        Object[] parameters = {gameName};
+        Command syncCommand = new Command("sync", parameterTypeNames, parameters);
+        commandQueue.add(syncCommand);
+        Poller.getInstance().incrementCommandIndex();
+    }
+
+    @Override
     public ClaimRouteResult claimRoute(String playerName, String gameName, Route route, TrainCardColor chosenCardsColor) {
         String[] parameterTypeNames = {String.class.getName(), Route.class.getName()};
         Object[] parameters = {playerName, gameName, route};

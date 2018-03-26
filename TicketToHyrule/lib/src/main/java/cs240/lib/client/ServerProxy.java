@@ -317,4 +317,12 @@ public class ServerProxy implements IServer {
         Object result = ClientCommunicator.SINGLETON.send(getGameCommand);
         return (GetGameResult) result;
     }
+
+    @Override
+    public void sync(String gameName) {
+        String[] parameterTypenames = {String.class.getName()};
+        Object[] parameters = {gameName};
+        Command syncCommand = new Command("sync", parameterTypenames, parameters);
+        Object result = ClientCommunicator.SINGLETON.send(syncCommand);
+    }
 }

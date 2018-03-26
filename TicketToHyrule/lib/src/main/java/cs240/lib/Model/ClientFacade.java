@@ -1,6 +1,7 @@
 package cs240.lib.Model;
 
 import com.google.gson.Gson;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -9,6 +10,8 @@ import java.util.Queue;
 
 import cs240.lib.Model.cards.DestinationCard;
 import cs240.lib.Model.gameParts.Player;
+import cs240.lib.Model.states.IState;
+import cs240.lib.Model.states.TurnEnded;
 import cs240.lib.Model.states.TurnStarted;
 import cs240.lib.client.Poller;
 import cs240.lib.client.ServerProxy;
@@ -177,6 +180,24 @@ public class ClientFacade extends Observable{
 //        setChanged();
 //        notifyObservers();
     }
+    public void sync(){
+        ArrayList<Player> playerArray = gameData.getPlayerArray();
+        IState oldState = new TurnEnded();
+        for(int i = 0; i < playerArray.size(); i++){
+            if(playerArray.get(i).getState() instanceof TurnEnded){}
+            else oldState = playerArray.get(i).getState();
+        }
+
+        setGameData(ServerProxy.SINGLETON.getGameData(gameData.getGameName()).getGameStarted());
+
+        playerArray = gameData.getPlayerArray();
+        for(int i = 0; i <playerArray.size(); i++){
+            if(i+1 == gameData.getPlayerTurn()) playerArray.get(i).setState(oldState);
+            else playerArray.get(i).setState(new TurnEnded());
+        }
+        setChanged();
+        notifyObservers();
+    }
 
     public void handleObject( Command myCommand){
         switch(myCommand.getMethodName()){
@@ -229,6 +250,10 @@ public class ClientFacade extends Observable{
             case("endTurn"):
                 endTurn((String)myCommand.getParametersAsJsonStrings()[0].substring(1,myCommand.getParametersAsJsonStrings()[0].length()-1),
                         (String)myCommand.getParametersAsJsonStrings()[1].substring(1,myCommand.getParametersAsJsonStrings()[1].length()-1));
+                break;
+            case("sync"):
+                sync();
+                break;
         }
     }
 

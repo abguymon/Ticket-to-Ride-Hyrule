@@ -68,6 +68,8 @@ public class DrawDestinationCardsPresenter implements Observer{
             String gameName = modelFacade.getGameData().getGameName(); //THIS WILL END UP EQUALING SOMETHING LIKE modelFacade.getGameData.getGameName();
             String message = modelFacade.chooseDestinationCards(getPlayer().getPlayerName(), gameName, removedDestinationCards);
 
+            modelFacade.sync();
+
             return message;
         }
         @Override protected void onPostExecute(String message){
