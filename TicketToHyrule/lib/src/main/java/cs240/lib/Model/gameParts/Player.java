@@ -12,6 +12,7 @@ import cs240.lib.common.results.ClaimRouteResult;
 import cs240.lib.common.results.DrawDestinationCardResult;
 import cs240.lib.common.results.DrawFaceUpTrainCardResult;
 import cs240.lib.common.results.DrawTrainCardResult;
+import cs240.lib.common.results.SubmitResult;
 
 /**
  * Created by David on 2/21/2018.
@@ -57,6 +58,9 @@ public class Player {
     }
     public DrawDestinationCardResult drawDestinationCard(String gameName){
         return state.drawDestinationCard(this, gameName);
+    }
+    public SubmitResult submitDestinationCards(String gameName, ArrayList<DestinationCard> cards){
+        return state.submitDestinationCard(this, gameName, cards);
     }
     public DrawFaceUpTrainCardResult drawFaceUpTrainCard(String gameName, int positionPicked){
         return state.drawFaceUpTrainCard(this, gameName, positionPicked);
