@@ -118,7 +118,7 @@ public class MapPresenter implements Observer {
     public List<String> getColors(){
         ArrayList<String> mColors = new ArrayList<>();
 
-        if(!route.equals(null))
+        if(route != null)
         {
             ArrayList<TrainCard> playerTC = route.getOwner().getTrainCards();
             int loco = 0;
