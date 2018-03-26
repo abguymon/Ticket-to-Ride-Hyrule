@@ -522,8 +522,8 @@ public class Target implements IServer {
                         DestinationCard cardDrawn = game.drawDestinationCard();
                         cardArray.add(cardDrawn);
                         player.addDestinationCard(cardDrawn);
-                        game.addToGameHistory(playerName + " drew destination cards");
                     }
+                    game.addToGameHistory(playerName + " drew destination cards");
                     return new DrawDestinationCardResult(cardArray);
                 }
                 else {
