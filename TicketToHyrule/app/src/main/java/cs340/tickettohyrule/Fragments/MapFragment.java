@@ -421,7 +421,7 @@ public class MapFragment extends Fragment implements View.OnClickListener{
     public class RouteButtonListener implements View.OnClickListener{
         @Override
         public void onClick(View v) {
-            mapPresenter.claimRoute(mapToCityPair.get(v.getId()));
+            mapPresenter.claimRoute(routeMap.get(v.getId()));
         }
     }
 

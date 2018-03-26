@@ -56,14 +56,10 @@ public class MapPresenter implements Observer {
         this.view = view;
     }
 
-    public void claimRoute(CityPair cityPair){
+    public void claimRoute(Route route){
 //        modelFacade.getGameData().getRouteById(routeId);
 //        ClaimRouteAsync claimRouteAsync = new ClaimRouteAsync();
 //        claimRouteAsync.execute(route);
-    }
-    public Route getRoute(int routeId){
-
-        return null;
     }
 
     public List<String> getColors(){
