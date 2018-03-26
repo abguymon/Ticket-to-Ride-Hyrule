@@ -78,9 +78,9 @@ public class ModelFacade {
         return getGameResult;
     }
 
-    public String claimRoute(Route route, String playerName, String gameName, TrainCardColor chosenCardsColor){
+    public String claimRoute(String cityO, String cityT, String playerName, String gameName, TrainCardColor chosenCardsColor){
         ClientCommunicator.SINGLETON.setAuthToken(currentUser.getAuthToken());
-        ClaimRouteResult result = currentPlayer.claimRoute(gameName, route, chosenCardsColor);
+        ClaimRouteResult result = currentPlayer.claimRoute(gameName, cityO, cityT, chosenCardsColor);
         if(result != null && result.getErrorMessage() != null){
             return result.getErrorMessage();
         }

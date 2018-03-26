@@ -84,7 +84,10 @@ public class MapPresenter implements Observer {
         if(numCards >= route.getLength())
         {
             ClaimRouteAsync claimRouteAsync = new ClaimRouteAsync();
-            claimRouteAsync.execute(route);
+            String[] cities = new String[2];
+            cities[0] = route.getCity1Name();
+            cities[1] = route.getCity2Name();
+            claimRouteAsync.execute(cities);
             return true;
         }
         else
@@ -147,7 +150,10 @@ public class MapPresenter implements Observer {
                     return false;
         }
         ClaimRouteAsync claimRouteAsync = new ClaimRouteAsync();
-        claimRouteAsync.execute(route);
+        String[] cities = new String[2];
+        cities[0] = route.getCity1Name();
+        cities[1] = route.getCity2Name();
+        claimRouteAsync.execute(cities);
         route.setOwner(getCurrentPlayer());
         return true;
     }
@@ -244,12 +250,12 @@ public class MapPresenter implements Observer {
         }
     }
 
-    private class ClaimRouteAsync extends AsyncTask<Route, Void, String> {
+    private class ClaimRouteAsync extends AsyncTask<String, Void, String> {
         @Override
-        protected String doInBackground(Route... route){
-            String result = modelFacade.claimRoute(route[0],
+        protected String doInBackground(String... city){
+            String result = modelFacade.claimRoute(city[0],city[1],
                     modelFacade.getCurrentPlayer().getPlayerName(),
-                    modelFacade.getGameData().getGameName(),route[0].getColor());
+                    modelFacade.getGameData().getGameName(),route.getColor());
             return result;
         }
         @Override protected void onPostExecute(String message){
