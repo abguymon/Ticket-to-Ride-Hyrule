@@ -107,6 +107,8 @@ public class ClientFacade extends Observable{
         gameData.getPlayer(player).drawDestinationCard(gameName);
         gameData.getPlayer(player).drawDestinationCard(gameName);
         gameData.getPlayer(player).drawDestinationCard(gameName);
+        setChanged();
+        notifyObservers();
     }
 
     public void claimRoute(Player player, int route){
