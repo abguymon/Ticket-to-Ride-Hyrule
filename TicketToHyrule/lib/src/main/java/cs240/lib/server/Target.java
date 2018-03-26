@@ -638,6 +638,7 @@ public class Target implements IServer {
         String[] parameterTypeNames = {String.class.getName()};
         Object[] parameters = {gameName};
         Command syncCommand = new Command("sync", parameterTypeNames, parameters);
+        commandHistory.add(syncCommand);
         commandQueue.add(syncCommand);
         Poller.getInstance().incrementCommandIndex();
     }
