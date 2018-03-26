@@ -421,7 +421,11 @@ public class MapFragment extends Fragment implements View.OnClickListener{
     public class RouteButtonListener implements View.OnClickListener{
         @Override
         public void onClick(View v) {
-            mapPresenter.claimRoute(routeMap.get(v.getId()));
+            Route myRoute = routeMap.get(v.getId());
+            if(mapPresenter.claimRoute(myRoute))
+            {
+                v.findViewById(v.getId()).setBackground(getActivity().getDrawable(R.drawable.green_circle));
+            }
         }
     }
 
