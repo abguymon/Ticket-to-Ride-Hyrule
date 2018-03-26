@@ -26,8 +26,8 @@ import cs340.tickettohyrule.R;
  */
 
 public class PreStartFragment extends Fragment implements CompoundButton.OnCheckedChangeListener, View.OnClickListener{
-    private PreStartPresenter preStartPresenter = new PreStartPresenter();
-    private DrawDestinationCardsPresenter drawDestinationCardsPresenter = new DrawDestinationCardsPresenter();
+    private PreStartPresenter preStartPresenter = null;
+    private DrawDestinationCardsPresenter drawDestinationCardsPresenter = null;
     private ImageView playerImage;
     private TextView playerColor;
     private CheckBox checkBoxOne;
@@ -44,10 +44,12 @@ public class PreStartFragment extends Fragment implements CompoundButton.OnCheck
         View view = inflater.inflate(R.layout.fragment_prestart, container, false);
         Bundle bundle = this.getArguments();
         if(bundle != null){
+            drawDestinationCardsPresenter = new DrawDestinationCardsPresenter();
             drawDestinationCardsPresenter.setView(this);
             ClientFacade.getInstance().addObserver(drawDestinationCardsPresenter);
         }
         else {
+            preStartPresenter = new PreStartPresenter();
             preStartPresenter.setView(this);
             ClientFacade.getInstance().addObserver(preStartPresenter);
         }
