@@ -16,6 +16,7 @@ import cs240.lib.Model.gameParts.Player;
 import cs240.lib.Model.gameParts.Route;
 import cs240.lib.Model.gameParts.RouteList;
 import cs240.lib.common.Command;
+import cs240.lib.common.DestinationCardResolution;
 import cs240.lib.common.LongestPathCalculator;
 
 public class Game {
@@ -157,7 +158,7 @@ public class Game {
     }
 
     private void resolveDestinationCards() {
-
+        DestinationCardResolution.SINGLETON.resolveDestinationCards(this);
     }
 
     private void calculatePlayerScores() {

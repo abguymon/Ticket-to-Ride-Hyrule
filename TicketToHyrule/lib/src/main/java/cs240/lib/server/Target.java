@@ -523,8 +523,8 @@ public class Target implements IServer {
                         cardArray.add(cardDrawn);
                         player.addDestinationCard(cardDrawn);
                         game.addToGameHistory(playerName + " drew destination cards");
-                        return new DrawDestinationCardResult(cardArray);
                     }
+                    return new DrawDestinationCardResult(cardArray);
                 }
                 else {
                     return new DrawDestinationCardResult("Player not found");
