@@ -455,7 +455,7 @@ public class MapFragment extends Fragment implements View.OnClickListener{
         public void onClick(View v) {
             Route myRoute = routeMap.get(v.getId());
             mapPresenter.selectRoute(myRoute);
-            if(myRoute.getColor() != GREY)
+            if(myRoute != null && myRoute.getColor() != GREY)
             {
                 mapPresenter.claimRoute();
             }
