@@ -43,7 +43,17 @@ public class DrawnFirstCard implements IState {
 
     @Override
     public SubmitResult submitDestinationCard(Player container, String gameName, ArrayList<DestinationCard> submittedCards) {
-        SubmitResult result = ServerProxy.SINGLETON.submitDestinationCards(container.getPlayerName(), gameName, submittedCards);
+        int size = submittedCards.size();
+        SubmitResult result = new SubmitResult(false);
+        if (size == 0) {
+            result = ServerProxy.SINGLETON.discardDestinationCards(container.getPlayerName(), gameName, null, null);
+        }
+        else if (size == 1) {
+            result = ServerProxy.SINGLETON.discardDestinationCards(container.getPlayerName(), gameName, submittedCards.get(0), null);
+        }
+        else if (size == 2) {
+            result = ServerProxy.SINGLETON.discardDestinationCards(container.getPlayerName(), gameName, submittedCards.get(0), submittedCards.get(1));
+        }
         container.setState(new TurnEnded());
         ServerProxy.SINGLETON.endTurn(container.getPlayerName(), gameName);
         return result;
