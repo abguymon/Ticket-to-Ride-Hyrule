@@ -29,6 +29,8 @@ import cs340.tickettohyrule.GameActivity;
 import cs340.tickettohyrule.PhaseTwoPresenters.MapPresenter;
 import cs340.tickettohyrule.R;
 
+import static cs240.lib.Model.colors.TrainCardColor.GREY;
+
 /**
  * Created by eholm on 3/5/2018.
  */
@@ -453,7 +455,7 @@ public class MapFragment extends Fragment implements View.OnClickListener{
         public void onClick(View v) {
             Route myRoute = routeMap.get(v.getId());
             mapPresenter.selectRoute(myRoute);
-            if(!myRoute.getColor().equals("GREY"))
+            if(myRoute.getColor() != GREY)
             {
                 mapPresenter.claimRoute();
             }
@@ -483,9 +485,9 @@ public class MapFragment extends Fragment implements View.OnClickListener{
     //IS THIS THE BEST WAY TO DO IT?
     //No
     public void createMap(){
-        routeMap.put(bKakarikoLonLon,createRoute("Kakariko Village", "Lon Lon Ranch",3, TrainCardColor.GREY));
-        routeMap.put(bGoronVLonLonOne,createRoute("Goron Village", "Lon Lon Ranch", 2, TrainCardColor.GREY));
-        routeMap.put(bGoronVLonLonTwo,createRoute("Goron Village", "Lon Lon Ranch", 2, TrainCardColor.GREY));
+        routeMap.put(bKakarikoLonLon,createRoute("Kakariko Village", "Lon Lon Ranch",3, GREY));
+        routeMap.put(bGoronVLonLonOne,createRoute("Goron Village", "Lon Lon Ranch", 2, GREY));
+        routeMap.put(bGoronVLonLonTwo,createRoute("Goron Village", "Lon Lon Ranch", 2, GREY));
         routeMap.put(bHyruleCLonLon,createRoute("Hyrule Castle", "Lon Lon Ranch", 3, TrainCardColor.YELLOW));
         routeMap.put(bLonLonLordJW,createRoute("Lon Lon Ranch", "Lord Jabu Jabu", 2, TrainCardColor.WHITE));
         routeMap.put(bLonLonLordJG,createRoute("Lon Lon Ranch", "Lord Jabu Jabu", 2, TrainCardColor.GREEN));
@@ -493,40 +495,40 @@ public class MapFragment extends Fragment implements View.OnClickListener{
         routeMap.put(bKakVTemLW,createRoute("Kakariko Village", "Temple of Light", 2 , TrainCardColor.WHITE));
         routeMap.put(bKakVTarT,createRoute("Kakariko Village", "Tarrey Town", 4, TrainCardColor.BLUE));
         routeMap.put(bCitSKakV,createRoute("City in the Sky", "Kakariko Village", 4, TrainCardColor.WHITE));
-        routeMap.put(bCitSLorJ,createRoute("City in the Sky", "Lord Jabu Jabu", 2, TrainCardColor.GREY));
+        routeMap.put(bCitSLorJ,createRoute("City in the Sky", "Lord Jabu Jabu", 2, GREY));
         routeMap.put(bHatVLorJO,createRoute("Hateno Village", "Lord Jabu Jabu", 2, TrainCardColor.ORANGE));
         routeMap.put(bHatVJorJB,createRoute("Hateno Village", "Lord Jabu Jabu", 2, TrainCardColor.BLACK));
-        routeMap.put(bCitSHatV,createRoute("City in the Sky", "Hateno Village", 2, TrainCardColor.GREY));
-        routeMap.put(bHatVIceCOne,createRoute("Hateno Village", "Ice Cavern", 2, TrainCardColor.GREY));
-        routeMap.put(bHatVIceCTwo,createRoute("Hateno Village", "Ice Cavern", 2, TrainCardColor.GREY));
+        routeMap.put(bCitSHatV,createRoute("City in the Sky", "Hateno Village", 2, GREY));
+        routeMap.put(bHatVIceCOne,createRoute("Hateno Village", "Ice Cavern", 2, GREY));
+        routeMap.put(bHatVIceCTwo,createRoute("Hateno Village", "Ice Cavern", 2, GREY));
         routeMap.put(bCitSIceC,createRoute("City in the Sky", "Ice Cavern", 3, TrainCardColor.BLUE));
         routeMap.put(bIceCOrdV,createRoute("Ice Cavern", "Ordon Village", 3, TrainCardColor.RED));
         routeMap.put(bGorCIceC,createRoute("Goron City", "Ice Cavern", 5, TrainCardColor.BLACK));
         routeMap.put(bFirTGorC,createRoute("Fire Temple", "Goron City", 6, TrainCardColor.WHITE));
         routeMap.put(bGorCShaT,createRoute("Goron City", "Shadow Temple", 4, TrainCardColor.BLUE));
-        routeMap.put(bGorVHidVOne,createRoute("Goron Village", "Hidden Village", 2, TrainCardColor.GREY));
-        routeMap.put(bGorVHidVTwo,createRoute("Goron Village", "Hidden Village", 2, TrainCardColor.GREY));
+        routeMap.put(bGorVHidVOne,createRoute("Goron Village", "Hidden Village", 2, GREY));
+        routeMap.put(bGorVHidVTwo,createRoute("Goron Village", "Hidden Village", 2, GREY));
         routeMap.put(bGorVHyrC,createRoute("Goron Village", "Hyrule Castle", 2, TrainCardColor.RED));
-        routeMap.put(bHidVTemT,createRoute("Hidden Village", "Temple of Time", 2, TrainCardColor.GREY));
+        routeMap.put(bHidVTemT,createRoute("Hidden Village", "Temple of Time", 2, GREY));
         routeMap.put(bDraIHidV,createRoute("Dragon Roost Island", "Hidden Village", 4, TrainCardColor.PINK));
-        routeMap.put(bDraIMarL,createRoute("Dragon Roost Island", "Marine Research Laboratory", 2, TrainCardColor.GREY));
+        routeMap.put(bDraIMarL,createRoute("Dragon Roost Island", "Marine Research Laboratory", 2, GREY));
         routeMap.put(bDraISpiT,createRoute("Dragon Roost Island", "Spirit Temple", 6, TrainCardColor.RED));
         routeMap.put(bDraIGerF,createRoute("Dragon Roost Island", "Gerudo Fortress", 5, TrainCardColor.BLUE));
-        routeMap.put(bGerFHidVOne,createRoute("Gerudo Fortress", "Hidden Village", 2, TrainCardColor.GREY));
-        routeMap.put(bGerFHidVTwo,createRoute("Gerudo Fortress", "Hidden Village", 2, TrainCardColor.GREY));
-        routeMap.put(bGerFSpiT,createRoute("Gerudo Fortress", "Spirit Temple", 1, TrainCardColor.GREY));
+        routeMap.put(bGerFHidVOne,createRoute("Gerudo Fortress", "Hidden Village", 2, GREY));
+        routeMap.put(bGerFHidVTwo,createRoute("Gerudo Fortress", "Hidden Village", 2, GREY));
+        routeMap.put(bGerFSpiT,createRoute("Gerudo Fortress", "Spirit Temple", 1, GREY));
         routeMap.put(bHyrCTemL,createRoute("Hyrule Castle", "Temple of Light", 3, TrainCardColor.BLACK));
         routeMap.put(bHyrCTemT,createRoute("Hyrule Castle", "Temple of Time", 3, TrainCardColor.WHITE));
-        routeMap.put(bSpiTMarL,createRoute("Spirit Temple", "Marine Research Laboratory", 2, TrainCardColor.GREY));
+        routeMap.put(bSpiTMarL,createRoute("Spirit Temple", "Marine Research Laboratory", 2, GREY));
         routeMap.put(bSpiTTemTY,createRoute("Spirit Temple", "Temple of Time", 4, TrainCardColor.YELLOW));
         routeMap.put(bSpiTTemTO,createRoute("Spirit Temple", "Temple of Time", 4, TrainCardColor.ORANGE));
         routeMap.put(bLosWSpiT,createRoute("Lost Woods", "Spirit Temple", 3, TrainCardColor.GREEN));
         routeMap.put(bCloTMarL,createRoute("Clock Town", "Marine Research Laboratory", 6, TrainCardColor.GREEN));
-        routeMap.put(bMarLRitVOne,createRoute("Marine Research Laboratory", "Rito Village", 2, TrainCardColor.GREY));
-        routeMap.put(bMarLRitVTwo,createRoute("Marine Research Laboratory", "Rito Village", 2, TrainCardColor.GREY));
+        routeMap.put(bMarLRitVOne,createRoute("Marine Research Laboratory", "Rito Village", 2, GREY));
+        routeMap.put(bMarLRitVTwo,createRoute("Marine Research Laboratory", "Rito Village", 2, GREY));
         routeMap.put(bCloTRitV,createRoute("Clock Town", "Rito Village", 4, TrainCardColor.RED));
-        routeMap.put(bLosWRitVOne,createRoute("Lost Woods", "Rito Village", 2, TrainCardColor.GREY));
-        routeMap.put(bLosWRitVTwo,createRoute("Lost Woods", "Rito Village", 2, TrainCardColor.GREY));
+        routeMap.put(bLosWRitVOne,createRoute("Lost Woods", "Rito Village", 2, GREY));
+        routeMap.put(bLosWRitVTwo,createRoute("Lost Woods", "Rito Village", 2, GREY));
         routeMap.put(bRitVZorD,createRoute("Rito Village", "Zora's Domain", 3, TrainCardColor.BLUE));
         routeMap.put(bLosWTemLB,createRoute("Lost Woods", "Temple of Light", 2, TrainCardColor.BLUE));
         routeMap.put(bLosWTemLP,createRoute("Lost Woods", "Temple of Light", 2, TrainCardColor.PINK));
@@ -536,37 +538,37 @@ public class MapFragment extends Fragment implements View.OnClickListener{
         routeMap.put(bDeaMLosWO,createRoute("Death Moutain", "Lost Woods", 3, TrainCardColor.ORANGE));
         routeMap.put(bCitSTarTB,createRoute("City in the Sky", "Tarrey Town", 3, TrainCardColor.BLACK));
         routeMap.put(bCitSTarTO,createRoute("City in the Sky", "Tarrey Town", 3, TrainCardColor.ORANGE));
-        routeMap.put(bOrdVTarT,createRoute("Ordon Village", "Tarrey Town", 2, TrainCardColor.GREY));
-        routeMap.put(bDekPTarTOne,createRoute("Deku Palace", "Tarrey Town", 2, TrainCardColor.GREY));
-        routeMap.put(bDekPTarTTwo,createRoute("Deku Palace", "Tarrey Town", 2, TrainCardColor.GREY));
+        routeMap.put(bOrdVTarT,createRoute("Ordon Village", "Tarrey Town", 2, GREY));
+        routeMap.put(bDekPTarTOne,createRoute("Deku Palace", "Tarrey Town", 2, GREY));
+        routeMap.put(bDekPTarTTwo,createRoute("Deku Palace", "Tarrey Town", 2, GREY));
         routeMap.put(bDekPOrdV,createRoute("Deku Palace", "Ordon Village", 6, TrainCardColor.PINK));
         routeMap.put(bDekPShaT,createRoute("Deku Palace", "Shadow Temple", 6, TrainCardColor.ORANGE));
-        routeMap.put(bDekPTing,createRoute("Deku Palace", "Tingle", 1, TrainCardColor.GREY));
+        routeMap.put(bDekPTing,createRoute("Deku Palace", "Tingle", 1, GREY));
         routeMap.put(bGreTTing,createRoute("Great Deku Tree", "Tingle", 3, TrainCardColor.GREEN));
         routeMap.put(bLurVTingR,createRoute("Lurelin Village", "Tingle", 3, TrainCardColor.RED));
         routeMap.put(bLurVTingY,createRoute("Lurelin Village", "Tingle", 3, TrainCardColor.YELLOW));
         routeMap.put(bLakHTing,createRoute("Lake Hylia", "Tingle", 4, TrainCardColor.PINK));
-        routeMap.put(bDeaMGreTOne,createRoute("Death Mountain", "Great Deku Tree", 1, TrainCardColor.GREY));
-        routeMap.put(bDeaMGreTTwo,createRoute("Death Mountain", "Great Deku Tree", 1, TrainCardColor.GREY));
-        routeMap.put(bDeaMZorD,createRoute("Death Mountain", "Zora's Domain", 3, TrainCardColor.GREY));
+        routeMap.put(bDeaMGreTOne,createRoute("Death Mountain", "Great Deku Tree", 1, GREY));
+        routeMap.put(bDeaMGreTTwo,createRoute("Death Mountain", "Great Deku Tree", 1, GREY));
+        routeMap.put(bDeaMZorD,createRoute("Death Mountain", "Zora's Domain", 3, GREY));
         routeMap.put(bCloTDeaM,createRoute("Clock Town", "Death Mountain", 5, TrainCardColor.WHITE));
-        routeMap.put(bCloTZorD,createRoute("Clock Town", "Zora's Domain", 3, TrainCardColor.GREY));
+        routeMap.put(bCloTZorD,createRoute("Clock Town", "Zora's Domain", 3, GREY));
         routeMap.put(bFirTShaT,createRoute("Fire Temple", "Shadow Temple", 3, TrainCardColor.BLACK));
         routeMap.put(bFirTTinI,createRoute("Fire Temple", "Tingle Island", 4, TrainCardColor.RED));
         routeMap.put(bFirTSnoR,createRoute("Fire Temple", "Snowpeak Ruins", 3, TrainCardColor.GREEN));
-        routeMap.put(bSnoRTinIOne,createRoute("Snowpeak Ruins", "Tingle Island", 1, TrainCardColor.GREY));
-        routeMap.put(bSnoRTinITwo,createRoute("Snowpeak Ruins", "Tingle Island", 1, TrainCardColor.GREY));
+        routeMap.put(bSnoRTinIOne,createRoute("Snowpeak Ruins", "Tingle Island", 1, GREY));
+        routeMap.put(bSnoRTinITwo,createRoute("Snowpeak Ruins", "Tingle Island", 1, GREY));
         routeMap.put(bLurVShaT,createRoute("Lurelin Village", "Shadow Temple", 3, TrainCardColor.PINK));
         routeMap.put(bShaTTinI,createRoute("Shadow Temple", "Tingle Island", 6, TrainCardColor.YELLOW));
-        routeMap.put(bTinIZorHOne,createRoute("Tingle Island", "Zora's Hall", 1, TrainCardColor.GREY));
-        routeMap.put(bTinIZorHTwo,createRoute("Tingle Island", "Zora's Hall", 1, TrainCardColor.GREY));
+        routeMap.put(bTinIZorHOne,createRoute("Tingle Island", "Zora's Hall", 1, GREY));
+        routeMap.put(bTinIZorHTwo,createRoute("Tingle Island", "Zora's Hall", 1, GREY));
         routeMap.put(bLakHLurV,createRoute("Lake Hylia", "Lurelin Village", 3, TrainCardColor.ORANGE));
         routeMap.put(bLurVZorH,createRoute("Lurelin Village", "Zora's Hall", 6, TrainCardColor.BLUE));
         routeMap.put(bWatTZorHP,createRoute("Water Temple", "Zora's Hall", 3, TrainCardColor.PINK));
         routeMap.put(bWatTZorHG,createRoute("Water Temple", "Zora's Hall", 3, TrainCardColor.GREEN));
         routeMap.put(bLakHWatTO,createRoute("Lake Hylia", "Water Temple", 5, TrainCardColor.ORANGE));
         routeMap.put(bLakHWatTW,createRoute("Lake Hylia", "Water Temple", 5, TrainCardColor.WHITE));
-        routeMap.put(bForTLakH,createRoute("Forest Temple", "Lake Hylia", 3, TrainCardColor.GREY));
+        routeMap.put(bForTLakH,createRoute("Forest Temple", "Lake Hylia", 3, GREY));
         routeMap.put(bOutIWatT,createRoute("Outset Island", "Water Temple", 3, TrainCardColor.PINK));
         routeMap.put(bForTOutI,createRoute("Forest Temple", "Outset Island", 3, TrainCardColor.RED));
         routeMap.put(bCloTForT,createRoute("Clock Town", "Forest Temple", 3, TrainCardColor.YELLOW));
