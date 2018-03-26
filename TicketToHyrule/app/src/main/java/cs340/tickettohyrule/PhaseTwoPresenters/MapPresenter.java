@@ -22,6 +22,7 @@ import cs240.lib.Model.cards.TrainCard;
 import cs240.lib.Model.cards.TrainCardDeck;
 import cs240.lib.Model.colors.TrainCardColor;
 import cs240.lib.Model.gameParts.CityPair;
+import cs240.lib.Model.gameParts.Player;
 import cs240.lib.Model.gameParts.Route;
 import cs340.tickettohyrule.CurrentUserSingleton;
 import cs340.tickettohyrule.Fragments.MapFragment;
@@ -38,9 +39,14 @@ public class MapPresenter implements Observer {
     private int testNumber = 0;
     private boolean claimed = false;
     private Route route = null;
+    private Player currentPlayer = modelFacade.getCurrentPlayer();
 
     public void updateHistory(){
 
+    }
+
+    public Player getCurrentPlayer() {
+        return currentPlayer;
     }
 
     @Override

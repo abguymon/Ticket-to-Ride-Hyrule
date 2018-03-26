@@ -456,6 +456,7 @@ public class MapFragment extends Fragment implements View.OnClickListener{
                 if(mapPresenter.claimRoute())
                 {
                     Toast.makeText(getContext(), "Route Claimed", Toast.LENGTH_SHORT).show();
+                    routeMap.get(v).setOwner(mapPresenter.getCurrentPlayer());
                 }
                 else
                 {
