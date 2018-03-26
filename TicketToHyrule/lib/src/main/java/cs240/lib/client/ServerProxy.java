@@ -278,7 +278,7 @@ public class ServerProxy implements IServer {
         //Check parameter type names
         String[] parameterTypenames = {String.class.getName(), String.class.getName(), DestinationCard.class.getName(), DestinationCard.class.getName()};
         Object[] parameters = {playerName, gameName, card1, card2};
-        Command submitDestinationCardsCommand = new Command("submitDestinationCards", parameterTypenames, parameters);
+        Command submitDestinationCardsCommand = new Command("discardDestinationCards", parameterTypenames, parameters);
         Object result = ClientCommunicator.SINGLETON.send(submitDestinationCardsCommand);
         return (SubmitResult) result;
     }
