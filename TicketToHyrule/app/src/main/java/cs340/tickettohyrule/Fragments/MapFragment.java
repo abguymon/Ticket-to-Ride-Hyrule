@@ -413,7 +413,7 @@ public class MapFragment extends Fragment implements View.OnClickListener{
             this.colorText.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    mapPresenter.selectColor(colorText.toString());
+                    mapPresenter.claimGreyRoute(colorText.toString());
                 }
             });
         }
@@ -452,9 +452,10 @@ public class MapFragment extends Fragment implements View.OnClickListener{
         @Override
         public void onClick(View v) {
             Route myRoute = routeMap.get(v.getId());
-            if(mapPresenter.claimRoute(myRoute))
+            mapPresenter.selectRoute(myRoute);
+            if(!myRoute.getColor().toString().equals("GREY"))
             {
-                ///maybe
+                mapPresenter.claimRoute();
             }
         }
     }
