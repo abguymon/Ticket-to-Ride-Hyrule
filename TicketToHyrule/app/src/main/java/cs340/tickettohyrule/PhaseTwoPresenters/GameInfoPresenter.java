@@ -10,6 +10,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import cs240.lib.Model.ClientFacade;
+import cs240.lib.Model.Game;
 import cs240.lib.Model.ModelFacade;
 import cs240.lib.Model.cards.DestinationCard;
 import cs240.lib.Model.cards.TrainCard;
@@ -187,6 +188,9 @@ public class GameInfoPresenter implements Observer{
         @Override
         protected String doInBackground(Void... card){
             String result = modelFacade.drawDestinationCards(modelFacade.getCurrentPlayer().getPlayerName() ,modelFacade.getGameData().getGameName());
+            Game game = ((GetGameResult)modelFacade.getGameData(modelFacade.getGameData().getGameName())).getGameStarted();
+            ClientFacade.getInstance().setGameData(game);
+            modelFacade.setGameData(game);
             return result;
         }
         @Override protected void onPostExecute(String message){
