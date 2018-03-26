@@ -147,7 +147,13 @@ public class Game {
     }
 
     private void calculateLongestPath() {
-        LongestPathCalculator.SINGLETON.calculate(this);
+        ArrayList<String> playersWithLongestPath = new ArrayList<>();
+
+        playersWithLongestPath = LongestPathCalculator.SINGLETON.calculate(this);
+        for (int i = 0; i < playersWithLongestPath.size(); ++i) {
+            Player player = getPlayer(playersWithLongestPath.get(i));
+            player.addBonusPoints(10);
+        }
     }
 
     private void resolveDestinationCards() {

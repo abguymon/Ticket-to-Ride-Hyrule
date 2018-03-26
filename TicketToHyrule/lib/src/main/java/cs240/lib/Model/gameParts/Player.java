@@ -32,6 +32,8 @@ public class Player {
     private int positiveDestinationPoints;
     private int negativeDestinationPoints;
     private int bonusPoints;
+    private ArrayList<Route> claimedRoutes;
+    private int longestPath;
 
     private final int MAX_TRAIN_CARS = 45;
 
@@ -47,7 +49,21 @@ public class Player {
         this.destinationCards = new ArrayList<>();
         this.trainCards = new ArrayList<>();
         this.playerName = playerName;
+        longestPath = 0;
         //this.state = new TurnEnded();
+    }
+
+    public int getLongestPath() {return longestPath;}
+
+    public void setLongestPath(int longestPath) {this.longestPath = longestPath;}
+
+    public void addRoute(Route route) {claimedRoutes.add(route);}
+    public ArrayList<Route> getClaimedRoutes() {
+        return claimedRoutes;
+    }
+
+    public void setClaimedRoutes(ArrayList<Route> claimedRoutes) {
+        this.claimedRoutes = claimedRoutes;
     }
 
     public ClaimRouteResult claimRoute(String gameName, Route route, TrainCardColor chosenCardsColor){
