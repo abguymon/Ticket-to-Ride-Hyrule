@@ -454,7 +454,7 @@ public class MapFragment extends Fragment implements View.OnClickListener{
             Route myRoute = routeMap.get(v.getId());
             if(mapPresenter.claimRoute(myRoute))
             {
-                v.findViewById(v.getId()).setBackground(getActivity().getDrawable(R.drawable.green_circle));
+                ///maybe
             }
         }
     }
