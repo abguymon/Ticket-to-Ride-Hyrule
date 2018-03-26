@@ -34,18 +34,37 @@ public class DestinationCardResolution {
 
     private boolean isFulfilled(DestinationCard card, Player player) {
         String startCity = card.getStartCity().getCityName();
+        String endCity = card.getEndCity().getCityName();
         ArrayList<Route> playerRoutes = player.getClaimedRoutes();
         for (int i = 0; i < playerRoutes.size(); ++i) {
             Route route = playerRoutes.get(i);
             if (route.getCity1Name().equals(startCity) || route.getCity2Name().equals(startCity)) {
-
+                ArrayList<Edge> edges = resetEdges(playerRoutes);
+                return findDestinationPath(new Edge(route), edges,endCity);
             }
         }
         return false;
     }
 
     private boolean findDestinationPath(Edge root, ArrayList<Edge> edges, String endCity) {
+        if (root.getRoute().getCity2Name().equals(endCity) || root.getRoute().getCity1Name().equals(endCity)) {
+            return true;
+        }
+        for (int i = 0; i < edges.size(); ++i) {
+            if (isAdjacent(root.getRoute(), edges.get(i).getRoute())) {
+                root.setVisited(true);
+                return findDestinationPath(edges.get(i), edges, endCity);
+            }
+        }
+        return false;
+    }
 
+    private ArrayList<Edge> resetEdges(ArrayList<Route> routes) {
+        ArrayList<Edge> edges = new ArrayList<>();
+        for (int i = 0; i < routes.size(); ++i) {
+            edges.add(new Edge(routes.get(i)));
+        }
+        return edges;
     }
 
     private boolean isAdjacent(Route route1, Route route2) {

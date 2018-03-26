@@ -65,7 +65,7 @@ public class LongestPathCalculator {
             if (isAdjacent(root.getRoute(), edges.get(i).getRoute())) {
                 if (!edges.get(i).isVisited()) {
                     root.setVisited(true);
-                    getRouteLengthr(root, edges, length, longestLength);
+                    getRouteLengthr(edges.get(i), edges, length, longestLength);
                     length -= root.getRoute().getLength();
                 }
             }
