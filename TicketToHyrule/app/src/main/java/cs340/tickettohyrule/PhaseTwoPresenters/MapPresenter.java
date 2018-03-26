@@ -36,6 +36,7 @@ public class MapPresenter implements Observer {
     private MapFragment view = null;
     private int testNumber = 0;
     private boolean claimed = false;
+    private Route route = null;
 
     public void updateHistory(){
 
@@ -56,20 +57,154 @@ public class MapPresenter implements Observer {
         this.view = view;
     }
 
-    public boolean claimRoute(Route route){
-        modelFacade.claimRoute(route,modelFacade.getCurrentPlayer(),modelFacade.getGame(),);
+    public void selectRoute(Route route)
+    {
+        this.route = route;
+    }
+
+    public boolean claimRoute(){
+            modelFacade.claimRoute(route, modelFacade.getCurrentPlayer().getPlayerName(),
+                    modelFacade.getGameData().getGameName(),route.getColor());
+
 //        modelFacade.getGameData().getRouteById(routeId);
 //        ClaimRouteAsync claimRouteAsync = new ClaimRouteAsync();
 //        claimRouteAsync.execute(route);
         return true;
     }
 
-    public List<String> getColors(){
-        return new ArrayList<>();
+    public boolean claimGreyRoute(String color)
+    {
+        switch (color)
+        {
+            case "BLUE":
+                modelFacade.claimRoute(route, modelFacade.getCurrentPlayer().getPlayerName(),
+                        modelFacade.getGameData().getGameName(),TrainCardColor.BLUE);
+                break;
+            case "BLACK":
+                modelFacade.claimRoute(route, modelFacade.getCurrentPlayer().getPlayerName(),
+                        modelFacade.getGameData().getGameName(),TrainCardColor.BLACK);
+                break;
+            case "WHITE":
+                modelFacade.claimRoute(route, modelFacade.getCurrentPlayer().getPlayerName(),
+                        modelFacade.getGameData().getGameName(),TrainCardColor.WHITE);
+                break;
+            case "YELLOW":
+                modelFacade.claimRoute(route, modelFacade.getCurrentPlayer().getPlayerName(),
+                        modelFacade.getGameData().getGameName(),TrainCardColor.YELLOW);
+                break;
+            case "ORANGE":
+                modelFacade.claimRoute(route, modelFacade.getCurrentPlayer().getPlayerName(),
+                        modelFacade.getGameData().getGameName(),TrainCardColor.ORANGE);
+                break;
+            case "RED":
+                modelFacade.claimRoute(route, modelFacade.getCurrentPlayer().getPlayerName(),
+                        modelFacade.getGameData().getGameName(),TrainCardColor.RED);
+                break;
+            case "PINK":
+                modelFacade.claimRoute(route, modelFacade.getCurrentPlayer().getPlayerName(),
+                        modelFacade.getGameData().getGameName(),TrainCardColor.PINK);
+                break;
+            case "GREEN":
+                modelFacade.claimRoute(route, modelFacade.getCurrentPlayer().getPlayerName(),
+                        modelFacade.getGameData().getGameName(),TrainCardColor.GREEN);
+                break;
+                default:
+                    return false;
+        }
+
+        return true;
     }
 
-    public void selectColor(String color){
+    public List<String> getColors(){
+        ArrayList<String> mColors = new ArrayList<>();
 
+        if(!route.equals(null))
+        {
+            ArrayList<TrainCard> playerTC = route.getOwner().getTrainCards();
+            int loco = 0;
+            int red = 0;
+            int green = 0;
+            int orange = 0;
+            int blue = 0;
+            int black = 0;
+            int yellow = 0;
+            int pink = 0;
+            int white = 0;
+            for(TrainCard t :playerTC)
+            {
+                switch (t.getColor().toString())
+                {
+                    case "GREEN":
+                        green++;
+                        break;
+                    case "RED":
+                        red++;
+                        break;
+                    case "BLACK":
+                        black++;
+                        break;
+                    case "YELLOW":
+                        yellow++;
+                        break;
+                    case "PINK":
+                        pink++;
+                        break;
+                    case "ORANGE":
+                        orange++;
+                        break;
+                    case "WHITE":
+                        white++;
+                        break;
+                    case "BLUE":
+                        blue++;
+                        break;
+                    case "WILD":
+                        loco++;
+                        break;
+                    default:
+                        loco++;
+                        break;
+                }
+            }
+            if((red+loco) >= route.getLength())
+            {
+                mColors.add("RED");
+            }
+            if((blue+loco) >= route.getLength())
+            {
+                mColors.add("BLUE");
+            }
+            if((black+loco) >= route.getLength())
+            {
+                mColors.add("BLACK");
+            }
+            if((yellow+loco) >= route.getLength())
+            {
+                mColors.add("YELLOW");
+            }
+            if((green+loco) >= route.getLength())
+            {
+                mColors.add("GREEN");
+            }
+            if((orange+loco) >= route.getLength())
+            {
+                mColors.add("ORANGE");
+            }
+            if((white+loco) >= route.getLength())
+            {
+                mColors.add("WHITE");
+            }
+            if((pink+loco) >= route.getLength())
+            {
+                mColors.add("PINK");
+            }
+
+            return mColors;
+        }
+        else
+        {
+            return new ArrayList<>();
+        }
     }
 
     private class ClaimRouteAsync extends AsyncTask<Route, Void, String> {
