@@ -1,5 +1,6 @@
 package cs340.tickettohyrule.Fragments;
 
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 import cs240.lib.Model.ClientFacade;
 import cs240.lib.Model.gameParts.Player;
 import cs240.lib.communicator.ClientCommunicator;
+import cs340.tickettohyrule.GameActivity;
 import cs340.tickettohyrule.PhaseTwoPresenters.DrawDestinationCardsPresenter;
 import cs340.tickettohyrule.PhaseTwoPresenters.PreStartPresenter;
 import cs340.tickettohyrule.R;
@@ -43,8 +45,10 @@ public class PreStartFragment extends Fragment implements CompoundButton.OnCheck
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_prestart, container, false);
-        Bundle bundle = this.getArguments();
+
         Player currentPlayer;
+
+        Bundle bundle = this.getArguments();
         if(bundle != null){
             drawDestinationCardsPresenter = new DrawDestinationCardsPresenter();
             drawDestinationCardsPresenter.setView(this);
@@ -58,7 +62,6 @@ public class PreStartFragment extends Fragment implements CompoundButton.OnCheck
             ClientFacade.getInstance().addObserver(preStartPresenter);
             currentPlayer = preStartPresenter.getPlayer();
         }
-
 
         playerImage = (ImageView) view.findViewById(R.id.player_image);
         switch(currentPlayer.getPlayerNum())
@@ -96,7 +99,11 @@ public class PreStartFragment extends Fragment implements CompoundButton.OnCheck
         cardThree = (TextView) view.findViewById(R.id.d_card_three);
         submitButton = (ImageButton) view.findViewById(R.id.submit_button);
         submitButton.setOnClickListener(this);
-        setText();
+
+        if(preStartPresenter != null)
+            setText();
+        else drawDestinationCardsPresenter.syncGame();
+
         return view;
     }
     public void setText(){
@@ -187,4 +194,5 @@ public class PreStartFragment extends Fragment implements CompoundButton.OnCheck
     public void toast(String s){
         Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
     }
+
 }

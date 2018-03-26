@@ -640,13 +640,14 @@ public class Target implements IServer {
     }
 
     @Override
-    public void sync(String gameName) {
+    public GetGameResult sync(String gameName) {
         String[] parameterTypeNames = {String.class.getName()};
         Object[] parameters = {gameName};
         Command syncCommand = new Command("sync", parameterTypeNames, parameters);
         commandHistory.add(syncCommand);
         commandQueue.add(syncCommand);
         Poller.getInstance().incrementCommandIndex();
+        return new GetGameResult(getActiveGame(gameName));
     }
 
     @Override

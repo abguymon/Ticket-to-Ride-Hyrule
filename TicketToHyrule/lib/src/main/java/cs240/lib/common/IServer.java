@@ -46,5 +46,5 @@ public interface IServer {
     EndTurnResult endTurn(String playerName, String gameName);
     EndGameResult endGame(String gameName);
     GetGameResult getGameData(String gameName);
-    void sync(String gameName);
+    GetGameResult sync(String gameName);
 }

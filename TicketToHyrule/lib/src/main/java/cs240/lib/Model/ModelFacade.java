@@ -53,9 +53,11 @@ public class ModelFacade {
     private Player currentPlayer = null;
     public ModelFacade(){}
 
-    public void sync(){
+    public GetGameResult sync(){
         ClientCommunicator.SINGLETON.setAuthToken(currentUser.getAuthToken());
-        ServerProxy.SINGLETON.sync(getGameData().getGameName());
+        GetGameResult getGameResult = ServerProxy.SINGLETON.sync(getGameData().getGameName());
+        setGameData(getGameResult.getGameStarted());
+        return getGameResult;
     }
 
     public String claimRoute(Route route, String playerName, String gameName, TrainCardColor chosenCardsColor){

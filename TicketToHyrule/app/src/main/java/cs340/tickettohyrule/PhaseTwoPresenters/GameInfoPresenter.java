@@ -68,6 +68,8 @@ public class GameInfoPresenter implements Observer{
     public void drawDestinationCards(){
         DrawDestinationCardsAsync drawDestinationCardsAsync = new DrawDestinationCardsAsync();
         drawDestinationCardsAsync.execute();
+        syncAsync test = new syncAsync();
+        test.execute();
     }
 
 
@@ -186,19 +188,27 @@ public class GameInfoPresenter implements Observer{
             }
         }
     }
+    private class syncAsync extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... card){
+            modelFacade.sync();
+            return null;
+        }
+        @Override protected void onPostExecute(Void message){
+            ((GameActivity) view.getActivity()).moveToDrawDestinationCards();
+        }
+    }
     private class DrawDestinationCardsAsync extends AsyncTask<Void, Void, String> {
         @Override
         protected String doInBackground(Void... card){
             String result = modelFacade.drawDestinationCards(modelFacade.getCurrentPlayer().getPlayerName() ,modelFacade.getGameData().getGameName());
-
             return result;
         }
         @Override protected void onPostExecute(String message){
             super.onPostExecute(message);
             if(message.equals("")){
                 //MOVE TO SUBMIT DESTINATION CARDS PAGE WITH INTENT TO ATTACH THE NEW PRESENTER
-                modelFacade.sync();
-                ((GameActivity) view.getActivity()).moveToDrawDestinationCards();
+
             }
             else{
                 view.toast(message);

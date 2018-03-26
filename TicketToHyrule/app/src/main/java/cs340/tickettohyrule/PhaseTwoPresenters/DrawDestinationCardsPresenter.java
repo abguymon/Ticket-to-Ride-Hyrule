@@ -31,9 +31,7 @@ public class DrawDestinationCardsPresenter implements Observer{
         destinationCards = new ArrayList<>();
         modelFacade.setGameData(ClientFacade.getInstance().getGameData());
         modelFacade.setCurrentPlayer(modelFacade.getGameData().getPlayer(modelFacade.getCurrentUser().getUsername()));
-        for(int i = 0; i < modelFacade.getCurrentPlayer().getDrawnDestinationCards().size(); i++){
-            destinationCards.add(modelFacade.getCurrentPlayer().getDrawnDestinationCards().get(i));
-        }
+        destinationCards = modelFacade.getCurrentPlayer().getDrawnDestinationCards();
     }
 
     public Player getPlayer()
@@ -70,13 +68,13 @@ public class DrawDestinationCardsPresenter implements Observer{
             String gameName = modelFacade.getGameData().getGameName(); //THIS WILL END UP EQUALING SOMETHING LIKE modelFacade.getGameData.getGameName();
             String message = modelFacade.chooseDestinationCards(getPlayer().getPlayerName(), gameName, removedDestinationCards);
 
-            modelFacade.sync();
 
             return message;
         }
         @Override protected void onPostExecute(String message){
             super.onPostExecute(message);
             if(message.equals("")){
+                syncGame();
                 ((GameActivity)view.getActivity()).moveToMap();
             }
             else{
@@ -96,7 +94,10 @@ public class DrawDestinationCardsPresenter implements Observer{
             return null;
         }
         @Override protected void onPostExecute(Void message){
-
+            modelFacade.setCurrentPlayer(modelFacade.getGameData().getPlayer(modelFacade.getCurrentUser().getUsername()));
+            destinationCards = modelFacade.getCurrentPlayer().getDrawnDestinationCards();
+//            destinationCards = modelFacade.getGameData().getPlayerArray().get(1).getDrawnDestinationCards();
+            view.setText();
         }
     }
 }

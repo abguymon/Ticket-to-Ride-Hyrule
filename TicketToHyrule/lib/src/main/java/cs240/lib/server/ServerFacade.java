@@ -134,7 +134,7 @@ public class ServerFacade implements IServer {
     }
 
     @Override
-    public void sync(String gameName) {
-        Target.SINGLETON.sync(gameName);
+    public GetGameResult sync(String gameName) {
+        return Target.SINGLETON.sync(gameName);
     }
 }
