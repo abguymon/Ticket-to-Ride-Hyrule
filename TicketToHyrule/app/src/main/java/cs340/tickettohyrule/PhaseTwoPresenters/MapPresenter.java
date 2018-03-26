@@ -249,7 +249,7 @@ public class MapPresenter implements Observer {
             String result = modelFacade.claimRoute(route[0],
                     modelFacade.getCurrentPlayer().getPlayerName(),
                     modelFacade.getGameData().getGameName(),route[0].getColor());
-            return "";
+            return result;
         }
         @Override protected void onPostExecute(String message){
             super.onPostExecute(message);
