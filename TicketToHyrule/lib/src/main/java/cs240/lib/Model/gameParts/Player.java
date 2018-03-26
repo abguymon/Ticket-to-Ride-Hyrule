@@ -142,10 +142,11 @@ public class Player {
     }
 
     public void dropDestinationCard(DestinationCard card) {
-        for (int i = 0; i < destinationCards.size(); ++i) {
+        for (int i = 0; i < destinationCards.size(); i++) {
             DestinationCard curCard = destinationCards.get(i);
             if (curCard.equals(card)) {
                 destinationCards.remove(i);
+                break;
             }
         }
     }

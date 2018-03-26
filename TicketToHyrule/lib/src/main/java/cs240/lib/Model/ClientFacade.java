@@ -24,6 +24,7 @@ public class ClientFacade extends Observable{
     private ArrayList<LobbyGame> lobbyGameList = new ArrayList<>();
     private Queue<LobbyGame> startedLobbyGames = new LinkedList<>();
     private Game gameData = null;
+    private ArrayList<DestinationCard> cardsDrawn = new ArrayList<>();
     private static ClientFacade instance = null;
 
     private ClientFacade(){}
@@ -104,11 +105,14 @@ public class ClientFacade extends Observable{
         notifyObservers();
     }
     public void drawDestinationCard(String player, String gameName){
-        gameData.getPlayer(player).addDestinationCard(gameData.drawDestinationCard());
-        gameData.getPlayer(player).addDestinationCard(gameData.drawDestinationCard());
-        gameData.getPlayer(player).addDestinationCard(gameData.drawDestinationCard());
-        setChanged();
-        notifyObservers();
+//        gameData.getPlayer(player).addDestinationCard(gameData.drawDestinationCard());
+//        gameData.getPlayer(player).addDestinationCard(gameData.drawDestinationCard());
+//        gameData.getPlayer(player).addDestinationCard(gameData.drawDestinationCard());
+//        cardsDrawn.add(gameData.drawDestinationCard());
+//        cardsDrawn.add(gameData.drawDestinationCard());
+//        cardsDrawn.add(gameData.drawDestinationCard());
+//        setChanged();
+//        notifyObservers();
     }
 
     public void claimRoute(Player player, int route){
@@ -144,19 +148,34 @@ public class ClientFacade extends Observable{
         notifyObservers();
     }
     public void discardDestinationCards(String playerName, String cardOne, String cardTwo){
-        Gson gson = new Gson();
-        DestinationCard dcardOne = gson.fromJson(cardOne, DestinationCard.class);
-        DestinationCard dcardTwo = gson.fromJson(cardOne, DestinationCard.class);
-        if(cardOne != null) {
-            gameData.getPlayer(playerName).dropDestinationCard(dcardOne);
-            gameData.putbackDestinationCard(dcardOne);
-            if(cardTwo != null){
-                gameData.getPlayer(playerName).dropDestinationCard(dcardTwo);
-                gameData.putbackDestinationCard(dcardTwo);
-            }
-        }
-        setChanged();
-        notifyObservers();
+//        Gson gson = new Gson();
+//        DestinationCard dCardOne = gson.fromJson(cardOne, DestinationCard.class);
+//        DestinationCard dCardTwo = gson.fromJson(cardTwo, DestinationCard.class);
+//        if(!cardOne.equals("null")) {
+////            gameData.getPlayer(playerName).dropDestinationCard(dCardOne);
+//            gameData.putbackDestinationCard(dCardOne);
+//            for(int i = 0; i < cardsDrawn.size(); i++){
+//                if(cardsDrawn.get(i).equals(dCardOne)){
+//                    cardsDrawn.remove(i);
+//                    break;
+//                }
+//            }
+//            if(!cardTwo.equals("null")) {
+////                gameData.getPlayer(playerName).dropDestinationCard(dCardTwo);
+//                gameData.putbackDestinationCard(dCardTwo);
+//                for (int i = 0; i < cardsDrawn.size(); i++) {
+//                    if (cardsDrawn.get(i).equals(dCardTwo)) {
+//                        cardsDrawn.remove(i);
+//                        break;
+//                    }
+//                }
+//            }
+//            for(int i = 0; i < cardsDrawn.size(); i++) {
+//                gameData.getPlayer(playerName).addDestinationCard(cardsDrawn.get(i));
+//            }
+//        }
+//        setChanged();
+//        notifyObservers();
     }
 
     public void handleObject( Command myCommand){
@@ -263,4 +282,6 @@ public class ClientFacade extends Observable{
     public void setGameData(Game gameData) {
         this.gameData = gameData;
     }
+
+    public ArrayList<DestinationCard> getCardsDrawn(){return cardsDrawn;}
 }
