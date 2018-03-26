@@ -45,7 +45,7 @@ public class Main {
         }
         System.out.println();
 
-        Player gannon = new Player(PlayerColor.BLACK, "black");
+        Player gannon = new Player(PlayerColor.RED, "black");
         //castletowntoHylia.claim(gannon);
         System.out.println("Trains remaining for Gannon: " + gannon.getTrainsRemaining());
 
