@@ -56,7 +56,7 @@ public class EndGameFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onDestroy() {
         super.onDestroy();
-        //ClientFacade.getInstance().deleteObserver(endGamePresenter);
+        ClientFacade.getInstance().deleteObserver(endGamePresenter);
     }
 
     @Override
@@ -72,8 +72,7 @@ public class EndGameFragment extends Fragment implements View.OnClickListener{
     }
 
     private List<Player> getPlayerInfo() {
-   //     return endGamePresenter.getPlayers();
-        return null;
+        return endGamePresenter.getPlayers();
     }
 
     private class Holder extends RecyclerView.ViewHolder {

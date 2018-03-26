@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -64,50 +65,13 @@ public class MapPresenter implements Observer {
         return null;
     }
 
-    //test button functions
-//    public String runTest(){
-//        String testRun = "No test running";
-//        Game temp = ClientFacade.getInstance().getGameData();
-//        switch(testNumber){
-//            case 0:
-//                clientFacade.drawTrainCard(modelFacade.getCurrentPlayer().getPlayerName());
-//                testRun = "Adding Train Cards";
-//                break;
-//            case 1:
-//                clientFacade.drawDestinationCard(modelFacade.getCurrentPlayer().getPlayerName());
-//                testRun = "Adding Destination Cards";
-//                break;
-//            case 2:
-//                clientFacade.drawDestinationCard(modelFacade.getGameData().getPlayerArray().get(1).getPlayerName());
-//                testRun = "Updating Destination Cards";
-//                break;
-//            case 3:
-//                clientFacade.drawTrainCard(modelFacade.getGameData().getPlayerArray().get(1).getPlayerName());
-//                testRun = "Updating Train Card Deck";
-//                break;
-//            case 4:
-//                claimed = true;
-//                clientFacade.claimRoute(modelFacade.getCurrentPlayer(), 0);
-//                testRun = "Claiming Route";
-//                break;
-//            case 5:
-//                clientFacade.sendMessage(modelFacade.getGameData().getPlayerArray().get(1).getPlayerName(), "This is a student");
-//                testRun = "Sending chat";
-//                break;
-//            case 6:
-//                addToGameHistory(temp);
-//                clientFacade.addToGameHistory("test");
-//                testRun = "Adding Game History Entry";
-//                break;
-//        }
-//        ClientFacade.getInstance().setGameData(temp);
-//        if (testNumber < 6) {
-//            testNumber++;
-//        }else if (testNumber == 6){
-//            testNumber = 0;
-//        }
-//        return testRun;
-//    }
+    public List<String> getColors(){
+        return null;
+    }
+
+    public void selectColor(String color){
+
+    }
 
     public boolean isClaimed(){
         return claimed;
