@@ -16,6 +16,7 @@ import cs240.lib.Model.gameParts.Player;
 import cs240.lib.Model.gameParts.Route;
 import cs240.lib.Model.gameParts.RouteList;
 import cs240.lib.common.Command;
+import cs240.lib.common.LongestPathCalculator;
 
 public class Game {
     private String gameName;
@@ -121,8 +122,9 @@ public class Game {
     }
 
     public void endGame() {
-        //compute final scores for each player
-        //assign bonus points and destination points
+        calculateLongestPath();
+        resolveDestinationCards();
+        calculatePlayerScores();
     }
 
     public void initializeGameMap(){
@@ -142,5 +144,19 @@ public class Game {
             if(playerArray.get(i).getPlayerName().equals(name)) return playerArray.get(i);
         }
         return null;
+    }
+
+    private void calculateLongestPath() {
+        LongestPathCalculator.SINGLETON.calculate(this);
+    }
+
+    private void resolveDestinationCards() {
+
+    }
+
+    private void calculatePlayerScores() {
+        for (int i = 0; i < playerArray.size(); ++i) {
+            playerArray.get(i).calculateScore();
+        }
     }
 }

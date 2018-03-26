@@ -23,6 +23,9 @@ public class Route {
         this.color = color;
     }
 
+    public String getCity1Name() {return cityNodes.getCity1().getCityName();}
+    public String getCity2Name() {return cityNodes.getCity2().getCityName();}
+
     public boolean claim(Player claimingPlayer, TrainCardDiscard discard, TrainCardColor chosenCardsColor){
         //for real claim route
         if (!claimed) {

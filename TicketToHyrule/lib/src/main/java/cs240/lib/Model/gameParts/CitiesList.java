@@ -1,5 +1,6 @@
 package cs240.lib.Model.gameParts;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 
 /**
@@ -9,10 +10,10 @@ import java.util.HashSet;
 public class CitiesList {
     public static CitiesList SINGLETON = new CitiesList();
 
-    private HashSet<City> cities;
+    private ArrayList<City> cities;
 
     private CitiesList(){
-        cities = new HashSet<>();
+        cities = new ArrayList<>();
         createCities();
         try {
             if (cities.size() != 36) {
@@ -64,7 +65,7 @@ public class CitiesList {
 
     }
 
-    public HashSet<City> getCities() {
+    public ArrayList<City> getCities() {
         return cities;
     }
 }
