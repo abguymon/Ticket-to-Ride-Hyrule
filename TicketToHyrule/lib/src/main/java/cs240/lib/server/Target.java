@@ -535,9 +535,9 @@ public class Target implements IServer {
     }
 
     @Override
-    public SubmitResult submitDestinationCards(String playerName, String gameName, ArrayList<DestinationCard> cards) {
-        String[] parameterTypeNames = {String.class.getName(), String.class.getName(), DestinationCard.class.getName()};
-        Object[] parameters = {playerName, gameName, cards};
+    public SubmitResult discardDestinationCards(String playerName, String gameName, DestinationCard card1, DestinationCard card2) {
+        String[] parameterTypeNames = {String.class.getName(), String.class.getName(), DestinationCard.class.getName(), DestinationCard.class.getName()};
+        Object[] parameters = {playerName, gameName, card1, card2};
         Command submitCommand = new Command("submitDestinationCards", parameterTypeNames, parameters);
         commandHistory.add(submitCommand);
         commandQueue.add(submitCommand);
@@ -549,19 +549,19 @@ public class Target implements IServer {
         if (game != null) {
             Player player = game.getPlayer(playerName);
             if (player != null) {
-                if (cards == null) {
+                if (card1 == null && card2 == null) {
                     game.addToGameHistory(playerName + " took 3 destination cards");
                     return new SubmitResult(true);
                 }
-                if (cards.size() == 1) {
+                player.dropDestinationCard(card1);
+                game.putbackDestinationCard(card2);
+                if (card2 == null) {
                     game.addToGameHistory(playerName + " took 2 destination cards");
                 }
-                else if (cards.size() == 2) {
+                else {
                     game.addToGameHistory(playerName + " took 1 destination card");
-                }
-                for (int i = 0; i < cards.size(); ++i) {
-                    player.dropDestinationCard(cards.get(i));
-                    game.putbackDestinationCard(cards.get(i));
+                    player.dropDestinationCard(card2);
+                    game.putbackDestinationCard(card2);
                 }
                 return new SubmitResult(true);
             }
