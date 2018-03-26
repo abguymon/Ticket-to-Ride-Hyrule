@@ -57,6 +57,7 @@ public class MapPresenter implements Observer {
     }
 
     public boolean claimRoute(Route route){
+        modelFacade.claimRoute(route,modelFacade.getCurrentPlayer(),modelFacade.getGame(),);
 //        modelFacade.getGameData().getRouteById(routeId);
 //        ClaimRouteAsync claimRouteAsync = new ClaimRouteAsync();
 //        claimRouteAsync.execute(route);
@@ -69,10 +70,6 @@ public class MapPresenter implements Observer {
 
     public void selectColor(String color){
 
-    }
-
-    public boolean isClaimed(){
-        return claimed;
     }
 
     private class ClaimRouteAsync extends AsyncTask<Route, Void, String> {
