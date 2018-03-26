@@ -48,6 +48,7 @@ public class Player {
         this.bonusPoints = 0;
         this.trainsRemaining = MAX_TRAIN_CARS;
         this.destinationCards = new ArrayList<>();
+        this.claimedRoutes = new ArrayList<>();
         this.trainCards = new ArrayList<>();
         this.playerName = playerName;
         longestPath = 0;
