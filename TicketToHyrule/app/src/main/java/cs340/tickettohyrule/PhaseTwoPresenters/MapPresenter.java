@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -66,7 +67,7 @@ public class MapPresenter implements Observer {
     }
 
     public List<String> getColors(){
-        return null;
+        return new ArrayList<>();
     }
 
     public void selectColor(String color){
