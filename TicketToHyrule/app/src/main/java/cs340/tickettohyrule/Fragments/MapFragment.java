@@ -453,7 +453,7 @@ public class MapFragment extends Fragment implements View.OnClickListener{
     public class RouteButtonListener implements View.OnClickListener{
         @Override
         public void onClick(View v) {
-            Route myRoute = routeMap.get(v.getId());
+            Route myRoute = routeMap.get(v);
             mapPresenter.selectRoute(myRoute);
             if(myRoute != null && myRoute.getColor() != GREY)
             {
