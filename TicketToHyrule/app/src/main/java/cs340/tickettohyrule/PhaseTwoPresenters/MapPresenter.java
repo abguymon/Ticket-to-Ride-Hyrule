@@ -3,6 +3,7 @@ package cs340.tickettohyrule.PhaseTwoPresenters;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,15 +64,33 @@ public class MapPresenter implements Observer {
     }
 
     public boolean claimRoute(){
+        ArrayList<TrainCard> playerTC = modelFacade.getCurrentPlayer().getTrainCards();
+        int numCards = 0;
+
+        for(TrainCard t :playerTC)
+        {
+            if (t.getColor().toString().equals(route.getColor().toString()) || t.getColor().toString().equals("WILD"))
+            {
+                numCards++;
+            }
+        }
+
+        if(numCards >= route.getLength())
+        {
+            ClaimRouteAsync claimRouteAsync = new ClaimRouteAsync();
+            claimRouteAsync.execute(route);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
             //modelFacade.claimRoute(route, modelFacade.getCurrentPlayer().getPlayerName(),
               //      modelFacade.getGameData().getGameName(),route.getColor());
-        ClaimRouteAsync claimRouteAsync = new ClaimRouteAsync();
-        claimRouteAsync.execute(route);
 
 //        modelFacade.getGameData().getRouteById(routeId);
 //        ClaimRouteAsync claimRouteAsync = new ClaimRouteAsync();
 //        claimRouteAsync.execute(route);
-        return true;
     }
 
     public boolean claimGreyRoute(String color)
@@ -222,14 +241,14 @@ public class MapPresenter implements Observer {
         @Override
         protected String doInBackground(Route... route){
             String result = modelFacade.claimRoute(route[0],
-                    modelFacade.getCurrentPlayer().getPlayerName() ,
+                    modelFacade.getCurrentPlayer().getPlayerName(),
                     modelFacade.getGameData().getGameName(),route[0].getColor());
             return "";
         }
         @Override protected void onPostExecute(String message){
             super.onPostExecute(message);
             if(message.equals("")){
-                //DO WE DO ANYTHING IN HERE? I DONT THINK SO.. MAYBE JUST TOAST SUCCESS??
+                //DO WE DO ANYTHING IN HERE? I DON'T THINK SO.. MAYBE JUST TOAST SUCCESS??
             }
             else{
                 view.toast(message);
