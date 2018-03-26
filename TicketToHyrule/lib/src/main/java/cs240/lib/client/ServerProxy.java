@@ -274,10 +274,10 @@ public class ServerProxy implements IServer {
     }
 
     @Override
-    public SubmitResult submitDestinationCards(String playerName, String gameName, ArrayList<DestinationCard> cards) {
+    public SubmitResult discardDestinationCards(String playerName, String gameName, DestinationCard card1, DestinationCard card2) {
         //Check parameter type names
-        String[] parameterTypenames = {String.class.getName(), String.class.getName(), DestinationCard.class.getName()};
-        Object[] parameters = {playerName, gameName, cards};
+        String[] parameterTypenames = {String.class.getName(), String.class.getName(), DestinationCard.class.getName(), DestinationCard.class.getName()};
+        Object[] parameters = {playerName, gameName, card1, card2};
         Command submitDestinationCardsCommand = new Command("submitDestinationCards", parameterTypenames, parameters);
         Object result = ClientCommunicator.SINGLETON.send(submitDestinationCardsCommand);
         return (SubmitResult) result;

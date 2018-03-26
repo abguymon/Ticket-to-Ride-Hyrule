@@ -99,8 +99,8 @@ public class ServerFacade implements IServer {
     }
 
     @Override
-    public SubmitResult submitDestinationCards(String playerName, String gameName, ArrayList<DestinationCard> cards) {
-        return Target.SINGLETON.submitDestinationCards(playerName, gameName, cards);
+    public SubmitResult discardDestinationCards(String playerName, String gameName, DestinationCard card1, DestinationCard card2) {
+        return Target.SINGLETON.discardDestinationCards(playerName, gameName, card1, card2);
     }
 
     @Override
