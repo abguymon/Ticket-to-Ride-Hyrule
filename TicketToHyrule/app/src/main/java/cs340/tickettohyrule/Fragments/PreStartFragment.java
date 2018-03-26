@@ -47,14 +47,15 @@ public class PreStartFragment extends Fragment implements CompoundButton.OnCheck
             drawDestinationCardsPresenter = new DrawDestinationCardsPresenter();
             drawDestinationCardsPresenter.setView(this);
             ClientFacade.getInstance().addObserver(drawDestinationCardsPresenter);
+            Player currentPlayer = drawDestinationCardsPresenter.getPlayer();
         }
         else {
             preStartPresenter = new PreStartPresenter();
             preStartPresenter.setView(this);
             ClientFacade.getInstance().addObserver(preStartPresenter);
+            Player currentPlayer = preStartPresenter.getPlayer();
         }
 
-        Player currentPlayer = preStartPresenter.getPlayer();
 
         playerImage = (ImageView) view.findViewById(R.id.player_image);
         switch(currentPlayer.getPlayerNum())
