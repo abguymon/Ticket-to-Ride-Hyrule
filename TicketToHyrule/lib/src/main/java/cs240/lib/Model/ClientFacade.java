@@ -104,13 +104,11 @@ public class ClientFacade extends Observable{
         notifyObservers();
     }
     public void drawDestinationCard(String player, String gameName){
-        //POSSIBLY DO NOTHING HERE? MAYBE DO SOMETHING WHEN THE DESTINATION CARDS ARE ACTUALLY SUBMITTED
+        gameData.getPlayer(player).drawDestinationCard(gameName);
+        gameData.getPlayer(player).drawDestinationCard(gameName);
+        gameData.getPlayer(player).drawDestinationCard(gameName);
     }
-//    public void drawTrainCard(String player){
-//        gameData.getPlayer(player).addTrainCard(gameData.getFaceUpTrainCards().pick(0, gameData.getTrainCardDeck()));
-//        setChanged();
-//        notifyObservers();
-//    }
+
     public void claimRoute(Player player, int route){
         //gameData.getMap().getRoutes().get(route).claim(player, gameData.getTrainCardDiscard());
         gameData.getPlayer(player.getPlayerName()).getTrainCards().remove(0);
@@ -143,6 +141,21 @@ public class ClientFacade extends Observable{
         setChanged();
         notifyObservers();
     }
+    public void discardDestinationCards(String playerName, String cardOne, String cardTwo){
+        Gson gson = new Gson();
+        DestinationCard dcardOne = gson.fromJson(cardOne, DestinationCard.class);
+        DestinationCard dcardTwo = gson.fromJson(cardOne, DestinationCard.class);
+        if(cardOne != null) {
+            gameData.getPlayer(playerName).dropDestinationCard(dcardOne);
+            gameData.putbackDestinationCard(dcardOne);
+            if(cardTwo != null){
+                gameData.getPlayer(playerName).dropDestinationCard(dcardTwo);
+                gameData.putbackDestinationCard(dcardTwo);
+            }
+        }
+        setChanged();
+        notifyObservers();
+    }
 
     public void handleObject( Command myCommand){
         switch(myCommand.getMethodName()){
@@ -171,6 +184,10 @@ public class ClientFacade extends Observable{
             case "submitDestinationCards":
                 submitDestinationCards((String)myCommand.getParametersAsJsonStrings()[0].substring(1,myCommand.getParametersAsJsonStrings()[0].length()-1),
                         (String) myCommand.getParametersAsJsonStrings()[2]);
+                break;
+            case "discardDestinationCards":
+                discardDestinationCards((String)myCommand.getParametersAsJsonStrings()[0].substring(1,myCommand.getParametersAsJsonStrings()[0].length()-1),
+                        (String) myCommand.getParametersAsJsonStrings()[2], (String) myCommand.getParametersAsJsonStrings()[3]);
                 break;
             case "getGameHistory":
                 addGameHistory((String)myCommand.getParametersAsJsonStrings()[0].substring(1,myCommand.getParametersAsJsonStrings()[0].length()-1));
