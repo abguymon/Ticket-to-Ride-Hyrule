@@ -13,7 +13,10 @@ import cs240.lib.Model.colors.TrainCardColor;
 
 public class TrainCardDeck {
     private Stack<TrainCard> trainCards;
-    public TrainCardDeck(){createDeck();}
+    public TrainCardDeck(){
+        createDeck();
+        shuffle();
+    }
 
     public void shuffle(){
         Collections.shuffle(trainCards);
