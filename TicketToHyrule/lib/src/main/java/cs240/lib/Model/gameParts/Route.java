@@ -21,6 +21,7 @@ public class Route {
         this.cityNodes = cityNodes;
         this.length = length;
         this.color = color;
+        this.owner = null;
     }
 
     public String getCity1Name() {return cityNodes.getCity1().getCityName();}
