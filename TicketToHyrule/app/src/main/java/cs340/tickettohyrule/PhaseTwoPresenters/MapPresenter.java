@@ -148,6 +148,7 @@ public class MapPresenter implements Observer {
         }
         ClaimRouteAsync claimRouteAsync = new ClaimRouteAsync();
         claimRouteAsync.execute(route);
+        route.setOwner(getCurrentPlayer());
         return true;
     }
 
