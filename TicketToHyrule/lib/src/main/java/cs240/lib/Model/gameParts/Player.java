@@ -24,6 +24,7 @@ public class Player {
     private int playerNum;
     private int trainsRemaining;
     private ArrayList<DestinationCard> destinationCards;
+    private ArrayList<DestinationCard> drawnDestinationCards = new ArrayList<>();
     private ArrayList<TrainCard> trainCards;
     private IState state;
 
@@ -165,5 +166,8 @@ public class Player {
                 break;
             }
         }
+    }
+    public ArrayList<DestinationCard> getDrawnDestinationCards(){
+        return drawnDestinationCards;
     }
 }

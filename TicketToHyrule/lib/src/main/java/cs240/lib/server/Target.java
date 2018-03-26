@@ -521,7 +521,7 @@ public class Target implements IServer {
                     for (int i = 0; i < 3; ++i) {
                         DestinationCard cardDrawn = game.drawDestinationCard();
                         cardArray.add(cardDrawn);
-                        player.addDestinationCard(cardDrawn);
+                        player.getDrawnDestinationCards().add(cardDrawn);
                     }
                     game.addToGameHistory(playerName + " drew destination cards");
                     return new DrawDestinationCardResult(cardArray);
@@ -551,17 +551,23 @@ public class Target implements IServer {
             if (player != null) {
                 if (card1 == null && card2 == null) {
                     game.addToGameHistory(playerName + " took 3 destination cards");
+                    for(int i = 0; i < player.getDrawnDestinationCards().size(); i++){
+                        player.getDestinationCards().add(player.getDrawnDestinationCards().get(i));
+                    }
                     return new SubmitResult(true);
                 }
-                player.dropDestinationCard(card1);
+                player.getDrawnDestinationCards().remove(card1);
                 game.putbackDestinationCard(card1);
                 if (card2 == null) {
                     game.addToGameHistory(playerName + " took 2 destination cards");
                 }
                 else {
                     game.addToGameHistory(playerName + " took 1 destination card");
-                    player.dropDestinationCard(card2);
+                    player.getDrawnDestinationCards().remove(card2);
                     game.putbackDestinationCard(card2);
+                }
+                for(int i = 0; i < player.getDrawnDestinationCards().size(); i++){
+                    player.getDestinationCards().add(player.getDrawnDestinationCards().get(i));
                 }
                 return new SubmitResult(true);
             }

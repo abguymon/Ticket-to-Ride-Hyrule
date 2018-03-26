@@ -31,8 +31,8 @@ public class DrawDestinationCardsPresenter implements Observer{
         destinationCards = new ArrayList<>();
         modelFacade.setGameData(ClientFacade.getInstance().getGameData());
         modelFacade.setCurrentPlayer(modelFacade.getGameData().getPlayer(modelFacade.getCurrentUser().getUsername()));
-        for(int i = modelFacade.getCurrentPlayer().getDestinationCards().size()-3; i < modelFacade.getCurrentPlayer().getDestinationCards().size(); i++){
-            destinationCards.add(modelFacade.getCurrentPlayer().getDestinationCards().get(i));
+        for(int i = 0; i < modelFacade.getCurrentPlayer().getDrawnDestinationCards().size(); i++){
+            destinationCards.add(modelFacade.getCurrentPlayer().getDrawnDestinationCards().get(i));
         }
     }
 
