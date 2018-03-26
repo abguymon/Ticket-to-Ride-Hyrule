@@ -851,7 +851,7 @@ public class Target implements IServer {
                 newPlayer = new Player(PlayerColor.GREEN, playerName);
                 newPlayer.setPlayerNum(1); break;
             case 2:
-                newPlayer = new Player(PlayerColor.BLACK, playerName);
+                newPlayer = new Player(PlayerColor.RED, playerName);
                 newPlayer.setPlayerNum(2) ;break;
             case 3:
                 newPlayer = new Player(PlayerColor.PINK, playerName);
