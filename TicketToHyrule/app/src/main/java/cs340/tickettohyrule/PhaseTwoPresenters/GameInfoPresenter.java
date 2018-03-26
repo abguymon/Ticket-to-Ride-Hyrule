@@ -13,11 +13,14 @@ import cs240.lib.Model.ClientFacade;
 import cs240.lib.Model.ModelFacade;
 import cs240.lib.Model.cards.DestinationCard;
 import cs240.lib.Model.cards.TrainCard;
+import cs240.lib.Model.colors.TrainCardColor;
 import cs240.lib.Model.gameParts.Player;
 import cs340.tickettohyrule.CurrentUserSingleton;
 import cs340.tickettohyrule.Fragments.GameInfoFragment;
 import cs340.tickettohyrule.GameActivity;
 import cs340.tickettohyrule.R;
+
+import static cs240.lib.Model.colors.TrainCardColor.WILD;
 
 /**
  * Created by adam on 2/28/18.
@@ -145,9 +148,10 @@ public class GameInfoPresenter implements Observer{
         @Override
         protected String doInBackground(Integer... card){
             String result;
-            if(modelFacade.getGameData().getFaceUpTrainCards().getFaceUpCards()[card[0]].getColor().equals("WILD"))
-                result = modelFacade.drawLocomotive(card[0], modelFacade.getCurrentPlayer().getPlayerName() ,modelFacade.getGameData().getGameName());
-            else result = modelFacade.drawFaceUpTrainCard(card[0], modelFacade.getCurrentPlayer().getPlayerName() ,modelFacade.getGameData().getGameName());
+            if(modelFacade.getGameData().getFaceUpTrainCards().getFaceUpCards()[card[0]].getColor() == TrainCardColor.WILD) {
+                result = modelFacade.drawLocomotive(card[0], modelFacade.getCurrentPlayer().getPlayerName(), modelFacade.getGameData().getGameName());
+            }
+            else {result = modelFacade.drawFaceUpTrainCard(card[0], modelFacade.getCurrentPlayer().getPlayerName() ,modelFacade.getGameData().getGameName());}
             return result;
         }
         @Override protected void onPostExecute(String message){
