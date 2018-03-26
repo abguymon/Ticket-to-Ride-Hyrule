@@ -62,7 +62,8 @@ public class GameInfoPresenter implements Observer{
         drawTrainCardAsync.execute();
     }
     public void drawDestinationCards(){
-
+        DrawDestinationCardsAsync drawDestinationCardsAsync = new DrawDestinationCardsAsync();
+        drawDestinationCardsAsync.execute();
     }
 
 
