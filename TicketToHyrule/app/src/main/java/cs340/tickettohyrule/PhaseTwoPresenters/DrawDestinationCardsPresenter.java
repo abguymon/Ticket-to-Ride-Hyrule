@@ -87,4 +87,16 @@ public class DrawDestinationCardsPresenter implements Observer{
     public ArrayList<DestinationCard> getDestinationCards(){return destinationCards;}
     public ArrayList<DestinationCard> getRemovedDestinationCards(){return removedDestinationCards;}
 
+    public void syncGame(){new syncAsync().execute();}
+
+    private class syncAsync extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... card){
+            modelFacade.sync();
+            return null;
+        }
+        @Override protected void onPostExecute(Void message){
+
+        }
+    }
 }
