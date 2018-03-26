@@ -17,7 +17,7 @@ import cs240.lib.common.results.SubmitResult;
  */
 
 public interface IState {
-    ClaimRouteResult claimRoute(Player container, String gameName, String cityO, String cityT, TrainCardColor chosenCardsColor);
+    ClaimRouteResult claimRoute(Player container, String gameName, Route route, TrainCardColor chosenCardsColor);
     DrawTrainCardResult drawTrainCard(Player container, String gameName);
     DrawDestinationCardResult drawDestinationCard(Player container, String gameName);
     SubmitResult submitDestinationCard(Player container, String gameName, ArrayList<DestinationCard> submittedCards);

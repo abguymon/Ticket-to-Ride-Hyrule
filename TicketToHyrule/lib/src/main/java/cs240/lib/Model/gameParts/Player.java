@@ -67,8 +67,8 @@ public class Player {
         this.claimedRoutes = claimedRoutes;
     }
 
-    public ClaimRouteResult claimRoute(String gameName, String cityO, String cityT, TrainCardColor chosenCardsColor){
-        return state.claimRoute(this, gameName, cityO, cityT, chosenCardsColor);
+    public ClaimRouteResult claimRoute(String gameName, Route route, TrainCardColor chosenCardsColor){
+        return state.claimRoute(this, gameName, route, chosenCardsColor);
     }
     public DrawTrainCardResult drawTrainCard(String gameName){
         return state.drawTrainCard(this, gameName);
