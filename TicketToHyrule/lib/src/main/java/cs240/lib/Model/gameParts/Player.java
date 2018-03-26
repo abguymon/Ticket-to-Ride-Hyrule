@@ -146,6 +146,7 @@ public class Player {
             DestinationCard curCard = destinationCards.get(i);
             if (curCard.equals(card)) {
                 destinationCards.remove(i);
+                break;
             }
         }
     }
