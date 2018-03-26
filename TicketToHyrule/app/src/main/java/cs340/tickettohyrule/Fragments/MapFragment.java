@@ -463,12 +463,9 @@ public class MapFragment extends Fragment implements View.OnClickListener{
                     Toast.makeText(getContext(), "Not Enough Cards!", Toast.LENGTH_SHORT).show();
                 }
             }
-            else
-            {
-                List<String> colorList = getColors();
-                colorAdapter = new Adapter(colorList);
-                colorRecycler.setAdapter(colorAdapter);
-            }
+            List<String> colorList = getColors();
+            colorAdapter = new Adapter(colorList);
+            colorRecycler.setAdapter(colorAdapter);
         }
     }
 
