@@ -37,7 +37,7 @@ public interface IServer {
     PollerResult pollerCheckServer(int index);
     GameHistoryResult getGameHistory(String gameName);
     ChatResult chat(String playerName, String message, String gameName);
-    ClaimRouteResult claimRoute(String playerName, String gameName, Route route, TrainCardColor chosenCardsColor);
+    ClaimRouteResult claimRoute(String playerName, String gameName, String city1, String city2, TrainCardColor chosenCardsColor);
     DrawTrainCardResult drawTrainCard(String playerName, String gameName);
     DrawFaceUpTrainCardResult drawFaceUpTrainCard(String playerName, String gameName, int positionPicked);
     DrawDestinationCardResult drawDestinationCard(String playerName,String gameName);

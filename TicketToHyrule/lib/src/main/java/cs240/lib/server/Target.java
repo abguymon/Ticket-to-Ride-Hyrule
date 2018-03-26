@@ -651,14 +651,14 @@ public class Target implements IServer {
     }
 
     @Override
-    public ClaimRouteResult claimRoute(String playerName, String gameName, Route route, TrainCardColor chosenCardsColor) {
-        String[] parameterTypeNames = {String.class.getName(), Route.class.getName()};
-        Object[] parameters = {playerName, gameName, route};
+    public ClaimRouteResult claimRoute(String playerName, String gameName, String city1, String city2, TrainCardColor chosenCardsColor) {
+        String[] parameterTypeNames = {String.class.getName(), Route.class.getName(), String.class.getName(), String.class.getName(), TrainCardColor.class.getName()};
+        Object[] parameters = {playerName, gameName, city1, city2, chosenCardsColor};
         Command submitCommand = new Command("claimRoute", parameterTypeNames, parameters);
         commandHistory.add(submitCommand);
         commandQueue.add(submitCommand);
         Poller.getInstance().incrementCommandIndex();
-        if (playerName == null || gameName == null || route == null) {
+        if (playerName == null || gameName == null || city1 == null || city2 == null) {
             return new ClaimRouteResult("1 or more null fields");
         }
         Game game = getActiveGame(gameName);
@@ -666,6 +666,7 @@ public class Target implements IServer {
             if (game.getGameName().equals(gameName)) {
                 Player player = game.getPlayer(playerName);
                 if (player != null) {
+                    Route route = game.findRoute(city1, city2);
                     if (game.claimRoute(player, route, chosenCardsColor)) {
                         game.addToGameHistory(playerName + " claimed the route " + route.toString());
                         if (game.isFinalRound()) {

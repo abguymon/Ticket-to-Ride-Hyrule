@@ -166,4 +166,14 @@ public class Game {
             playerArray.get(i).calculateScore();
         }
     }
+
+    public Route findRoute(String city1, String city2) {
+        for (int i = 0; i < map.getRoutes().size(); ++i) {
+            Route route = map.getRoutes().get(i);
+            if (route.getCity1Name().equals(city1) && route.getCity2Name().equals(city2)) {
+                return route;
+            }
+        }
+        return null;
+    }
 }
