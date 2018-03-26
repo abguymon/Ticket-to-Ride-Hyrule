@@ -190,13 +190,14 @@ public class GameInfoPresenter implements Observer{
         @Override
         protected String doInBackground(Void... card){
             String result = modelFacade.drawDestinationCards(modelFacade.getCurrentPlayer().getPlayerName() ,modelFacade.getGameData().getGameName());
-            modelFacade.sync();
+
             return result;
         }
         @Override protected void onPostExecute(String message){
             super.onPostExecute(message);
             if(message.equals("")){
                 //MOVE TO SUBMIT DESTINATION CARDS PAGE WITH INTENT TO ATTACH THE NEW PRESENTER
+                modelFacade.sync();
                 ((GameActivity) view.getActivity()).moveToDrawDestinationCards();
             }
             else{
