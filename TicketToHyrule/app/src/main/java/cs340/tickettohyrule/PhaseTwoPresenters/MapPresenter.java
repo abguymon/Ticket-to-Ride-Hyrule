@@ -63,8 +63,10 @@ public class MapPresenter implements Observer {
     }
 
     public boolean claimRoute(){
-            modelFacade.claimRoute(route, modelFacade.getCurrentPlayer().getPlayerName(),
-                    modelFacade.getGameData().getGameName(),route.getColor());
+            //modelFacade.claimRoute(route, modelFacade.getCurrentPlayer().getPlayerName(),
+              //      modelFacade.getGameData().getGameName(),route.getColor());
+        ClaimRouteAsync claimRouteAsync = new ClaimRouteAsync();
+        claimRouteAsync.execute(route);
 
 //        modelFacade.getGameData().getRouteById(routeId);
 //        ClaimRouteAsync claimRouteAsync = new ClaimRouteAsync();
@@ -77,41 +79,50 @@ public class MapPresenter implements Observer {
         switch (color)
         {
             case "BLUE":
-                modelFacade.claimRoute(route, modelFacade.getCurrentPlayer().getPlayerName(),
-                        modelFacade.getGameData().getGameName(),TrainCardColor.BLUE);
+                route.setColor(TrainCardColor.BLUE);
+                //modelFacade.claimRoute(route, modelFacade.getCurrentPlayer().getPlayerName(),
+                  //      modelFacade.getGameData().getGameName(),TrainCardColor.BLUE);
                 break;
             case "BLACK":
-                modelFacade.claimRoute(route, modelFacade.getCurrentPlayer().getPlayerName(),
-                        modelFacade.getGameData().getGameName(),TrainCardColor.BLACK);
+                route.setColor(TrainCardColor.BLACK);
+                //modelFacade.claimRoute(route, modelFacade.getCurrentPlayer().getPlayerName(),
+                  //      modelFacade.getGameData().getGameName(),TrainCardColor.BLACK);
                 break;
             case "WHITE":
-                modelFacade.claimRoute(route, modelFacade.getCurrentPlayer().getPlayerName(),
-                        modelFacade.getGameData().getGameName(),TrainCardColor.WHITE);
+                route.setColor(TrainCardColor.WHITE);
+                //modelFacade.claimRoute(route, modelFacade.getCurrentPlayer().getPlayerName(),
+                  //      modelFacade.getGameData().getGameName(),TrainCardColor.WHITE);
                 break;
             case "YELLOW":
-                modelFacade.claimRoute(route, modelFacade.getCurrentPlayer().getPlayerName(),
-                        modelFacade.getGameData().getGameName(),TrainCardColor.YELLOW);
+                route.setColor(TrainCardColor.YELLOW);
+                //modelFacade.claimRoute(route, modelFacade.getCurrentPlayer().getPlayerName(),
+                  //      modelFacade.getGameData().getGameName(),TrainCardColor.YELLOW);
                 break;
             case "ORANGE":
-                modelFacade.claimRoute(route, modelFacade.getCurrentPlayer().getPlayerName(),
-                        modelFacade.getGameData().getGameName(),TrainCardColor.ORANGE);
+                route.setColor(TrainCardColor.ORANGE);
+                //modelFacade.claimRoute(route, modelFacade.getCurrentPlayer().getPlayerName(),
+                  //      modelFacade.getGameData().getGameName(),TrainCardColor.ORANGE);
                 break;
             case "RED":
-                modelFacade.claimRoute(route, modelFacade.getCurrentPlayer().getPlayerName(),
-                        modelFacade.getGameData().getGameName(),TrainCardColor.RED);
+                route.setColor(TrainCardColor.RED);
+                //modelFacade.claimRoute(route, modelFacade.getCurrentPlayer().getPlayerName(),
+                  //      modelFacade.getGameData().getGameName(),TrainCardColor.RED);
                 break;
             case "PINK":
-                modelFacade.claimRoute(route, modelFacade.getCurrentPlayer().getPlayerName(),
-                        modelFacade.getGameData().getGameName(),TrainCardColor.PINK);
+                route.setColor(TrainCardColor.PINK);
+                //modelFacade.claimRoute(route, modelFacade.getCurrentPlayer().getPlayerName(),
+                  //      modelFacade.getGameData().getGameName(),TrainCardColor.PINK);
                 break;
             case "GREEN":
-                modelFacade.claimRoute(route, modelFacade.getCurrentPlayer().getPlayerName(),
-                        modelFacade.getGameData().getGameName(),TrainCardColor.GREEN);
+                route.setColor(TrainCardColor.GREEN);
+                //modelFacade.claimRoute(route, modelFacade.getCurrentPlayer().getPlayerName(),
+                  //      modelFacade.getGameData().getGameName(),TrainCardColor.GREEN);
                 break;
                 default:
                     return false;
         }
-
+        ClaimRouteAsync claimRouteAsync = new ClaimRouteAsync();
+        claimRouteAsync.execute(route);
         return true;
     }
 
@@ -120,7 +131,7 @@ public class MapPresenter implements Observer {
 
         if(route != null)
         {
-            ArrayList<TrainCard> playerTC = route.getOwner().getTrainCards();
+            ArrayList<TrainCard> playerTC = modelFacade.getCurrentPlayer().getTrainCards();
             int loco = 0;
             int red = 0;
             int green = 0;
@@ -210,7 +221,9 @@ public class MapPresenter implements Observer {
     private class ClaimRouteAsync extends AsyncTask<Route, Void, String> {
         @Override
         protected String doInBackground(Route... route){
-  //          String result = modelFacade.claimRoute(route[0], modelFacade.getCurrentPlayer().getPlayerName() ,modelFacade.getGameData().getGameName());
+            String result = modelFacade.claimRoute(route[0],
+                    modelFacade.getCurrentPlayer().getPlayerName() ,
+                    modelFacade.getGameData().getGameName(),route[0].getColor());
             return "";
         }
         @Override protected void onPostExecute(String message){
