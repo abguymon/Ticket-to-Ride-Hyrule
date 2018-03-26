@@ -538,7 +538,7 @@ public class Target implements IServer {
     public SubmitResult discardDestinationCards(String playerName, String gameName, DestinationCard card1, DestinationCard card2) {
         String[] parameterTypeNames = {String.class.getName(), String.class.getName(), DestinationCard.class.getName(), DestinationCard.class.getName()};
         Object[] parameters = {playerName, gameName, card1, card2};
-        Command submitCommand = new Command("submitDestinationCards", parameterTypeNames, parameters);
+        Command submitCommand = new Command("discardDestinationCards", parameterTypeNames, parameters);
         commandHistory.add(submitCommand);
         commandQueue.add(submitCommand);
         Poller.getInstance().incrementCommandIndex();
@@ -554,7 +554,7 @@ public class Target implements IServer {
                     return new SubmitResult(true);
                 }
                 player.dropDestinationCard(card1);
-                game.putbackDestinationCard(card2);
+                game.putbackDestinationCard(card1);
                 if (card2 == null) {
                     game.addToGameHistory(playerName + " took 2 destination cards");
                 }
