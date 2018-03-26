@@ -24,6 +24,7 @@ public class ClientFacade extends Observable{
     private ArrayList<LobbyGame> lobbyGameList = new ArrayList<>();
     private Queue<LobbyGame> startedLobbyGames = new LinkedList<>();
     private Game gameData = null;
+    private ArrayList<DestinationCard> cardsDrawn = new ArrayList<>();
     private static ClientFacade instance = null;
 
     private ClientFacade(){}
@@ -104,9 +105,12 @@ public class ClientFacade extends Observable{
         notifyObservers();
     }
     public void drawDestinationCard(String player, String gameName){
-        gameData.getPlayer(player).addDestinationCard(gameData.drawDestinationCard());
-        gameData.getPlayer(player).addDestinationCard(gameData.drawDestinationCard());
-        gameData.getPlayer(player).addDestinationCard(gameData.drawDestinationCard());
+//        gameData.getPlayer(player).addDestinationCard(gameData.drawDestinationCard());
+//        gameData.getPlayer(player).addDestinationCard(gameData.drawDestinationCard());
+//        gameData.getPlayer(player).addDestinationCard(gameData.drawDestinationCard());
+        cardsDrawn.add(gameData.drawDestinationCard());
+        cardsDrawn.add(gameData.drawDestinationCard());
+        cardsDrawn.add(gameData.drawDestinationCard());
         setChanged();
         notifyObservers();
     }
@@ -148,11 +152,26 @@ public class ClientFacade extends Observable{
         DestinationCard dcardOne = gson.fromJson(cardOne, DestinationCard.class);
         DestinationCard dcardTwo = gson.fromJson(cardTwo, DestinationCard.class);
         if(!cardOne.equals("null")) {
-            gameData.getPlayer(playerName).dropDestinationCard(dcardOne);
+//            gameData.getPlayer(playerName).dropDestinationCard(dcardOne);
             gameData.putbackDestinationCard(dcardOne);
-            if(!cardTwo.equals("null")){
-                gameData.getPlayer(playerName).dropDestinationCard(dcardTwo);
+            for(int i = 0; i < cardsDrawn.size(); i++){
+                if(cardsDrawn.get(i).equals(cardOne)){
+                    cardsDrawn.remove(i);
+                    break;
+                }
+            }
+            if(!cardTwo.equals("null")) {
+//                gameData.getPlayer(playerName).dropDestinationCard(dcardTwo);
                 gameData.putbackDestinationCard(dcardTwo);
+                for (int i = 0; i < cardsDrawn.size(); i++) {
+                    if (cardsDrawn.get(i).equals(cardTwo)) {
+                        cardsDrawn.remove(i);
+                        break;
+                    }
+                }
+            }
+            for(int i = 0; i < cardsDrawn.size(); i++) {
+                gameData.getPlayer(playerName).addDestinationCard(cardsDrawn.get(i));
             }
         }
         setChanged();
