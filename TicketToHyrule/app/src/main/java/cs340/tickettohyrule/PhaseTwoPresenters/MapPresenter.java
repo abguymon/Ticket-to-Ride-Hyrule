@@ -43,7 +43,7 @@ public class MapPresenter implements Observer {
 
     @Override
     public void update (Observable observable, Object o){
-        CurrentUserSingleton.getInstance().getModelFacade().setGameData(ClientFacade.getInstance().getGameData());
+        modelFacade.setGameData(ClientFacade.getInstance().getGameData());
         view.getActivity().runOnUiThread(new Runnable(){
             @Override
             public void run(){

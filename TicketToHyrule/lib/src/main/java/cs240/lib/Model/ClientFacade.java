@@ -138,7 +138,7 @@ public class ClientFacade extends Observable{
         }else{
             newPlayerTurn = playerTurnEnded + 1;
         }
-        gameData.getPlayerArray().get(newPlayerTurn).setState(new TurnStarted());
+        gameData.getPlayerArray().get(newPlayerTurn-1).setState(new TurnStarted());
         //TODO: toast player name of turn started
         setChanged();
         notifyObservers();
