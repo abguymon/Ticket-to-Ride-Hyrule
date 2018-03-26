@@ -149,22 +149,22 @@ public class ClientFacade extends Observable{
     }
     public void discardDestinationCards(String playerName, String cardOne, String cardTwo){
         Gson gson = new Gson();
-        DestinationCard dcardOne = gson.fromJson(cardOne, DestinationCard.class);
-        DestinationCard dcardTwo = gson.fromJson(cardTwo, DestinationCard.class);
+        DestinationCard dCardOne = gson.fromJson(cardOne, DestinationCard.class);
+        DestinationCard dCardTwo = gson.fromJson(cardTwo, DestinationCard.class);
         if(!cardOne.equals("null")) {
-//            gameData.getPlayer(playerName).dropDestinationCard(dcardOne);
-            gameData.putbackDestinationCard(dcardOne);
+//            gameData.getPlayer(playerName).dropDestinationCard(dCardOne);
+            gameData.putbackDestinationCard(dCardOne);
             for(int i = 0; i < cardsDrawn.size(); i++){
-                if(cardsDrawn.get(i).equals(dcardOne)){
+                if(cardsDrawn.get(i).equals(dCardOne)){
                     cardsDrawn.remove(i);
                     break;
                 }
             }
             if(!cardTwo.equals("null")) {
-//                gameData.getPlayer(playerName).dropDestinationCard(dcardTwo);
-                gameData.putbackDestinationCard(dcardTwo);
+//                gameData.getPlayer(playerName).dropDestinationCard(dCardTwo);
+                gameData.putbackDestinationCard(dCardTwo);
                 for (int i = 0; i < cardsDrawn.size(); i++) {
-                    if (cardsDrawn.get(i).equals(dcardTwo)) {
+                    if (cardsDrawn.get(i).equals(dCardTwo)) {
                         cardsDrawn.remove(i);
                         break;
                     }
@@ -282,4 +282,6 @@ public class ClientFacade extends Observable{
     public void setGameData(Game gameData) {
         this.gameData = gameData;
     }
+
+    public ArrayList<DestinationCard> getCardsDrawn(){return cardsDrawn;}
 }

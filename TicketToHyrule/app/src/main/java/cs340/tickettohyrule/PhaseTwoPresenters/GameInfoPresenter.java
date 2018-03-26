@@ -15,6 +15,7 @@ import cs240.lib.Model.cards.DestinationCard;
 import cs240.lib.Model.cards.TrainCard;
 import cs240.lib.Model.colors.TrainCardColor;
 import cs240.lib.Model.gameParts.Player;
+import cs240.lib.common.results.GetGameResult;
 import cs340.tickettohyrule.CurrentUserSingleton;
 import cs340.tickettohyrule.Fragments.GameInfoFragment;
 import cs340.tickettohyrule.GameActivity;

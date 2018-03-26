@@ -29,9 +29,7 @@ public class DrawDestinationCardsPresenter implements Observer{
     public DrawDestinationCardsPresenter(){
         destinationCards = new ArrayList<>();
         modelFacade.setCurrentPlayer(modelFacade.getGameData().getPlayer(modelFacade.getCurrentUser().getUsername()));
-        for(int i = 0; i < 3; i++) {
-            destinationCards.add(modelFacade.getGameData().drawDestinationCard());
-        }
+        destinationCards = ClientFacade.getInstance().getCardsDrawn();
     }
 
     public Player getPlayer()
@@ -52,7 +50,7 @@ public class DrawDestinationCardsPresenter implements Observer{
 
     @Override
     public void update (Observable observable, Object o){
-        CurrentUserSingleton.getInstance().getModelFacade().setGameData(ClientFacade.getInstance().getGameData());
+        modelFacade.setGameData(ClientFacade.getInstance().getGameData());
     }
 
     public void setView(PreStartFragment view){
