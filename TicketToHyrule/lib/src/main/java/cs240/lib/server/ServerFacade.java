@@ -100,7 +100,7 @@ public class ServerFacade implements IServer {
 
     @Override
     public SubmitResult discardDestinationCards(String playerName, String gameName, DestinationCard card1, DestinationCard card2) {
-        return Target.SINGLETON.submitDestinationCards(playerName, gameName, card1, card2);
+        return Target.SINGLETON.discardDestinationCards(playerName, gameName, card1, card2);
     }
 
     @Override
