@@ -16,6 +16,8 @@ import cs240.lib.Model.cards.DestinationCard;
 import cs240.lib.Model.cards.TrainCard;
 import cs240.lib.Model.colors.TrainCardColor;
 import cs240.lib.Model.gameParts.Player;
+import cs240.lib.Model.states.DrawnFirstCard;
+import cs240.lib.Model.states.TurnEnded;
 import cs240.lib.common.results.GetGameResult;
 import cs340.tickettohyrule.CurrentUserSingleton;
 import cs340.tickettohyrule.Fragments.GameInfoFragment;
@@ -188,6 +190,11 @@ public class GameInfoPresenter implements Observer{
         @Override
         protected String doInBackground(Void... card){
             String result = modelFacade.drawDestinationCards(modelFacade.getCurrentPlayer().getPlayerName() ,modelFacade.getGameData().getGameName());
+            DrawnFirstCard state = (DrawnFirstCard) modelFacade.getCurrentPlayer().getState();
+            for(int i = 0; i < modelFacade.getGameData().getPlayerArray().size(); i++){
+                if(!modelFacade.getGameData().getPlayerArray().get(i).getPlayerName().equals(modelFacade.getCurrentPlayer().getPlayerName())) modelFacade.getGameData().getPlayerArray().get(i).setState(new TurnEnded());
+                else modelFacade.getGameData().getPlayerArray().get(i).setState(state);
+            }
             Game game = ((GetGameResult)modelFacade.getGameData(modelFacade.getGameData().getGameName())).getGameStarted();
             ClientFacade.getInstance().setGameData(game);
             modelFacade.setGameData(game);
