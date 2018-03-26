@@ -555,11 +555,9 @@ public class Target implements IServer {
                 }
                 if (cards.size() == 1) {
                     game.addToGameHistory(playerName + " took 2 destination cards");
-                    return new SubmitResult(true);
                 }
                 else if (cards.size() == 2) {
                     game.addToGameHistory(playerName + " took 1 destination card");
-                    return new SubmitResult(true);
                 }
                 for (int i = 0; i < cards.size(); ++i) {
                     player.dropDestinationCard(cards.get(i));
