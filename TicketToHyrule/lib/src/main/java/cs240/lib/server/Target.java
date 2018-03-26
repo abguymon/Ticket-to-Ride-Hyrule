@@ -666,9 +666,9 @@ public class Target implements IServer {
             if (game.getGameName().equals(gameName)) {
                 Player player = game.getPlayer(playerName);
                 if (player != null) {
-                    Route route = game.findRoute(city1, city2);
-                    if (game.claimRoute(player, route, chosenCardsColor)) {
-                        game.addToGameHistory(playerName + " claimed the route " + route.toString());
+                    int route = game.findRoute(city1, city2);
+                    if (game.claimRoute(player, game.getMap().getRoutes().get(route), chosenCardsColor)) {
+                        game.addToGameHistory(playerName + " claimed the route " + game.getMap().getRoutes().get(route).toString());
                         if (game.isFinalRound()) {
                             game.addToGameHistory("Final Round!!!");
                             return new ClaimRouteResult(true);
