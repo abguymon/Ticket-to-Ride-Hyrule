@@ -18,10 +18,13 @@ import android.widget.Toast;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import cs240.lib.Model.ClientFacade;
+import cs240.lib.Model.colors.TrainCardColor;
 import cs240.lib.Model.gameParts.City;
 import cs240.lib.Model.gameParts.CityPair;
+import cs240.lib.Model.gameParts.Route;
 import cs340.tickettohyrule.GameActivity;
 import cs340.tickettohyrule.PhaseTwoPresenters.MapPresenter;
 import cs340.tickettohyrule.R;
@@ -36,6 +39,7 @@ public class MapFragment extends Fragment implements View.OnClickListener{
     Adapter colorAdapter;
     Typeface zeldaFont;
     RouteButtonListener routeButtonListener = new RouteButtonListener();
+    private Map<Integer,Route> routeMap = new HashMap<Integer, Route>();
 
     ImageButton chatButton;
     ImageButton infoButton;
@@ -482,5 +486,10 @@ public class MapFragment extends Fragment implements View.OnClickListener{
         mapToCityPair.put(R.id.b_kak_lon, new CityPair(kakarikoVillage, lonLonRanch));
     }
 
-
+    public Route createRoute(String city1_name, String city2_name, int length, TrainCardColor color) {
+        City city1 = new City(city1_name);
+        City city2 = new City(city2_name);
+        CityPair cities = new CityPair(city1, city2);
+        return new Route(cities, length, color);
+    }
 }

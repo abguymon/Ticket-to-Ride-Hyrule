@@ -1,7 +1,9 @@
 package cs240.lib.Model.gameParts;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 
 import cs240.lib.Model.colors.TrainCardColor;
 
@@ -13,6 +15,7 @@ public class RouteList {
     public static RouteList SINGLETON = new RouteList();
 
     private ArrayList<Route> routes;
+
     private RouteList() {
         routes = new ArrayList<>();
         createRoutes();
