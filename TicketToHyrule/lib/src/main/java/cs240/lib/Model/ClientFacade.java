@@ -104,9 +104,9 @@ public class ClientFacade extends Observable{
         notifyObservers();
     }
     public void drawDestinationCard(String player, String gameName){
-        gameData.getPlayer(player).drawDestinationCard(gameName);
-        gameData.getPlayer(player).drawDestinationCard(gameName);
-        gameData.getPlayer(player).drawDestinationCard(gameName);
+        gameData.getPlayer(player).addDestinationCard(gameData.drawDestinationCard());
+        gameData.getPlayer(player).addDestinationCard(gameData.drawDestinationCard());
+        gameData.getPlayer(player).addDestinationCard(gameData.drawDestinationCard());
         setChanged();
         notifyObservers();
     }
