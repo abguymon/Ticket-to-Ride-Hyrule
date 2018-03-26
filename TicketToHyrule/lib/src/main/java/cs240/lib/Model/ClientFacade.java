@@ -146,11 +146,11 @@ public class ClientFacade extends Observable{
     public void discardDestinationCards(String playerName, String cardOne, String cardTwo){
         Gson gson = new Gson();
         DestinationCard dcardOne = gson.fromJson(cardOne, DestinationCard.class);
-        DestinationCard dcardTwo = gson.fromJson(cardOne, DestinationCard.class);
+        DestinationCard dcardTwo = gson.fromJson(cardTwo, DestinationCard.class);
         if(cardOne != null) {
             gameData.getPlayer(playerName).dropDestinationCard(dcardOne);
             gameData.putbackDestinationCard(dcardOne);
-            if(cardTwo != null){
+            if(!cardTwo.equals("null")){
                 gameData.getPlayer(playerName).dropDestinationCard(dcardTwo);
                 gameData.putbackDestinationCard(dcardTwo);
             }
