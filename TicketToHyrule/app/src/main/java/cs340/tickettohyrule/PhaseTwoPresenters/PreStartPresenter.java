@@ -10,6 +10,8 @@ import cs240.lib.Model.ClientFacade;
 import cs240.lib.Model.ModelFacade;
 import cs240.lib.Model.cards.DestinationCard;
 import cs240.lib.Model.gameParts.Player;
+import cs240.lib.Model.states.TurnEnded;
+import cs240.lib.Model.states.TurnStarted;
 import cs340.tickettohyrule.CurrentUserSingleton;
 import cs340.tickettohyrule.Fragments.PreStartFragment;
 import cs340.tickettohyrule.GameActivity;
@@ -27,7 +29,11 @@ public class PreStartPresenter implements Observer{
     public PreStartPresenter(){
         modelFacade.setCurrentPlayer(modelFacade.getGameData().getPlayer(modelFacade.getCurrentUser().getUsername()));
         destinationCards = modelFacade.getCurrentPlayer().getDestinationCards();
-    }
+        modelFacade.getCurrentPlayer().setState(new TurnEnded());
+        if (modelFacade.getCurrentPlayer().getPlayerNum() == 1){
+            modelFacade.getCurrentPlayer().setState(new TurnStarted());
+        }
+    }//dadams: added state initialization
 
     public Player getPlayer()
     {

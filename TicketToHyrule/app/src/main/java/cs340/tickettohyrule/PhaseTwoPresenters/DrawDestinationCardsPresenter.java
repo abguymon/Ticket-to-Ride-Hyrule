@@ -32,11 +32,7 @@ public class DrawDestinationCardsPresenter implements Observer{
         for(int i = 0; i < 3; i++) {
             destinationCards.add(modelFacade.getGameData().drawDestinationCard());
         }
-        modelFacade.getCurrentPlayer().setState(new TurnEnded());
-        if (modelFacade.getCurrentPlayer().getPlayerNum() == 1){
-            modelFacade.getCurrentPlayer().setState(new TurnStarted());
-        }
-    }//dadams: initialized destinationCards and added state initialization
+    }
 
     public Player getPlayer()
     {
