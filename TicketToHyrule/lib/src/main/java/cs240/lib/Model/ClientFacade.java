@@ -123,8 +123,8 @@ public class ClientFacade extends Observable{
     public void claimRoute(String player, String city1, String city2){
         Gson gson = new Gson();
         Player newPlayer = gson.fromJson(player, Player.class);
-        Route mRoute = gameData.findRoute(city1, city2);
-        mRoute.claim(newPlayer, gameData.getTrainCardDiscard(), mRoute.getColor());
+        int mRoute = gameData.findRoute(city1, city2);
+        gameData.getMap().getRoutes().get(mRoute).claim(newPlayer, gameData.getTrainCardDiscard(), gameData.getMap().getRoutes().get(mRoute).getColor());
         //gameData.getPlayer(player.getPlayerName()).getTrainCards().remove(0);
         //gameData.getPlayer(player.getPlayerName()).dropDestinationCard(gameData.getPlayer(player.getPlayerName()).getDestinationCards().get(0));
         //gameData.getPlayer(player.getPlayerName()).setTrainsRemaining(gameData.getPlayer(player.getPlayerName()).getTrainsRemaining() - 7);
@@ -155,6 +155,7 @@ public class ClientFacade extends Observable{
         setChanged();
         notifyObservers();
     }
+
     public void discardDestinationCards(String playerName, String cardOne, String cardTwo){
 //        Gson gson = new Gson();
 //        DestinationCard dCardOne = gson.fromJson(cardOne, DestinationCard.class);
