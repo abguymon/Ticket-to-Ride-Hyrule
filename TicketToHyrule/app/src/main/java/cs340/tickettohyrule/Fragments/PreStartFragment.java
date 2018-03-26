@@ -43,17 +43,18 @@ public class PreStartFragment extends Fragment implements CompoundButton.OnCheck
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_prestart, container, false);
         Bundle bundle = this.getArguments();
+        Player currentPlayer;
         if(bundle != null){
             drawDestinationCardsPresenter = new DrawDestinationCardsPresenter();
             drawDestinationCardsPresenter.setView(this);
             ClientFacade.getInstance().addObserver(drawDestinationCardsPresenter);
-            Player currentPlayer = drawDestinationCardsPresenter.getPlayer();
+            currentPlayer = drawDestinationCardsPresenter.getPlayer();
         }
         else {
             preStartPresenter = new PreStartPresenter();
             preStartPresenter.setView(this);
             ClientFacade.getInstance().addObserver(preStartPresenter);
-            Player currentPlayer = preStartPresenter.getPlayer();
+            currentPlayer = preStartPresenter.getPlayer();
         }
 
 
