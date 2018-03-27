@@ -556,14 +556,20 @@ public class Target implements IServer {
                     }
                     return new SubmitResult(true);
                 }
-                player.getDrawnDestinationCards().remove(card1);
+                for(DestinationCard card : player.getDrawnDestinationCards()){
+                    if (card.equals(card1)) {player.getDrawnDestinationCards().remove(card); break;}
+                }
+//                player.getDrawnDestinationCards().remove(card1);
                 game.putbackDestinationCard(card1);
                 if (card2 == null) {
                     game.addToGameHistory(playerName + " took 2 destination cards");
                 }
                 else {
                     game.addToGameHistory(playerName + " took 1 destination card");
-                    player.getDrawnDestinationCards().remove(card2);
+//                    player.getDrawnDestinationCards().remove(card2);
+                    for(DestinationCard card : player.getDrawnDestinationCards()){
+                        if (card.equals(card2)) {player.getDrawnDestinationCards().remove(card); break;}
+                    }
                     game.putbackDestinationCard(card2);
                 }
                 for(int i = 0; i < player.getDrawnDestinationCards().size(); i++){

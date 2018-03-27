@@ -74,7 +74,7 @@ public class DrawDestinationCardsPresenter implements Observer{
         @Override protected void onPostExecute(String message){
             super.onPostExecute(message);
             if(message.equals("")){
-                syncGame();
+                new syncAsync().execute();
                 ((GameActivity)view.getActivity()).moveToMap();
             }
             else{
@@ -85,9 +85,9 @@ public class DrawDestinationCardsPresenter implements Observer{
     public ArrayList<DestinationCard> getDestinationCards(){return destinationCards;}
     public ArrayList<DestinationCard> getRemovedDestinationCards(){return removedDestinationCards;}
 
-    public void syncGame(){new syncAsync().execute();}
+    public void syncGame(){new syncCardsAsync().execute();}
 
-    private class syncAsync extends AsyncTask<Void, Void, GetGameResult> {
+    private class syncCardsAsync extends AsyncTask<Void, Void, GetGameResult> {
         @Override
         protected GetGameResult doInBackground(Void... card){
             return modelFacade.sync();
@@ -96,6 +96,15 @@ public class DrawDestinationCardsPresenter implements Observer{
             modelFacade.setCurrentPlayer(modelFacade.getGameData().getPlayer(modelFacade.getCurrentUser().getUsername()));
             destinationCards = modelFacade.getCurrentPlayer().getDrawnDestinationCards();
             view.setText();
+        }
+    }
+    private class syncAsync extends AsyncTask<Void, Void, GetGameResult> {
+        @Override
+        protected GetGameResult doInBackground(Void... card){
+            return modelFacade.sync();
+        }
+        @Override protected void onPostExecute(GetGameResult message){
+            modelFacade.setCurrentPlayer(modelFacade.getGameData().getPlayer(modelFacade.getCurrentUser().getUsername()));
         }
     }
 }
