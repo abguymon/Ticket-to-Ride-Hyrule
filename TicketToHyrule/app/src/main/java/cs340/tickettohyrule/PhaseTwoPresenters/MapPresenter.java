@@ -248,7 +248,6 @@ public class MapPresenter implements Observer {
         @Override
         protected String doInBackground(Route... route){
             String result = modelFacade.claimRoute(route[0],
-                    modelFacade.getCurrentPlayer().getPlayerName(),
                     modelFacade.getGameData().getGameName(),route[0].getColor());
             return result;
         }

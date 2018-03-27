@@ -30,7 +30,7 @@ public class PreStartPresenter implements Observer{
         modelFacade.setCurrentPlayer(modelFacade.getGameData().getPlayer(modelFacade.getCurrentUser().getUsername()));
         destinationCards = modelFacade.getCurrentPlayer().getDestinationCards();
         modelFacade.getCurrentPlayer().setState(new TurnEnded());
-        if (modelFacade.getCurrentPlayer().getPlayerNum() == 2){
+        if (modelFacade.getCurrentPlayer().getPlayerNum() == 1){
             modelFacade.getCurrentPlayer().setState(new TurnStarted());
         }
     }//dadams: added state initialization
