@@ -74,7 +74,7 @@ public class ModelFacade {
             if(i == currentPlayer) playerArray.get(i).setState(oldState);
             else playerArray.get(i).setState(new TurnEnded());
         }
-
+        this.currentPlayer = gameData.getPlayer(currentUser.getUsername());
         return getGameResult;
     }
 
@@ -91,7 +91,8 @@ public class ModelFacade {
 
     public String chooseDestinationCards(String playerName, String gameName, ArrayList<DestinationCard> cards){
         ClientCommunicator.SINGLETON.setAuthToken(currentUser.getAuthToken());
-        SubmitResult result = currentPlayer.submitDestinationCards(gameName, cards); //THIS NEEDS TO BE A METHOD IN PLAYER I BELIEVE... ARE WE SUBMITTING CARDS KEPT OR CARDS SENT BACK?
+        SubmitResult result = gameData.getPlayer(playerName).submitDestinationCards(gameName, cards); //THIS NEEDS TO BE A METHOD IN PLAYER I BELIEVE... ARE WE SUBMITTING CARDS KEPT OR CARDS SENT BACK?
+//        currentPlayer.setState(new TurnEnded());
         if(result.getErrorMessage() != null){
             return result.getErrorMessage();
         }
