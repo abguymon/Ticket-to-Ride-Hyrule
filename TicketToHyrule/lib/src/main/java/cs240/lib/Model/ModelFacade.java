@@ -78,6 +78,26 @@ public class ModelFacade {
         return getGameResult;
     }
 
+    public void updateGameData(Game newGameData){
+        ArrayList<Player> playerArray = gameData.getPlayerArray();
+        int currentPlayer = 0;
+        IState oldState = new TurnEnded();
+        for(int i = 0; i < playerArray.size(); i++){
+            if(playerArray.get(i).getState() instanceof TurnEnded){}
+            else {oldState = playerArray.get(i).getState();
+                currentPlayer = i;}
+        }
+
+        setGameData(newGameData);
+
+        playerArray = gameData.getPlayerArray();
+        for(int i = 0; i <playerArray.size(); i++){
+            if(i == currentPlayer) playerArray.get(i).setState(oldState);
+            else playerArray.get(i).setState(new TurnEnded());
+        }
+        this.currentPlayer = gameData.getPlayer(currentUser.getUsername());
+    }
+
     public String claimRoute(Route route, String gameName, TrainCardColor chosenCardsColor){
         ClientCommunicator.SINGLETON.setAuthToken(currentUser.getAuthToken());
         ClaimRouteResult result = currentPlayer.claimRoute(gameName, route, chosenCardsColor);

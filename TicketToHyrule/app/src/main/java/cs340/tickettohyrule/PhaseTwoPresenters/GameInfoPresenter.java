@@ -135,7 +135,8 @@ public class GameInfoPresenter implements Observer{
 
     @Override
     public void update (Observable observable, Object o){
-        modelFacade.setGameData(ClientFacade.getInstance().getGameData());
+//        modelFacade.setGameData(ClientFacade.getInstance().getGameData());
+        modelFacade.updateGameData(ClientFacade.getInstance().getGameData());
         view.getActivity().runOnUiThread(new Runnable(){
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override

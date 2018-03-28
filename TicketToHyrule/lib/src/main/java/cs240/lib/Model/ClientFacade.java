@@ -207,6 +207,7 @@ public class ClientFacade extends Observable{
         notifyObservers();
     }
 
+
     public void handleObject( Command myCommand){
         switch(myCommand.getMethodName()){
             case "login": return;
