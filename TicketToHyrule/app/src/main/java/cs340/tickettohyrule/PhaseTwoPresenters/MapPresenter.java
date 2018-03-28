@@ -244,6 +244,11 @@ public class MapPresenter implements Observer {
         }
     }
 
+    public void toastPlayerTurn(){
+        String playerName = modelFacade.getCurrentPlayer().getPlayerName();
+        view.toast(playerName + "'s Turn");
+    }
+
     private class ClaimRouteAsync extends AsyncTask<Route, Void, String> {
         @Override
         protected String doInBackground(Route... route){

@@ -46,7 +46,7 @@ public class MapFragment extends Fragment implements View.OnClickListener{
     ImageButton chatButton;
     ImageButton infoButton;
     ImageButton historyButton;
-    ImageButton testButton;
+    ImageButton turnButton;
 
     ImageButton bKakarikoLonLon;
     ImageButton bHyruleCLonLon;
@@ -339,12 +339,12 @@ public class MapFragment extends Fragment implements View.OnClickListener{
         chatButton = (ImageButton) view.findViewById(R.id.chat_button);
         infoButton = (ImageButton) view.findViewById(R.id.info_button);
         historyButton = (ImageButton) view.findViewById(R.id.history_button);
-        testButton = (ImageButton) view.findViewById(R.id.test_button);
+        turnButton = (ImageButton) view.findViewById(R.id.test_button);
 
         chatButton.setOnClickListener(this);
         infoButton.setOnClickListener(this);
         historyButton.setOnClickListener(this);
-        testButton.setOnClickListener(this);
+        turnButton.setOnClickListener(this);
 
         createMap();
         updateUI();
@@ -482,6 +482,9 @@ public class MapFragment extends Fragment implements View.OnClickListener{
                 Toast.makeText(getActivity(), "history called", Toast.LENGTH_SHORT).show();
                 ((GameActivity) getActivity()).moveToHistory();
                 break;
+            case R.id.test_button:
+                String playerName = mapPresenter.getCurrentPlayer().getPlayerName();
+                Toast.makeText(getActivity(), playerName + "'s Turn", Toast.LENGTH_SHORT).show();
         }
     }
 
