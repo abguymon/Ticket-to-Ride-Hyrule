@@ -24,15 +24,19 @@ public class TurnStarted implements IState {
     @Override
     public ClaimRouteResult claimRoute(Player container, String gameName, Route route, TrainCardColor chosenCardsColor) {
         ClaimRouteResult result = ServerProxy.SINGLETON.claimRoute(container.getPlayerName(), gameName, route.getCity1Name(), route.getCity2Name(), chosenCardsColor);
-        container.setState(new TurnEnded());
-        ServerProxy.SINGLETON.endTurn(container.getPlayerName(), gameName);
+        if (result.getErrorMessage() == null) {
+            container.setState(new TurnEnded());
+            ServerProxy.SINGLETON.endTurn(container.getPlayerName(), gameName);
+        }
         return result;
     }
 
     @Override
     public DrawTrainCardResult drawTrainCard(Player container, String gameName) {
         DrawTrainCardResult result = ServerProxy.SINGLETON.drawTrainCard(container.getPlayerName(), gameName);
-        container.setState(new DrawnFirstCard());
+        if (result.getErrorMessage() == null) {
+            container.setState(new DrawnFirstCard());
+        }
         return result;
     }
 
@@ -40,7 +44,9 @@ public class TurnStarted implements IState {
     public DrawDestinationCardResult drawDestinationCard(Player container, String gameName) {
         DrawDestinationCardResult result = ServerProxy.SINGLETON.drawDestinationCard(container.getPlayerName(), gameName);
         //TODO: how to integrate with card selection fragment
-        container.setState(new DrawnFirstCard());
+        if (result.getErrorMessage() == null) {
+            container.setState(new DrawnFirstCard());
+        }
         return result;
     }
 
@@ -54,7 +60,9 @@ public class TurnStarted implements IState {
     public DrawFaceUpTrainCardResult drawFaceUpTrainCard(Player container, String gameName, int positionPicked) {
         DrawFaceUpTrainCardResult result =
                 ServerProxy.SINGLETON.drawFaceUpTrainCard(container.getPlayerName(), gameName, positionPicked);
-        container.setState(new DrawnFirstCard());
+        if (result.getErrorMessage() == null) {
+            container.setState(new DrawnFirstCard());
+        }
         return result;
     }
 
@@ -62,8 +70,10 @@ public class TurnStarted implements IState {
     public DrawFaceUpTrainCardResult drawLocomotive(Player container, String gameName, int positionPicked) {
         DrawFaceUpTrainCardResult result =
                 ServerProxy.SINGLETON.drawFaceUpTrainCard(container.getPlayerName(), gameName, positionPicked);
-        container.setState(new TurnEnded());
-        ServerProxy.SINGLETON.endTurn(container.getPlayerName(), gameName);
+        if (result.getErrorMessage() == null) {
+            container.setState(new TurnEnded());
+            ServerProxy.SINGLETON.endTurn(container.getPlayerName(), gameName);
+        }
         return result;
     }
 }

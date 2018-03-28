@@ -29,8 +29,10 @@ public class DrawnFirstCard implements IState {
     @Override
     public DrawTrainCardResult drawTrainCard(Player container, String gameName) {
         DrawTrainCardResult result = ServerProxy.SINGLETON.drawTrainCard(container.getPlayerName(), gameName);
-        container.setState(new TurnEnded());
-        ServerProxy.SINGLETON.endTurn(container.getPlayerName(), gameName);
+        if (result.getErrorMessage() != null) {
+            container.setState(new TurnEnded());
+            ServerProxy.SINGLETON.endTurn(container.getPlayerName(), gameName);
+        }
         return result;
     }
 
@@ -54,8 +56,10 @@ public class DrawnFirstCard implements IState {
         else if (size == 2) {
             result = ServerProxy.SINGLETON.discardDestinationCards(container.getPlayerName(), gameName, submittedCards.get(0), submittedCards.get(1));
         }
-        container.setState(new TurnEnded());
-        ServerProxy.SINGLETON.endTurn(container.getPlayerName(), gameName);
+        if (result.getErrorMessage() == null) {
+            container.setState(new TurnEnded());
+            ServerProxy.SINGLETON.endTurn(container.getPlayerName(), gameName);
+        }
         return result;
     }
 
@@ -63,8 +67,10 @@ public class DrawnFirstCard implements IState {
     public DrawFaceUpTrainCardResult drawFaceUpTrainCard(Player container, String gameName, int positionPicked) {
         DrawFaceUpTrainCardResult result =
                 ServerProxy.SINGLETON.drawFaceUpTrainCard(container.getPlayerName(), gameName, positionPicked);
-        container.setState(new TurnEnded());
-        ServerProxy.SINGLETON.endTurn(container.getPlayerName(), gameName);
+        if (result.getErrorMessage() == null) {
+            container.setState(new TurnEnded());
+            ServerProxy.SINGLETON.endTurn(container.getPlayerName(), gameName);
+        }
         return  result;
     }
 
