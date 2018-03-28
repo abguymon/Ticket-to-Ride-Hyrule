@@ -33,6 +33,7 @@ public class PreStartPresenter implements Observer{
         if (modelFacade.getCurrentPlayer().getPlayerNum() == 1){
             modelFacade.getCurrentPlayer().setState(new TurnStarted());
         }
+
     }//dadams: added state initialization
 
     public Player getPlayer()

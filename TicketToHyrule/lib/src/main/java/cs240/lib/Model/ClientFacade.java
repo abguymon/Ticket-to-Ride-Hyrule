@@ -12,6 +12,7 @@ import cs240.lib.Model.cards.DestinationCard;
 import cs240.lib.Model.colors.TrainCardColor;
 import cs240.lib.Model.gameParts.Player;
 import cs240.lib.Model.gameParts.Route;
+import cs240.lib.Model.states.DrawnFirstCard;
 import cs240.lib.Model.states.IState;
 import cs240.lib.Model.states.TurnEnded;
 import cs240.lib.Model.states.TurnStarted;
@@ -98,6 +99,7 @@ public class ClientFacade extends Observable{
             gameData.getPlayer(playerName).dropDestinationCard(dcard);
             gameData.putbackDestinationCard(dcard);
         }
+        endTurn(playerName, gameData.getGameName());
         setChanged();
         notifyObservers();
     }
@@ -118,6 +120,7 @@ public class ClientFacade extends Observable{
 //        cardsDrawn.add(gameData.drawDestinationCard());
 //        setChanged();
 //        notifyObservers();
+        gameData.getPlayer(player).setState(new DrawnFirstCard());
     }
 
     public void claimRoute(String player, String city1, String city2){
@@ -128,16 +131,21 @@ public class ClientFacade extends Observable{
         //gameData.getPlayer(player.getPlayerName()).getTrainCards().remove(0);
         //gameData.getPlayer(player.getPlayerName()).dropDestinationCard(gameData.getPlayer(player.getPlayerName()).getDestinationCards().get(0));
         //gameData.getPlayer(player.getPlayerName()).setTrainsRemaining(gameData.getPlayer(player.getPlayerName()).getTrainsRemaining() - 7);
+        endTurn(player, gameData.getGameName());
         setChanged();
         notifyObservers();
     }
     public void drawFaceUpTrainCard(String playerName, String gameName, int card){
         gameData.getPlayer(playerName).addTrainCard(gameData.getFaceUpTrainCards().pick(card, gameData.getTrainCardDeck(), gameData.getTrainCardDiscard()));
+        if(gameData.getPlayer(playerName).getState() instanceof TurnStarted) gameData.getPlayer(playerName).setState(new DrawnFirstCard());
+        else endTurn(playerName, gameName);
         setChanged();
         notifyObservers();
     }
     public void drawTrainCard(String playerName, String gameName){
         gameData.getPlayer(playerName).addTrainCard(gameData.getTrainCardDeck().draw(gameData.getTrainCardDiscard()));
+        if(gameData.getPlayer(playerName).getState() instanceof TurnStarted) gameData.getPlayer(playerName).setState(new DrawnFirstCard());
+        else endTurn(playerName, gameName);
         setChanged();
         notifyObservers();
     }
@@ -145,6 +153,7 @@ public class ClientFacade extends Observable{
     public void endTurn(String playerName, String gameName){
         int playerTurnEnded = gameData.getPlayer(playerName).getPlayerNum();
         int newPlayerTurn;
+        gameData.getPlayer(playerName).setState(new TurnEnded());
         if (playerTurnEnded == gameData.getPlayerArray().size()){
             newPlayerTurn = 1;
         }else{
@@ -185,24 +194,21 @@ public class ClientFacade extends Observable{
 //        }
 //        setChanged();
 //        notifyObservers();
+        endTurn(playerName,gameData.getGameName());
     }
     public void sync(){
         ArrayList<Player> playerArray = gameData.getPlayerArray();
-        IState oldState = new TurnEnded();
-        int currentPlayer = 0;
-        for(int i = 0; i < playerArray.size(); i++){
-            if(playerArray.get(i).getState() instanceof TurnEnded){}
-            else {oldState = playerArray.get(i).getState();
-            currentPlayer = i;}
-        }
+//        IState oldState = new TurnEnded();
+//        int currentPlayer = 0;
+//        for(int i = 0; i < playerArray.size(); i++){
+//            if(playerArray.get(i).getState() instanceof TurnEnded){}
+//            else {oldState = playerArray.get(i).getState();
+//            currentPlayer = i;}
+//        }
 
         setGameData(ServerProxy.SINGLETON.getGameData(gameData.getGameName()).getGameStarted());
 
-        playerArray = gameData.getPlayerArray();
-        for(int i = 0; i <playerArray.size(); i++){
-            if(i == currentPlayer) playerArray.get(i).setState(oldState);
-            else playerArray.get(i).setState(new TurnEnded());
-        }
+        gameData.setPlayerArray(playerArray);
         setChanged();
         notifyObservers();
     }
@@ -322,4 +328,6 @@ public class ClientFacade extends Observable{
     }
 
     public ArrayList<DestinationCard> getCardsDrawn(){return cardsDrawn;}
+
+
 }

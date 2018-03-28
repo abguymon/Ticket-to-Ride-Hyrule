@@ -7,8 +7,10 @@ import cs240.lib.Model.cards.DestinationCard;
 import cs240.lib.Model.colors.TrainCardColor;
 import cs240.lib.Model.gameParts.Player;
 import cs240.lib.Model.gameParts.Route;
+import cs240.lib.Model.states.DrawnFirstCard;
 import cs240.lib.Model.states.IState;
 import cs240.lib.Model.states.TurnEnded;
+import cs240.lib.Model.states.TurnStarted;
 import cs240.lib.client.ServerProxy;
 import cs240.lib.common.results.ChatResult;
 import cs240.lib.common.results.ClaimRouteResult;
@@ -80,21 +82,21 @@ public class ModelFacade {
 
     public void updateGameData(Game newGameData){
         ArrayList<Player> playerArray = gameData.getPlayerArray();
-        int currentPlayer = 0;
-        IState oldState = new TurnEnded();
-        for(int i = 0; i < playerArray.size(); i++){
-            if(playerArray.get(i).getState() instanceof TurnEnded){}
-            else {oldState = playerArray.get(i).getState();
-                currentPlayer = i;}
-        }
+//        int currentPlayer = 0;
+//        IState oldState = new TurnEnded();
+//        for(int i = 0; i < playerArray.size(); i++){
+//            if(playerArray.get(i).getState() instanceof TurnEnded){}
+//            else {oldState = playerArray.get(i).getState();
+//                currentPlayer = i;}
+//        }
 
         setGameData(newGameData);
-
-        playerArray = gameData.getPlayerArray();
-        for(int i = 0; i <playerArray.size(); i++){
-            if(i == currentPlayer) playerArray.get(i).setState(oldState);
-            else playerArray.get(i).setState(new TurnEnded());
-        }
+        gameData.setPlayerArray(playerArray);
+//        playerArray = gameData.getPlayerArray();
+//        for(int i = 0; i <playerArray.size(); i++){
+//            if(i == currentPlayer) playerArray.get(i).setState(oldState);
+//            else playerArray.get(i).setState(new TurnEnded());
+//        }
         this.currentPlayer = gameData.getPlayer(currentUser.getUsername());
     }
 
@@ -105,6 +107,7 @@ public class ModelFacade {
             return result.getErrorMessage();
         }
         else{
+//            ClientFacade.getInstance().getGameData().setPlayerArray(getGameData().getPlayerArray());
             return "";
         }
     }
@@ -117,6 +120,7 @@ public class ModelFacade {
             return result.getErrorMessage();
         }
         else{
+//            ClientFacade.getInstance().getGameData().setPlayerArray(getGameData().getPlayerArray());
             return "";
         }
     }
@@ -128,6 +132,7 @@ public class ModelFacade {
             return result.getErrorMessage();
         }
         else{
+//            ClientFacade.getInstance().getGameData().setPlayerArray(getGameData().getPlayerArray());
             return "";
         }
     }
@@ -139,6 +144,8 @@ public class ModelFacade {
             return result.getErrorMessage();
         }
         else{
+            if(gameData.getPlayer(playerName).getState() instanceof DrawnFirstCard) ClientFacade.getInstance().getGameData().getPlayer(playerName).setState(new TurnStarted());
+            else ClientFacade.getInstance().getGameData().getPlayer(playerName).setState(new DrawnFirstCard());
             return "";
         }
     }
@@ -149,6 +156,8 @@ public class ModelFacade {
             return result.getErrorMessage();
         }
         else{
+            if(gameData.getPlayer(playerName).getState() instanceof DrawnFirstCard) ClientFacade.getInstance().getGameData().getPlayer(playerName).setState(new TurnStarted());
+            else ClientFacade.getInstance().getGameData().getPlayer(playerName).setState(new DrawnFirstCard());
             return "";
         }
     }
@@ -159,6 +168,7 @@ public class ModelFacade {
             return result.getErrorMessage();
         }
         else{
+ //           ClientFacade.getInstance().getGameData().setPlayerArray(getGameData().getPlayerArray());
             return "";
         }
     }

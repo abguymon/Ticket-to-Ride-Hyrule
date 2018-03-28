@@ -74,6 +74,7 @@ public class DrawDestinationCardsPresenter implements Observer{
         @Override protected void onPostExecute(String message){
             super.onPostExecute(message);
             if(message.equals("")){
+                ClientFacade.getInstance().getGameData().setPlayerArray(modelFacade.getGameData().getPlayerArray());
                 new syncAsync().execute();
                 ((GameActivity)view.getActivity()).moveToMap();
             }
