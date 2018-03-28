@@ -177,7 +177,7 @@ public class Game {
         return -1;
     }
 
-    public String getNextPlayerName() {
+    public String getPlayerNameByTurn() {
         int turn = playerTurn;
         for (int i = 0; i < playerArray.size(); ++i) {
             Player player = playerArray.get(i);

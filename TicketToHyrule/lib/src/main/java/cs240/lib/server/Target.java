@@ -769,7 +769,7 @@ public class Target implements IServer {
         Game game = getActiveGame(gameName);
         if (game != null) {
             int newTurn = game.endTurn();
-            game.addToGameHistory("Now " + game.getNextPlayerName() + "'s turn!");
+            game.addToGameHistory("Now " + game.getPlayerNameByTurn() + "'s turn!");
             return new EndTurnResult(newTurn);
         }
         return new EndTurnResult("Game not found");
