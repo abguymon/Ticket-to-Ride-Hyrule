@@ -50,6 +50,8 @@ public class EndGameFragment extends Fragment implements View.OnClickListener{
         returnButton = (ImageButton) view.findViewById(R.id.return_button);
         returnButton.setOnClickListener(this);
 
+        updateUI();
+
         return view;
     }
 
@@ -99,20 +101,20 @@ public class EndGameFragment extends Fragment implements View.OnClickListener{
         //bind object to recycler
         public void bind(Player player)
         {
-//            playerRank.setText(player.getRank());
-//            playerRank.setTypeface(zeldaFont);
-//            playerName.setText(player.getPlayerName());
-//            playerName.setTypeface(zeldaFont);
-//            playerRScore.setText(player.getRScore());
-//            playerRScore.setTypeface(zeldaFont);
-//            playerDScore.setText(player.getDScore());
-//            playerDScore.setTypeface(zeldaFont);
-//            playerBScore.setText(player.getBScore());
-//            playerBScore.setTypeface(zeldaFont);
-//            playerNScore.setText(player.getNScore());
-//            playerNScore.setTypeface(zeldaFont);
-//            playerTScore.setText(player.getTScore());
-//            playerTScore.setTypeface(zeldaFont);
+            playerRank.setText("You are Great!");
+            playerRank.setTypeface(zeldaFont);
+            playerName.setText(player.getPlayerName());
+            playerName.setTypeface(zeldaFont);
+            playerRScore.setText("Route Points: " + player.getRoutePoints());
+            playerRScore.setTypeface(zeldaFont);
+            playerDScore.setText("Destination Points: " + player.getPositiveDestinationPoints());
+            playerDScore.setTypeface(zeldaFont);
+            playerBScore.setText("Bonus Points: " + player.getBonusPoints());
+            playerBScore.setTypeface(zeldaFont);
+            playerNScore.setText("Negative Points: " + player.getNegativeDestinationPoints());
+            playerNScore.setTypeface(zeldaFont);
+            playerTScore.setText("Total Points: " + player.getScore());
+            playerTScore.setTypeface(zeldaFont);
         }
     }
 
