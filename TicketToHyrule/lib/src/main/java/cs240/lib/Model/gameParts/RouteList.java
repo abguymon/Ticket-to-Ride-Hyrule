@@ -118,4 +118,18 @@ public class RouteList {
         CityPair cities = new CityPair(city1, city2);
         return new Route(cities, length, color);
     }
+
+    public boolean isDoubleRoute(Route route) {
+        int numRoute = 0;
+        for (int i = 0; i < routes.size(); ++i) {
+            if (numRoute == 2) {
+                return true;
+            }
+            Route loopRoute = routes.get(i);
+            if (loopRoute.getCity1Name().equals(route.getCity1Name()) && loopRoute.getCity2Name().equals(route.getCity2Name())) {
+                ++numRoute;
+            }
+        }
+        return false;
+    }
 }
