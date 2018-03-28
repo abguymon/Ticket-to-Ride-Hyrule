@@ -198,17 +198,22 @@ public class ClientFacade extends Observable{
     }
     public void sync(){
         ArrayList<Player> playerArray = gameData.getPlayerArray();
-//        IState oldState = new TurnEnded();
-//        int currentPlayer = 0;
-//        for(int i = 0; i < playerArray.size(); i++){
-//            if(playerArray.get(i).getState() instanceof TurnEnded){}
-//            else {oldState = playerArray.get(i).getState();
-//            currentPlayer = i;}
-//        }
+        IState oldState = new TurnEnded();
+        int currentPlayer = 0;
+        for(int i = 0; i < playerArray.size(); i++){
+            if(playerArray.get(i).getState() instanceof TurnEnded){}
+            else if(playerArray.get(i).getState() instanceof DrawnFirstCard){oldState = new DrawnFirstCard(); currentPlayer = i;;}
+            else {oldState = new TurnStarted(); currentPlayer = i;}
+        }
 
         setGameData(ServerProxy.SINGLETON.getGameData(gameData.getGameName()).getGameStarted());
 
-        gameData.setPlayerArray(playerArray);
+        playerArray = gameData.getPlayerArray();
+        for(int i = 0; i <playerArray.size(); i++){
+            if(i == currentPlayer) playerArray.get(i).setState(oldState);
+            else playerArray.get(i).setState(new TurnEnded());
+        }
+
         setChanged();
         notifyObservers();
     }
