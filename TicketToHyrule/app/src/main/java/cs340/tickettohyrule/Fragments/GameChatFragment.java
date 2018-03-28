@@ -105,6 +105,12 @@ public class GameChatFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onStart(){
+        super.onStart();
+        updateUI();
+    }
+
     public void toast(String s){
         Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
     }
