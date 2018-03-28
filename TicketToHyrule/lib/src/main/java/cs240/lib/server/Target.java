@@ -713,10 +713,14 @@ public class Target implements IServer {
             if (game.getGameName().equals(gameName)) {
                 Player player = game.getPlayer(playerName);
                 if (player != null) {
-                    TrainCard cardPicked = game.drawTrainCard();
-                    player.addTrainCard(cardPicked);
-                    game.addToGameHistory(playerName + " drew a train card from the deck");
-                    return new DrawTrainCardResult(cardPicked);
+                    if (game.getTrainCardDeck().getSize() > 0) {
+                        TrainCard cardPicked = game.drawTrainCard();
+                        player.addTrainCard(cardPicked);
+                        game.addToGameHistory(playerName + " drew a train card from the deck");
+                        return new DrawTrainCardResult(cardPicked);
+                    }else{
+                        return new DrawTrainCardResult("No Cards in Deck");
+                    }
                 }
                 else {
                     return new DrawTrainCardResult("Player not found");
