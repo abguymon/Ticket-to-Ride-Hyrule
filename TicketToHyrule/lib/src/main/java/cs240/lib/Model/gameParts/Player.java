@@ -37,6 +37,7 @@ public class Player {
     private int longestPath;
 
     private final int MAX_TRAIN_CARS = 1;
+    //private final in MAX_TRAIN_CARS = 45;
 
     public Player(PlayerColor color, String playerName) {
         playerNum = 0;

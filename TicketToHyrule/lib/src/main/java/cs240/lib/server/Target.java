@@ -519,6 +519,9 @@ public class Target implements IServer {
                 if (player != null) {
                     ArrayList<DestinationCard> cardArray = new ArrayList<>();
                     for (int i = 0; i < 3; ++i) {
+                        if (game.getDestinationCardDeck().isEmpty()) {
+                            return new DrawDestinationCardResult("Destination Card Deck is Empty!");
+                        }
                         DestinationCard cardDrawn = game.drawDestinationCard();
                         cardArray.add(cardDrawn);
                         player.getDrawnDestinationCards().add(cardDrawn);
@@ -902,11 +905,15 @@ public class Target implements IServer {
         }
     }
 
-    private void drawDestinationCards(Game game, Player player) {
+    private boolean drawDestinationCards(Game game, Player player) {
         for (int i = 0; i < 3; ++i) {
+            if (game.getDestinationCardDeck().isEmpty()) {
+                return false;
+            }
             DestinationCard card = game.drawDestinationCard();
             player.addDestinationCard(card);
         }
+        return true;
     }
 
     private Game getActiveGame(String gameName) {
