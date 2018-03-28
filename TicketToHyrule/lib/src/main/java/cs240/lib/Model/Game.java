@@ -176,4 +176,21 @@ public class Game {
         }
         return -1;
     }
+
+    public String getNextPlayerName() {
+        int turn = playerTurn;
+        if (playerTurn == playerArray.size()) {
+            turn = 1;
+        }
+        else {
+            ++turn;
+        }
+        for (int i = 0; i < playerArray.size(); ++i) {
+            Player player = playerArray.get(i);
+            if (player.getPlayerNum() == turn) {
+                return player.getPlayerName();
+            }
+        }
+        return null;
+    }
 }
