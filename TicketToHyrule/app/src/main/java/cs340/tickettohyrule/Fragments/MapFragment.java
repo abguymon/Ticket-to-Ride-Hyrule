@@ -483,7 +483,7 @@ public class MapFragment extends Fragment implements View.OnClickListener{
                 ((GameActivity) getActivity()).moveToHistory();
                 break;
             case R.id.test_button:
-                String playerName = mapPresenter.getCurrentPlayer().getPlayerName();
+                String playerName = mapPresenter.getModelFacade().getGameData().getPlayerNameByTurn();
                 Toast.makeText(getActivity(), playerName + "'s Turn", Toast.LENGTH_SHORT).show();
         }
     }
