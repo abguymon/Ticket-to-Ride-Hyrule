@@ -44,7 +44,9 @@ public class MapPresenter implements Observer {
     public void updateHistory(){
 
     }
-
+    public ModelFacade getModelFacade(){
+        return modelFacade;
+    }
     public Player getCurrentPlayer() {
         return currentPlayer;
     }

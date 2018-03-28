@@ -22,7 +22,8 @@ public class GameHistoryPresenter implements Observer{
     private GameHistoryFragment view = null;
 
     public void updateHistory(){
-
+        getHistoryAsync sendMessageAsync = new getHistoryAsync();
+        sendMessageAsync.execute();
     }
 
     public List<String> getHistory()
@@ -33,12 +34,13 @@ public class GameHistoryPresenter implements Observer{
     @Override
     public void update (Observable observable, Object o){
         CurrentUserSingleton.getInstance().getModelFacade().setGames(ClientFacade.getInstance().getGames());
-//        getActivity().runOnUiThread(new Runnable(){
-//            @Override
-//            public void run(){
-//                updateUI();
-//            }
-//        });
+        updateHistory();
+        view.getActivity().runOnUiThread(new Runnable(){
+            @Override
+            public void run(){
+                view.updateUI();
+            }
+        });
     }
 
     public void setView(GameHistoryFragment view){

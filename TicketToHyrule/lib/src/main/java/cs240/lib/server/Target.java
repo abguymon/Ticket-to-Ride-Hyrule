@@ -519,6 +519,9 @@ public class Target implements IServer {
                 if (player != null) {
                     ArrayList<DestinationCard> cardArray = new ArrayList<>();
                     for (int i = 0; i < 3; ++i) {
+                        if (game.getDestinationCardDeck().isEmpty()) {
+                            return new DrawDestinationCardResult("Destination Card Deck is Empty!");
+                        }
                         DestinationCard cardDrawn = game.drawDestinationCard();
                         cardArray.add(cardDrawn);
                         player.getDrawnDestinationCards().add(cardDrawn);
@@ -710,10 +713,14 @@ public class Target implements IServer {
             if (game.getGameName().equals(gameName)) {
                 Player player = game.getPlayer(playerName);
                 if (player != null) {
-                    TrainCard cardPicked = game.drawTrainCard();
-                    player.addTrainCard(cardPicked);
-                    game.addToGameHistory(playerName + " drew a train card from the deck");
-                    return new DrawTrainCardResult(cardPicked);
+                    if (game.getTrainCardDeck().getSize() > 0) {
+                        TrainCard cardPicked = game.drawTrainCard();
+                        player.addTrainCard(cardPicked);
+                        game.addToGameHistory(playerName + " drew a train card from the deck");
+                        return new DrawTrainCardResult(cardPicked);
+                    }else{
+                        return new DrawTrainCardResult("No Cards in Deck");
+                    }
                 }
                 else {
                     return new DrawTrainCardResult("Player not found");
@@ -766,7 +773,7 @@ public class Target implements IServer {
         Game game = getActiveGame(gameName);
         if (game != null) {
             int newTurn = game.endTurn();
-            game.addToGameHistory("New Turn!");
+            game.addToGameHistory("Now " + game.getPlayerNameByTurn() + "'s turn!");
             return new EndTurnResult(newTurn);
         }
         return new EndTurnResult("Game not found");
@@ -902,11 +909,15 @@ public class Target implements IServer {
         }
     }
 
-    private void drawDestinationCards(Game game, Player player) {
+    private boolean drawDestinationCards(Game game, Player player) {
         for (int i = 0; i < 3; ++i) {
+            if (game.getDestinationCardDeck().isEmpty()) {
+                return false;
+            }
             DestinationCard card = game.drawDestinationCard();
             player.addDestinationCard(card);
         }
+        return true;
     }
 
     private Game getActiveGame(String gameName) {

@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 import cs240.lib.Model.ClientFacade;
+import cs240.lib.Model.ModelFacade;
 import cs240.lib.Model.colors.TrainCardColor;
 import cs240.lib.Model.gameParts.City;
 import cs240.lib.Model.gameParts.CityPair;
@@ -483,7 +484,8 @@ public class MapFragment extends Fragment implements View.OnClickListener{
                 ((GameActivity) getActivity()).moveToHistory();
                 break;
             case R.id.test_button:
-                String playerName = mapPresenter.getCurrentPlayer().getPlayerName();
+                ModelFacade modelFacade = mapPresenter.getModelFacade(); //variable for break point evaluation
+                String playerName = mapPresenter.getModelFacade().getGameData().getPlayerNameByTurn();
                 Toast.makeText(getActivity(), playerName + "'s Turn", Toast.LENGTH_SHORT).show();
         }
     }

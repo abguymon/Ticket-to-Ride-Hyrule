@@ -42,4 +42,13 @@ public class DestinationCardDeck {
             destinationCards.push(temp.get(i));
         }
     }
+
+    public boolean isEmpty() {
+        if (destinationCards.size() == 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 }
