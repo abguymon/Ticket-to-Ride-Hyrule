@@ -29,7 +29,7 @@ public class DrawnFirstCard implements IState {
     @Override
     public DrawTrainCardResult drawTrainCard(Player container, String gameName) {
         DrawTrainCardResult result = ServerProxy.SINGLETON.drawTrainCard(container.getPlayerName(), gameName);
-        if (result.getErrorMessage() != null) {
+        if (result.getErrorMessage() == null) {
             container.setState(new TurnEnded());
             ServerProxy.SINGLETON.endTurn(container.getPlayerName(), gameName);
         }
