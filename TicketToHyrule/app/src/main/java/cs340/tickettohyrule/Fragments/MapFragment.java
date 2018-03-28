@@ -451,21 +451,17 @@ public class MapFragment extends Fragment implements View.OnClickListener{
         public void onClick(View v) {
             Route myRoute = routeMap.get(v);
             mapPresenter.selectRoute(myRoute);
-            if(myRoute.getColor() != GREY)
-            {
-                if(mapPresenter.claimRoute())
-                {
-                    Toast.makeText(getContext(), "Route Claimed", Toast.LENGTH_SHORT).show();
+            if (myRoute.getColor() != GREY) {
+                if (mapPresenter.claimRoute()) {
                     routeMap.get(v).setOwner(mapPresenter.getCurrentPlayer());
-                }
-                else
-                {
+                } else {
                     Toast.makeText(getContext(), "Not Enough Cards!", Toast.LENGTH_SHORT).show();
                 }
+            } else {
+                List<String> colorList = getColors();
+                colorAdapter = new Adapter(colorList);
+                colorRecycler.setAdapter(colorAdapter);
             }
-            List<String> colorList = getColors();
-            colorAdapter = new Adapter(colorList);
-            colorRecycler.setAdapter(colorAdapter);
         }
     }
 
