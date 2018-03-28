@@ -60,7 +60,7 @@ public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
 
 
     //update list ui information
-    private void updateUI()
+    public void updateUI()
     {
         List<String> historyList = getHistory();
         historyAdapter = new Adapter(historyList);
