@@ -45,12 +45,14 @@ public class TrainCardDeck {
     }
 
     private void shuffleInDiscard(TrainCardDiscard discard) {
-        for (int i = 0; i < discard.getTrainCards().size(); ++i) {
-            TrainCard cardToAdd = discard.getTrainCards().get(i);
-            trainCards.add(cardToAdd);
+        if (discard.getTrainCards().size() != 0) {
+            for (int i = 0; i < discard.getTrainCards().size(); ++i) {
+                TrainCard cardToAdd = discard.getTrainCards().get(i);
+                trainCards.add(cardToAdd);
+            }
+            shuffle();
+            discard.reset();
         }
-        shuffle();
-        discard.reset();
     }
 
     public int getSize()
