@@ -688,7 +688,7 @@ public class Target implements IServer {
                         }
 
                         if (sisterRoute.isClaimed()) {
-                            if (sisterRoute.getOwner().getPlayerName().equals(playerName)) {
+                            if (sisterRoute.getOwner().equals(playerName)) {
                                 return new ClaimRouteResult("You can't claim both routes in a double route");
                             }
                         }

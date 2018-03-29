@@ -49,7 +49,7 @@ public class Main {
         //castletowntoHylia.claim(gannon);
         System.out.println("Trains remaining for Gannon: " + gannon.getTrainsRemaining());
 
-        System.out.println("Color of route owner: " + castletowntoHylia.getOwner().getColor());
+        //System.out.println("Color of route owner: " + castletowntoHylia.getOwner().getColor());
 
 
     }

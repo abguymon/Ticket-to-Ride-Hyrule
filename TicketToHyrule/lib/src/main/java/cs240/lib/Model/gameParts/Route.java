@@ -15,7 +15,7 @@ public class Route {
     private int length;
     private TrainCardColor color;
     private boolean claimed; //claimed during gameplay
-    private Player owner; //assigned at claimed
+    private String owner; //assigned at claimed
 
     public Route(CityPair cityNodes, int length, TrainCardColor color){ //other fields are added as game progresses
         this.cityNodes = cityNodes;
@@ -47,7 +47,7 @@ public class Route {
             }
             if ((cardColorNum + wildCardNum >= length) && claimingPlayer.getTrainsRemaining() >= length) {
                 setClaimed(true);
-                setOwner(claimingPlayer);
+                setOwner(claimingPlayer.getPlayerName());
                 addPoints(claimingPlayer);
                 claimingPlayer.minusTrains(length);
                 discardCards(claimingPlayer, foundWildCardIndex, foundColorCardsIndex, discard, cardColorNum, wildCardNum);
@@ -73,6 +73,7 @@ public class Route {
                 if (this.cityNodes.getCity1().getCityName().equals(route.getCityNodes().getCity1().getCityName())) {
                     if (this.cityNodes.getCity2().getCityName().equals(route.getCityNodes().getCity2().getCityName())) {
                         if (this.isClaimed() == route.isClaimed()) {
+                            if (this.owner.equals(route.getOwner()))
                             return true;
                         }
                     }
@@ -169,11 +170,11 @@ public class Route {
         this.claimed = claimed;
     }
 
-    public Player getOwner() {
+    public String getOwner() {
         return owner;
     }
 
-    public void setOwner(Player owner) {
+    public void setOwner(String owner) {
         this.owner = owner;
     }
 
