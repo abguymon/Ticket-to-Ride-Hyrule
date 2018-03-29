@@ -478,7 +478,7 @@ public class MapFragment extends Fragment implements View.OnClickListener{
             mapPresenter.selectRoute(myRoute);
             if (myRoute.getColor() != GREY) {
                 if (mapPresenter.claimRoute()) {
-                    routeMap.get(v).setOwner(mapPresenter.getCurrentPlayer());
+                    routeMap.get(v).setOwner(mapPresenter.getCurrentPlayer().getPlayerName());
                 } else {
                     Toast.makeText(getContext(), "Not Enough Cards!", Toast.LENGTH_SHORT).show();
                 }
