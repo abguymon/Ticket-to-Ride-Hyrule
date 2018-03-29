@@ -373,7 +373,7 @@ public class MapFragment extends Fragment implements View.OnClickListener{
         for (Map.Entry<ImageButton, Route> entry : routeMap.entrySet()) {
             if (entry.getValue().getOwner() != null)
             {
-                switch (entry.getValue().getOwner().getColor()) {
+                switch (entry.getValue().getOwnerColor()) {
                     case GREEN:
                         entry.getKey().setBackground(getActivity().getDrawable(R.drawable.green_circle));
                         break;

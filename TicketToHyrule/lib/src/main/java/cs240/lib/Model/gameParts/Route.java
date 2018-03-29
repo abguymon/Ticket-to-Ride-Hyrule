@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import cs240.lib.Model.cards.TrainCard;
 import cs240.lib.Model.cards.TrainCardDiscard;
+import cs240.lib.Model.colors.PlayerColor;
 import cs240.lib.Model.colors.TrainCardColor;
 
 /**
@@ -16,6 +17,7 @@ public class Route {
     private TrainCardColor color;
     private boolean claimed; //claimed during gameplay
     private String owner; //assigned at claimed
+    private PlayerColor ownerColor;
 
     public Route(CityPair cityNodes, int length, TrainCardColor color){ //other fields are added as game progresses
         this.cityNodes = cityNodes;
@@ -48,6 +50,7 @@ public class Route {
             if ((cardColorNum + wildCardNum >= length) && claimingPlayer.getTrainsRemaining() >= length) {
                 setClaimed(true);
                 setOwner(claimingPlayer.getPlayerName());
+                setOwnerColor(claimingPlayer.getColor());
                 addPoints(claimingPlayer);
                 claimingPlayer.minusTrains(length);
                 discardCards(claimingPlayer, foundWildCardIndex, foundColorCardsIndex, discard, cardColorNum, wildCardNum);
@@ -177,6 +180,10 @@ public class Route {
     public void setOwner(String owner) {
         this.owner = owner;
     }
+
+    public PlayerColor getOwnerColor() {return ownerColor;}
+
+    public void setOwnerColor(PlayerColor ownerColor) {this.ownerColor = ownerColor;}
 
     @Override
     public String toString(){
