@@ -154,7 +154,12 @@ public class GameInfoPresenter implements Observer{
         @Override
         protected String doInBackground(Integer... card){
             String result;
-            if(modelFacade.getGameData().getFaceUpTrainCards().getFaceUpCards()[card[0]].getColor() == TrainCardColor.WILD) {
+            if(modelFacade.getGameData().getFaceUpTrainCards().getFaceUpCards()[card[0]].getColor() == TrainCardColor.GREY)
+            {
+                view.toast("This Train Card Is Not Valid");
+                result = "";
+            }
+            else if(modelFacade.getGameData().getFaceUpTrainCards().getFaceUpCards()[card[0]].getColor() == TrainCardColor.WILD) {
                 result = modelFacade.drawLocomotive(card[0], modelFacade.getCurrentPlayer().getPlayerName(), modelFacade.getGameData().getGameName());
             }
             else {result = modelFacade.drawFaceUpTrainCard(card[0], modelFacade.getCurrentPlayer().getPlayerName() ,modelFacade.getGameData().getGameName());}

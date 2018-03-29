@@ -273,7 +273,7 @@ public class GameInfoFragment extends Fragment {
                     currentTrainCard.setBackground(getActivity().getDrawable(R.drawable.locotc));
                     break;
                 default:
-                    currentTrainCard.setBackground(getActivity().getDrawable(R.drawable.locotc));
+                    currentTrainCard.setBackground(getActivity().getDrawable(R.drawable.ttr));
                     break;
             }
 
