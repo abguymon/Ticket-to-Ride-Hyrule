@@ -62,4 +62,18 @@ public class GameHistoryPresenter implements Observer{
             }
         }
     }
+    public void syncData(){
+        syncAsync test = new syncAsync();
+        test.execute();
+    }
+    private class syncAsync extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... card){
+            modelFacade.sync();
+            return null;
+        }
+        @Override protected void onPostExecute(Void message){
+            view.updateUI();
+        }
+    }
 }

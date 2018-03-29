@@ -48,6 +48,8 @@ public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
     historyRecycler = (RecyclerView) view.findViewById(R.id.game_history_recycler);
     historyRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+    gameHistoryPresenter.syncData();
+
     updateUI();
 
     return view;
