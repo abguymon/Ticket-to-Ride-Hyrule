@@ -679,9 +679,18 @@ public class Target implements IServer {
                 Player player = game.getPlayer(playerName);
                 if (player != null) {
                     int route = game.findRoute(city1, city2);
-                    if (RouteList.SINGLETON.isDoubleRoute(game.getMap().getRoutes().get(route)) && game.getPlayerArray().size() <= 3) {
-                        if (RouteList.SINGLETON.findSisterRoute(game.getMap().getRoutes().get(route)).isClaimed()) {
-                            return new ClaimRouteResult("You may only claim a double route with 4 or 5 players");
+                    if (RouteList.SINGLETON.isDoubleRoute(game.getMap().getRoutes().get(route))) {
+                        Route sisterRoute = RouteList.SINGLETON.findSisterRoute(game.getMap().getRoutes().get(route));
+                        if (game.getPlayerArray().size() <= 3) {
+                            if (sisterRoute.isClaimed()) {
+                                return new ClaimRouteResult("You may only claim a double route with 4 or 5 players");
+                            }
+                        }
+
+                        if (sisterRoute.isClaimed()) {
+                            if (sisterRoute.getOwner().getPlayerName().equals(playerName)) {
+                                return new ClaimRouteResult("You can't claim both routes in a double route");
+                            }
                         }
                     }
                     if (game.claimRoute(player, game.getMap().getRoutes().get(route), chosenCardsColor)) {
