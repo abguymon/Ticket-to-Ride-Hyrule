@@ -28,6 +28,7 @@ import cs240.lib.Model.colors.TrainCardColor;
 import cs240.lib.Model.gameParts.City;
 import cs240.lib.Model.gameParts.CityPair;
 import cs240.lib.Model.gameParts.Route;
+import cs240.lib.Model.states.TurnEnded;
 import cs340.tickettohyrule.GameActivity;
 import cs340.tickettohyrule.PhaseTwoPresenters.MapPresenter;
 import cs340.tickettohyrule.R;
@@ -510,7 +511,13 @@ public class MapFragment extends Fragment implements View.OnClickListener{
             case R.id.test_button:
                 //navi.start();
                 ModelFacade modelFacade = mapPresenter.getModelFacade(); //variable for break point evaluation
-                String playerName = mapPresenter.getModelFacade().getGameData().getPlayerNameByTurn();
+                String playerName = "";
+                for(int i = 0; i < modelFacade.getGameData().getPlayerArray().size(); i++){
+                    if(!(modelFacade.getGameData().getPlayerArray().get(i).getState() instanceof TurnEnded)) {
+                        playerName = modelFacade.getGameData().getPlayerArray().get(i).getPlayerName();
+                        break;
+                    }
+                }
                 Toast.makeText(getActivity(), playerName + "'s Turn", Toast.LENGTH_SHORT).show();
         }
     }
