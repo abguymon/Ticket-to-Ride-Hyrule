@@ -32,6 +32,7 @@ public class Game {
     private int playerTurn;
     private boolean isFinalRound;
     private int finalPlayer;
+    private boolean gameOver;
 
     public Game(String newName) {
         this.gameName = newName;
@@ -47,8 +48,11 @@ public class Game {
         playerTurn = 1;
         isFinalRound = false;
         finalPlayer = 0;
+        gameOver = false;
     }
 
+    public boolean isGameOver() {return gameOver;}
+    public void setGameOver(boolean gameOver) {this.gameOver = gameOver;}
     public int getFinalPlayer() {return finalPlayer;}
     public void setFinalPlayer(int finalPlayer) {this.finalPlayer = finalPlayer;}
     public boolean isFinalRound() {return isFinalRound;}
@@ -96,6 +100,9 @@ public class Game {
         }
         else {
             ++playerTurn;
+        }
+        if (playerTurn == finalPlayer && isFinalRound) {
+            gameOver = true;
         }
         return playerTurn;
     }
