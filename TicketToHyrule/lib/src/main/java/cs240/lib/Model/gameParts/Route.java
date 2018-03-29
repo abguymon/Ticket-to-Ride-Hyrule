@@ -24,6 +24,7 @@ public class Route {
         this.length = length;
         this.color = color;
         this.owner = "";
+        this.ownerColor = PlayerColor.GRAY;
     }
 
     public String getCity1Name() {return cityNodes.getCity1().getCityName();}
