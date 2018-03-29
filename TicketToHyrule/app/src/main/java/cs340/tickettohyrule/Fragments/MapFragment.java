@@ -377,7 +377,7 @@ public class MapFragment extends Fragment implements View.OnClickListener{
         getRouteList();
         updateRouteMap();
         for (Map.Entry<ImageButton, Route> entry : routeMap.entrySet()) {
-            if (entry.getValue().getOwner() != null)
+            if (!entry.getValue().getOwner().equals(""))
             {
                 switch (entry.getValue().getOwnerColor()) {
                     case GREEN:
