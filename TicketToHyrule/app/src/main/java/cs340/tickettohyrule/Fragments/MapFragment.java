@@ -1,6 +1,7 @@
 package cs340.tickettohyrule.Fragments;
 
 import android.graphics.Typeface;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -44,6 +45,7 @@ public class MapFragment extends Fragment implements View.OnClickListener{
     RouteButtonListener routeButtonListener = new RouteButtonListener();
     private Map<ImageButton,Route> routeMap = new HashMap<ImageButton, Route>();
     private ArrayList<Route> routeList = new ArrayList<>();
+    private MediaPlayer navi = MediaPlayer.create(getActivity(), R.raw.navi);
 
     ImageButton chatButton;
     ImageButton infoButton;
@@ -491,6 +493,7 @@ public class MapFragment extends Fragment implements View.OnClickListener{
                 ((GameActivity) getActivity()).moveToHistory();
                 break;
             case R.id.test_button:
+                navi.start();
                 ModelFacade modelFacade = mapPresenter.getModelFacade(); //variable for break point evaluation
                 String playerName = mapPresenter.getModelFacade().getGameData().getPlayerNameByTurn();
                 Toast.makeText(getActivity(), playerName + "'s Turn", Toast.LENGTH_SHORT).show();
