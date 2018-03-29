@@ -72,7 +72,9 @@ public class Route {
             if (this.length == route.getLength()) {
                 if (this.cityNodes.getCity1().getCityName().equals(route.getCityNodes().getCity1().getCityName())) {
                     if (this.cityNodes.getCity2().getCityName().equals(route.getCityNodes().getCity2().getCityName())) {
-                        return true;
+                        if (this.isClaimed() == route.isClaimed()) {
+                            return true;
+                        }
                     }
                 }
             }

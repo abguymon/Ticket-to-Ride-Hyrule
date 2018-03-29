@@ -132,4 +132,18 @@ public class RouteList {
         }
         return false;
     }
+
+    public Route findSisterRoute (Route route) {
+        String city1  = route .getCity1Name();
+        String city2 = route.getCity2Name();
+        for (int i = 0; i < routes.size(); ++i) {
+            Route loopRoute = routes.get(i);
+            if (loopRoute.getCity1Name().equals(city1) && loopRoute.getCity2Name().equals(city2)) {
+                if (!loopRoute.equals(route)) {
+                    return loopRoute;
+                }
+            }
+        }
+        return null;
+    }
 }
