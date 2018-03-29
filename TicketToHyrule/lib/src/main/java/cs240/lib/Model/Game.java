@@ -106,6 +106,10 @@ public class Game {
         return null;
     }
 
+    public ArrayList<Route> getRoutes() {
+        return map.getRoutes();
+    }
+
     public boolean claimRoute(Player player, Route route, TrainCardColor chosenCardsColor) {
         Route gameRoute = getRoute(route);
         if (route != null) {

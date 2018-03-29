@@ -103,7 +103,7 @@ public class MapPresenter implements Observer {
 
     public ArrayList<Route> getRoutes()
     {
-        ArrayList<Route> routes = clientFacade.getRoutes();
+        ArrayList<Route> routes = modelFacade.getGameData().getRoutes();
         return routes;
     }
 
