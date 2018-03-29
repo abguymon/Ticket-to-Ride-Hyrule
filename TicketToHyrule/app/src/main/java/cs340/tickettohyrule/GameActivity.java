@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 
 import cs240.lib.Model.ClientFacade;
+import cs340.tickettohyrule.Fragments.EndGameFragment;
 import cs340.tickettohyrule.Fragments.GameChatFragment;
 import cs340.tickettohyrule.Fragments.GameHistoryFragment;
 import cs340.tickettohyrule.Fragments.GameInfoFragment;
@@ -65,6 +66,14 @@ public class GameActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.game_frame, fragment, fragment.getClass().getSimpleName()).addToBackStack(null).commit();
     }
+
+    //MOVE TO END SCREEN
+    public void moveToEnd() {
+        Fragment fragment = new EndGameFragment();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.game_frame, fragment, fragment.getClass().getSimpleName()).addToBackStack(null).commit();
+    }
+
     public void moveToDrawDestinationCards(){
         Fragment fragment = new PreStartFragment();
         Bundle bundle = new Bundle();

@@ -31,6 +31,11 @@ public class GameHistoryPresenter implements Observer{
         return modelFacade.getGameData().getGameHistory();
     }
 
+    public boolean isGameOver()
+    {
+        return modelFacade.getGameData().isGameOver();
+    }
+
     @Override
     public void update (Observable observable, Object o){
         CurrentUserSingleton.getInstance().getModelFacade().setGames(ClientFacade.getInstance().getGames());

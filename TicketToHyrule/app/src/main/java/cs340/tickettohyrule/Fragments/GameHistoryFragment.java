@@ -16,6 +16,7 @@ import java.util.List;
 
 import cs240.lib.Model.ClientFacade;
 import cs240.lib.common.results.GameHistoryResult;
+import cs340.tickettohyrule.GameActivity;
 import cs340.tickettohyrule.PhaseTwoPresenters.GameHistoryPresenter;
 import cs340.tickettohyrule.R;
 
@@ -64,6 +65,10 @@ public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
     //update list ui information
     public void updateUI()
     {
+        if(gameHistoryPresenter.isGameOver())
+        {
+            ((GameActivity) getActivity()).moveToEnd();
+        }
         List<String> historyList = getHistory();
         historyAdapter = new Adapter(historyList);
         historyRecycler.setAdapter(historyAdapter);

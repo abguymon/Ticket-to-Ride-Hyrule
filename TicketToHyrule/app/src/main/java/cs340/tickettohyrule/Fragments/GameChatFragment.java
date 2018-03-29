@@ -20,6 +20,7 @@ import java.util.List;
 
 import cs240.lib.Model.ChatEntry;
 import cs240.lib.Model.ClientFacade;
+import cs340.tickettohyrule.GameActivity;
 import cs340.tickettohyrule.PhaseTwoPresenters.GameChatPresenter;
 import cs340.tickettohyrule.R;
 
@@ -118,6 +119,10 @@ public class GameChatFragment extends Fragment {
     //update list ui information
     public void updateUI()
     {
+        if(gameChatPresenter.isGameOver())
+        {
+            ((GameActivity) getActivity()).moveToEnd();
+        }
         List<ChatEntry> chatList = getChat();
         chatAdapter = new Adapter(chatList);
         chatRecycler.setAdapter(chatAdapter);
