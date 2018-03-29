@@ -267,6 +267,8 @@ public class MapPresenter implements Observer {
         @Override protected void onPostExecute(String message){
             super.onPostExecute(message);
             if(message.equals("")){
+                syncAsync test = new syncAsync();
+                test.execute();
                 view.toast("Route Claimed");
                 //DO WE DO ANYTHING IN HERE? I DON'T THINK SO.. MAYBE JUST TOAST SUCCESS??
             }
@@ -275,5 +277,14 @@ public class MapPresenter implements Observer {
             }
         }
     }
-
+    private class syncAsync extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... card){
+            modelFacade.sync();
+            return null;
+        }
+        @Override protected void onPostExecute(Void message){
+            view.updateMap();
+        }
+    }
 }
