@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,12 +38,12 @@ import static cs240.lib.Model.colors.TrainCardColor.GREY;
  */
 
 public class MapFragment extends Fragment implements View.OnClickListener{
-    HashMap<Integer, CityPair> mapToCityPair = new HashMap<>();
     RecyclerView colorRecycler;
     Adapter colorAdapter;
     Typeface zeldaFont;
     RouteButtonListener routeButtonListener = new RouteButtonListener();
     private Map<ImageButton,Route> routeMap = new HashMap<ImageButton, Route>();
+    private ArrayList<Route> routeList = new ArrayList<>();
 
     ImageButton chatButton;
     ImageButton infoButton;
@@ -353,6 +354,11 @@ public class MapFragment extends Fragment implements View.OnClickListener{
         return view;
     }
 
+    private void getRouteList()
+    {
+        this.routeList = mapPresenter.getRoutes();
+    }
+
 
     public void updateUI(){
         updateMap();
@@ -360,6 +366,7 @@ public class MapFragment extends Fragment implements View.OnClickListener{
 
     public void updateMap()
     {
+        getRouteList();
         for (Map.Entry<ImageButton, Route> entry : routeMap.entrySet()) {
             if (entry.getValue().getOwner() != null)
             {

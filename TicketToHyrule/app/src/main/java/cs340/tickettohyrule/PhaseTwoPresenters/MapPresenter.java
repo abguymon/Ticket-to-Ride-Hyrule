@@ -101,6 +101,12 @@ public class MapPresenter implements Observer {
 //        claimRouteAsync.execute(route);
     }
 
+    public ArrayList<Route> getRoutes()
+    {
+        ArrayList<Route> routes = modelFacade.getGameData().getRoutes();
+        return routes;
+    }
+
     public boolean claimGreyRoute(String color)
     {
         switch (color)
