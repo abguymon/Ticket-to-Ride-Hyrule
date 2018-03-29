@@ -31,6 +31,7 @@ public class Game {
     private ArrayList<ChatEntry> chatHistory;
     private int playerTurn;
     private boolean isFinalRound;
+    private int finalPlayer;
 
     public Game(String newName) {
         this.gameName = newName;
@@ -45,8 +46,11 @@ public class Game {
         initializeGameMap();
         playerTurn = 1;
         isFinalRound = false;
+        finalPlayer = 0;
     }
 
+    public int getFinalPlayer() {return finalPlayer;}
+    public void setFinalPlayer(int finalPlayer) {this.finalPlayer = finalPlayer;}
     public boolean isFinalRound() {return isFinalRound;}
     public void setFinalRound(boolean T_F) {isFinalRound = T_F;}
     public int getPlayerTurn() {return playerTurn;}
@@ -119,6 +123,7 @@ public class Game {
             if (gameRoute.claim(player, trainCardDiscard, chosenCardsColor)) {
                 if (player.getTrainsRemaining() == 0) {
                     isFinalRound = true;
+                    finalPlayer = playerTurn;
                 }
                 return true;
             }
