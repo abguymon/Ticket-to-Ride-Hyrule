@@ -364,7 +364,12 @@ public class MapFragment extends Fragment implements View.OnClickListener{
 
 
     public void updateUI(){
+        if(mapPresenter.isGameOver())
+        {
+            ((GameActivity) getActivity()).moveToEnd();
+        }
         updateMap();
+
     }
 
     public void updateMap()

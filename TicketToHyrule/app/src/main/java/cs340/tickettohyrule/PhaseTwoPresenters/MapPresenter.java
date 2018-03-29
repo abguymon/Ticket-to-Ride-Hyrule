@@ -44,6 +44,12 @@ public class MapPresenter implements Observer {
     public void updateHistory(){
 
     }
+
+    public boolean isGameOver()
+    {
+        return modelFacade.getGameData().isGameOver();
+    }
+
     public ModelFacade getModelFacade(){
         return modelFacade;
     }

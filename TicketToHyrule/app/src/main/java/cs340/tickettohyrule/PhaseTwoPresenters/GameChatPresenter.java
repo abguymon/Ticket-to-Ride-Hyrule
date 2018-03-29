@@ -28,6 +28,11 @@ public class GameChatPresenter implements Observer {
         sendMessageAsync.execute(message);
     }
 
+    public boolean isGameOver()
+    {
+        return modelFacade.getGameData().isGameOver();
+    }
+
     @Override
     public void update (Observable observable, Object o){
         CurrentUserSingleton.getInstance().getModelFacade().setGameData(ClientFacade.getInstance().getGameData()); //<---- DOES THIS WORK CAN WE JUST SET THE WHOLE GAME DATA AND CALL IT GOOD? IDK

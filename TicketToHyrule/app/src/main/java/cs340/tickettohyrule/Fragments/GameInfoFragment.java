@@ -24,6 +24,7 @@ import cs240.lib.Model.cards.DestinationCard;
 import cs240.lib.Model.cards.TrainCard;
 import cs240.lib.Model.gameParts.Player;
 import cs340.tickettohyrule.CurrentUserSingleton;
+import cs340.tickettohyrule.GameActivity;
 import cs340.tickettohyrule.PhaseOnePresenters.GameLobbyPresenter;
 import cs340.tickettohyrule.PhaseTwoPresenters.GameInfoPresenter;
 import cs340.tickettohyrule.R;
@@ -62,6 +63,7 @@ public class GameInfoFragment extends Fragment {
     private Adapter dCardAdapter;
     private HorizontalAdapter playerAdapter;
     private Typeface zeldaFont;
+    private boolean gameOver = false;
 
     /**
      * This method creates the view to be displayed to the user. Variables for the view are also initialized
@@ -179,6 +181,10 @@ public class GameInfoFragment extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void updateUI()
     {
+        if(gameInfoPresenter.isGameOver())
+        {
+            ((GameActivity) getActivity()).moveToEnd();
+        }
         setFaceUpTrainCards();
         gameInfoPresenter.setPlayerTrainCards();
         numDDeck.setText("num destination cards: " + gameInfoPresenter.getnumCardsInDDeck());
