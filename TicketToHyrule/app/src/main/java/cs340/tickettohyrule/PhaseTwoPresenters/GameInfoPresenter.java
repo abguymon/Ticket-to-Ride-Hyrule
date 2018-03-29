@@ -66,8 +66,13 @@ public class GameInfoPresenter implements Observer{
         drawTrainCardAsync.execute();
     }
     public void drawDestinationCards(){
-        DrawDestinationCardsAsync drawDestinationCardsAsync = new DrawDestinationCardsAsync();
-        drawDestinationCardsAsync.execute();
+        if(!modelFacade.getGameData().getDestinationCardDeck().isEmpty()) {
+            DrawDestinationCardsAsync drawDestinationCardsAsync = new DrawDestinationCardsAsync();
+            drawDestinationCardsAsync.execute();
+        }
+        else{
+            view.toast("Destination card deck empty");
+        }
     }
 
 

@@ -109,6 +109,9 @@ public class ServerCommunicator {
                         new ResultTransferObject(result.getClass().getName(), result);
                 gson.toJson(resultTransferObject, outputStreamWriter);
                 outputStreamWriter.close();
+            }catch(StackOverflowError error){
+                System.out.println("THERE WAS A STACK OVERFLOW ERROR!!!!!!!!!!!!!!!!!!");
+                error.printStackTrace();
             }
         }
     };
