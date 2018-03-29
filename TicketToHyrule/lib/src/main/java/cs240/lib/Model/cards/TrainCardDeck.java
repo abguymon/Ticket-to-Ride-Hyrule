@@ -37,14 +37,16 @@ public class TrainCardDeck {
     }
 
     public TrainCard draw(TrainCardDiscard discard){
-        TrainCard toDraw = trainCards.pop();
         if (trainCards.size() == 0) {
-            shuffleInDiscard(discard);
+            if (!shuffleInDiscard(discard)) {
+                return null;
+            }
         }
+        TrainCard toDraw = trainCards.pop();
         return toDraw;
     }
 
-    private void shuffleInDiscard(TrainCardDiscard discard) {
+    private boolean shuffleInDiscard(TrainCardDiscard discard) {
         if (discard.getTrainCards().size() != 0) {
             for (int i = 0; i < discard.getTrainCards().size(); ++i) {
                 TrainCard cardToAdd = discard.getTrainCards().get(i);
@@ -52,7 +54,9 @@ public class TrainCardDeck {
             }
             shuffle();
             discard.reset();
+            return true;
         }
+        return false;
     }
 
     public int getSize()

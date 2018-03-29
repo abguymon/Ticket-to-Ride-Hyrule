@@ -9,6 +9,7 @@ import java.util.Observable;
 import java.util.Queue;
 
 import cs240.lib.Model.cards.DestinationCard;
+import cs240.lib.Model.cards.TrainCard;
 import cs240.lib.Model.colors.TrainCardColor;
 import cs240.lib.Model.gameParts.Player;
 import cs240.lib.Model.gameParts.Route;
@@ -143,7 +144,10 @@ public class ClientFacade extends Observable{
         notifyObservers();
     }
     public void drawTrainCard(String playerName, String gameName){
-        gameData.getPlayer(playerName).addTrainCard(gameData.getTrainCardDeck().draw(gameData.getTrainCardDiscard()));
+        TrainCard card = gameData.getTrainCardDeck().draw(gameData.getTrainCardDiscard());
+        if (card != null) {
+            gameData.getPlayer(playerName).addTrainCard(card);
+        }
         if(gameData.getPlayer(playerName).getState() instanceof TurnStarted) gameData.getPlayer(playerName).setState(new DrawnFirstCard());
         else endTurn(playerName, gameName);
         setChanged();

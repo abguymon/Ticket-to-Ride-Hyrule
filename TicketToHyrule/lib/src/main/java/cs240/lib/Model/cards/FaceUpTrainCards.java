@@ -30,7 +30,13 @@ public class FaceUpTrainCards {
         if (picked.getColor() == TrainCardColor.WILD) {
             --numWilds;
         }
-        faceUpCards[positionPicked] = deck.draw(discard);
+        TrainCard card = deck.draw(discard);
+        if (card != null) {
+            faceUpCards[positionPicked] = card;
+        }
+        else {
+            faceUpCards[positionPicked] = new TrainCard(TrainCardColor.GREY);
+        }
         if (faceUpCards[positionPicked].getColor() == TrainCardColor.WILD) {
             ++numWilds;
         }
@@ -51,7 +57,13 @@ public class FaceUpTrainCards {
         faceUpCards = new TrainCard[5];
         numWilds = 0;
         for (int i = 0; i < faceUpCards.length; ++i){
-            faceUpCards[i] = deck.draw(discard);
+            TrainCard card = deck.draw(discard);
+            if (card != null) {
+                faceUpCards[i] = card;
+            }
+            else {
+                faceUpCards[i] = new TrainCard(TrainCardColor.GREY);
+            }
             if (faceUpCards[i].getColor() == TrainCardColor.WILD) {
                 ++numWilds;
             }

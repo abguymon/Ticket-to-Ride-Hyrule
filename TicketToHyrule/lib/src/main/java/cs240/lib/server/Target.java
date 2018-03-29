@@ -717,6 +717,9 @@ public class Target implements IServer {
                 if (player != null) {
                     if (game.getTrainCardDeck().getSize() > 0) {
                         TrainCard cardPicked = game.drawTrainCard();
+                        if (cardPicked == null) {
+                            return new DrawTrainCardResult("No more cards in deck or discard");
+                        }
                         player.addTrainCard(cardPicked);
                         game.addToGameHistory(playerName + " drew a train card from the deck");
                         return new DrawTrainCardResult(cardPicked);

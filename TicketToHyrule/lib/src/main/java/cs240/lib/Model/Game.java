@@ -79,6 +79,9 @@ public class Game {
 
     public TrainCard drawTrainCard() {
         TrainCard card = trainCardDeck.draw(trainCardDiscard);
+        if (card == null) {
+            return null;
+        }
         return card;
     }
 
