@@ -170,34 +170,6 @@ public class ClientFacade extends Observable{
     }
 
     public void discardDestinationCards(String playerName, String cardOne, String cardTwo){
-//        Gson gson = new Gson();
-//        DestinationCard dCardOne = gson.fromJson(cardOne, DestinationCard.class);
-//        DestinationCard dCardTwo = gson.fromJson(cardTwo, DestinationCard.class);
-//        if(!cardOne.equals("null")) {
-////            gameData.getPlayer(playerName).dropDestinationCard(dCardOne);
-//            gameData.putbackDestinationCard(dCardOne);
-//            for(int i = 0; i < cardsDrawn.size(); i++){
-//                if(cardsDrawn.get(i).equals(dCardOne)){
-//                    cardsDrawn.remove(i);
-//                    break;
-//                }
-//            }
-//            if(!cardTwo.equals("null")) {
-////                gameData.getPlayer(playerName).dropDestinationCard(dCardTwo);
-//                gameData.putbackDestinationCard(dCardTwo);
-//                for (int i = 0; i < cardsDrawn.size(); i++) {
-//                    if (cardsDrawn.get(i).equals(dCardTwo)) {
-//                        cardsDrawn.remove(i);
-//                        break;
-//                    }
-//                }
-//            }
-//            for(int i = 0; i < cardsDrawn.size(); i++) {
-//                gameData.getPlayer(playerName).addDestinationCard(cardsDrawn.get(i));
-//            }
-//        }
-//        setChanged();
-//        notifyObservers();
         endTurn(playerName,gameData.getGameName());
     }
     public void sync(){
