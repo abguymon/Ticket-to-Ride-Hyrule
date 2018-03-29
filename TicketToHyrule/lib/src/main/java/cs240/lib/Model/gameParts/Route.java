@@ -76,7 +76,7 @@ public class Route {
                 if (this.cityNodes.getCity1().getCityName().equals(route.getCityNodes().getCity1().getCityName())) {
                     if (this.cityNodes.getCity2().getCityName().equals(route.getCityNodes().getCity2().getCityName())) {
                         if (this.isClaimed() == route.isClaimed()) {
-                            if (this.owner.equals(route.getOwner()))
+                            //if (this.owner.equals(route.getOwner()))
                             return true;
                         }
                     }
