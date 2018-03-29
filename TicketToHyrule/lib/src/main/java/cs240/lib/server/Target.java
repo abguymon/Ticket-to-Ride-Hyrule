@@ -557,6 +557,7 @@ public class Target implements IServer {
                     for(int i = 0; i < player.getDrawnDestinationCards().size(); i++){
                         player.getDestinationCards().add(player.getDrawnDestinationCards().get(i));
                     }
+                    player.getDrawnDestinationCards().clear();
                     return new SubmitResult(true);
                 }
                 for(DestinationCard card : player.getDrawnDestinationCards()){
@@ -578,6 +579,7 @@ public class Target implements IServer {
                 for(int i = 0; i < player.getDrawnDestinationCards().size(); i++){
                     player.getDestinationCards().add(player.getDrawnDestinationCards().get(i));
                 }
+                player.getDrawnDestinationCards().clear();
                 return new SubmitResult(true);
             }
             return new SubmitResult("Player not found");

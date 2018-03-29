@@ -126,7 +126,7 @@ public class GameInfoPresenter implements Observer{
     public ArrayList<DestinationCard> getDestinationCards(){
         return destinationCards;
     }
-    public ArrayList<Player> getPlayers() {return players;}
+    public ArrayList<Player> getPlayers() {players = modelFacade.getGameData().getPlayerArray(); return players;}
     public TrainCard[] getFaceUpTrainCards()
     {return modelFacade.getGameData().getFaceUpTrainCards().getFaceUpCards();}
     public int getnumCardsInDDeck() {return modelFacade.getGameData().getDestinationCardDeck().getSize();}
