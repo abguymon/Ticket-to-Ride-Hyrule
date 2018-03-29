@@ -369,6 +369,7 @@ public class MapFragment extends Fragment implements View.OnClickListener{
     public void updateMap()
     {
         getRouteList();
+        updateRouteMap();
         for (Map.Entry<ImageButton, Route> entry : routeMap.entrySet()) {
             if (entry.getValue().getOwner() != null)
             {
@@ -396,6 +397,20 @@ public class MapFragment extends Fragment implements View.OnClickListener{
             }
 
             //System.out.println(entry.getKey() + "/" + entry.getValue());
+        }
+    }
+
+    private void updateRouteMap()
+    {
+        for(Route r: routeList)
+        {
+            for(Map.Entry<ImageButton, Route> entry : routeMap.entrySet())
+            {
+                if (r.getCity1Name().equals(entry.getValue().getCity1Name()) && r.getCity2Name().equals(entry.getValue().getCity2Name()))
+                {
+                    entry.getValue().setOwner(r.getOwner());
+                }
+            }
         }
     }
 
