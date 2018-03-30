@@ -43,7 +43,13 @@ public class LongestPathCalculator {
         int longestRoute = 0;
         for (int i = 0; i < playerRoutes.size(); ++i) {
             ArrayList<Edge> edges = resetEdges(playerRoutes);
-            int routeLength = getRouteLengthr(new Edge(playerRoutes.get(i)), edges, 0);
+            int routeLength = 0;
+            if (!hasAdjacentRoute(new Edge(playerRoutes.get(i)), edges)) {
+                routeLength = playerRoutes.get(i).getLength();
+            }
+            else {
+                routeLength = getRouteLengthr(new Edge(playerRoutes.get(i)), edges, 0);
+            }
             if (routeLength > longestRoute) {
                 longestRoute = routeLength;
                 player.setLongestPath(longestRoute);
@@ -61,21 +67,30 @@ public class LongestPathCalculator {
     }
 
     private int getRouteLengthr(Edge root, ArrayList<Edge> edges, int length) {
-        if (!hasAdjacentRoute(root, edges)) {
-            length += root.getRoute().getLength();
-        }
         //length += root.getRoute().getLength();
         for (int i = 0; i < edges.size(); ++i) {
-            if (isAdjacent(root.getRoute(), edges.get(i).getRoute())) {
+            Edge loopEdge = edges.get(i);
+            if (isAdjacent(root.getRoute(), loopEdge.getRoute())) {
                 if (!edges.get(i).isVisited()) {
-                    root.setVisited(true);
+                    //root.setVisited(true);
+                    setVisitedInEdgeArray(root, edges);
                     length += root.getRoute().getLength();
                    return getRouteLengthr(edges.get(i), edges, length);
                    // length -= root.getRoute().getLength();
                 }
             }
         }
-        return length;
+        return length += root.getRoute().getLength();
+    }
+
+    private void setVisitedInEdgeArray(Edge root, ArrayList<Edge> edges) {
+        Route rootRoute = root.getRoute();
+        for (int i = 0; i < edges.size(); ++i) {
+            Route loopRoute = edges.get(i).getRoute();
+            if (rootRoute.equals(loopRoute)) {
+                edges.get(i).setVisited(true);
+            }
+        }
     }
 
     private boolean hasAdjacentRoute(Edge route, ArrayList<Edge> edges) {
