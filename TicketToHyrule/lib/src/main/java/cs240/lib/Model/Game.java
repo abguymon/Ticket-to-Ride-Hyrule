@@ -103,6 +103,7 @@ public class Game {
         }
         if (playerTurn == finalPlayer && isFinalRound) {
             gameOver = true;
+            endGame();
         }
         return playerTurn;
     }
