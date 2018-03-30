@@ -26,6 +26,10 @@ public class TurnStarted implements IState {
         ClaimRouteResult result = ServerProxy.SINGLETON.claimRoute(container.getPlayerName(), gameName, route.getCity1Name(), route.getCity2Name(), chosenCardsColor);
         if (result.getErrorMessage() == null) {
             container.setState(new TurnEnded());
+            int i = 0;
+            while (i < 1000000){
+                i++;
+            }
             ServerProxy.SINGLETON.endTurn(container.getPlayerName(), gameName);
         }
         return result;
