@@ -33,6 +33,7 @@ import cs340.tickettohyrule.GameActivity;
 import cs340.tickettohyrule.PhaseTwoPresenters.MapPresenter;
 import cs340.tickettohyrule.R;
 
+import static cs240.lib.Model.colors.PlayerColor.GRAY;
 import static cs240.lib.Model.colors.TrainCardColor.GREY;
 
 /**
@@ -428,7 +429,7 @@ public class MapFragment extends Fragment implements View.OnClickListener{
         {
             for(Map.Entry<Integer, Route> entry : routeMap.entrySet())
             {
-                if (r.getCity1Name().equals(entry.getValue().getCity1Name()) && r.getCity2Name().equals(entry.getValue().getCity2Name()))
+                if (r.getCity1Name().equals(entry.getValue().getCity1Name()) && r.getCity2Name().equals(entry.getValue().getCity2Name()) && entry.getValue().getOwnerColor().equals(GRAY))
                 {
                     entry.getValue().setOwner(r.getOwner());
                     entry.getValue().setOwnerColor(r.getOwnerColor());
