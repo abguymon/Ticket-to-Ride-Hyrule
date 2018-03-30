@@ -107,5 +107,4 @@ public class Main {
             System.out.println("City Failure");
         }
     }
-
 }

@@ -680,7 +680,7 @@ public class Target implements IServer {
                 if (player != null) {
                     int route = game.findRoute(city1, city2);
                     if (RouteList.SINGLETON.isDoubleRoute(game.getMap().getRoutes().get(route))) {
-                        Route sisterRoute = RouteList.SINGLETON.findSisterRoute(game.getMap().getRoutes().get(route));
+                        Route sisterRoute = game.findSisterRoute(game.getMap().getRoutes().get(route));
                         if (game.getPlayerArray().size() <= 3) {
                             if (sisterRoute.isClaimed()) {
                                 return new ClaimRouteResult("You may only claim a double route with 4 or 5 players");

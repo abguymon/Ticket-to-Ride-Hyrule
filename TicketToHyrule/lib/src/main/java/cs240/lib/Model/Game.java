@@ -103,6 +103,7 @@ public class Game {
         }
         if (playerTurn == finalPlayer && isFinalRound) {
             gameOver = true;
+            endGame();
         }
         return playerTurn;
     }
@@ -202,6 +203,23 @@ public class Game {
             Player player = playerArray.get(i);
             if (player.getPlayerNum() == turn) {
                 return player.getPlayerName();
+            }
+        }
+        return null;
+    }
+
+    public Route findSisterRoute (Route route) {
+        String city1  = route .getCity1Name();
+        String city2 = route.getCity2Name();
+        for (int i = 0; i < map.getRoutes().size(); ++i) {
+            Route loopRoute = map.getRoutes().get(i);
+            if (loopRoute.getCity1Name().equals(city1) && loopRoute.getCity2Name().equals(city2)) {
+                if (!loopRoute.equals(route)) {
+                    return loopRoute;
+                }
+                if (route.getColor() == TrainCardColor.GREY) {
+                    return route;
+                }
             }
         }
         return null;
