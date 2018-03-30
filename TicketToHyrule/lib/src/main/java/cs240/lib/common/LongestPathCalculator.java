@@ -46,6 +46,7 @@ public class LongestPathCalculator {
             int routeLength = getRouteLengthr(new Edge(playerRoutes.get(i)), edges, 0);
             if (routeLength > longestRoute) {
                 longestRoute = routeLength;
+                player.setLongestPath(longestRoute);
             }
         }
         return longestRoute;
@@ -60,6 +61,9 @@ public class LongestPathCalculator {
     }
 
     private int getRouteLengthr(Edge root, ArrayList<Edge> edges, int length) {
+        if (!hasAdjacentRoute(root, edges)) {
+            length += root.getRoute().getLength();
+        }
         //length += root.getRoute().getLength();
         for (int i = 0; i < edges.size(); ++i) {
             if (isAdjacent(root.getRoute(), edges.get(i).getRoute())) {
@@ -72,6 +76,15 @@ public class LongestPathCalculator {
             }
         }
         return length;
+    }
+
+    private boolean hasAdjacentRoute(Edge route, ArrayList<Edge> edges) {
+        for (int i = 0; i < edges.size(); ++i) {
+            if (isAdjacent(route.getRoute(), edges.get(i).getRoute())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private boolean isAdjacent(Route route1, Route route2) {

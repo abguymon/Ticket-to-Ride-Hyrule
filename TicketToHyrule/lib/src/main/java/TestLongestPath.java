@@ -23,11 +23,12 @@ public class TestLongestPath {
         players.add(new Player(PlayerColor.PINK, "p3"));
         game.setPlayerArray(players);
         ArrayList<Route> routes = game.getMap().getRoutes();
-        game.getPlayer("p1").addRoute(routes.get(33));
-        game.getPlayer("p1").addRoute(routes.get(24));
-        game.getPlayer("p1").addRoute(routes.get(29));
-        //game.getPlayer("p1").addRoute(routes.get(32));
+        game.getPlayer("p2").addRoute(routes.get(33));
+        game.getPlayer("p2").addRoute(routes.get(24));
         game.getPlayer("p2").addRoute(routes.get(29));
+        //game.getPlayer("p1").addRoute(routes.get(32));
+        game.getPlayer("p1").addRoute(routes.get(29));
+        game.getPlayer("p1").addRoute(routes.get(55));
         game.getPlayer("p3").addRoute(routes.get(29));
         game.getPlayer("p1").addDestinationCard(new DestinationCard(12,  new City("Gerudo Fortress"), new City("Temple of Time")));
         ArrayList<String> playersWithLongestRoute = LongestPathCalculator.SINGLETON.calculate(game);
