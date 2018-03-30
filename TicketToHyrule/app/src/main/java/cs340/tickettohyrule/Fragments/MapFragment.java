@@ -49,6 +49,7 @@ public class MapFragment extends Fragment implements View.OnClickListener{
     private Map<Integer,Route> routeMap = new HashMap<>();
     private Map<Integer,ImageButton> buttonMap = new HashMap<>();
     private ArrayList<Route> routeList = new ArrayList<>();
+    private Route routePressed = null;
     //private MediaPlayer navi = MediaPlayer.create(getActivity(), R.raw.navi);
 
     ImageButton chatButton;
@@ -429,7 +430,8 @@ public class MapFragment extends Fragment implements View.OnClickListener{
         {
             for(Map.Entry<Integer, Route> entry : routeMap.entrySet())
             {
-                if (r.getCity1Name().equals(entry.getValue().getCity1Name()) && r.getCity2Name().equals(entry.getValue().getCity2Name()) && entry.getValue().getOwnerColor().equals(GRAY))
+                if (r.getCity1Name().equals(entry.getValue().getCity1Name()) && r.getCity2Name().equals(entry.getValue().getCity2Name())
+                        && entry.getValue().getOwnerColor().equals(GRAY) && routePressed != null && routePressed.getColor().equals(entry.getValue().getColor()))
                 {
                     entry.getValue().setOwner(r.getOwner());
                     entry.getValue().setOwnerColor(r.getOwnerColor());
@@ -500,6 +502,7 @@ public class MapFragment extends Fragment implements View.OnClickListener{
         public void onClick(View v) {
             Route myRoute = routeMap.get(v.getId());
             mapPresenter.selectRoute(myRoute);
+            routePressed = myRoute;
             if (myRoute.getColor() != GREY) {
                 if (mapPresenter.claimRoute()) {
                     routeMap.get(v.getId()).setOwner(mapPresenter.getCurrentPlayer().getPlayerName());
