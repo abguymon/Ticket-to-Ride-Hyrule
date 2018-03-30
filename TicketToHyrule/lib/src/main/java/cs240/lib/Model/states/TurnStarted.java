@@ -28,6 +28,7 @@ public class TurnStarted implements IState {
             container.setState(new TurnEnded());
             ServerProxy.SINGLETON.endTurn(container.getPlayerName(), gameName);
         }
+        route.setOwner(container.getPlayerName());
         return result;
     }
 
