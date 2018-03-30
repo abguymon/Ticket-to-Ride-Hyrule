@@ -40,7 +40,7 @@ public class DestinationCardResolution {
             Route route = playerRoutes.get(i);
             if (route.getCity1Name().equals(startCity) || route.getCity2Name().equals(startCity)) {
                 ArrayList<Edge> edges = resetEdges(playerRoutes);
-                return findDestinationPath(new Edge(route), edges,endCity);
+                return findDestinationPath(new Edge(route), edges, endCity);
             }
         }
         return false;
@@ -52,9 +52,11 @@ public class DestinationCardResolution {
         }
         for (int i = 0; i < edges.size(); ++i) {
             if (isAdjacent(root.getRoute(), edges.get(i).getRoute())) {
-                //root.setVisited(true);
-                //setVisitedInEdgeArray(root, edges);
-                return findDestinationPath(edges.get(i), edges, endCity);
+                if (!edges.get(i).isVisited()) {
+                    root.setVisited(true);
+                    setVisitedInEdgeArray(root, edges);
+                    return findDestinationPath(edges.get(i), edges, endCity);
+                }
             }
         }
         return false;
