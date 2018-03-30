@@ -191,7 +191,10 @@ public class Game {
         for (int i = 0; i < map.getRoutes().size(); ++i) {
             Route route = map.getRoutes().get(i);
             if (route.getCity1Name().equals(city1) && route.getCity2Name().equals(city2)) {
-                if (route.getColor() == TrainCardColor.GREY|| route.getColor() == color) {
+                if (route.getColor() == TrainCardColor.GREY && !route.isClaimed()) {
+                    return i;
+                }
+                if (route.getColor() == color) {
                     return i;
                 }
             }
