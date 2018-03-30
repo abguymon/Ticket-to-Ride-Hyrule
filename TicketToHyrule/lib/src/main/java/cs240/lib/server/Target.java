@@ -678,7 +678,7 @@ public class Target implements IServer {
             if (game.getGameName().equals(gameName)) {
                 Player player = game.getPlayer(playerName);
                 if (player != null) {
-                    int route = game.findRoute(city1, city2, chosenCardsColor);
+                    int route = game.findRoute(city1, city2);
                     if (RouteList.SINGLETON.isDoubleRoute(game.getMap().getRoutes().get(route))) {
                         Route sisterRoute = game.findSisterRoute(game.getMap().getRoutes().get(route));
                         if (game.getPlayerArray().size() <= 3) {

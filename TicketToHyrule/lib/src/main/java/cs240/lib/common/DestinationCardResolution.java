@@ -53,10 +53,21 @@ public class DestinationCardResolution {
         for (int i = 0; i < edges.size(); ++i) {
             if (isAdjacent(root.getRoute(), edges.get(i).getRoute())) {
                 root.setVisited(true);
+                setVisitedInEdgeArray(root, edges);
                 return findDestinationPath(edges.get(i), edges, endCity);
             }
         }
         return false;
+    }
+
+    private void setVisitedInEdgeArray(Edge root, ArrayList<Edge> edges) {
+        Route rootRoute = root.getRoute();
+        for (int i = 0; i < edges.size(); ++i) {
+            Route loopRoute = edges.get(i).getRoute();
+            if (rootRoute.equals(loopRoute)) {
+                edges.get(i).setVisited(true);
+            }
+        }
     }
 
     private ArrayList<Edge> resetEdges(ArrayList<Route> routes) {
