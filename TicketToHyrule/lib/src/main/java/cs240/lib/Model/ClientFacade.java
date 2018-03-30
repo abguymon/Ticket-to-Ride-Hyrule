@@ -132,6 +132,10 @@ public class ClientFacade extends Observable{
         //gameData.getPlayer(player.getPlayerName()).getTrainCards().remove(0);
         //gameData.getPlayer(player.getPlayerName()).dropDestinationCard(gameData.getPlayer(player.getPlayerName()).getDestinationCards().get(0));
         //gameData.getPlayer(player.getPlayerName()).setTrainsRemaining(gameData.getPlayer(player.getPlayerName()).getTrainsRemaining() - 7);
+        int i = 0;
+        while (i < 1000000){
+            i++;
+        }
         endTurn(player, gameData.getGameName());
         setChanged();
         notifyObservers();
