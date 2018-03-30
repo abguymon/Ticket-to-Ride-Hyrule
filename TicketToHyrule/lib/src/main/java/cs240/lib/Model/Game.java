@@ -187,11 +187,13 @@ public class Game {
         }
     }
 
-    public int findRoute(String city1, String city2) {
+    public int findRoute(String city1, String city2, TrainCardColor color) {
         for (int i = 0; i < map.getRoutes().size(); ++i) {
             Route route = map.getRoutes().get(i);
             if (route.getCity1Name().equals(city1) && route.getCity2Name().equals(city2)) {
-                return i;
+                if (route.getColor() == TrainCardColor.GREY|| route.getColor() == color) {
+                    return i;
+                }
             }
         }
         return -1;

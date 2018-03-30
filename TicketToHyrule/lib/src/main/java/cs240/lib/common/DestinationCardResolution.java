@@ -52,8 +52,8 @@ public class DestinationCardResolution {
         }
         for (int i = 0; i < edges.size(); ++i) {
             if (isAdjacent(root.getRoute(), edges.get(i).getRoute())) {
-                root.setVisited(true);
-                setVisitedInEdgeArray(root, edges);
+                //root.setVisited(true);
+                //setVisitedInEdgeArray(root, edges);
                 return findDestinationPath(edges.get(i), edges, endCity);
             }
         }

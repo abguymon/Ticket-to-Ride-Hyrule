@@ -124,11 +124,11 @@ public class ClientFacade extends Observable{
         gameData.getPlayer(player).setState(new DrawnFirstCard());
     }
 
-    public void claimRoute(String player, String city1, String city2){
+    public void claimRoute(String player, String city1, String city2, String color){
         Gson gson = new Gson();
-        Player newPlayer = gson.fromJson(player, Player.class);
-        int mRoute = gameData.findRoute(city1, city2);
-        gameData.getMap().getRoutes().get(mRoute).claim(newPlayer, gameData.getTrainCardDiscard(), gameData.getMap().getRoutes().get(mRoute).getColor());
+        TrainCardColor routeColor = gson.fromJson(color, TrainCardColor.class);
+        int mRoute = gameData.findRoute(city1, city2, routeColor);
+        gameData.getMap().getRoutes().get(mRoute).claim(gameData.getPlayer(player), gameData.getTrainCardDiscard(), gameData.getMap().getRoutes().get(mRoute).getColor());
         //gameData.getPlayer(player.getPlayerName()).getTrainCards().remove(0);
         //gameData.getPlayer(player.getPlayerName()).dropDestinationCard(gameData.getPlayer(player.getPlayerName()).getDestinationCards().get(0));
         //gameData.getPlayer(player.getPlayerName()).setTrainsRemaining(gameData.getPlayer(player.getPlayerName()).getTrainsRemaining() - 7);
@@ -246,7 +246,9 @@ public class ClientFacade extends Observable{
             case("claimRoute"):
                 claimRoute((String)myCommand.getParametersAsJsonStrings()[0].substring(1,myCommand.getParametersAsJsonStrings()[0].length()-1),
                         (String)myCommand.getParametersAsJsonStrings()[2].substring(1,myCommand.getParametersAsJsonStrings()[2].length()-1),
-                        (String)myCommand.getParametersAsJsonStrings()[3].substring(1,myCommand.getParametersAsJsonStrings()[3].length()-1));
+                        (String)myCommand.getParametersAsJsonStrings()[3].substring(1,myCommand.getParametersAsJsonStrings()[3].length()-1),
+                        (String)myCommand.getParametersAsJsonStrings()[4].substring(1,myCommand.getParametersAsJsonStrings()[4].length()-1));
+                        //Integer.parseInt(myCommand.getParametersAsJsonStrings()[4]));
             case("endTurn"):
                 endTurn((String)myCommand.getParametersAsJsonStrings()[0].substring(1,myCommand.getParametersAsJsonStrings()[0].length()-1),
                         (String)myCommand.getParametersAsJsonStrings()[1].substring(1,myCommand.getParametersAsJsonStrings()[1].length()-1));

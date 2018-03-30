@@ -32,13 +32,15 @@ public class TestLongestPath {
         game.getPlayer("p2").addRoute(routes.get(26));
         //game.getPlayer("p2").addRoute(routes.get(34));
         game.getPlayer("p2").addRoute(routes.get(55));
-        game.getPlayer("p3").addRoute(routes.get(29));
-        game.getPlayer("p1").addDestinationCard(new DestinationCard(12,  new City("Gerudo Fortress"), new City("Temple of Time")));
+        //game.getPlayer("p3").addRoute(routes.get(29));
+        game.getPlayer("p2").addDestinationCard(new DestinationCard(12,  new City("Gerudo Fortress"), new City("Marine Research Laboratory")));
         ArrayList<String> playersWithLongestRoute = LongestPathCalculator.SINGLETON.calculate(game);
         int p1LongRoute = game.getPlayer("p1").getLongestPath();
         int p2LongRoute = game.getPlayer("p2").getLongestPath();
         int p3LongRoute = game.getPlayer("p3").getLongestPath();
         DestinationCardResolution.SINGLETON.resolveDestinationCards(game);
+        int p2DCPoints = game.getPlayer("p2").getPositiveDestinationPoints();
+        int p2NegDCPoints = game.getPlayer("p2").getNegativeDestinationPoints();
         //game.endGame();
         for (int i = 0; i < playersWithLongestRoute.size(); ++i) {
             System.out.println(playersWithLongestRoute.get(i) + "\n");
