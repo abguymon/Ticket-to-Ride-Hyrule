@@ -18,6 +18,7 @@ public class Route {
     private boolean claimed; //claimed during gameplay
     private String owner; //assigned at claimed
     private PlayerColor ownerColor;
+    private int id;
 
     public Route(CityPair cityNodes, int length, TrainCardColor color){ //other fields are added as game progresses
         this.cityNodes = cityNodes;
@@ -25,8 +26,20 @@ public class Route {
         this.color = color;
         this.owner = "";
         this.ownerColor = PlayerColor.GRAY;
+        id = -1;
     }
 
+    public Route(int id, CityPair cityNodes, int length, TrainCardColor color){ //other fields are added as game progresses
+        this.cityNodes = cityNodes;
+        this.length = length;
+        this.color = color;
+        this.owner = "";
+        this.ownerColor = PlayerColor.GRAY;
+        this.id = id;
+    }
+
+    public int getId() {return id;}
+    public void setId(int id) {this.id = id;}
     public String getCity1Name() {return cityNodes.getCity1().getCityName();}
     public String getCity2Name() {return cityNodes.getCity2().getCityName();}
 
