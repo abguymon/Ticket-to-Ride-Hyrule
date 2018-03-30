@@ -679,6 +679,7 @@ public class Target implements IServer {
                 Player player = game.getPlayer(playerName);
                 if (player != null) {
                     int route = game.findRoute(city1, city2);
+
                     if (RouteList.SINGLETON.isDoubleRoute(game.getMap().getRoutes().get(route))) {
                         Route sisterRoute = game.findSisterRoute(game.getMap().getRoutes().get(route));
                         if (game.getPlayerArray().size() <= 3) {
@@ -694,7 +695,7 @@ public class Target implements IServer {
                         }
                     }
                     if (game.claimRoute(player, game.getMap().getRoutes().get(route), chosenCardsColor)) {
-                        game.addToGameHistory(playerName + " claimed the route " + game.getMap().getRoutes().get(route).toString());
+                        game.addToGameHistory(playerName + " claimed the route " + city1 + " to " + city2);
                         if (game.isFinalRound()) {
                             game.addToGameHistory("Final Round!!!");
                             return new ClaimRouteResult(true);
