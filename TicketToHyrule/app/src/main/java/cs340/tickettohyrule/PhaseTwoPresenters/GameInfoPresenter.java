@@ -167,8 +167,8 @@ public class GameInfoPresenter implements Observer{
             String result;
             if(modelFacade.getGameData().getFaceUpTrainCards().getFaceUpCards()[card[0]].getColor() == TrainCardColor.GREY)
             {
-                view.toast("This Train Card Is Not Valid");
-                result = "";
+                //view.toast("This Train Card Is Not Valid");
+                result = "This Train Card is Not Valid";
             }
             else if(modelFacade.getGameData().getFaceUpTrainCards().getFaceUpCards()[card[0]].getColor() == TrainCardColor.WILD) {
                 result = modelFacade.drawLocomotive(card[0], modelFacade.getCurrentPlayer().getPlayerName(), modelFacade.getGameData().getGameName());
