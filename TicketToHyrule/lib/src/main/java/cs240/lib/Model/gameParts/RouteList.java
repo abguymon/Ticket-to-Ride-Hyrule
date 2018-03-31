@@ -120,14 +120,12 @@ public class RouteList {
     }
 
     public boolean isDoubleRoute(Route route) {
-        int numRoute = 0;
         for (int i = 0; i < routes.size(); ++i) {
-            if (numRoute == 2) {
+            String loopCity1 = routes.get(i).getCity1Name();
+            String loopCity2 = routes.get(i).getCity2Name();
+            int loopId = routes.get(i).getId();
+            if (route.getCity1Name().equals(loopCity1) && route.getCity2Name().equals(loopCity2) && loopId != route.getId()) {
                 return true;
-            }
-            Route loopRoute = routes.get(i);
-            if (loopRoute.getCity1Name().equals(route.getCity1Name()) && loopRoute.getCity2Name().equals(route.getCity2Name())) {
-                ++numRoute;
             }
         }
         return false;

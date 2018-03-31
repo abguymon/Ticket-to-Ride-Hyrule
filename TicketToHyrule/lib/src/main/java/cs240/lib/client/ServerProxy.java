@@ -209,9 +209,9 @@ public class ServerProxy implements IServer {
     }
 
     @Override
-    public ClaimRouteResult claimRoute(String playerName, String gameName, String city1, String city2, TrainCardColor chosenCardsColor) {
-        String[] parameterTypenames = {String.class.getName(), String.class.getName(), String.class.getName(), String.class.getName(), TrainCardColor.class.getName()};
-        Object[] parameters = {playerName, gameName, city1, city2, chosenCardsColor};
+    public ClaimRouteResult claimRoute(String playerName, String gameName, int route_id, TrainCardColor chosenCardsColor) {
+        String[] parameterTypenames = {String.class.getName(), String.class.getName(), Integer.class.getName(), TrainCardColor.class.getName()};
+        Object[] parameters = {playerName, gameName, route_id, chosenCardsColor};
         Command claimRouteCommand = new Command("claimRoute", parameterTypenames, parameters);
         Object result = ClientCommunicator.SINGLETON.send(claimRouteCommand);
         return (ClaimRouteResult) result;

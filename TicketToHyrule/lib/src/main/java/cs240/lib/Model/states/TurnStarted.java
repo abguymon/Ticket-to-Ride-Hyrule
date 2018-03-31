@@ -23,7 +23,7 @@ public class TurnStarted implements IState {
 
     @Override
     public ClaimRouteResult claimRoute(Player container, String gameName, Route route, TrainCardColor chosenCardsColor) {
-        ClaimRouteResult result = ServerProxy.SINGLETON.claimRoute(container.getPlayerName(), gameName, route.getCity1Name(), route.getCity2Name(), chosenCardsColor);
+        ClaimRouteResult result = ServerProxy.SINGLETON.claimRoute(container.getPlayerName(), gameName, route.getId(), chosenCardsColor);
         if (result.getErrorMessage() == null) {
             container.setState(new TurnEnded());
             int i = 0;

@@ -20,14 +20,14 @@ public class Route {
     private PlayerColor ownerColor;
     private int id;
 
-    public Route(CityPair cityNodes, int length, TrainCardColor color){ //other fields are added as game progresses
+    /*public Route(CityPair cityNodes, int length, TrainCardColor color){ //other fields are added as game progresses
         this.cityNodes = cityNodes;
         this.length = length;
         this.color = color;
         this.owner = "";
         this.ownerColor = PlayerColor.GRAY;
         id = -1;
-    }
+    }*/
 
     public Route(int id, CityPair cityNodes, int length, TrainCardColor color){ //other fields are added as game progresses
         this.cityNodes = cityNodes;
@@ -85,17 +85,8 @@ public class Route {
     }
 
     public boolean equals (Route route) {
-        if (this.color == route.getColor()) {
-            if (this.length == route.getLength()) {
-                if (this.cityNodes.getCity1().getCityName().equals(route.getCityNodes().getCity1().getCityName())) {
-                    if (this.cityNodes.getCity2().getCityName().equals(route.getCityNodes().getCity2().getCityName())) {
-                        if (this.isClaimed() == route.isClaimed()) {
-                            if (this.owner.equals(route.getOwner()))
-                            return true;
-                        }
-                    }
-                }
-            }
+        if (this.id == route.getId()) {
+            return true;
         }
         return false;
     }

@@ -24,7 +24,7 @@ public class Main {
         City castletown = new City("castletown");
         City hylia = new City("hylia");
         CityPair castletownAndHylia = new CityPair(castletown, hylia);
-        Route castletowntoHylia = new Route(castletownAndHylia, 4, TrainCardColor.BLUE);
+        Route castletowntoHylia = new Route(1, castletownAndHylia, 4, TrainCardColor.BLUE);
         System.out.println(castletowntoHylia.toString());
 
         Player link = new Player(PlayerColor.GREEN, "green");

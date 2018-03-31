@@ -187,21 +187,7 @@ public class Game {
         }
     }
 
-    public int findRoute(String city1, String city2, TrainCardColor color) {
-        for (int i = 0; i < map.getRoutes().size(); ++i) {
-            Route route = map.getRoutes().get(i);
-            if (route.getCity1Name().equals(city1) && route.getCity2Name().equals(city2)) {
-                if (route.getColor() == TrainCardColor.GREY && !route.isClaimed()) {
-                    return i;
-                }
-                if (route.getColor() == color) {
-                    return i;
-                }
-            }
-        }
-        return -1;
-    }
-
+    //10.24.221.135
     public String getPlayerNameByTurn() {
         int turn = playerTurn;
         for (int i = 0; i < playerArray.size(); ++i) {
@@ -221,9 +207,6 @@ public class Game {
             if (loopRoute.getCity1Name().equals(city1) && loopRoute.getCity2Name().equals(city2)) {
                 if (!loopRoute.equals(route)) {
                     return loopRoute;
-                }
-                if (route.getColor() == TrainCardColor.GREY) {
-                    return route;
                 }
             }
         }
