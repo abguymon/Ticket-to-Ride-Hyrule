@@ -154,6 +154,12 @@ public class MapFragment extends Fragment implements View.OnClickListener{
         ClientFacade.getInstance().deleteObserver(mapPresenter);
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        updateUI();
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -433,6 +439,7 @@ public class MapFragment extends Fragment implements View.OnClickListener{
                 if (r.getCity1Name().equals(entry.getValue().getCity1Name()) && r.getCity2Name().equals(entry.getValue().getCity2Name())
                         && entry.getValue().getOwnerColor().equals(GRAY) && routePressed != null && routePressed.getColor().equals(entry.getValue().getColor()))
                 {
+                    entry.getValue().setClaimed(r.isClaimed());
                     entry.getValue().setOwner(r.getOwner());
                     entry.getValue().setOwnerColor(r.getOwnerColor());
                 }
@@ -503,16 +510,20 @@ public class MapFragment extends Fragment implements View.OnClickListener{
             Route myRoute = routeMap.get(v.getId());
             mapPresenter.selectRoute(myRoute);
             routePressed = myRoute;
-            if (myRoute.getColor() != GREY) {
-                if (mapPresenter.claimRoute()) {
-                    routeMap.get(v.getId()).setOwner(mapPresenter.getCurrentPlayer().getPlayerName());
+            if (myRoute.isClaimed()) {
+                toast("Route Already Claimed");
+            }else{
+                if (myRoute.getColor() != GREY) {
+                    if (mapPresenter.claimRoute()) {
+                        routeMap.get(v.getId()).setOwner(mapPresenter.getCurrentPlayer().getPlayerName());
+                    } else {
+                        Toast.makeText(getContext(), "Not Enough Cards!", Toast.LENGTH_SHORT).show();
+                    }
                 } else {
-                    Toast.makeText(getContext(), "Not Enough Cards!", Toast.LENGTH_SHORT).show();
+                    List<String> colorList = getColors();
+                    colorAdapter = new Adapter(colorList);
+                    colorRecycler.setAdapter(colorAdapter);
                 }
-            } else {
-                List<String> colorList = getColors();
-                colorAdapter = new Adapter(colorList);
-                colorRecycler.setAdapter(colorAdapter);
             }
         }
     }
