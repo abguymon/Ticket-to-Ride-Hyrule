@@ -664,7 +664,7 @@ public class Target implements IServer {
 
     @Override
     public ClaimRouteResult claimRoute(String playerName, String gameName, int route_id, TrainCardColor chosenCardsColor) {
-        String[] parameterTypeNames = {String.class.getName(), Route.class.getName(), Integer.class.getName(), TrainCardColor.class.getName()};
+        String[] parameterTypeNames = {String.class.getName(), String.class.getName(), int.class.getName(), TrainCardColor.class.getName()};
         Object[] parameters = {playerName, gameName, route_id, chosenCardsColor};
         Command submitCommand = new Command("claimRoute", parameterTypeNames, parameters);
         commandHistory.add(submitCommand);

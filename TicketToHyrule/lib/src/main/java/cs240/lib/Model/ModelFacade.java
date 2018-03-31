@@ -101,6 +101,9 @@ public class ModelFacade {
     }
 
     public String claimRoute(Route route, String gameName, TrainCardColor chosenCardsColor){
+        if (currentPlayer.getTrainsRemaining() < route.getLength()){
+            return "Not enough trains";
+        }
         ClientCommunicator.SINGLETON.setAuthToken(currentUser.getAuthToken());
         ClaimRouteResult result = currentPlayer.claimRoute(gameName, route, chosenCardsColor);
         if(result != null && result.getErrorMessage() != null){
