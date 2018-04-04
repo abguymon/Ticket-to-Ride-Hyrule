@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/player_rank"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="1)" />
+
+    <TextView
+        android:id="@+id/space"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="       " />
+
+    <TextView
+        android:id="@+id/player_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="my names jeff" />
+
+    <TextView
+        android:id="@+id/space2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="       " />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/route_points"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="points from routes: " />
+
+        <TextView
+            android:id="@+id/dest_points"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="points from destination cards: " />
+
+        <TextView
+            android:id="@+id/bonus_points"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="bonus points: " />
+
+        <TextView
+            android:id="@+id/neg_points"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="negative points: " />
+
+        <TextView
+            android:id="@+id/tot_points"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="total points: " />
+    </LinearLayout>
+
+</LinearLayout>

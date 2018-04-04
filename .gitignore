@@ -1,0 +1,6 @@
+
+*.class
+
+TicketToHyrule/\.idea/misc\.xml
+
+\.swp
