@@ -36,8 +36,8 @@ public class Player {
     private ArrayList<Route> claimedRoutes;
     private int longestPath;
 
-    //private final int MAX_TRAIN_CARS = 10;
-    private final int MAX_TRAIN_CARS = 45;
+    private final int MAX_TRAIN_CARS = 10;
+    //private final int MAX_TRAIN_CARS = 45;
 
     public Player(PlayerColor color, String playerName) {
         playerNum = 0;
