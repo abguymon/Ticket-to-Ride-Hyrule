@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/game_lobby"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/background">
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             xmlns:tools="http://schemas.android.com/tools"
+                                             android:id="@+id/game_lobby"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="match_parent"
+                                             android:background="@drawable/background">
 
     <TextView
         android:id="@+id/game_loby_title"
@@ -18,7 +18,7 @@
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <ImageButton
         android:id="@+id/join_game_button"
@@ -26,12 +26,11 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:backgroundTint="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/game_lobby_layout"
-        app:srcCompat="@drawable/joinbutton" />
+        app:srcCompat="@drawable/joinbutton"
+        tools:layout_editor_absoluteY="298dp"/>
 
     <ImageButton
         android:id="@+id/leave_game_button"
@@ -44,7 +43,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/join_game_button"
-        app:srcCompat="@drawable/leavebutton" />
+        app:srcCompat="@drawable/leavebutton"/>
 
     <ImageButton
         android:id="@+id/create_button"
@@ -57,24 +56,36 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/leave_game_button"
-        app:srcCompat="@drawable/creategamebutton" />
+        app:srcCompat="@drawable/creategamebutton"/>
 
-    <LinearLayout
-        android:id="@+id/game_lobby_layout"
-        android:layout_width="368dp"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/game_lobby_recycler"
+        android:layout_width="275dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/lobbyback"
+        app:layout_constraintBottom_toTopOf="@+id/join_game_button"
+        app:layout_constraintEnd_toStartOf="@+id/join_game_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/game_loby_title">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/joined_game_recycler"
+        android:layout_width="275dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="32dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:orientation="vertical"
+        android:background="@drawable/lobbyback"
+        app:layout_constraintBottom_toTopOf="@+id/join_game_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/game_loby_title"
-        android:background="@drawable/lobbyback">
+        app:layout_constraintStart_toEndOf="@+id/join_game_button"
+        app:layout_constraintTop_toBottomOf="@+id/game_loby_title"/>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/game_lobby_recycler"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </LinearLayout>
 </android.support.constraint.ConstraintLayout>

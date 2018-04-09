@@ -15,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -44,7 +45,9 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener,
     private ImageButton createButton;
     private TextView title;
     private RecyclerView gameListRecycler;
+    private RecyclerView joinedListRecycler;
     private Adapter gameAdapter;
+    private Adapter joinedAdapter;
     private String currentGame;
     private Typeface zeldaFont;
     private InGameSingleton inGameSingleton = InGameSingleton.getInstance();
@@ -89,6 +92,8 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener,
 
         gameListRecycler = (RecyclerView) view.findViewById(R.id.game_lobby_recycler);
         gameListRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
+        joinedListRecycler = (RecyclerView) view.findViewById(R.id.joined_game_recycler);
+        joinedListRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         updateUI();
 
@@ -113,9 +118,22 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener,
             }
         }
 
+        lobbyGames = clientFacade.getStartedLobbyGames();
         List<LobbyGame> gameList = getGames();
+        List<LobbyGame> joinedList = new ArrayList<>(lobbyGames);
+
+        for(LobbyGame l: joinedList)
+        {
+            if(!l.getPlayerArray().contains(CurrentUserSingleton.getInstance().getModelFacade().getCurrentUser().getUsername())){
+                joinedList.remove(l);
+            }
+        }
+
         gameAdapter = new Adapter(gameList);
+        joinedAdapter = new Adapter(joinedList);
         gameListRecycler.setAdapter(gameAdapter);
+        joinedListRecycler.setAdapter(joinedAdapter);
+
     }
 
     private List<LobbyGame> getGames() {
