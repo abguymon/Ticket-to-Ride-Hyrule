@@ -24,38 +24,39 @@
         android:id="@+id/join_game_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:backgroundTint="@android:color/transparent"
+        app:layout_constraintBottom_toTopOf="@+id/leave_game_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/joinbutton"
-        tools:layout_editor_absoluteY="298dp"/>
+        app:srcCompat="@drawable/joinbutton"/>
 
     <ImageButton
         android:id="@+id/leave_game_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:backgroundTint="@android:color/transparent"
+        app:layout_constraintBottom_toTopOf="@+id/create_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/join_game_button"
         app:srcCompat="@drawable/leavebutton"/>
 
     <ImageButton
         android:id="@+id/create_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:backgroundTint="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/leave_game_button"
         app:srcCompat="@drawable/creategamebutton"/>
 
     <android.support.v7.widget.RecyclerView
