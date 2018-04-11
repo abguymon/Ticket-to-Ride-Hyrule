@@ -1,5 +1,10 @@
 package database.RelationalDatabase;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectOutputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -39,14 +44,7 @@ public class RelationalGameDao implements IRelationalDatabase {
             statement = connection.createStatement();
             String sql = "create table if not exists Games " +
                     "(" +
-                    "UserID integer primary key autoincrement," +
-                    "Game_Name text not null," +
-                    "Password_ text not null," +
-                    "Email text not null," +
-                    "First_Name text not null," +
-                    "Last_Name text not null," +
-                    "Gender text not null," +
-                    "PersonID text" +
+                    "Game BLOB not null," +
                     ")";
 
             statement.executeUpdate(sql);
@@ -81,18 +79,13 @@ public class RelationalGameDao implements IRelationalDatabase {
     }
 
     private boolean insertGame(Game toAdd) {
+        InputStream gameIS = writeToIS(toAdd);
         PreparedStatement statement = null;
         try{
-            String sql = "insert into Games (Game_Name, ) " +
-                    "values (?, )";
+            String sql = "insert into Games (Game) " +
+                    "values (?)";
             statement = connection.prepareStatement(sql);
-            statement.setString(1, toAdd.getGameName());
-            /*statement.setString(2, user.getPassword());
-            statement.setString(3, user.getEmail());
-            statement.setString(4, user.getFirst_name());
-            statement.setString(5, user.getLast_name());
-            statement.setString(6, user.getGender());
-            statement.setString(7, user.getPersonID());*/
+            statement.setBlob(1, gameIS);
 
             statement.executeUpdate();
         }catch (SQLException e){
@@ -110,6 +103,24 @@ public class RelationalGameDao implements IRelationalDatabase {
             }
         }
         return false;
+    }
+
+    private InputStream writeToIS(Game toAdd) {
+        try {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ObjectOutputStream oos = new ObjectOutputStream(baos);
+
+            oos.writeObject(toAdd);
+
+            oos.flush();
+            oos.close();
+
+            InputStream is = new ByteArrayInputStream(baos.toByteArray());
+            return is;
+        }catch (IOException e){
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override

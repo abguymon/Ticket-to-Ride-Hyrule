@@ -18,15 +18,15 @@ public class RelationalUserDao implements IRelationalDatabase {
 
     @Override
     public boolean create(Object object) {
-        User toAdd = null;
+        User toCreate = null;
         try{
-            toAdd = (User) object;
+            toCreate = (User) object;
         }catch (Exception e){
             e.printStackTrace();
             System.out.println("Error casting object as User");
             return false;
         }
-        boolean created = createUser(toAdd);
+        boolean created = createUser(toCreate);
         return created;
     }
 

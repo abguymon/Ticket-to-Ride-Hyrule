@@ -57,6 +57,8 @@ public class Target implements IServer {
      * for the clients to interact with
      */
     public static final Target SINGLETON = new Target();
+    private String databaseType;
+    private int n;
     private IDatabase database;
     private ArrayList<User> registeredUsers;
     private ArrayList<Login> loggedinUsers;
@@ -948,5 +950,35 @@ public class Target implements IServer {
             }
         }
         return null;
+    }
+
+
+    /*public void databaseTest(){ //for testing
+
+    }*/
+
+    public void wipe(){
+        //TODO: needs to wipe the persistence provider
+    }
+
+    public String getDatabaseType() {
+        return databaseType;
+    }
+
+    public void setDatabaseType(String databaseType) {
+        this.databaseType = databaseType;
+    }
+
+    public int getN() {
+        return n;
+    }
+
+    public void setN(String nString) {
+        try {
+            this.n = Integer.parseInt(nString);
+        }catch (Exception e){
+            e.printStackTrace();
+            System.out.println("Second argument must be an integer");
+        }
     }
 }

@@ -5,14 +5,14 @@ import java.sql.Connection;
 /**
  * Created by David on 4/7/2018.
  */
-
+//TODO: do we want this dao to be something else?
 public class RelationalPlayerDao implements IRelationalDatabase{
     private Connection connection;
 
     public RelationalPlayerDao(Connection connection){
         this.connection = connection;
     }
-    //TODO: do we want this dao to be something else?
+
     @Override
     public boolean create(Object object) {
         return false;

@@ -123,7 +123,19 @@ public class ServerCommunicator {
     }
 
     public static void main(String[] args) {
-        new ServerCommunicator().run();
+        try {
+            Target.SINGLETON.setDatabaseType(args[0]);
+            Target.SINGLETON.setN(args[1]);
+            for (int i = 0; i < args.length; ++i) {
+                if (args[i].equals("-wipe")) {
+                    Target.SINGLETON.wipe();
+                }
+            }
+            new ServerCommunicator().run();
+        }catch (IndexOutOfBoundsException e){
+            e.printStackTrace();
+            System.out.println("Command line argument error");
+        }
     }
 
     public static final String COMMAND_DESIGNATOR = "/command";
