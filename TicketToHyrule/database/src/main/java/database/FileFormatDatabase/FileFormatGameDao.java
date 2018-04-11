@@ -19,21 +19,13 @@ public class FileFormatGameDao {
             System.out.println("Error casting object as Game");
             return false;
         }
-        boolean created = createGame(toAdd);
-
-        return created;
+        return true;
     }
 
 
     public boolean insert(Object object) {
         return false;
     }
-
-    private boolean createGame(Game toAdd) {
-        //TODO: create toAdd in file database, returning true if no errors
-        return false;
-    }
-
 
     public Object read(String toRead) {
         Game readInGame = null;
@@ -43,7 +35,7 @@ public class FileFormatGameDao {
     }
 
 
-    public Object[] readAll(String toRead) {
+    public Object[] readAll() {
         return new Object[0];
     }
 
@@ -62,15 +54,8 @@ public class FileFormatGameDao {
             System.out.println("Error casting object as Game");
             return false;
         }
-        boolean updated = updateGame(toUpdate);
-        return updated;
+       return true;
     }
-
-    private boolean updateGame(Game toUpdate) {
-        //TODO: update toUpdate in file database, returning true if no errors
-        return false;
-    }
-
 
     public boolean delete(Object object) {
         Game toDelete = null;
@@ -81,17 +66,11 @@ public class FileFormatGameDao {
             System.out.println("Error casting object as Game");
             return false;
         }
-        boolean deleted = deleteGame(toDelete);
-        return deleted;
+        return true;
     }
 
 
     public void clear() {
 
-    }
-
-    private boolean deleteGame(Game toDelete) {
-        //TODO: delete toDelete in file database, returning true if no error
-        return false;
     }
 }

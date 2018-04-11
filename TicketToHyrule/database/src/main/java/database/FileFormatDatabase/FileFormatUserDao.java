@@ -55,7 +55,7 @@ public class FileFormatUserDao{
     }
 
 
-    public Object[] readAll(String toRead) {
+    public Object[] readAll() {
         return new Object[0];
     }
 

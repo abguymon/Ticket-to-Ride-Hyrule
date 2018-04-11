@@ -7,12 +7,13 @@ import java.sql.SQLException;
 import cs240.lib.Model.Game;
 import cs240.lib.Model.User;
 import cs240.lib.common.Command;
+import cs240.lib.server.IDatabase;
 
 /**
  * Created by David on 4/10/2018.
  */
 
-public class RelationalDatabase implements IRelationalDatabase{
+public class RelationalDatabase implements IDatabase {
     private RelationalGameDao gameDao;
     private RelationalCommandDao commandDao;
     private RelationalUserDao userDao;

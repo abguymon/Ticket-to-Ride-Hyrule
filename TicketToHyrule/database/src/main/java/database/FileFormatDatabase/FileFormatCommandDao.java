@@ -18,20 +18,13 @@ public class FileFormatCommandDao {
             System.out.println("Error casting object as Command");
             return false;
         }
-        boolean created = createCommand(toCreate);
-        return created;
+       return true;
     }
 
 
     public boolean insert(Object object) {
         return false;
     }
-
-    private boolean createCommand(Command toCreate) {
-        //TODO: add command to file database, returning true if no errors
-        return false;
-    }
-
 
     public Object read(String toRead) {
         Command command = null;
@@ -41,7 +34,7 @@ public class FileFormatCommandDao {
     }
 
 
-    public Object[] readAll(String toRead) {
+    public Object[] readAll() {
         return new Object[0];
     }
 
@@ -60,15 +53,8 @@ public class FileFormatCommandDao {
             System.out.println("Error casting object as Command");
             return false;
         }
-        boolean updated = updateCommand(toUpdate);
-        return updated;
+        return true;
     }
-
-    private boolean updateCommand(Command toUpdate) {
-        //TODO: might not need to update commands
-        return false;
-    }
-
 
     public boolean delete(Object object) {
         Command toDelete = null;
@@ -79,17 +65,11 @@ public class FileFormatCommandDao {
             System.out.println("Error casting object as Command");
             return false;
         }
-        boolean deleted = deleteCommand(toDelete);
-        return deleted;
+        return true;
     }
 
 
     public void clear() {
 
-    }
-
-    private boolean deleteCommand(Command toDelete) {
-        //TODO: delete toDelete in file database, returning true if no errors
-        return false;
     }
 }
