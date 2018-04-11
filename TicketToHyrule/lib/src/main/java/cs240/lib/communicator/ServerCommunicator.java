@@ -131,6 +131,7 @@ public class ServerCommunicator {
                     Target.SINGLETON.wipe();
                 }
             }
+            Target.SINGLETON.restore();
             new ServerCommunicator().run();
         }catch (IndexOutOfBoundsException e){
             e.printStackTrace();

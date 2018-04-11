@@ -981,4 +981,8 @@ public class Target implements IServer {
             System.out.println("Second argument must be an integer");
         }
     }
+
+    public void restore() {
+        
+    }
 }
