@@ -22,6 +22,11 @@ public class FileFormatUserDao implements IFileFormatDatabase {
         return created;
     }
 
+    @Override
+    public boolean insert(Object object) {
+        return false;
+    }
+
     private boolean createUser(User toAdd) {
         //TODO: create toAdd in file database, returning true if no errors
         return false;

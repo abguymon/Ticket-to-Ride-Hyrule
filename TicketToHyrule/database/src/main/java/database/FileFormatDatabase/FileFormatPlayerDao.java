@@ -14,6 +14,11 @@ public class FileFormatPlayerDao implements IFileFormatDatabase{
     }
 
     @Override
+    public boolean insert(Object object) {
+        return false;
+    }
+
+    @Override
     public Object read(String toRead) {
         return null;
     }

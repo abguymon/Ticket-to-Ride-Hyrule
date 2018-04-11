@@ -22,6 +22,11 @@ public class FileFormatCommandDao implements IFileFormatDatabase {
         return created;
     }
 
+    @Override
+    public boolean insert(Object object) {
+        return false;
+    }
+
     private boolean createCommand(Command toCreate) {
         //TODO: add command to file database, returning true if no errors
         return false;

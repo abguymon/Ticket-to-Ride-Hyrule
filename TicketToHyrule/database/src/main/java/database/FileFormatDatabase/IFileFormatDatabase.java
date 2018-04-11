@@ -1,6 +1,6 @@
 package database.FileFormatDatabase;
 
-import database.IDatabase;
+import cs240.lib.server.IDatabase;
 
 /**
  * Created by David on 4/7/2018.

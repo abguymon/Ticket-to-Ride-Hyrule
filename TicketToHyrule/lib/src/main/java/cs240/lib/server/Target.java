@@ -57,6 +57,7 @@ public class Target implements IServer {
      * for the clients to interact with
      */
     public static final Target SINGLETON = new Target();
+    private IDatabase database;
     private ArrayList<User> registeredUsers;
     private ArrayList<Login> loggedinUsers;
     private ArrayList<LobbyGame> availableGames;
@@ -666,9 +667,7 @@ public class Target implements IServer {
     public ClaimRouteResult claimRoute(String playerName, String gameName, int route_id, TrainCardColor chosenCardsColor) {
         String[] parameterTypeNames = {String.class.getName(), String.class.getName(), int.class.getName(), TrainCardColor.class.getName()};
         Object[] parameters = {playerName, gameName, route_id, chosenCardsColor};
-        Command submitCommand = new Command("claimRoute", parameterTypeNames, parameters);
-        commandHistory.add(submitCommand);
-        commandQueue.add(submitCommand);
+        Command claimRouteCommand = new Command("claimRoute", parameterTypeNames, parameters);
         Poller.getInstance().incrementCommandIndex();
         if (playerName == null || gameName == null) {
             return new ClaimRouteResult("1 or more null fields");
@@ -694,6 +693,8 @@ public class Target implements IServer {
                     }
                     if (game.claimRoute(player, game.getMap().getRoutes().get(route_id), chosenCardsColor)) {
                         game.addToGameHistory(playerName + " claimed the route " +  game.getMap().getRoutes().get(route_id).toString());
+                        commandHistory.add(claimRouteCommand);
+                        commandQueue.add(claimRouteCommand);
                         if (game.isFinalRound()) {
                             game.addToGameHistory("Final Round!!!");
                             return new ClaimRouteResult(true);

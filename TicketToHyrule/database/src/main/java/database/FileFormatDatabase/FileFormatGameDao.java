@@ -23,6 +23,11 @@ public class FileFormatGameDao implements IFileFormatDatabase {
         return created;
     }
 
+    @Override
+    public boolean insert(Object object) {
+        return false;
+    }
+
     private boolean createGame(Game toAdd) {
         //TODO: create toAdd in file database, returning true if no errors
         return false;

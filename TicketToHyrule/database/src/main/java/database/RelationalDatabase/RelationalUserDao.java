@@ -1,5 +1,7 @@
 package database.RelationalDatabase;
 
+import java.sql.Connection;
+
 import cs240.lib.Model.User;
 
 /**
@@ -7,6 +9,13 @@ import cs240.lib.Model.User;
  */
 
 public class RelationalUserDao implements IRelationalDatabase {
+
+    private Connection connection;
+
+    public RelationalUserDao(Connection connection){
+        this.connection = connection;
+    }
+
     @Override
     public boolean create(Object object) {
         User toAdd = null;
@@ -19,6 +28,11 @@ public class RelationalUserDao implements IRelationalDatabase {
         }
         boolean created = createUser(toAdd);
         return created;
+    }
+
+    @Override
+    public boolean insert(Object object) {
+        return false;
     }
 
     private boolean createUser(User toAdd) {

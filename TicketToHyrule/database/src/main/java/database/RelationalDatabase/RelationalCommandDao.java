@@ -1,5 +1,7 @@
 package database.RelationalDatabase;
 
+import java.sql.Connection;
+
 import cs240.lib.common.Command;
 
 /**
@@ -7,6 +9,13 @@ import cs240.lib.common.Command;
  */
 
 public class RelationalCommandDao implements IRelationalDatabase {
+
+    private Connection connection;
+
+    public RelationalCommandDao(Connection connection){
+        this.connection = connection;
+    }
+
     @Override
     public boolean create(Object object) {
         Command toCreate = null;
@@ -19,6 +28,11 @@ public class RelationalCommandDao implements IRelationalDatabase {
         }
         boolean created = createCommand(toCreate);
         return created;
+    }
+
+    @Override
+    public boolean insert(Object object) {
+        return false;
     }
 
     private boolean createCommand(Command toCreate) {

@@ -1,5 +1,10 @@
 package database.RelationalDatabase;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 import cs240.lib.Model.Game;
 
 /**
@@ -7,8 +12,62 @@ import cs240.lib.Model.Game;
  */
 
 public class RelationalGameDao implements IRelationalDatabase {
+    private Connection connection;
+
+    public RelationalGameDao(Connection connection){
+        this.connection = connection;
+    }
+
     @Override
     public boolean create(Object object) {
+        Game toCreate = null;
+        try{
+            toCreate = (Game) object;
+        }catch (Exception e){
+            e.printStackTrace();
+            System.out.println("Error casting object as Game");
+            return false;
+        }
+        boolean created = createGame(toCreate);
+
+        return created;
+    }
+
+    private boolean createGame(Game toAdd) {
+        Statement statement = null;
+        try{
+            statement = connection.createStatement();
+            String sql = "create table if not exists Games " +
+                    "(" +
+                    "UserID integer primary key autoincrement," +
+                    "Game_Name text not null," +
+                    "Password_ text not null," +
+                    "Email text not null," +
+                    "First_Name text not null," +
+                    "Last_Name text not null," +
+                    "Gender text not null," +
+                    "PersonID text" +
+                    ")";
+
+            statement.executeUpdate(sql);
+        } catch (SQLException e){
+            e.printStackTrace();
+            return false;
+        } finally {
+            try{
+                if (statement != null){
+                    statement.close();
+                    return true;
+                }
+            }catch(SQLException e){
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean insert(Object object) {
         Game toAdd = null;
         try{
             toAdd = (Game) object;
@@ -17,13 +76,39 @@ public class RelationalGameDao implements IRelationalDatabase {
             System.out.println("Error casting object as Game");
             return false;
         }
-        boolean created = createGame(toAdd);
-
-        return created;
+        boolean inserted = insertGame(toAdd);
+        return inserted;
     }
 
-    private boolean createGame(Game toAdd) {
-        //TODO: create toAdd in database, returning true if no errors
+    private boolean insertGame(Game toAdd) {
+        PreparedStatement statement = null;
+        try{
+            String sql = "insert into Games (Game_Name, ) " +
+                    "values (?, )";
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, toAdd.getGameName());
+            /*statement.setString(2, user.getPassword());
+            statement.setString(3, user.getEmail());
+            statement.setString(4, user.getFirst_name());
+            statement.setString(5, user.getLast_name());
+            statement.setString(6, user.getGender());
+            statement.setString(7, user.getPersonID());*/
+
+            statement.executeUpdate();
+        }catch (SQLException e){
+            e.printStackTrace();
+            return false;
+        } finally{
+            try{
+                if (statement != null){
+                    statement.close();
+                    return true;
+                }
+            } catch (SQLException e){
+                e.printStackTrace();
+                return false;
+            }
+        }
         return false;
     }
 

@@ -13,7 +13,6 @@ import cs240.lib.communicator.ServerCommunicator;
 
 public class TestMain {
     public static void main(String[] args){
-
         SignInResult result = ServerProxy.SINGLETON.register("testUser", "pass");
         String authToken = result.getAuthToken();
         if (result.getErrorMessage().equals("")) {
