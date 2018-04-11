@@ -59,7 +59,7 @@ public class RelationalDatabase implements IDatabase {
         }
     }
 
-    @Override
+    /*@Override
     public boolean create(Object object) {
         if(object.getClass().equals(Game.class)){
             return gameDao.create();
@@ -86,9 +86,14 @@ public class RelationalDatabase implements IDatabase {
         }else{
             return false;
         }
-    }
+    }*/
+    public boolean create(User user) {return userDao.create();}
+    public boolean create(Game game) {return gameDao.create();}
+    public boolean create(Command command) {return commandDao.create();}
+    public boolean insert(User user) {return userDao.insert(user);}
+    public boolean insert(Game game) {return gameDao.insert(game);}
+    public boolean insert(Command command) {return commandDao.insert(command);}
 
-    @Override
     public Object read(Object object, String toRead) {
         if(object.getClass().equals(Game.class)){
             return gameDao.read(toRead);
@@ -101,7 +106,20 @@ public class RelationalDatabase implements IDatabase {
         }
     }
 
-    @Override
+    public Object[] readAll(User user) {return userDao.readAll();}
+    public Object[] readAll(Game game) {return gameDao.readAll();}
+    public Object[] readAll(Command command) {return commandDao.readAll();}
+    public boolean update(User user) {return userDao.update(user);}
+    public boolean update(Game game) {return gameDao.update(game);}
+    public boolean update(Command command) {return commandDao.update(command);}
+    public boolean delete(User user) {return userDao.delete(user);}
+    public boolean delete(Game game) {return gameDao.delete(game);}
+    public boolean delete(Command command) {return commandDao.delete(command);}
+    public void clear(User user) {userDao.clear();}
+    public void clear(Game game) {gameDao.clear();}
+    public void clear(Command command) {commandDao.clear();}
+
+    /*@Override
     public Object[] readAll(Object object) {
         if(object.getClass().equals(Game.class)){
             return gameDao.readAll();
@@ -157,6 +175,6 @@ public class RelationalDatabase implements IDatabase {
         }else if (object.getClass().equals(User.class)){
             userDao.clear();
         }
-    }
+    }*/
 
 }
