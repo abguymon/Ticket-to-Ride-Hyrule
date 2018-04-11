@@ -12,7 +12,6 @@ public class RelationalDatabase {
     private RelationalGameDao gameDao;
     private RelationalCommandDao commandDao;
     private RelationalUserDao userDao;
-    private RelationalPlayerDao playerDao;
 
     final String URL = "jdbc:sqlite:TTH.db"; //TODO: make sure this is the right file
     private Connection connection = null;
@@ -31,7 +30,6 @@ public class RelationalDatabase {
         gameDao = new RelationalGameDao(connection);
         commandDao = new RelationalCommandDao(connection);
         userDao = new RelationalUserDao(connection);
-        playerDao = new RelationalPlayerDao(connection);
     }
 
     private void openConnection() {
