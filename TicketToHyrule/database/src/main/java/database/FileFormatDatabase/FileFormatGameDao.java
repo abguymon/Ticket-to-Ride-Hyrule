@@ -1,6 +1,8 @@
 package database.FileFormatDatabase;
 
 
+import java.io.File;
+
 import cs240.lib.Model.Game;
 import database.RelationalDatabase.IRelationalDatabase;
 
@@ -9,6 +11,11 @@ import database.RelationalDatabase.IRelationalDatabase;
  */
 
 public class FileFormatGameDao {
+
+    private final static String FILE_PATH = "File Format Persistent Storage/Games";
+    public FileFormatGameDao() {
+        new File(FILE_PATH).mkdirs();
+    }
 
     public boolean create(Object object) {
         Game toAdd = null;

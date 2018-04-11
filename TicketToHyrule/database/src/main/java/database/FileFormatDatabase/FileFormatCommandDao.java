@@ -1,5 +1,7 @@
 package database.FileFormatDatabase;
 
+import java.io.File;
+
 import cs240.lib.common.Command;
 import database.RelationalDatabase.IRelationalDatabase;
 
@@ -8,6 +10,10 @@ import database.RelationalDatabase.IRelationalDatabase;
  */
 
 public class FileFormatCommandDao {
+    private final static String FILE_PATH = "File Format Persistent Storage/Commands";
+    public FileFormatCommandDao() {
+        new File(FILE_PATH).mkdirs();
+    }
 
     public boolean create(Object object) {
         Command toCreate = null;

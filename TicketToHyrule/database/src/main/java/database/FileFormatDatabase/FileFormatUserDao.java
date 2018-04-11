@@ -9,6 +9,7 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.util.ArrayList;
 
 import cs240.lib.Model.User;
 
@@ -23,6 +24,11 @@ public class FileFormatUserDao{
     }
 
     public boolean create(Object object) {
+        return false;
+    }
+
+
+    public boolean insert(Object object) {
         User toAdd = null;
         Writer writer = null;
         try{
@@ -42,11 +48,6 @@ public class FileFormatUserDao{
     }
 
 
-    public boolean insert(Object object) {
-        return false;
-    }
-
-
     public Object read(String toRead) {
         User user = null;
         String username = toRead;
@@ -56,7 +57,37 @@ public class FileFormatUserDao{
 
 
     public Object[] readAll() {
-        return new Object[0];
+        ArrayList<User> userInfo = new ArrayList<>();
+        File userDirectory = new File(FILE_PATH);
+        File[] users = userDirectory.listFiles();
+        if (users != null) {
+            for (File file : users) {
+                    BufferedReader reader = null;
+                    try {
+                        reader = new BufferedReader(new FileReader(file));
+                    } catch (Exception e) {return null;}
+                    String         line = null;
+                    StringBuilder  stringBuilder = new StringBuilder();
+                    String         ls = System.getProperty("line.separator");
+
+                    try {
+                        while((line = reader.readLine()) != null) {
+                            stringBuilder.append(line);
+                            stringBuilder.append(ls);
+                        }
+
+                        String fileString = stringBuilder.toString();
+                        reader.close();
+                        Gson gson = new Gson();
+                        User user = gson.fromJson(fileString, User.class);
+                        userInfo.add(user);
+                    } catch(Exception e) {return null;}
+            }
+            return userInfo.toArray();
+        }
+        else {
+            return null;
+        }
     }
 
     private User findUsername(String username) {
@@ -152,6 +183,18 @@ public class FileFormatUserDao{
 
 
     public void clear() {
-
+        File userDirectory = new File(FILE_PATH);
+        File[] users = userDirectory.listFiles();
+        if (users != null) {
+            for (File file : users) {
+                try {
+                    file.delete();
+                } catch(Exception e) {return;}
+            }
+            return;
+        }
+        else {
+            return;
+        }
     }
 }
