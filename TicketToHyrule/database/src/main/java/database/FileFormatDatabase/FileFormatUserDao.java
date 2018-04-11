@@ -11,18 +11,17 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 
 import cs240.lib.Model.User;
-import database.RelationalDatabase.IRelationalDatabase;
 
 /**
  * Created by David on 4/7/2018.
  */
 
-public class FileFormatUserDao implements IFileFormatDatabase {
+public class FileFormatUserDao{
     private final static String FILE_PATH = "File Format Persistent Storage/Users";
     public FileFormatUserDao() {
         new File(FILE_PATH).mkdirs();
     }
-    @Override
+
     public boolean create(Object object) {
         User toAdd = null;
         Writer writer = null;
@@ -42,17 +41,22 @@ public class FileFormatUserDao implements IFileFormatDatabase {
         return true;
     }
 
-    @Override
+
     public boolean insert(Object object) {
         return false;
     }
 
-    @Override
+
     public Object read(String toRead) {
         User user = null;
         String username = toRead;
         user = findUsername(username);
         return user;
+    }
+
+
+    public Object[] readAll(String toRead) {
+        return new Object[0];
     }
 
     private User findUsername(String username) {
@@ -93,7 +97,7 @@ public class FileFormatUserDao implements IFileFormatDatabase {
         return null;
     }
 
-    @Override
+
     public boolean update(Object object) {
         User toUpdate = null;
         Writer writer = null;
@@ -113,7 +117,7 @@ public class FileFormatUserDao implements IFileFormatDatabase {
         return true;
     }
 
-    @Override
+
     public boolean delete(Object object) {
         User toDelete = null;
         try{
@@ -144,5 +148,10 @@ public class FileFormatUserDao implements IFileFormatDatabase {
             return false;
         }
         return true;
+    }
+
+
+    public void clear() {
+
     }
 }

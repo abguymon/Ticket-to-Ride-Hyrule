@@ -8,7 +8,7 @@ import cs240.lib.Model.User;
  * Created by David on 4/7/2018.
  */
 
-public class RelationalUserDao implements IRelationalDatabase {
+public class RelationalUserDao {
 
     private Connection connection;
 
@@ -16,35 +16,34 @@ public class RelationalUserDao implements IRelationalDatabase {
         this.connection = connection;
     }
 
-    @Override
-    public boolean create(Object object) {
-        User toCreate = null;
-        try{
-            toCreate = (User) object;
-        }catch (Exception e){
-            e.printStackTrace();
-            System.out.println("Error casting object as User");
-            return false;
-        }
-        boolean created = createUser(toCreate);
+    public boolean create() {
+        boolean created = createUser();
         return created;
     }
 
-    @Override
-    public boolean insert(Object object) {
+    private boolean createUser() {
+
         return false;
     }
 
-    private boolean createUser(User toAdd) {
-        //TODO: create toAdd in database, returning true if no errors
+
+    public boolean insert(User user) {
+        User toInsert = user;
+        boolean inserted = insertUser(toInsert);
+        return inserted;
+    }
+
+    private boolean insertUser(User toInsert) {
+        //TODO: create toInsert in database, returning true if no errors
         return false;
     }
 
-    @Override
+
+
+
     public Object read(String toRead) {
-        User user = null;
         String username = toRead;
-        user = findUsername(username);
+        User user = findUsername(username);
         return user;
     }
 
@@ -53,16 +52,16 @@ public class RelationalUserDao implements IRelationalDatabase {
         return null;
     }
 
-    @Override
-    public boolean update(Object object) {
-        User toUpdate = null;
-        try{
-            toUpdate = (User) object;
-        }catch (Exception e){
-            e.printStackTrace();
-            System.out.println("Error casting object as User");
-            return false;
-        }
+    public Object[] readAll() {
+
+        return new Object[0];
+    }
+
+
+
+
+    public boolean update(User user) {
+        User toUpdate = user;
         boolean updated = updateUser(toUpdate);
         return updated;
     }
@@ -72,16 +71,8 @@ public class RelationalUserDao implements IRelationalDatabase {
         return false;
     }
 
-    @Override
-    public boolean delete(Object object) {
-        User toDelete = null;
-        try{
-            toDelete = (User) object;
-        }catch (Exception e){
-            e.printStackTrace();
-            System.out.println("Error casting object as User");
-            return false;
-        }
+    public boolean delete(User user) {
+        User toDelete = user;
         boolean deleted = deleteUser(toDelete);
         return false;
     }
@@ -89,5 +80,10 @@ public class RelationalUserDao implements IRelationalDatabase {
     private boolean deleteUser(User toDelete) {
         //TODO: delete toDelete in database, returning true if no errors
         return false;
+    }
+
+
+    public void clear() {
+
     }
 }

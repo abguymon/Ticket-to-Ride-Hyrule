@@ -4,11 +4,15 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import cs240.lib.Model.Game;
+import cs240.lib.Model.User;
+import cs240.lib.common.Command;
+
 /**
  * Created by David on 4/10/2018.
  */
 
-public class RelationalDatabase {
+public class RelationalDatabase implements IRelationalDatabase{
     private RelationalGameDao gameDao;
     private RelationalCommandDao commandDao;
     private RelationalUserDao userDao;
@@ -25,14 +29,13 @@ public class RelationalDatabase {
         }
     }
 
-    public RelationalDatabase(Connection connection){
-        openConnection();
+    public RelationalDatabase(){
         gameDao = new RelationalGameDao(connection);
         commandDao = new RelationalCommandDao(connection);
         userDao = new RelationalUserDao(connection);
     }
 
-    private void openConnection() {
+    public void openConnection() {
         try{
             connection = DriverManager.getConnection(URL);
             connection.setAutoCommit(false);
@@ -55,9 +58,104 @@ public class RelationalDatabase {
         }
     }
 
-    //for testing
-    /*public static void main(String args[]){
+    @Override
+    public boolean create(Object object) {
+        if(object.getClass().equals(Game.class)){
+            return gameDao.create();
+        }else if(object.getClass().equals(Command.class)){
+            return commandDao.create();
+        }else if (object.getClass().equals(User.class)){
+            return userDao.create();
+        }else{
+            return false;
+        }
+    }
 
-    }*/
+    @Override
+    public boolean insert(Object object) {
+        if(object.getClass().equals(Game.class)){
+            Game game = (Game)object;
+            return gameDao.insert(game);
+        }else if(object.getClass().equals(Command.class)){
+            Command command = (Command)object;
+            return commandDao.insert(command);
+        }else if (object.getClass().equals(User.class)){
+            User user = (User)object;
+            return userDao.insert(user);
+        }else{
+            return false;
+        }
+    }
+
+    @Override
+    public Object read(Object object, String toRead) {
+        if(object.getClass().equals(Game.class)){
+            return gameDao.read(toRead);
+        }else if(object.getClass().equals(Command.class)){
+            return commandDao.read(toRead);
+        }else if (object.getClass().equals(User.class)){
+            return userDao.read(toRead);
+        }else{
+            return null;
+        }
+    }
+
+    @Override
+    public Object[] readAll(Object object) {
+        if(object.getClass().equals(Game.class)){
+            return gameDao.readAll();
+        }else if(object.getClass().equals(Command.class)){
+            return commandDao.readAll();
+        }else if (object.getClass().equals(User.class)){
+            return userDao.readAll();
+        }else{
+            return null;
+        }
+    }
+
+    @Override
+    public boolean update(Object object) {
+        if(object.getClass().equals(Game.class)){
+            Game game = (Game)object;
+            return gameDao.update(game);
+        }else if(object.getClass().equals(Command.class)){
+            Command command = (Command)object;
+            return commandDao.update(command);
+        }else if (object.getClass().equals(User.class)){
+            User user = (User)object;
+            return userDao.update(user);
+        }else{
+            return false;
+        }
+    }
+
+    @Override
+    public boolean delete(Object object) {
+        if(object.getClass().equals(Game.class)){
+            Game game = (Game)object;
+            return gameDao.delete(game);
+        }else if(object.getClass().equals(Command.class)){
+            Command command = (Command)object;
+            return commandDao.delete(command);
+        }else if (object.getClass().equals(User.class)){
+            User user = (User)object;
+            return userDao.delete(user);
+        }else{
+            return false;
+        }
+    }
+
+    @Override
+    public void clear(Object object) {
+        if(object.getClass().equals(Game.class)){
+            Game game = (Game)object;
+            gameDao.clear();
+        }else if(object.getClass().equals(Command.class)){
+            Command command = (Command)object;
+            commandDao.clear();
+        }else if (object.getClass().equals(User.class)){
+            userDao.clear();
+        }
+    }
 
 }

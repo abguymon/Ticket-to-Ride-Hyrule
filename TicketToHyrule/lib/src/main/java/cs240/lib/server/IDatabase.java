@@ -6,9 +6,9 @@ package cs240.lib.server;
 public interface IDatabase {
     boolean create(Object object);
     boolean insert(Object object);
-    Object read(String toRead);
-    Object[] readAll(String toRead);
+    Object read(Object object, String toRead);
+    Object[] readAll(Object object);
     boolean update(Object object);
     boolean delete(Object object);
-    void clear();
+    void clear(Object object);
 }

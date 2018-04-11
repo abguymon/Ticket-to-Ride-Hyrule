@@ -16,29 +16,19 @@ import cs240.lib.Model.Game;
  * Created by David on 4/7/2018.
  */
 
-public class RelationalGameDao implements IRelationalDatabase {
+public class RelationalGameDao{
     private Connection connection;
 
     public RelationalGameDao(Connection connection){
         this.connection = connection;
     }
 
-    @Override
-    public boolean create(Object object) {
-        Game toCreate = null;
-        try{
-            toCreate = (Game) object;
-        }catch (Exception e){
-            e.printStackTrace();
-            System.out.println("Error casting object as Game");
-            return false;
-        }
-        boolean created = createGame(toCreate);
-
+    public boolean create() {
+        boolean created = createGame();
         return created;
     }
 
-    private boolean createGame(Game toAdd) {
+    private boolean createGame() {
         Statement statement = null;
         try{
             statement = connection.createStatement();
@@ -64,16 +54,8 @@ public class RelationalGameDao implements IRelationalDatabase {
         return false;
     }
 
-    @Override
-    public boolean insert(Object object) {
-        Game toAdd = null;
-        try{
-            toAdd = (Game) object;
-        }catch (Exception e){
-            e.printStackTrace();
-            System.out.println("Error casting object as Game");
-            return false;
-        }
+    public boolean insert(Game game) {
+        Game toAdd = game;
         boolean inserted = insertGame(toAdd);
         return inserted;
     }
@@ -123,7 +105,6 @@ public class RelationalGameDao implements IRelationalDatabase {
         }
     }
 
-    @Override
     public Object read(String toRead) {
         Game readInGame = null;
         String gameName = toRead;
@@ -131,21 +112,18 @@ public class RelationalGameDao implements IRelationalDatabase {
         return readInGame;
     }
 
+    public Object[] readAll() {
+        return new Object[0];
+    }
+
     private Game findGame(String gameName) {
         //TODO: readInGame assigned to game found by gameName in database
         return null;
     }
 
-    @Override
-    public boolean update(Object object) {
-        Game toUpdate = null;
-        try{
-            toUpdate = (Game) object;
-        }catch (Exception e){
-            e.printStackTrace();
-            System.out.println("Error casting object as Game");
-            return false;
-        }
+
+    public boolean update(Game game) {
+        Game toUpdate = game;
         boolean updated = updateGame(toUpdate);
         return updated;
     }
@@ -155,16 +133,8 @@ public class RelationalGameDao implements IRelationalDatabase {
         return false;
     }
 
-    @Override
-    public boolean delete(Object object) {
-        Game toDelete = null;
-        try{
-            toDelete = (Game) object;
-        }catch (Exception e){
-            e.printStackTrace();
-            System.out.println("Error casting object as Game");
-            return false;
-        }
+    public boolean delete(Game game) {
+        Game toDelete = game;
         boolean deleted = deleteGame(toDelete);
         return deleted;
     }
@@ -173,4 +143,11 @@ public class RelationalGameDao implements IRelationalDatabase {
         //TODO: delete toDelete in database, returning true if no error
         return false;
     }
+
+
+    public void clear() {
+
+    }
+
+
 }

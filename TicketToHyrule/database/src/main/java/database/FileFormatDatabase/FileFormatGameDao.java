@@ -1,5 +1,6 @@
 package database.FileFormatDatabase;
 
+
 import cs240.lib.Model.Game;
 import database.RelationalDatabase.IRelationalDatabase;
 
@@ -7,8 +8,8 @@ import database.RelationalDatabase.IRelationalDatabase;
  * Created by David on 4/7/2018.
  */
 
-public class FileFormatGameDao implements IFileFormatDatabase {
-    @Override
+public class FileFormatGameDao {
+
     public boolean create(Object object) {
         Game toAdd = null;
         try{
@@ -23,7 +24,7 @@ public class FileFormatGameDao implements IFileFormatDatabase {
         return created;
     }
 
-    @Override
+
     public boolean insert(Object object) {
         return false;
     }
@@ -33,7 +34,7 @@ public class FileFormatGameDao implements IFileFormatDatabase {
         return false;
     }
 
-    @Override
+
     public Object read(String toRead) {
         Game readInGame = null;
         String gameName = toRead;
@@ -41,12 +42,17 @@ public class FileFormatGameDao implements IFileFormatDatabase {
         return readInGame;
     }
 
+
+    public Object[] readAll(String toRead) {
+        return new Object[0];
+    }
+
     private Game findGame(String gameName) {
         //TODO: readInGame assigned to game found by gameName in file database
         return null;
     }
 
-    @Override
+
     public boolean update(Object object) {
         Game toUpdate = null;
         try{
@@ -65,7 +71,7 @@ public class FileFormatGameDao implements IFileFormatDatabase {
         return false;
     }
 
-    @Override
+
     public boolean delete(Object object) {
         Game toDelete = null;
         try{
@@ -77,6 +83,11 @@ public class FileFormatGameDao implements IFileFormatDatabase {
         }
         boolean deleted = deleteGame(toDelete);
         return deleted;
+    }
+
+
+    public void clear() {
+
     }
 
     private boolean deleteGame(Game toDelete) {

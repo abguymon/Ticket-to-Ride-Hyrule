@@ -7,8 +7,8 @@ import database.RelationalDatabase.IRelationalDatabase;
  * Created by David on 4/7/2018.
  */
 
-public class FileFormatCommandDao implements IFileFormatDatabase {
-    @Override
+public class FileFormatCommandDao {
+
     public boolean create(Object object) {
         Command toCreate = null;
         try{
@@ -22,7 +22,7 @@ public class FileFormatCommandDao implements IFileFormatDatabase {
         return created;
     }
 
-    @Override
+
     public boolean insert(Object object) {
         return false;
     }
@@ -32,7 +32,7 @@ public class FileFormatCommandDao implements IFileFormatDatabase {
         return false;
     }
 
-    @Override
+
     public Object read(String toRead) {
         Command command = null;
         String commandIdentifyer = toRead;
@@ -40,12 +40,17 @@ public class FileFormatCommandDao implements IFileFormatDatabase {
         return command;
     }
 
+
+    public Object[] readAll(String toRead) {
+        return new Object[0];
+    }
+
     private Command findCommand(String commandIdentifyer) {
         //TODO: might need to make different read command to get sequencial commands rather than by identifyer
         return null;
     }
 
-    @Override
+
     public boolean update(Object object) {
         Command toUpdate = null;
         try{
@@ -64,7 +69,7 @@ public class FileFormatCommandDao implements IFileFormatDatabase {
         return false;
     }
 
-    @Override
+
     public boolean delete(Object object) {
         Command toDelete = null;
         try{
@@ -76,6 +81,11 @@ public class FileFormatCommandDao implements IFileFormatDatabase {
         }
         boolean deleted = deleteCommand(toDelete);
         return deleted;
+    }
+
+
+    public void clear() {
+
     }
 
     private boolean deleteCommand(Command toDelete) {

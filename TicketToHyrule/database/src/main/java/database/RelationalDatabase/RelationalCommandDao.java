@@ -16,7 +16,7 @@ import cs240.lib.common.Command;
  * Created by David on 4/7/2018.
  */
 
-public class RelationalCommandDao implements IRelationalDatabase {
+public class RelationalCommandDao{
 
     private Connection connection;
 
@@ -24,21 +24,13 @@ public class RelationalCommandDao implements IRelationalDatabase {
         this.connection = connection;
     }
 
-    @Override
-    public boolean create(Object object) {
-        Command toCreate = null;
-        try{
-            toCreate = (Command) object;
-        }catch (Exception e){
-            e.printStackTrace();
-            System.out.println("Error casting object as Command");
-            return false;
-        }
-        boolean created = createCommand(toCreate);
+
+    public boolean create() {
+        boolean created = createCommand();
         return created;
     }
 
-    private boolean createCommand(Command toCreate) {
+    private boolean createCommand() {
         Statement statement = null;
         try{
             statement = connection.createStatement();
@@ -66,16 +58,8 @@ public class RelationalCommandDao implements IRelationalDatabase {
         return false;
     }
 
-    @Override
-    public boolean insert(Object object) {
-        Command toInsert = null;
-        try{
-            toInsert = (Command) object;
-        }catch (Exception e){
-            e.printStackTrace();
-            System.out.println("Error casting object as Command");
-            return false;
-        }
+    public boolean insert(Command command) {
+        Command toInsert = command;
         boolean inserted = insertCommand(toInsert);
         return inserted;
     }
@@ -128,7 +112,6 @@ public class RelationalCommandDao implements IRelationalDatabase {
         }
     }
 
-    @Override
     public Object read(String toRead) {
         Command command = null;
         String commandIdentifyer = toRead;
@@ -141,16 +124,12 @@ public class RelationalCommandDao implements IRelationalDatabase {
         return null;
     }
 
-    @Override
-    public boolean update(Object object) {
-        Command toUpdate = null;
-        try{
-            toUpdate = (Command) object;
-        }catch (Exception e){
-            e.printStackTrace();
-            System.out.println("Error casting object as Command");
-            return false;
-        }
+    public Object[] readAll() {
+        return new Object[0];
+    }
+
+    public boolean update(Command command) {
+        Command toUpdate = command;
         boolean updated = updateCommand(toUpdate);
         return updated;
     }
@@ -160,16 +139,8 @@ public class RelationalCommandDao implements IRelationalDatabase {
         return false;
     }
 
-    @Override
-    public boolean delete(Object object) {
-        Command toDelete = null;
-        try{
-            toDelete = (Command) object;
-        }catch (Exception e){
-            e.printStackTrace();
-            System.out.println("Error casting object as Command");
-            return false;
-        }
+    public boolean delete(Command command) {
+        Command toDelete = command;
         boolean deleted = deleteCommand(toDelete);
         return deleted;
     }
@@ -178,4 +149,10 @@ public class RelationalCommandDao implements IRelationalDatabase {
         //TODO: delete toDelete in database, returning true if no errors
         return false;
     }
+
+    public void clear() {
+
+    }
+
+
 }
