@@ -16,6 +16,22 @@ public class SignInActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
+
+        Intent intent = getIntent();
+        boolean signedIn = intent.getBooleanExtra("BOOLEAN", false);
+        if (!signedIn)
+        {
+            moveToSignIn();
+        }
+        else
+        {
+            moveToLobby();
+        }
+
+    }
+
+    public void moveToSignIn()
+    {
         Fragment fragment = new SignInFragment();
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_frame, fragment, fragment.getClass().getSimpleName()).addToBackStack(null).commit();

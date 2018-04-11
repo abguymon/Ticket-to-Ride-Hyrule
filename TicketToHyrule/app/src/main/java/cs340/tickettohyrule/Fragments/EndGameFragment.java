@@ -1,5 +1,6 @@
 package cs340.tickettohyrule.Fragments;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -20,6 +21,7 @@ import cs240.lib.Model.gameParts.Player;
 import cs340.tickettohyrule.GameActivity;
 import cs340.tickettohyrule.PhaseTwoPresenters.EndGamePresenter;
 import cs340.tickettohyrule.R;
+import cs340.tickettohyrule.SignInActivity;
 
 /**
  * Created by eholm on 3/20/2018.
@@ -63,6 +65,11 @@ public class EndGameFragment extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
+
+        Intent intent = new Intent(getActivity(), SignInActivity.class);
+        intent.putExtra("BOOLEAN", true);
+        startActivity(intent);
+
         Toast.makeText(getActivity(), "return called", Toast.LENGTH_SHORT).show();
     }
 
