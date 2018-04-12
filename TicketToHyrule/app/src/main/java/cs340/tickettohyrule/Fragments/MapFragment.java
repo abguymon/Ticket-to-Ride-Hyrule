@@ -7,9 +7,13 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.NavUtils;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -159,6 +163,21 @@ public class MapFragment extends Fragment implements View.OnClickListener{
         super.onResume();
         updateUI();
     }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu){
+//        MenuInflater inflater = getActivity().getMenuInflater();
+//        inflater.inflate();
+//    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case android.R.id.home:
+            NavUtils.navigateUpFromSameTask(getActivity());
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     @Nullable
     @Override
@@ -166,6 +185,8 @@ public class MapFragment extends Fragment implements View.OnClickListener{
         View view = inflater.inflate(R.layout.fragment_map, container, false);
 
         zeldaFont = Typeface.createFromAsset(getActivity().getAssets(),"fonts/HyliaSerifBeta-Regular.otf");
+
+        getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
 
         mapPresenter.setView(this);
         ClientFacade.getInstance().addObserver(mapPresenter);
