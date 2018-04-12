@@ -3,7 +3,6 @@ package database.FileFormatDatabase;
 import java.io.File;
 
 import cs240.lib.common.Command;
-import database.RelationalDatabase.IRelationalDatabase;
 
 /**
  * Created by David on 4/7/2018.

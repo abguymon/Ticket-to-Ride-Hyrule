@@ -11,8 +11,7 @@ import database.FileFormatDatabase.FileFormatUserDao;
 public class TestRelationalMain {
     public static final void main(String[] args) {
         RelationalDatabase database = new RelationalDatabase();
-        boolean test = database.create(new User("test", "test"));
-        //userTest();
+        userTest(database);
         //gameTest();
         //commandTest();
 
@@ -26,22 +25,24 @@ public class TestRelationalMain {
 
     }
 
-    private static void userTest() {
+    private static void userTest(RelationalDatabase database) {
+        database.openConnection();
         User user = new User("philipds", "Spiderman23");
         User userAlt = new User("philipds", "WallaceandGromit");
         User user2 = new User("savannahjane", "PiebaldPaint1");
         User user3 = new User("HyrumAlan", "chumbawumba");
-        FileFormatUserDao dao = new FileFormatUserDao();
-        dao.create(user);
-        dao.create(user2);
-        dao.create(user3);
 
-        dao.update(userAlt);
+        database.create(user);
+        //database.create(user2);
+        //database.create(user3);
 
-        dao.delete(user3);
+        //database.update(userAlt);
 
-        User userRead = (User) dao.read("savannahjane");
-        System.out.println(userRead.getUsername());
-        System.out.println(userRead.getPassword());
+        //database.delete(user3);
+
+        //User userRead = (User) database.read(new User(),"savannahjane");
+        //System.out.println(userRead.getUsername());
+        //System.out.println(userRead.getPassword());
+        database.closeConnection(false);
     }
 }

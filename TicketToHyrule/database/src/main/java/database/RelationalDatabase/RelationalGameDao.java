@@ -7,8 +7,10 @@ import java.io.InputStream;
 import java.io.ObjectOutputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import cs240.lib.Model.Game;
 
@@ -35,6 +37,7 @@ public class RelationalGameDao{
             String sql = "create table if not exists Games " +
                     "(" +
                     "Game BLOB not null," +
+                    "GameName text not null" +
                     ")";
 
             statement.executeUpdate(sql);
@@ -64,10 +67,11 @@ public class RelationalGameDao{
         InputStream gameIS = writeToIS(toAdd);
         PreparedStatement statement = null;
         try{
-            String sql = "insert into Games (Game) " +
-                    "values (?)";
+            String sql = "insert into Games (Game, GameName) " +
+                    "values (?, ?)";
             statement = connection.prepareStatement(sql);
             statement.setBlob(1, gameIS);
+            statement.setString(1, toAdd.getGameName());
 
             statement.executeUpdate();
         }catch (SQLException e){
@@ -112,15 +116,72 @@ public class RelationalGameDao{
         return readInGame;
     }
 
-    public Object[] readAll() {
-        return new Object[0];
-    }
-
     private Game findGame(String gameName) {
-        //TODO: readInGame assigned to game found by gameName in database
-        return null;
+        Game game = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            String sql = "select * from Games where GameName = ?"; //TODO: how to find games from blobs?
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, gameName);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Game temp = (Game)resultSet.getBlob(2);
+                game = temp;
+            }
+
+        } catch(SQLException e){
+            e.printStackTrace();
+        }finally {
+            try{
+                if (resultSet != null){
+                    resultSet.close();
+                }
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+        return game;
     }
 
+    public Object[] readAll() {
+        Game game = null;
+        ArrayList<Game> gameList = new ArrayList<>();
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            String sql = "select * from Games ";
+            statement = connection.prepareStatement(sql);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Game temp = (Game)resultSet.getBlob(1);
+                game = temp;
+                gameList.add(game);
+            }
+
+        } catch(SQLException e){
+            e.printStackTrace();
+        }finally {
+            try{
+                if (resultSet != null){
+                    resultSet.close();
+                }
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+        Game[] games = new Game[gameList.size()];
+        for (int i = 0; i < gameList.size(); ++i){
+            games[i] = gameList.get(i);
+        }
+        return games;
+    }
 
     public boolean update(Game game) {
         Game toUpdate = game;
@@ -129,8 +190,31 @@ public class RelationalGameDao{
     }
 
     private boolean updateGame(Game toUpdate) {
-        //TODO: update toUpdate in database, returning true if no errors
-        return false;
+        PreparedStatement statement = null;
+        InputStream gameIS = writeToIS(toUpdate);
+        try {
+            String sql = "update Games " +
+                    "set Game = ?" +
+                    "where GameName = ?;";
+            statement = connection.prepareStatement(sql);
+            statement.setBlob(1, gameIS);
+            statement.setString(2, toUpdate.getGameName());
+
+            statement.executeUpdate();
+        } catch(SQLException e){
+            e.printStackTrace();
+            return false;
+        } finally {
+            try{
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+
+        }
+        return true;
     }
 
     public boolean delete(Game game) {
@@ -140,13 +224,29 @@ public class RelationalGameDao{
     }
 
     private boolean deleteGame(Game toDelete) {
-        //TODO: delete toDelete in database, returning true if no error
-        return false;
+        PreparedStatement statement = null;
+        try{
+            String sql = "delete from Games where GameName = ?";
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, toDelete.getGameName());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 
 
     public void clear() {
-
+        Statement statement = null;
+        try{
+            statement = connection.createStatement();
+            String sql = "delete from Games";
+            statement.execute(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 
