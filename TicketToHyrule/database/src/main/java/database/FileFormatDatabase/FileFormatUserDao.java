@@ -142,7 +142,7 @@ public class FileFormatUserDao{
             writer.close();
         }catch (Exception e){
             e.printStackTrace();
-            System.out.println("Error: User not stored correctly");
+            System.out.println("Error: User not updated correctly");
             return false;
         }
         return true;
@@ -175,7 +175,7 @@ public class FileFormatUserDao{
 
         }catch (Exception e){
             e.printStackTrace();
-            System.out.println("Error: User not stored correctly");
+            System.out.println("Error: User not deleted correctly");
             return false;
         }
         return true;
