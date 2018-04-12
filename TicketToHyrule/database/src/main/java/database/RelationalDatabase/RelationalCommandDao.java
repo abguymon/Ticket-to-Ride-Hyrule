@@ -151,7 +151,14 @@ public class RelationalCommandDao{
     }
 
     public void clear() {
-
+        Statement statement = null;
+        try{
+            statement = connection.createStatement();
+            String sql = "delete from Commands";
+            statement.execute(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 
