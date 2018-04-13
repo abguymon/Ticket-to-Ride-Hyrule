@@ -51,11 +51,18 @@ public class ModelFacade {
      * This is the current user logged in
      */
     private Login currentUser = null;
+
+    private ArrayList<String> joinedGames = new ArrayList<>();
     /**
      * This is the data of the current player
      */
     private Player currentPlayer = null;
     public ModelFacade(){}
+
+
+    public ArrayList<String> getJoinedGames() {
+        return joinedGames;
+    }
 
     public GetGameResult sync(){
         ClientCommunicator.SINGLETON.setAuthToken(currentUser.getAuthToken());
