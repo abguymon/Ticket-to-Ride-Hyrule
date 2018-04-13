@@ -51,6 +51,7 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener,
     private String currentGame;
     private Typeface zeldaFont;
     private InGameSingleton inGameSingleton = InGameSingleton.getInstance();
+    private boolean exsisting = false;
 
     @Override
     public void onDestroy() {
@@ -294,7 +295,27 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener,
         @Override protected void onPostExecute(Object result){
             super.onPostExecute(result);
             if(result instanceof GetGameResult){
+                ClientFacade clientFacade = ClientFacade.getInstance();
+                Queue<LobbyGame> lobbyGames = clientFacade.getStartedLobbyGames();
+                exsisting = false;
+                for(LobbyGame l: lobbyGames)
+                {
+                    if(l.getGameName().equals(currentGame))
+                    {
+                        exsisting = true;
+                    }
+                }
+
                 Intent intent = new Intent(getActivity(), GameActivity.class);
+
+                if (exsisting) {
+                    intent.putExtra("EXISTING", true);
+                }
+                else
+                {
+                    intent.putExtra("EXISTING", false);
+                }
+
                 Game gameData = ((GetGameResult) result).getGameStarted();
                 ClientFacade.getInstance().setGameData(gameData);
                 for(int i = 0; i < ClientFacade.getInstance().getGameData().getPlayerArray().size(); i++){

@@ -1,5 +1,6 @@
 package cs340.tickettohyrule;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.BundleCompat;
 import android.support.v4.app.Fragment;
@@ -29,6 +30,18 @@ public class GameActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+
+        Intent intent = getIntent();
+        boolean existing = intent.getBooleanExtra("EXISTING", false);
+        if (!existing)
+        {
+            moveToPreStart();
+        }
+        else
+        {
+            moveToMap();
+        }
+
         moveToPreStart();
     }
 
