@@ -25,6 +25,7 @@ import cs240.lib.Model.ClientFacade;
 import cs240.lib.Model.Game;
 import cs240.lib.Model.LobbyGame;
 import cs240.lib.Model.ModelFacade;
+import cs240.lib.Model.gameParts.Player;
 import cs240.lib.Model.states.TurnEnded;
 import cs240.lib.Model.states.TurnStarted;
 import cs240.lib.common.results.GetGameResult;
@@ -51,7 +52,6 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener,
     private String currentGame;
     private Typeface zeldaFont;
     private InGameSingleton inGameSingleton = InGameSingleton.getInstance();
-    private boolean exsisting = false;
 
     @Override
     public void onDestroy() {
@@ -120,19 +120,19 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener,
             }
         }
 
-        lobbyGames = clientFacade.getStartedLobbyGames();
+        ArrayList<String> startedGames = CurrentUserSingleton.getInstance().getModelFacade().getJoinedGames();
+        ArrayList<LobbyGame> maGames = new ArrayList<>();
         List<LobbyGame> gameList = getGames();
-        List<LobbyGame> joinedList = new ArrayList<>(lobbyGames);
 
-        for(LobbyGame l: joinedList)
+        for(String s: startedGames)
         {
-            if(!l.getPlayerArray().contains(CurrentUserSingleton.getInstance().getModelFacade().getCurrentUser().getUsername())){
-                joinedList.remove(l);
-            }
+           maGames.add(CurrentUserSingleton.getInstance().getModelFacade().getGame(s));
         }
 
+        List<String> gameListStrings = new ArrayList<>();
+
         gameAdapter = new Adapter(gameList);
-        joinedAdapter = new Adapter(joinedList);
+        joinedAdapter = new Adapter(maGames);
         gameListRecycler.setAdapter(gameAdapter);
         joinedListRecycler.setAdapter(joinedAdapter);
 
@@ -296,20 +296,13 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener,
         @Override protected void onPostExecute(Object result){
             super.onPostExecute(result);
             if(result instanceof GetGameResult){
-                ClientFacade clientFacade = ClientFacade.getInstance();
-                Queue<LobbyGame> lobbyGames = clientFacade.getStartedLobbyGames();
-                exsisting = false;
-                for(LobbyGame l: lobbyGames)
-                {
-                    if(l.getGameName().equals(currentGame))
-                    {
-                        exsisting = true;
-                    }
-                }
+
+                Player player = CurrentUserSingleton.getInstance().getModelFacade()
+                        .getGameData().getPlayer(CurrentUserSingleton.getInstance().getUserName());
 
                 Intent intent = new Intent(getActivity(), GameActivity.class);
 
-                if (exsisting) {
+                if (player.getDestinationCards().size() != 0) {
                     intent.putExtra("EXISTING", true);
                 }
                 else
