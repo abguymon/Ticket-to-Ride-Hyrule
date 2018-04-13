@@ -1,8 +1,6 @@
 package database.FileFormatDatabase;
 
-
 import com.google.gson.Gson;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -11,10 +9,8 @@ import java.io.FileReader;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.ArrayList;
-
 import cs240.lib.Model.Game;
-import cs240.lib.Model.User;
-import database.RelationalDatabase.IRelationalDatabase;
+
 
 /**
  * Created by David on 4/7/2018.

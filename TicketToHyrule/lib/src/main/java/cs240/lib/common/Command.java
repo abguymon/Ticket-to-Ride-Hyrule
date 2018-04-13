@@ -6,6 +6,8 @@ import java.io.InputStreamReader;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import cs240.lib.Model.cards.DestinationCard;
+import cs240.lib.Model.colors.TrainCardColor;
 import cs240.lib.server.ServerFacade;
 
 /**
@@ -14,7 +16,6 @@ import cs240.lib.server.ServerFacade;
 
 public class Command {
     private static Gson gson = new Gson();
-
     private String methodName;
     private String[] parameterTypeNames;
     private Object[] parameters = null; //Only used on the server side
@@ -23,6 +24,37 @@ public class Command {
     //I don't generate the parameter type names from the
     //parameters because some of the parameters might be
     //null.
+    public boolean equals(Command command) {
+        for (int i = 0; i < parameterTypeNames.length; ++i) {
+            if (!this.parameterTypeNames[i].equals(command.getParameterTypeNames()[i])) {
+                return false;
+            }
+        }
+        for (int j = 0; j < parameters.length; ++j) {
+            if (this.parameters[j].getClass().equals(String.class) && command.getParameters()[j].equals(String.class)) {
+                if (!this.parameters[j].equals(command.getParameters()[j])) {
+                    return false;
+                }
+            }
+            else if (this.parameters[j].getClass().equals(int.class) && command.getParameters()[j].getClass().equals(int.class)) {
+                if (this.parameters[j] != command.getParameters()[j]) {
+                    return false;
+                }
+            }
+            else if (this.parameters[j].getClass().equals(TrainCardColor.class) && command.getParameters()[j].getClass().equals(TrainCardColor.class)) {
+                if (this.parameters[j] != command.getParameters()[j]) {
+                    return false;
+                }
+            }
+            else if (this.parameters[j].getClass().equals(DestinationCard.class) && command.getParameters()[j].getClass().equals(DestinationCard.class)) {
+                if (!this.parameters[j].equals(command.getParameters()[j])) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
     public Command(String methodName, String[] parameterTypeNames, Object[] parameters) {
         this.methodName = methodName;
         this.parameterTypeNames = parameterTypeNames;
