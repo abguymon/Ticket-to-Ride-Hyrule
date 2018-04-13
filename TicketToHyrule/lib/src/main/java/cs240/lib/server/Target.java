@@ -986,7 +986,45 @@ public class Target implements IServer {
     }
 
     public void restore() {
+        Object[] restoredUsers = database.readAll(new User());
+        Object[] restoredGames = database.readAll(new Game("restoration"));
+        Object[] restoredCommands = database.readAll(new Command(null));
+        this.setActiveGames(translateGames(restoredGames));
+        this.setRegisteredUsers(translateUsers(restoredUsers));
+        ArrayList<Command> commandsToExecute = translateCommands(restoredCommands);
+        executeRestorationCommands(commandsToExecute);
+        database.clear(new Command(null));
+    }
 
+    private void executeRestorationCommands (ArrayList<Command> commands) {
+        //Read command call on the server/target model
+    }
+
+    private ArrayList<Game> translateGames(Object[] gameArray) {
+        ArrayList<Game> games = new ArrayList<>();
+        for (int i = 0; i < gameArray.length; ++i) {
+            Game game = (Game) gameArray[i];
+            games.add(game);
+        }
+        return games;
+    }
+
+    private ArrayList<User> translateUsers(Object[] userArray) {
+        ArrayList<User> users = new ArrayList<>();
+        for (int i = 0; i < userArray.length; ++i) {
+            User user = (User) userArray[i];
+            users.add(user);
+        }
+        return users;
+    }
+
+    private ArrayList<Command> translateCommands(Object[] commandArray) {
+        ArrayList<Command> commands = new ArrayList<>();
+        for (int i = 0; i < commandArray.length; ++i) {
+            Command command = (Command) commandArray[i];
+            commands.add(command);
+        }
+        return commands;
     }
 
     public void checkpoint() {
