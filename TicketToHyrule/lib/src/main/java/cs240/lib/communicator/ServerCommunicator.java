@@ -1,6 +1,5 @@
 package cs240.lib.communicator;
 
-
 import com.google.gson.Gson;
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
@@ -17,9 +16,9 @@ import java.util.ArrayList;
 import cs240.lib.Model.Login;
 import cs240.lib.common.Command;
 import cs240.lib.common.ResultTransferObject;
+import cs240.lib.server.IDatabase;
 import cs240.lib.server.ServerFacade;
 import cs240.lib.server.Target;
-
 
 /**
  * Created by David on 1/13/2018.
@@ -126,6 +125,14 @@ public class ServerCommunicator {
         try {
             Target.SINGLETON.setDatabaseType(args[0]);
             Target.SINGLETON.setN(args[1]);
+//            if (args[0].equals("SQL")) {
+//                RelationalDatabase relationalDB = new RelationalDatabase();
+//                Target.SINGLETON.setDatabase(relationalDB);
+//            }
+//            else if (args[0].equals("File")) {
+//                FileFormatDatabase fileDB = new FileFormatDatabase();
+//                Target.SINGLETON.setDatabase(fileDB);
+//            }
             for (int i = 0; i < args.length; ++i) {
                 if (args[i].equals("-wipe")) {
                     Target.SINGLETON.wipe();
