@@ -208,13 +208,14 @@ public class RelationalGameDao{
             try{
                 if (statement != null) {
                     statement.close();
+                    return true;
                 }
             } catch (SQLException e){
                 e.printStackTrace();
             }
 
         }
-        return true;
+        return false;
     }
 
     public boolean delete(Game game) {
