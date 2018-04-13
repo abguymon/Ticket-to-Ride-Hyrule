@@ -27,4 +27,5 @@ public interface IDatabase {
     void clear(User user);
     void clear(Game game);
     void clear(Command command);
+    void clearAll();
 }

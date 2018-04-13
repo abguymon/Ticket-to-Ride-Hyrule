@@ -75,6 +75,9 @@ public class Target implements IServer {
         commandQueue = new LinkedList<>();
     }
 
+    public IDatabase getDatabase() {return database;}
+    public void setDatabase(IDatabase database) {this.database = database;}
+
     /**
      *@pre SINGLETON must not be null
      * @post none
@@ -958,7 +961,7 @@ public class Target implements IServer {
     }*/
 
     public void wipe(){
-        //TODO: needs to wipe the persistence provider
+        database.clearAll();
     }
 
     public String getDatabaseType() {
@@ -983,6 +986,10 @@ public class Target implements IServer {
     }
 
     public void restore() {
+
+    }
+
+    public void checkpoint() {
 
     }
 }
