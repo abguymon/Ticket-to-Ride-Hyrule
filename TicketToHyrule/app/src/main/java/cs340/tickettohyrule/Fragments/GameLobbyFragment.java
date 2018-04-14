@@ -118,8 +118,9 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener,
             if(g.getPlayerArray().contains(CurrentUserSingleton.getInstance().getModelFacade().getCurrentUser().getUsername())){
                 //STUFF BELOW GOES IN ASYNC TASK
                 CurrentUserSingleton.getInstance().getModelFacade().getJoinedGames().add(g);
-                GetGameAsync getGameAsync = new GetGameAsync();
-                getGameAsync.execute(g.getGameName());
+
+                //GetGameAsync getGameAsync = new GetGameAsync();
+                //getGameAsync.execute(g.getGameName());
             }
         }
 
