@@ -505,7 +505,6 @@ public class Target implements IServer {
         Command chatGameCommand = new Command("chat", parameterTypeNames, parameters);
         commandHistory.add(chatGameCommand);
         commandQueue.add(chatGameCommand);
-        database.insert(chatGameCommand);
         Poller.getInstance().incrementCommandIndex();
         if (playerName == null || message == null || gameName == null) {
             return new ChatResult("1 or more null parameters");
@@ -515,6 +514,11 @@ public class Target implements IServer {
             Player player = game.getPlayer(playerName);
             if (player != null) {
                 game.addToGameHistory(playerName + " sent a chat message");
+                database.insert(chatGameCommand);
+                game.incrementCommandIndex();
+                if (game.checkCheckpoint()) {
+                    checkpoint(game);
+                }
                 return new ChatResult(playerName, message);
             }
             else {
@@ -541,7 +545,6 @@ public class Target implements IServer {
         Command submitCommand = new Command("drawDestinationCard", parameterTypeNames, parameters);
         commandHistory.add(submitCommand);
         commandQueue.add(submitCommand);
-        database.insert(submitCommand);
         Poller.getInstance().incrementCommandIndex();
         if (playerName == null || gameName == null) {
             return new DrawDestinationCardResult("1 or more null fields");
@@ -561,6 +564,11 @@ public class Target implements IServer {
                         player.getDrawnDestinationCards().add(cardDrawn);
                     }
                     game.addToGameHistory(playerName + " drew destination cards");
+                    database.insert(submitCommand);
+                    game.incrementCommandIndex();
+                    if (game.checkCheckpoint()) {
+                        checkpoint(game);
+                    }
                     return new DrawDestinationCardResult(cardArray);
                 }
                 else {
@@ -578,7 +586,6 @@ public class Target implements IServer {
         Command submitCommand = new Command("discardDestinationCards", parameterTypeNames, parameters);
         commandHistory.add(submitCommand);
         commandQueue.add(submitCommand);
-        database.insert(submitCommand);
         Poller.getInstance().incrementCommandIndex();
         if (gameName == null || playerName == null) {
             return new SubmitResult("Error: 1 more null fields");
@@ -593,6 +600,11 @@ public class Target implements IServer {
                         player.getDestinationCards().add(player.getDrawnDestinationCards().get(i));
                     }
                     player.getDrawnDestinationCards().clear();
+                    database.insert(submitCommand);
+                    game.incrementCommandIndex();
+                    if (game.checkCheckpoint()) {
+                        checkpoint(game);
+                    }
                     return new SubmitResult(true);
                 }
                 for(DestinationCard card : player.getDrawnDestinationCards()){
@@ -615,6 +627,11 @@ public class Target implements IServer {
                     player.getDestinationCards().add(player.getDrawnDestinationCards().get(i));
                 }
                 player.getDrawnDestinationCards().clear();
+                database.insert(submitCommand);
+                game.incrementCommandIndex();
+                if (game.checkCheckpoint()) {
+                    checkpoint(game);
+                }
                 return new SubmitResult(true);
             }
             return new SubmitResult("Player not found");
@@ -640,7 +657,6 @@ public class Target implements IServer {
         Command submitCommand = new Command("submitDestinationCards", parameterTypeNames, parameters);
         commandHistory.add(submitCommand);
         commandQueue.add(submitCommand);
-        database.insert(submitCommand);
         Poller.getInstance().incrementCommandIndex();
         if (gameName == null || playerName == null) {
             return new SubmitResult("Error: 1 more null fields");
@@ -651,11 +667,21 @@ public class Target implements IServer {
             if (player != null) {
                 if (card == null) {
                     game.addToGameHistory(playerName + " took 3 destination cards");
+                    database.insert(submitCommand);
+                    game.incrementCommandIndex();
+                    if (game.checkCheckpoint()) {
+                        checkpoint(game);
+                    }
                     return new SubmitResult(true);
                 }
                 player.dropDestinationCard(card);
                 game.putbackDestinationCard(card);
                 game.addToGameHistory(playerName + " took 2 destination cards");
+                database.insert(submitCommand);
+                game.incrementCommandIndex();
+                if (game.checkCheckpoint()) {
+                    checkpoint(game);
+                }
                 return new SubmitResult(true);
             }
             return new SubmitResult("Error: Player nor found");
@@ -729,12 +755,21 @@ public class Target implements IServer {
                         game.addToGameHistory(playerName + " claimed the route " +  game.getMap().getRoutes().get(route_id).toString());
                         commandHistory.add(claimRouteCommand);
                         commandQueue.add(claimRouteCommand);
-                        database.insert(claimRouteCommand);
                         if (game.isFinalRound()) {
                             game.addToGameHistory("Final Round!!!");
+                            database.insert(claimRouteCommand);
+                            game.incrementCommandIndex();
+                            if (game.checkCheckpoint()) {
+                                checkpoint(game);
+                            }
                             return new ClaimRouteResult(true);
                         }
                         else {
+                            database.insert(claimRouteCommand);
+                            game.incrementCommandIndex();
+                            if (game.checkCheckpoint()) {
+                                checkpoint(game);
+                            }
                             return new ClaimRouteResult(false);
                         }
                     }
@@ -755,7 +790,6 @@ public class Target implements IServer {
         Command submitCommand = new Command("drawTrainCard", parameterTypeNames, parameters);
         commandHistory.add(submitCommand);
         commandQueue.add(submitCommand);
-        database.insert(submitCommand);
         Poller.getInstance().incrementCommandIndex();
 
         if (playerName == null || gameName == null) {
@@ -773,6 +807,11 @@ public class Target implements IServer {
                         }
                         player.addTrainCard(cardPicked);
                         game.addToGameHistory(playerName + " drew a train card from the deck");
+                        database.insert(submitCommand);
+                        game.incrementCommandIndex();
+                        if (game.checkCheckpoint()) {
+                            checkpoint(game);
+                        }
                         return new DrawTrainCardResult(cardPicked);
                     }else{
                         return new DrawTrainCardResult("No Cards in Deck");
@@ -792,7 +831,6 @@ public class Target implements IServer {
         Command submitCommand = new Command("drawFaceUpTrainCard", parameterTypeNames, parameters);
         commandHistory.add(submitCommand);
         commandQueue.add(submitCommand);
-        database.insert(submitCommand);
         Poller.getInstance().incrementCommandIndex();
         if (playerName == null || gameName == null) {
             return new DrawFaceUpTrainCardResult("1 or more null fields");
@@ -808,6 +846,11 @@ public class Target implements IServer {
                     TrainCard cardPicked = game.drawFaceUpTrainCard(positionPicked);
                     player.addTrainCard(cardPicked);
                     game.addToGameHistory(playerName + " picked a face up train card");
+                   database.insert(submitCommand);
+                   game.incrementCommandIndex();
+                   if (game.checkCheckpoint()) {
+                       checkpoint(game);
+                   }
                     return new DrawFaceUpTrainCardResult(cardPicked);
                }
                else {
@@ -825,7 +868,6 @@ public class Target implements IServer {
         Command submitCommand = new Command("endTurn", parameterTypeNames, parameters);
         commandHistory.add(submitCommand);
         commandQueue.add(submitCommand);
-        database.insert(submitCommand);
         Poller.getInstance().incrementCommandIndex();
 
         Game game = getActiveGame(gameName);
@@ -836,6 +878,11 @@ public class Target implements IServer {
                 endGame(game.getGameName());
             }
             else {
+                database.insert(submitCommand);
+                game.incrementCommandIndex();
+                if (game.checkCheckpoint()) {
+                    checkpoint(game);
+                }
                 game.addToGameHistory("Now " + game.getPlayerNameByTurn() + "'s turn!");
             }
             return new EndTurnResult(newTurn);
