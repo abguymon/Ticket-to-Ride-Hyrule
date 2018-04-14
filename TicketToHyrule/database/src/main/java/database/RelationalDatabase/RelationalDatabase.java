@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 import cs240.lib.Model.Game;
+import cs240.lib.Model.LobbyGame;
 import cs240.lib.Model.User;
 import cs240.lib.common.Command;
 import cs240.lib.server.IDatabase;
@@ -15,6 +16,7 @@ import cs240.lib.server.IDatabase;
 
 public class RelationalDatabase implements IDatabase {
     private RelationalGameDao gameDao;
+    private RelationalLobbyGameDao lobbyGameDao;
     private RelationalCommandDao commandDao;
     private RelationalUserDao userDao;
 
@@ -32,6 +34,7 @@ public class RelationalDatabase implements IDatabase {
 
     public RelationalDatabase(){
         gameDao = new RelationalGameDao(connection);
+        lobbyGameDao = new RelationalLobbyGameDao(connection);
         commandDao = new RelationalCommandDao(connection);
         userDao = new RelationalUserDao(connection);
     }
@@ -90,9 +93,20 @@ public class RelationalDatabase implements IDatabase {
     public boolean create(User user) {return userDao.create();}
     public boolean create(Game game) {return gameDao.create();}
     public boolean create(Command command) {return commandDao.create();}
+
+
+    public boolean create(LobbyGame lobbyGame) {
+        return lobbyGameDao.create();
+    }
+
     public boolean insert(User user) {return userDao.insert(user);}
     public boolean insert(Game game) {return gameDao.insert(game);}
     public boolean insert(Command command) {return commandDao.insert(command);}
+
+
+    public boolean insert(LobbyGame lobbyGame) {
+        return lobbyGameDao.insert(lobbyGame);
+    }
 
     public Object read(Object object, String toRead) {
         if(object.getClass().equals(Game.class)){
@@ -101,6 +115,8 @@ public class RelationalDatabase implements IDatabase {
             return commandDao.read(toRead);
         }else if (object.getClass().equals(User.class)){
             return userDao.read(toRead);
+        }else if(object.getClass().equals(LobbyGame.class)){
+            return lobbyGameDao.read(toRead);
         }else{
             return null;
         }
@@ -109,18 +125,42 @@ public class RelationalDatabase implements IDatabase {
     public Object[] readAll(User user) {return userDao.readAll();}
     public Object[] readAll(Game game) {return gameDao.readAll();}
     public Object[] readAll(Command command) {return commandDao.readAll();}
+
+
+    public Object[] readAll(LobbyGame lobbyGame) {
+        return lobbyGameDao.readAll();
+    }
+
     public boolean update(User user) {return userDao.update(user);}
     public boolean update(Game game) {return gameDao.update(game);}
     public boolean update(Command command) {return commandDao.update(command);}
+
+
+    public boolean update(LobbyGame lobbyGame) {
+        return lobbyGameDao.update(lobbyGame);
+    }
+
     public boolean delete(User user) {return userDao.delete(user);}
     public boolean delete(Game game) {return gameDao.delete(game);}
     public boolean delete(Command command) {return commandDao.delete(command);}
+
+
+    public boolean delete(LobbyGame lobbyGame) {
+        return lobbyGameDao.delete(lobbyGame);
+    }
+
     public void clear(User user) {userDao.clear();}
     public void clear(Game game) {gameDao.clear();}
     public void clear(Command command) {commandDao.clear();}
+
+    public void clear(LobbyGame lobbyGame) {
+        lobbyGameDao.clear();
+    }
+
     public void clearAll() {
         userDao.clear();
         gameDao.clear();
+        lobbyGameDao.clear();
         commandDao.clear();
     }
 

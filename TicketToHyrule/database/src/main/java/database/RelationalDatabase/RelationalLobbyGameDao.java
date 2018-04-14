@@ -12,29 +12,23 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import cs240.lib.Model.Game;
+import cs240.lib.Model.LobbyGame;
 
 /**
- * Created by David on 4/7/2018.
+ * Created by David on 4/13/2018.
  */
 
-public class RelationalGameDao{
+public class RelationalLobbyGameDao {
     private Connection connection;
-
-    public RelationalGameDao(Connection connection){
+    public RelationalLobbyGameDao(Connection connection){
         this.connection = connection;
     }
 
     public boolean create() {
-        boolean created = createGame();
-        return created;
-    }
-
-    private boolean createGame() {
         Statement statement = null;
         try{
             statement = connection.createStatement();
-            String sql = "create table if not exists Games " +
+            String sql = "create table if not exists Lobby_Games " +
                     "(" +
                     "Game BLOB not null," +
                     "GameName text not null" +
@@ -57,21 +51,15 @@ public class RelationalGameDao{
         return false;
     }
 
-    public boolean insert(Game game) {
-        Game toAdd = game;
-        boolean inserted = insertGame(toAdd);
-        return inserted;
-    }
-
-    private boolean insertGame(Game toAdd) {
-        InputStream gameIS = writeToIS(toAdd);
+    public boolean insert(LobbyGame lobbyGame) {
+        InputStream gameIS = writeToIS(lobbyGame);
         PreparedStatement statement = null;
         try{
-            String sql = "insert into Games (Game, GameName) " +
+            String sql = "insert into Lobby_Games (Game, GameName) " +
                     "values (?, ?)";
             statement = connection.prepareStatement(sql);
             statement.setBlob(1, gameIS);
-            statement.setString(1, toAdd.getGameName());
+            statement.setString(1, lobbyGame.getGameName());
 
             statement.executeUpdate();
         }catch (SQLException e){
@@ -91,7 +79,7 @@ public class RelationalGameDao{
         return false;
     }
 
-    private InputStream writeToIS(Game toAdd) {
+    private InputStream writeToIS(LobbyGame toAdd) {
         try {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             ObjectOutputStream oos = new ObjectOutputStream(baos);
@@ -109,24 +97,17 @@ public class RelationalGameDao{
         }
     }
 
-    public Object read(String toRead) {
-        Game readInGame = null;
-        String gameName = toRead;
-        readInGame = findGame(gameName);
-        return readInGame;
-    }
-
-    private Game findGame(String gameName) {
-        Game game = null;
+    public Object read(String gameName) {
+        LobbyGame game = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
-            String sql = "select * from Games where GameName = ?";
+            String sql = "select * from Lobby_Games where GameName = ?";
             statement = connection.prepareStatement(sql);
             statement.setString(1, gameName);
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                Game temp = (Game)resultSet.getBlob(2);
+                LobbyGame temp = (LobbyGame) resultSet.getBlob(2);
                 game = temp;
             }
 
@@ -148,16 +129,16 @@ public class RelationalGameDao{
     }
 
     public Object[] readAll() {
-        Game game = null;
-        ArrayList<Game> gameList = new ArrayList<>();
+        LobbyGame game = null;
+        ArrayList<LobbyGame> gameList = new ArrayList<>();
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
-            String sql = "select * from Games ";
+            String sql = "select * from Lobby_Games ";
             statement = connection.prepareStatement(sql);
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                Game temp = (Game)resultSet.getBlob(1);
+                LobbyGame temp = (LobbyGame) resultSet.getBlob(1);
                 game = temp;
                 gameList.add(game);
             }
@@ -176,24 +157,18 @@ public class RelationalGameDao{
                 e.printStackTrace();
             }
         }
-        Game[] games = new Game[gameList.size()];
+        LobbyGame[] games = new LobbyGame[gameList.size()];
         for (int i = 0; i < gameList.size(); ++i){
             games[i] = gameList.get(i);
         }
         return games;
     }
 
-    public boolean update(Game game) {
-        Game toUpdate = game;
-        boolean updated = updateGame(toUpdate);
-        return updated;
-    }
-
-    private boolean updateGame(Game toUpdate) {
+    public boolean update(LobbyGame toUpdate) {
         PreparedStatement statement = null;
         InputStream gameIS = writeToIS(toUpdate);
         try {
-            String sql = "update Games " +
+            String sql = "update Lobby_Games " +
                     "set Game = ?" +
                     "where GameName = ?;";
             statement = connection.prepareStatement(sql);
@@ -218,16 +193,10 @@ public class RelationalGameDao{
         return false;
     }
 
-    public boolean delete(Game game) {
-        Game toDelete = game;
-        boolean deleted = deleteGame(toDelete);
-        return deleted;
-    }
-
-    private boolean deleteGame(Game toDelete) {
+    public boolean delete(LobbyGame toDelete) {
         PreparedStatement statement = null;
         try{
-            String sql = "delete from Games where GameName = ?";
+            String sql = "delete from Lobby_Games where GameName = ?";
             statement = connection.prepareStatement(sql);
             statement.setString(1, toDelete.getGameName());
             statement.executeUpdate();
@@ -238,12 +207,11 @@ public class RelationalGameDao{
         return true;
     }
 
-
     public void clear() {
         Statement statement = null;
         try{
             statement = connection.createStatement();
-            String sql = "delete from Games";
+            String sql = "delete from Lobby_Games";
             statement.execute(sql);
         } catch (SQLException e) {
             e.printStackTrace();
