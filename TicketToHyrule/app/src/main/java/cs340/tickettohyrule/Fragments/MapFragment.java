@@ -173,7 +173,7 @@ public class MapFragment extends Fragment implements View.OnClickListener{
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
-            case android.R.id.home:
+            case R.id.up_button:
             NavUtils.navigateUpFromSameTask(getActivity());
             return true;
         }
@@ -193,7 +193,6 @@ public class MapFragment extends Fragment implements View.OnClickListener{
         zeldaFont = Typeface.createFromAsset(getActivity().getAssets(),"fonts/HyliaSerifBeta-Regular.otf");
 
         setHasOptionsMenu(true);
-        getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
 
         mapPresenter.setView(this);
         ClientFacade.getInstance().addObserver(mapPresenter);
