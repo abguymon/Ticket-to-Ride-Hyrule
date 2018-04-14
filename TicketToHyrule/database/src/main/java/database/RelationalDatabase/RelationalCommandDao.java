@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -38,9 +39,8 @@ public class RelationalCommandDao{
             statement = connection.createStatement();
             String sql = "create table if not exists Commands " +
                     "(" +
-                    "Method_Name text not null," +
-                    "Parameter_Types BLOB not null" +
-                    "Parameters BLOB not null" +
+                    "Command BLOB not null" +
+                    "Game_Name text" +
                     ")";
 
             statement.executeUpdate(sql);
@@ -67,16 +67,15 @@ public class RelationalCommandDao{
     }
 
     private boolean insertCommand(Command toInsert) {
-        InputStream parameterTypesIS = writeToIS(toInsert.getParameterTypeNames());
-        InputStream parametersIS = writeToIS(toInsert.getParameters());
+        InputStream commandIS = writeToIS(toInsert);
+        String gameName = findGameName(toInsert);
         PreparedStatement statement = null;
         try{
-            String sql = "insert into Commands (Method_Name, Parameter_Types, Parameters) " +
-                    "values (?, ?, ?)";
+            String sql = "insert into Commands (Commnad, Game_Name) " +
+                    "values (?, ?)";
             statement = connection.prepareStatement(sql);
-            statement.setString(1, toInsert.getMethodName());
-            statement.setBlob(2, parameterTypesIS);
-            statement.setBlob(3, parametersIS);
+            statement.setBlob(1, commandIS);
+            statement.setString(2, gameName);
 
             statement.executeUpdate();
         }catch (SQLException e){
@@ -95,7 +94,24 @@ public class RelationalCommandDao{
         return false;
     }
 
-    private InputStream writeToIS(Object[] toWrite) {
+    private String findGameName(Command toInsert) {
+        String gameName = null;
+        if (toInsert.getParameters().length == 1){
+            gameName = (String)toInsert.getParameters()[0];
+        }else {
+            String methodName = toInsert.getMethodName().toLowerCase();
+            if (methodName.equals("login") || methodName.equals("register")){
+                gameName = null;
+            }else if(methodName.equals("chat")){
+                gameName = (String)toInsert.getParameters()[2];
+            }else{
+                gameName = (String)toInsert.getParameters()[1];
+            }
+        }
+        return gameName;
+    }
+
+    private InputStream writeToIS(Command toWrite) {
         try {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             ObjectOutputStream oos = new ObjectOutputStream(baos);
@@ -135,12 +151,8 @@ public class RelationalCommandDao{
             statement = connection.prepareStatement(sql);
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                String methodName = resultSet.getString(1);
-                InputStream parameterTypesIS = (InputStream)resultSet.getBlob(2);
-                InputStream parametersIS = (InputStream)resultSet.getBlob(3);
-                String[] parameterTypes = writeToStringArray(parameterTypesIS);
-                Object[] parameters = writeToObjectArray(parametersIS);
-                command = new Command(methodName, parameterTypes, parameters);
+                InputStream commandIS = (InputStream) resultSet.getBlob(1);
+                command = writeToCommand(commandIS);
                 commandList.add(command);
             }
 
@@ -165,12 +177,18 @@ public class RelationalCommandDao{
         return commands;
     }
 
-    private Object[] writeToObjectArray(InputStream parametersIS) {
-        return new Object[0];
-    }
-
-    private String[] writeToStringArray(InputStream parameterTypesIS) {
-        return new String[0];
+    private Command writeToCommand(InputStream commandIS) {
+        ObjectInputStream ois = null;
+        try {
+            ois = new ObjectInputStream(commandIS);
+            Command command = (Command)ois.readObject();
+            return command;
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public boolean update(Command command) {
@@ -241,8 +259,37 @@ public class RelationalCommandDao{
             statement.execute(sql);
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally{
+            try{
+                if (statement != null){
+                    statement.close();
+                }
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
         }
     }
 
 
+    public boolean clearbyGame(String gameName) {
+        PreparedStatement statement = null;
+        try{
+            String sql = "delete from Commands where Game_Name = ?";
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, gameName);
+            statement.execute(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally{
+            try{
+                if (statement != null){
+                    statement.close();
+                    return true;
+                }
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
 }
