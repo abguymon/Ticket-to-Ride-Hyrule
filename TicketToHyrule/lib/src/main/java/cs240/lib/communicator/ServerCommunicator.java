@@ -6,11 +6,14 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.InetSocketAddress;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.ArrayList;
 
 import cs240.lib.Model.Login;
@@ -126,14 +129,18 @@ public class ServerCommunicator {
             Target.SINGLETON.setDatabaseType(args[0]);
             Target.SINGLETON.setCheckpoint(args[1]);
             //decide plugin stuff and load classes from proper .jar file
-//            if (args[0].equals("SQL")) {
-//                RelationalDatabase relationalDB = new RelationalDatabase();
-//                Target.SINGLETON.setDatabase(relationalDB);
-//            }
-//            else if (args[0].equals("File")) {
-//                FileFormatDatabase fileDB = new FileFormatDatabase();
-//                Target.SINGLETON.setDatabase(fileDB);
-//            }
+            if (args[0].equals("SQL")) {
+                File jarFile = new File("database/build/libs/RelationalDatabase.jar");
+                ClassLoader authorizedLoader = URLClassLoader.newInstance(new URL[]{jarFile.toURL()});
+                IDatabase db = (IDatabase) authorizedLoader.loadClass("database.FileFormatDatabase.FileFormatDatabase").newInstance();
+                Target.SINGLETON.setDatabase(db);
+            }
+            else if (args[0].equals("File")) {
+                File unauthorizedJarFile = new File("database/build/libs/FileFormatDatabase.jar");
+                ClassLoader unauthorizedLoader = URLClassLoader.newInstance(new URL[]{unauthorizedJarFile.toURL()});
+                IDatabase db = (IDatabase) unauthorizedLoader.loadClass("database.RelationalDatabase.RelationalDatabase").newInstance();
+                Target.SINGLETON.setDatabase(db);
+           }
             for (int i = 0; i < args.length; ++i) {
                 if (args[i].equals("-wipe")) {
                     Target.SINGLETON.wipe();
@@ -141,7 +148,7 @@ public class ServerCommunicator {
             }
             Target.SINGLETON.restore();
             new ServerCommunicator().run();
-        }catch (IndexOutOfBoundsException e){
+        }catch (Exception e){
             e.printStackTrace();
             System.out.println("Command line argument error");
         }
