@@ -147,4 +147,8 @@ public class FileFormatCommandDao {
             return;
         }
     }
+
+    public boolean clearCommandByGame(String gameName) {
+        return false;
+    }
 }

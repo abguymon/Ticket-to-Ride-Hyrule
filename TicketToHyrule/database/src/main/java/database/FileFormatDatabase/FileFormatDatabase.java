@@ -61,6 +61,7 @@ public class FileFormatDatabase implements IDatabase {
     public void clear(Game game) {gameDao.clear();}
     public void clear(Command command) {commandDao.clear();}
     public void clear(LobbyGame lobbyGame) {lobbyGameDao.clear();}
+    public boolean clearCommandByGame(String gameName) {return commandDao.clearCommandByGame(gameName);}
     public void clearAll() {
         userDao.clear();
         gameDao.clear();
