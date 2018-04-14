@@ -1,5 +1,6 @@
 package cs340.tickettohyrule.Fragments;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.os.Build;
@@ -37,6 +38,7 @@ import cs240.lib.Model.states.TurnEnded;
 import cs340.tickettohyrule.GameActivity;
 import cs340.tickettohyrule.PhaseTwoPresenters.MapPresenter;
 import cs340.tickettohyrule.R;
+import cs340.tickettohyrule.SignInActivity;
 
 import static cs240.lib.Model.colors.PlayerColor.GRAY;
 import static cs240.lib.Model.colors.TrainCardColor.GREY;
@@ -174,8 +176,11 @@ public class MapFragment extends Fragment implements View.OnClickListener{
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
             case R.id.up_button:
-            NavUtils.navigateUpFromSameTask(getActivity());
-            return true;
+                Intent intent = new Intent(getActivity(), SignInActivity.class);
+                intent.putExtra("bool", true);
+                startActivity(intent);
+                getActivity().finish();
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }

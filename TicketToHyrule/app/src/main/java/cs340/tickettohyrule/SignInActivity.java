@@ -18,8 +18,7 @@ public class SignInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_in);
 
         Intent intent = getIntent();
-        boolean signedIn = intent.getBooleanExtra("BOOLEAN", false);
-        if (CurrentUserSingleton.getInstance().getUserName() == null)
+        if (intent == null)
         {
             moveToSignIn();
         }
