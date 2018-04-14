@@ -149,6 +149,79 @@ public class FileFormatCommandDao {
     }
 
     public boolean clearCommandByGame(String gameName) {
-        return false;
+        File userDirectory = new File(FILE_PATH);
+        File[] games = userDirectory.listFiles();
+        if (games != null) {
+            for (File file : games) {
+                BufferedReader reader = null;
+                try {
+                    reader = new BufferedReader(new FileReader(file));
+                } catch (Exception e) {return false;}
+                String         line = null;
+                StringBuilder  stringBuilder = new StringBuilder();
+                String         ls = System.getProperty("line.separator");
+
+                try {
+                    while((line = reader.readLine()) != null) {
+                        stringBuilder.append(line);
+                        stringBuilder.append(ls);
+                    }
+
+                    String fileString = stringBuilder.toString();
+                    reader.close();
+                    Gson gson = new Gson();
+                    Command command = gson.fromJson(fileString, Command.class);
+                    String methodName = command.getMethodName();
+                    switch(methodName) {
+                        case ("chat"):
+                            if (command.getParameters()[2].equals(gameName)) {
+                                file.delete();
+                                break;
+                            }
+                        case("claimRoute"):
+                            if (command.getParameters()[1].equals(gameName)) {
+                                file.delete();
+                                break;
+                            }
+                        case("drawTrainCard"):
+                            if (command.getParameters()[1].equals(gameName)) {
+                                file.delete();
+                                break;
+                            }
+                        case("drawFaceUpTrainCard"):
+                            if (command.getParameters()[1].equals(gameName)) {
+                                file.delete();
+                                break;
+                            }
+                        case("drawDestinationCard"):
+                            if (command.getParameters()[1].equals(gameName)) {
+                                file.delete();
+                                break;
+                            }
+                        case("submitDestinationCards"):
+                            if (command.getParameters()[1].equals(gameName)) {
+                                file.delete();
+                                break;
+                            }
+                        case("discardDestinationCards"):
+                            if (command.getParameters()[1].equals(gameName)) {
+                                file.delete();
+                                break;
+                            }
+                        case("endTurn"):
+                            if (command.getParameters()[1].equals(gameName)) {
+                                file.delete();
+                                break;
+                            }
+                        default:
+                            break;
+                    }
+                } catch(Exception e) {return false;}
+            }
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 }

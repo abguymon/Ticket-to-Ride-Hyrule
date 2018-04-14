@@ -818,8 +818,8 @@ public class Target implements IServer {
         if (game != null) {
             int newTurn = game.endTurn();
             if (game.isGameOver()) {
-                endGame(game.getGameName());
                 database.delete(game);
+                endGame(game.getGameName());
             }
             else {
                 game.addToGameHistory("Now " + game.getPlayerNameByTurn() + "'s turn!");
@@ -845,6 +845,7 @@ public class Target implements IServer {
         if (game != null) {
             game.endGame();
             game.addToGameHistory(gameName + " finished");
+            clearCommandByGame(gameName);
             removeActiveGame(gameName);
             return new EndGameResult(game);
         }
@@ -985,9 +986,7 @@ public class Target implements IServer {
 
     }*/
 
-    public void wipe(){
-        database.clearAll();
-    }
+    public void wipe(){database.clearAll();}
 
     public String getDatabaseType() {
         return databaseType;
@@ -1056,6 +1055,6 @@ public class Target implements IServer {
     }
 
     private void clearCommandByGame(String gameName) {
-        //needs to be implemented in the database stuff
+        database.clearCommandByGame(gameName);
     }
 }
