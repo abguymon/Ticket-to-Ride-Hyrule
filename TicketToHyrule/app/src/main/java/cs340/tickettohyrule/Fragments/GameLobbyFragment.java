@@ -297,7 +297,7 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener,
 
                 Intent intent = new Intent(getActivity(), GameActivity.class);
 
-                if (player.getDestinationCards().size() != 0) {
+                if (player != null) {
                     intent.putExtra("EXISTING", true);
                 }
                 else

@@ -20,6 +20,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -186,6 +187,8 @@ public class MapFragment extends Fragment implements View.OnClickListener{
 
         zeldaFont = Typeface.createFromAsset(getActivity().getAssets(),"fonts/HyliaSerifBeta-Regular.otf");
 
+        Toolbar toolbar = (Toolbar) view.findViewById(R.id.my_toolbar);
+        getActivity().setActionBar(toolbar);
         getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
 
         mapPresenter.setView(this);
