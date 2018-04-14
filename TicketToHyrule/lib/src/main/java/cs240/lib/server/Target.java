@@ -998,14 +998,14 @@ public class Target implements IServer {
     public void restore() {
         Object[] restoredUsers = database.readAll(new User());
         Object[] restoredGames = database.readAll(new Game("restoration"));
-        Object[] restoredCommands = database.readAll(new Command(null));
+        Object[] restoredCommands = database.readAll(new Command("restore", new String[1], new Object[1]));
         Object[] restoredLobbyGames = database.readAll(new LobbyGame(0, 0, "restoration"));
         this.setActiveGames(translateGames(restoredGames));
         this.setRegisteredUsers(translateUsers(restoredUsers));
         ArrayList<Command> commandsToExecute = translateCommands(restoredCommands);
         this.setAvailableGames(translateLobbyGames(restoredLobbyGames));
         executeRestorationCommands(commandsToExecute);
-        database.clear(new Command(null));
+        database.clear(new Command("restore", new String[1], new Object[1]));
     }
 
     private void executeRestorationCommands (ArrayList<Command> commands) {
