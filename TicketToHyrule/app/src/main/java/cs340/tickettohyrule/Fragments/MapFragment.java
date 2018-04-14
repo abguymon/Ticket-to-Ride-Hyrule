@@ -180,6 +180,11 @@ public class MapFragment extends Fragment implements View.OnClickListener{
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -187,8 +192,7 @@ public class MapFragment extends Fragment implements View.OnClickListener{
 
         zeldaFont = Typeface.createFromAsset(getActivity().getAssets(),"fonts/HyliaSerifBeta-Regular.otf");
 
-        Toolbar toolbar = (Toolbar) view.findViewById(R.id.my_toolbar);
-        getActivity().setActionBar(toolbar);
+        setHasOptionsMenu(true);
         getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
 
         mapPresenter.setView(this);
