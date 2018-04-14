@@ -49,7 +49,7 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener,
     private RecyclerView joinedListRecycler;
     private Adapter gameAdapter;
     private Adapter joinedAdapter;
-    private String currentGame;
+    private LobbyGame currentGame;
     private Typeface zeldaFont;
     private InGameSingleton inGameSingleton = InGameSingleton.getInstance();
 
@@ -73,7 +73,8 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener,
 
         ClientFacade.getInstance().addObserver(this);
 
-        currentGame = "";
+        currentGame = new LobbyGame();
+        currentGame.setGameName("");
 
         joinButton = (ImageButton) view.findViewById(R.id.join_game_button);
         leaveButton = (ImageButton) view.findViewById(R.id.leave_game_button);
@@ -164,7 +165,7 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener,
                 public void onClick(View view) {
                     Toast.makeText(getActivity(), recyclerGame.getGameName() + " selected",
                             Toast.LENGTH_SHORT).show();
-                    currentGame = recyclerGame.getGameName();
+                    currentGame = recyclerGame;
                     if(!inGameSingleton.isInGame())
                     {
                         joinButton.setEnabled(true);
@@ -242,7 +243,15 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener,
         ModelFacade modelFacade = CurrentUserSingleton.getInstance().getModelFacade();
         @Override
         protected String doInBackground(Void... params){
-            String message = gameLobbyPresenter.joinGame(modelFacade.getCurrentUser().getUsername(), currentGame);
+            ArrayList<String> playerArray = currentGame.getPlayerArray();
+            for (String s: playerArray)
+            {
+                if(s.equals(modelFacade.getCurrentUser().getUsername()))
+                {
+                    return "";
+                }
+            }
+            String message = gameLobbyPresenter.joinGame(modelFacade.getCurrentUser().getUsername(), currentGame.getGameName());
             return message;
         }
         @Override protected void onPostExecute(String message){
@@ -252,7 +261,7 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener,
                 Toast.makeText(getActivity(), "Successfully joined game", Toast.LENGTH_SHORT).show();
                 createButton.setEnabled(false);
                 joinButton.setEnabled(false);
-                inGameSingleton.setGameImIn(currentGame);
+                inGameSingleton.setGameImIn(currentGame.getGameName());
             }
             else{
                 Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
@@ -265,7 +274,7 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener,
         ModelFacade modelFacade = CurrentUserSingleton.getInstance().getModelFacade();
         @Override
         protected String doInBackground(Void... params){
-            String message = gameLobbyPresenter.leaveGame(modelFacade.getCurrentUser().getUsername(), currentGame);
+            String message = gameLobbyPresenter.leaveGame(modelFacade.getCurrentUser().getUsername(), currentGame.getGameName());
             return message;
         }
         @Override protected void onPostExecute(String message){
@@ -275,7 +284,7 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener,
                 Toast.makeText(getActivity(), "Successfully left game", Toast.LENGTH_SHORT).show();
                 createButton.setEnabled(true);
                 leaveButton.setEnabled(false);
-                currentGame = "";
+                currentGame.setGameName("");
                 inGameSingleton.setGameImIn("");
             }
             else{
