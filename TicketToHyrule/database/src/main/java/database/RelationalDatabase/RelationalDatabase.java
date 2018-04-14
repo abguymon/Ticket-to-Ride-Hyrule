@@ -149,6 +149,11 @@ public class RelationalDatabase implements IDatabase {
         return lobbyGameDao.delete(lobbyGame);
     }
 
+
+    public boolean clearCommandByGame(String gameName) {
+        return commandDao.clearbyGame(gameName);
+    }
+
     public void clear(User user) {userDao.clear();}
     public void clear(Game game) {gameDao.clear();}
     public void clear(Command command) {commandDao.clear();}
