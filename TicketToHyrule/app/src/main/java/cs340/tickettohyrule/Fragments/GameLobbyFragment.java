@@ -336,6 +336,8 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener,
         }
     }
 
+
+
     @Override
     public void update (Observable observable, Object o){
         CurrentUserSingleton.getInstance().getModelFacade().setGames(ClientFacade.getInstance().getGames());

@@ -1,5 +1,6 @@
 package cs340.tickettohyrule.Fragments;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
@@ -9,6 +10,9 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -65,6 +69,31 @@ public class GameInfoFragment extends Fragment {
     private Typeface zeldaFont;
     private boolean gameOver = false;
 
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        Intent intent;
+        switch (item.getItemId()){
+            case R.id.up_button:
+                intent = new Intent(getActivity(), SignInActivity.class);
+                intent.putExtra("bool", true);
+                startActivity(intent);
+                getActivity().finish();
+                return true;
+            default:
+                intent = new Intent(getActivity(), SignInActivity.class);
+                intent.putExtra("bool", true);
+                startActivity(intent);
+                getActivity().finish();
+                return true;
+        }
+//        return super.onOptionsItemSelected(item);
+    }
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+    }
     /**
      * This method creates the view to be displayed to the user. Variables for the view are also initialized
      * in this method.
@@ -80,7 +109,7 @@ public class GameInfoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_game_info, container, false);
-
+        setHasOptionsMenu(true);
         zeldaFont = Typeface.createFromAsset(getActivity().getAssets(),"fonts/HyliaSerifBeta-Regular.otf");
 
         gameInfoPresenter.setView(this);

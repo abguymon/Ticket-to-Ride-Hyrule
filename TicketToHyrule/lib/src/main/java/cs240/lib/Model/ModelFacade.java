@@ -260,6 +260,7 @@ public class ModelFacade {
             return result.getErrorMessage();
         }
         else{
+//            joinedGames = result.getUserGames();
             currentUser = new Login(userName, result.getAuthToken());
             return "";
         }

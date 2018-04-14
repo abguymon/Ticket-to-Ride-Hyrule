@@ -1,5 +1,6 @@
 package cs340.tickettohyrule.Fragments;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,6 +10,9 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -23,6 +27,7 @@ import cs240.lib.Model.ClientFacade;
 import cs340.tickettohyrule.GameActivity;
 import cs340.tickettohyrule.PhaseTwoPresenters.GameChatPresenter;
 import cs340.tickettohyrule.R;
+import cs340.tickettohyrule.SignInActivity;
 
 /**
  * Created by eholm on 2/25/2018.
@@ -71,13 +76,34 @@ public class GameChatFragment extends Fragment {
         super.onDestroy();
         ClientFacade.getInstance().deleteObserver(gameChatPresenter);
     }
-
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        Intent intent;
+        switch (item.getItemId()){
+            case R.id.up_button:
+                intent = new Intent(getActivity(), SignInActivity.class);
+                intent.putExtra("bool", true);
+                startActivity(intent);
+                getActivity().finish();
+                return true;
+            default:
+                intent = new Intent(getActivity(), SignInActivity.class);
+                intent.putExtra("bool", true);
+                startActivity(intent);
+                getActivity().finish();
+                return true;
+        }
+//        return super.onOptionsItemSelected(item);
+    }
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+    }
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_game_chat, container, false);
-
+        setHasOptionsMenu(true);
         chatRecycler = (RecyclerView) view.findViewById(R.id.chat_recycler);
         chatRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
 
