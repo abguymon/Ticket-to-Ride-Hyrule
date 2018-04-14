@@ -30,6 +30,7 @@ public interface IDatabase {
     boolean delete(Game game);
     boolean delete(Command command);
     boolean delete(LobbyGame lobbyGame);
+    boolean clearCommandByGame(String gameName);
     void clear(User user);
     void clear(Game game);
     void clear(Command command);

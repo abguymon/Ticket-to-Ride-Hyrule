@@ -393,6 +393,7 @@ public class Target implements IServer {
             return new CreateResult(message);
         }
         availableGames.add(newGame);
+        database.insert(newGame);
         return new CreateResult(gameName, maxPlayers);
     }
 
@@ -422,6 +423,7 @@ public class Target implements IServer {
         for (int i = 0; i < availableGames.size(); ++i) {
             LobbyGame curGame = availableGames.get(i);
             if (curGame.getGameName().equals(gameName)) {
+                database.delete(availableGames.get(i));
                 availableGames.remove(i);
                 Game newGame = initializeGame(curGame);
                 activeGames.add(newGame);

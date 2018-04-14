@@ -1,6 +1,7 @@
 package database.FileFormatDatabase;
 
 import cs240.lib.Model.Game;
+import cs240.lib.Model.LobbyGame;
 import cs240.lib.Model.User;
 import cs240.lib.Model.colors.PlayerColor;
 import cs240.lib.Model.gameParts.Player;
@@ -42,17 +43,17 @@ public class TestFileFormatMain {
         gameDao.insert(game1);
         gameDao.insert(game2);
 
-        gameDao.delete(game1);
+        //gameDao.delete(game1);
 
         Game readGame = (Game) gameDao.read("banana");
         System.out.println(readGame.getGameName());
 
-        FileFormatDatabase db = new FileFormatDatabase();
-        db.clearAll();
-        db.insert(game1);
-        db.insert(user);
-        game1.addPlayer(new Player(PlayerColor.RED, "FiliKiliDorryNorryOrryBifferBofferBombur"));
-        db.update(game1);
+        LobbyGame lg = new LobbyGame(0, 0, "gargash");
+        LobbyGame lg2 = new LobbyGame(0,0,"Thedosia");
+        FileFormatLobbyGameDao lgDao = new FileFormatLobbyGameDao();
+        lgDao.insert(lg);
+        lgDao.insert(lg2);
+        //new FileFormatDatabase().clearAll();
     }
 }
 
