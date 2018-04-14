@@ -1,5 +1,7 @@
 package cs240.lib.server;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
@@ -1091,6 +1093,7 @@ public class Target implements IServer {
     }
 
     private void handleObject(Command myCommand){
+        Gson gson = new Gson();
         switch(myCommand.getMethodName()){
             case "login": return;
             case "register": return;
@@ -1112,15 +1115,21 @@ public class Target implements IServer {
                 break;
             case "chat":
                 chat((String)myCommand.getParametersAsJsonStrings()[0].substring(1,myCommand.getParametersAsJsonStrings()[0].length()-1),
-                        (String)myCommand.getParametersAsJsonStrings()[1].substring(1,myCommand.getParametersAsJsonStrings()[1].length()-1));
+                        (String)myCommand.getParametersAsJsonStrings()[1].substring(1,myCommand.getParametersAsJsonStrings()[1].length()-1),
+                        (String)myCommand.getParametersAsJsonStrings()[2].substring(1,myCommand.getParametersAsJsonStrings()[2].length()-1));
                 break;
             case "submitDestinationCards":
+                DestinationCard dcard = gson.fromJson((String) myCommand.getParametersAsJsonStrings()[2], DestinationCard.class);
                 submitDestinationCards((String)myCommand.getParametersAsJsonStrings()[0].substring(1,myCommand.getParametersAsJsonStrings()[0].length()-1),
-                        (String) myCommand.getParametersAsJsonStrings()[2]);
+                        (String)myCommand.getParametersAsJsonStrings()[1].substring(1,myCommand.getParametersAsJsonStrings()[1].length()-1),
+                        dcard);
                 break;
             case "discardDestinationCards":
+                DestinationCard dcard1 = gson.fromJson((String) myCommand.getParametersAsJsonStrings()[2], DestinationCard.class);
+                DestinationCard dcard2 = gson.fromJson((String) myCommand.getParametersAsJsonStrings()[3], DestinationCard.class);
                 discardDestinationCards((String)myCommand.getParametersAsJsonStrings()[0].substring(1,myCommand.getParametersAsJsonStrings()[0].length()-1),
-                        (String) myCommand.getParametersAsJsonStrings()[2], (String) myCommand.getParametersAsJsonStrings()[3]);
+                        (String)myCommand.getParametersAsJsonStrings()[1].substring(1,myCommand.getParametersAsJsonStrings()[1].length()-1),
+                        dcard1, dcard2);
                 break;
             case ("drawFaceUpTrainCard"):
                 drawFaceUpTrainCard((String)myCommand.getParametersAsJsonStrings()[0].substring(1,myCommand.getParametersAsJsonStrings()[0].length()-1),
@@ -1136,9 +1145,11 @@ public class Target implements IServer {
                         (String)myCommand.getParametersAsJsonStrings()[1].substring(1,myCommand.getParametersAsJsonStrings()[1].length()-1));
                 break;
             case("claimRoute"):
+                TrainCardColor color = gson.fromJson((String)myCommand.getParametersAsJsonStrings()[3].substring(1,myCommand.getParametersAsJsonStrings()[3].length()-1), TrainCardColor.class);
                 claimRoute((String)myCommand.getParametersAsJsonStrings()[0].substring(1,myCommand.getParametersAsJsonStrings()[0].length()-1),
+                        (String)myCommand.getParametersAsJsonStrings()[1].substring(1,myCommand.getParametersAsJsonStrings()[1].length()-1),
                         Integer.parseInt(myCommand.getParametersAsJsonStrings()[2]),
-                        (String)myCommand.getParametersAsJsonStrings()[3].substring(1,myCommand.getParametersAsJsonStrings()[3].length()-1));
+                        color);
                 //Integer.parseInt(myCommand.getParametersAsJsonStrings()[4]));
             case("endTurn"):
                 endTurn((String)myCommand.getParametersAsJsonStrings()[0].substring(1,myCommand.getParametersAsJsonStrings()[0].length()-1),
