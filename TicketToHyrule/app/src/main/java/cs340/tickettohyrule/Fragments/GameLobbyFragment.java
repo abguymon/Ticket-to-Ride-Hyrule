@@ -248,7 +248,7 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener,
             {
                 if(s.equals(modelFacade.getCurrentUser().getUsername()))
                 {
-                    return "";
+                    return "game";
                 }
             }
             String message = gameLobbyPresenter.joinGame(modelFacade.getCurrentUser().getUsername(), currentGame.getGameName());
@@ -262,6 +262,11 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener,
                 createButton.setEnabled(false);
                 joinButton.setEnabled(false);
                 inGameSingleton.setGameImIn(currentGame.getGameName());
+            }
+            else if (message.equals("game"))
+            {
+                GetGameAsync getGameAsync = new GetGameAsync();
+                getGameAsync.execute(currentGame.getGameName());
             }
             else{
                 Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
