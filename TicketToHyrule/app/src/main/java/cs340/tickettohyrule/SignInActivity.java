@@ -18,7 +18,8 @@ public class SignInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_in);
 
         Intent intent = getIntent();
-        if (intent == null)
+
+        if (intent.getExtras() == null)
         {
             moveToSignIn();
         }

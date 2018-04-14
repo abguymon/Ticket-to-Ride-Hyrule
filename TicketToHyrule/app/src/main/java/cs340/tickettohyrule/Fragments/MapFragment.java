@@ -174,15 +174,22 @@ public class MapFragment extends Fragment implements View.OnClickListener{
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
+        Intent intent;
         switch (item.getItemId()){
             case R.id.up_button:
-                Intent intent = new Intent(getActivity(), SignInActivity.class);
+                intent = new Intent(getActivity(), SignInActivity.class);
+                intent.putExtra("bool", true);
+                startActivity(intent);
+                getActivity().finish();
+                return true;
+            default:
+                intent = new Intent(getActivity(), SignInActivity.class);
                 intent.putExtra("bool", true);
                 startActivity(intent);
                 getActivity().finish();
                 return true;
         }
-        return super.onOptionsItemSelected(item);
+//        return super.onOptionsItemSelected(item);
     }
 
     @Override
