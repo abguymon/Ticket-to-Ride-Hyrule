@@ -114,25 +114,20 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener,
             //THIS CODE IS WEIRD BUT BELOW IS ME TELLING THE SERVER TO START THESE GAMES
             if(g.getPlayerArray().contains(CurrentUserSingleton.getInstance().getModelFacade().getCurrentUser().getUsername())){
                 //STUFF BELOW GOES IN ASYNC TASK
-                CurrentUserSingleton.getInstance().getModelFacade().getJoinedGames().add(g.getGameName());
+                CurrentUserSingleton.getInstance().getModelFacade().getJoinedGames().add(g);
                 GetGameAsync getGameAsync = new GetGameAsync();
                 getGameAsync.execute(g.getGameName());
             }
         }
 
-        ArrayList<String> startedGames = CurrentUserSingleton.getInstance().getModelFacade().getJoinedGames();
-        ArrayList<LobbyGame> maGames = new ArrayList<>();
-        List<LobbyGame> gameList = getGames();
+        ArrayList<LobbyGame> startedGames = CurrentUserSingleton.getInstance().getModelFacade().getJoinedGames();
 
-        for(String s: startedGames)
-        {
-           maGames.add(CurrentUserSingleton.getInstance().getModelFacade().getGame(s));
-        }
+        List<LobbyGame> gameList = getGames();
 
         List<String> gameListStrings = new ArrayList<>();
 
         gameAdapter = new Adapter(gameList);
-        joinedAdapter = new Adapter(maGames);
+        joinedAdapter = new Adapter(startedGames);
         gameListRecycler.setAdapter(gameAdapter);
         joinedListRecycler.setAdapter(joinedAdapter);
 

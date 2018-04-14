@@ -52,7 +52,7 @@ public class ModelFacade {
      */
     private Login currentUser = null;
 
-    private ArrayList<String> joinedGames = new ArrayList<>();
+    private ArrayList<LobbyGame> joinedGames = new ArrayList<>();
     /**
      * This is the data of the current player
      */
@@ -60,7 +60,7 @@ public class ModelFacade {
     public ModelFacade(){}
 
 
-    public ArrayList<String> getJoinedGames() {
+    public ArrayList<LobbyGame> getJoinedGames() {
         return joinedGames;
     }
 
