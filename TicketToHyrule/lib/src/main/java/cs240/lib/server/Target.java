@@ -193,12 +193,14 @@ public class Target implements IServer {
             if (curUser.equals(username)) {
                 String curPassword = registeredUsers.get(i).getPassword();
                 if (curPassword.equals(password)) {
+                    ArrayList<LobbyGame> userGames = getUserGames(username);
                     UUID newID = UUID.randomUUID();
                     String newToken = newID.toString();
                     Login newLogin = new Login(username, newToken);
                     loggedinUsers.add(newLogin);
                     result.setAuthToken(newToken);
                     result.setErrorMessage("");
+                    result.setUserGames(userGames);
                     return result;
                 }
                 else {
@@ -209,6 +211,23 @@ public class Target implements IServer {
         }
         result.setErrorMessage("Username not found, Try again");
         return result;
+    }
+
+    private ArrayList<LobbyGame> getUserGames(String username) {
+        ArrayList<LobbyGame> games = new ArrayList<>();
+        for (int i = 0; i < activeGames.size(); ++i) {
+            Game game = activeGames.get(i);
+            for (int j  = 0; j < game.getPlayerArray().size(); ++j) {
+                if (game.getPlayerArray().get(j).getPlayerName().equals(username)) {
+                    games.add(convertToLobbyGame(game));
+                }
+            }
+        }
+        return games;
+    }
+
+    private LobbyGame convertToLobbyGame(Game game) {
+        return new LobbyGame(game.getPlayerArray().size(), game.getPlayerArray().size(), game.getGameName());
     }
 
     /**
@@ -1066,7 +1085,66 @@ public class Target implements IServer {
     }
 
     private void executeRestorationCommands (ArrayList<Command> commands) {
-        //Read command call on the server/target model
+        for (int i = 0; i < commands.size(); ++i) {
+            handleObject(commands.get(i));
+        }
+    }
+
+    private void handleObject(Command myCommand){
+        switch(myCommand.getMethodName()){
+            case "login": return;
+            case "register": return;
+            case "startGame":
+                startGame((String)myCommand.getParametersAsJsonStrings()[0].substring(1,myCommand.getParametersAsJsonStrings()[0].length()-1));
+                break;
+            case "joinGame":
+                joinGame((String)myCommand.getParametersAsJsonStrings()[0].substring(1,myCommand.getParametersAsJsonStrings()[0].length()-1),
+                        (String)myCommand.getParametersAsJsonStrings()[1].substring(1,myCommand.getParametersAsJsonStrings()[1].length()-1));
+                break;
+            case "leaveGame":
+                leaveGame((String)myCommand.getParametersAsJsonStrings()[0].substring(1,myCommand.getParametersAsJsonStrings()[0].length()-1),
+                        (String)myCommand.getParametersAsJsonStrings()[1].substring(1,myCommand.getParametersAsJsonStrings()[1].length()-1));
+                break;
+            case "createGame":
+                createGame((String)myCommand.getParametersAsJsonStrings()[0].substring(1,myCommand.getParametersAsJsonStrings()[0].length()-1),
+                        (String)myCommand.getParametersAsJsonStrings()[1].substring(1,myCommand.getParametersAsJsonStrings()[1].length()-1),
+                        Integer.parseInt(myCommand.getParametersAsJsonStrings()[2]));
+                break;
+            case "chat":
+                chat((String)myCommand.getParametersAsJsonStrings()[0].substring(1,myCommand.getParametersAsJsonStrings()[0].length()-1),
+                        (String)myCommand.getParametersAsJsonStrings()[1].substring(1,myCommand.getParametersAsJsonStrings()[1].length()-1));
+                break;
+            case "submitDestinationCards":
+                submitDestinationCards((String)myCommand.getParametersAsJsonStrings()[0].substring(1,myCommand.getParametersAsJsonStrings()[0].length()-1),
+                        (String) myCommand.getParametersAsJsonStrings()[2]);
+                break;
+            case "discardDestinationCards":
+                discardDestinationCards((String)myCommand.getParametersAsJsonStrings()[0].substring(1,myCommand.getParametersAsJsonStrings()[0].length()-1),
+                        (String) myCommand.getParametersAsJsonStrings()[2], (String) myCommand.getParametersAsJsonStrings()[3]);
+                break;
+            case ("drawFaceUpTrainCard"):
+                drawFaceUpTrainCard((String)myCommand.getParametersAsJsonStrings()[0].substring(1,myCommand.getParametersAsJsonStrings()[0].length()-1),
+                        (String)myCommand.getParametersAsJsonStrings()[1].substring(1,myCommand.getParametersAsJsonStrings()[1].length()-1),
+                        Integer.parseInt(myCommand.getParametersAsJsonStrings()[2]));
+                break;
+            case("drawTrainCard"):
+                drawTrainCard((String)myCommand.getParametersAsJsonStrings()[0].substring(1,myCommand.getParametersAsJsonStrings()[0].length()-1),
+                        (String)myCommand.getParametersAsJsonStrings()[1].substring(1,myCommand.getParametersAsJsonStrings()[1].length()-1));
+                break;
+            case("drawDestinationCard"):
+                drawDestinationCard((String)myCommand.getParametersAsJsonStrings()[0].substring(1,myCommand.getParametersAsJsonStrings()[0].length()-1),
+                        (String)myCommand.getParametersAsJsonStrings()[1].substring(1,myCommand.getParametersAsJsonStrings()[1].length()-1));
+                break;
+            case("claimRoute"):
+                claimRoute((String)myCommand.getParametersAsJsonStrings()[0].substring(1,myCommand.getParametersAsJsonStrings()[0].length()-1),
+                        Integer.parseInt(myCommand.getParametersAsJsonStrings()[2]),
+                        (String)myCommand.getParametersAsJsonStrings()[3].substring(1,myCommand.getParametersAsJsonStrings()[3].length()-1));
+                //Integer.parseInt(myCommand.getParametersAsJsonStrings()[4]));
+            case("endTurn"):
+                endTurn((String)myCommand.getParametersAsJsonStrings()[0].substring(1,myCommand.getParametersAsJsonStrings()[0].length()-1),
+                        (String)myCommand.getParametersAsJsonStrings()[1].substring(1,myCommand.getParametersAsJsonStrings()[1].length()-1));
+                break;
+        }
     }
 
     private ArrayList<LobbyGame> translateLobbyGames(Object[] lobbyGameArray) {
