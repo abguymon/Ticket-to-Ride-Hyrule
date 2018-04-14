@@ -19,7 +19,7 @@ public class SignInActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         boolean signedIn = intent.getBooleanExtra("BOOLEAN", false);
-        if (!signedIn)
+        if (CurrentUserSingleton.getInstance().getUserName() == null)
         {
             moveToSignIn();
         }
