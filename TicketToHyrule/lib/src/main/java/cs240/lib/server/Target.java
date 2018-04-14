@@ -370,6 +370,12 @@ public class Target implements IServer {
         for (int i = 0; i < activeGames.size(); ++i) {
             String curGame = activeGames.get(i).getGameName();
             if (curGame.equals(gameName)) {
+                return new CreateResult("Game name already active");
+            }
+        }
+        for (int i = 0; i < activeGames.size(); ++i) {
+            String curGame = activeGames.get(i).getGameName();
+            if (curGame.equals(gameName)) {
                 return new CreateResult("Game name already in use");
             }
         }
@@ -499,6 +505,7 @@ public class Target implements IServer {
         Command chatGameCommand = new Command("chat", parameterTypeNames, parameters);
         commandHistory.add(chatGameCommand);
         commandQueue.add(chatGameCommand);
+        database.insert(chatGameCommand);
         Poller.getInstance().incrementCommandIndex();
         if (playerName == null || message == null || gameName == null) {
             return new ChatResult("1 or more null parameters");
@@ -534,6 +541,7 @@ public class Target implements IServer {
         Command submitCommand = new Command("drawDestinationCard", parameterTypeNames, parameters);
         commandHistory.add(submitCommand);
         commandQueue.add(submitCommand);
+        database.insert(submitCommand);
         Poller.getInstance().incrementCommandIndex();
         if (playerName == null || gameName == null) {
             return new DrawDestinationCardResult("1 or more null fields");
@@ -570,6 +578,7 @@ public class Target implements IServer {
         Command submitCommand = new Command("discardDestinationCards", parameterTypeNames, parameters);
         commandHistory.add(submitCommand);
         commandQueue.add(submitCommand);
+        database.insert(submitCommand);
         Poller.getInstance().incrementCommandIndex();
         if (gameName == null || playerName == null) {
             return new SubmitResult("Error: 1 more null fields");
@@ -631,6 +640,7 @@ public class Target implements IServer {
         Command submitCommand = new Command("submitDestinationCards", parameterTypeNames, parameters);
         commandHistory.add(submitCommand);
         commandQueue.add(submitCommand);
+        database.insert(submitCommand);
         Poller.getInstance().incrementCommandIndex();
         if (gameName == null || playerName == null) {
             return new SubmitResult("Error: 1 more null fields");
@@ -719,6 +729,7 @@ public class Target implements IServer {
                         game.addToGameHistory(playerName + " claimed the route " +  game.getMap().getRoutes().get(route_id).toString());
                         commandHistory.add(claimRouteCommand);
                         commandQueue.add(claimRouteCommand);
+                        database.insert(claimRouteCommand);
                         if (game.isFinalRound()) {
                             game.addToGameHistory("Final Round!!!");
                             return new ClaimRouteResult(true);
@@ -744,6 +755,7 @@ public class Target implements IServer {
         Command submitCommand = new Command("drawTrainCard", parameterTypeNames, parameters);
         commandHistory.add(submitCommand);
         commandQueue.add(submitCommand);
+        database.insert(submitCommand);
         Poller.getInstance().incrementCommandIndex();
 
         if (playerName == null || gameName == null) {
@@ -780,6 +792,7 @@ public class Target implements IServer {
         Command submitCommand = new Command("drawFaceUpTrainCard", parameterTypeNames, parameters);
         commandHistory.add(submitCommand);
         commandQueue.add(submitCommand);
+        database.insert(submitCommand);
         Poller.getInstance().incrementCommandIndex();
         if (playerName == null || gameName == null) {
             return new DrawFaceUpTrainCardResult("1 or more null fields");
@@ -812,6 +825,7 @@ public class Target implements IServer {
         Command submitCommand = new Command("endTurn", parameterTypeNames, parameters);
         commandHistory.add(submitCommand);
         commandQueue.add(submitCommand);
+        database.insert(submitCommand);
         Poller.getInstance().incrementCommandIndex();
 
         Game game = getActiveGame(gameName);
@@ -980,11 +994,6 @@ public class Target implements IServer {
         }
         return null;
     }
-
-
-    /*public void databaseTest(){ //for testing
-
-    }*/
 
     public void wipe(){database.clearAll();}
 
