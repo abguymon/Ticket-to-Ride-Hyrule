@@ -129,13 +129,13 @@ public class ServerCommunicator {
             Target.SINGLETON.setDatabaseType(args[0]);
             Target.SINGLETON.setCheckpoint(args[1]);
             //decide plugin stuff and load classes from proper .jar file
-            if (args[0].equals("SQL")) {
+            if (args[0].toLowerCase().equals("sql")) {
                 File jarFile = new File("database/build/libs/RelationalDatabase.jar");
                 ClassLoader authorizedLoader = URLClassLoader.newInstance(new URL[]{jarFile.toURL()});
                 IDatabase db = (IDatabase) authorizedLoader.loadClass("database.RelationalDatabase.RelationalDatabase").newInstance();
                 Target.SINGLETON.setDatabase(db);
             }
-            else if (args[0].equals("File")) {
+            else if (args[0].toLowerCase().equals("file")) {
                 File unauthorizedJarFile = new File("database/build/libs/FileFormatDatabase.jar");
                 ClassLoader unauthorizedLoader = URLClassLoader.newInstance(new URL[]{unauthorizedJarFile.toURL()});
                 IDatabase db = (IDatabase) unauthorizedLoader.loadClass("database.FileFormatDatabase.FileFormatDatabase").newInstance();
