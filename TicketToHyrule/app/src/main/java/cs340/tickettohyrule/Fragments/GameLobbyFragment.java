@@ -64,6 +64,8 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener,
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_game_lobby, container, false);
 
+        inGameSingleton.setInGame(false);
+
         zeldaFont = Typeface.createFromAsset(getActivity().getAssets(),"fonts/HyliaSerifBeta-Regular.otf");
 
         title = (TextView) view.findViewById(R.id.game_loby_title);
