@@ -999,15 +999,26 @@ public class Target implements IServer {
         Object[] restoredUsers = database.readAll(new User());
         Object[] restoredGames = database.readAll(new Game("restoration"));
         Object[] restoredCommands = database.readAll(new Command(null));
+        Object[] restoredLobbyGames = database.readAll(new LobbyGame(0, 0, "restoration"));
         this.setActiveGames(translateGames(restoredGames));
         this.setRegisteredUsers(translateUsers(restoredUsers));
         ArrayList<Command> commandsToExecute = translateCommands(restoredCommands);
+        this.setAvailableGames(translateLobbyGames(restoredLobbyGames));
         executeRestorationCommands(commandsToExecute);
         database.clear(new Command(null));
     }
 
     private void executeRestorationCommands (ArrayList<Command> commands) {
         //Read command call on the server/target model
+    }
+
+    private ArrayList<LobbyGame> translateLobbyGames(Object[] lobbyGameArray) {
+        ArrayList<LobbyGame> games = new ArrayList<>();
+        for (int i = 0; i < lobbyGameArray.length; ++i) {
+            LobbyGame game = (LobbyGame) lobbyGameArray[i];
+            games.add(game);
+        }
+        return games;
     }
 
     private ArrayList<Game> translateGames(Object[] gameArray) {
