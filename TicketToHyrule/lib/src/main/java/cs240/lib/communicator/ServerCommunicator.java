@@ -132,13 +132,13 @@ public class ServerCommunicator {
             if (args[0].equals("SQL")) {
                 File jarFile = new File("database/build/libs/RelationalDatabase.jar");
                 ClassLoader authorizedLoader = URLClassLoader.newInstance(new URL[]{jarFile.toURL()});
-                IDatabase db = (IDatabase) authorizedLoader.loadClass("database.FileFormatDatabase.FileFormatDatabase").newInstance();
+                IDatabase db = (IDatabase) authorizedLoader.loadClass("database.RelationalDatabase.RelationalDatabase").newInstance();
                 Target.SINGLETON.setDatabase(db);
             }
             else if (args[0].equals("File")) {
                 File unauthorizedJarFile = new File("database/build/libs/FileFormatDatabase.jar");
                 ClassLoader unauthorizedLoader = URLClassLoader.newInstance(new URL[]{unauthorizedJarFile.toURL()});
-                IDatabase db = (IDatabase) unauthorizedLoader.loadClass("database.RelationalDatabase.RelationalDatabase").newInstance();
+                IDatabase db = (IDatabase) unauthorizedLoader.loadClass("database.FileFormatDatabase.FileFormatDatabase").newInstance();
                 Target.SINGLETON.setDatabase(db);
            }
             for (int i = 0; i < args.length; ++i) {
