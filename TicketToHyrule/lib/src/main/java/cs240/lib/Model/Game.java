@@ -34,6 +34,32 @@ public class Game {
     private int finalPlayer;
     private boolean gameOver;
 
+    private int checkpoint;
+    private int commandIndex;
+
+    public int getCheckpoint() {
+        return checkpoint;
+    }
+
+    public void setCheckpoint(String nString) {
+        try {
+            this.checkpoint = Integer.parseInt(nString);
+        }catch (Exception e){
+            e.printStackTrace();
+            System.out.println("Second argument must be an integer");
+        }
+    }
+    public void incrementCommandIndex() {++commandIndex;}
+    public boolean checkCheckpoint() {
+        if (commandIndex % checkpoint != 0) {
+            return false;
+        }
+        return true;
+    }
+
+    public int getCommandIndex() {return commandIndex;}
+    public void setCommandIndex(int commandIndex) {this.commandIndex = commandIndex;}
+
     public Game(String newName) {
         this.gameName = newName;
         playerArray = new ArrayList<>();
@@ -49,6 +75,26 @@ public class Game {
         isFinalRound = false;
         finalPlayer = 0;
         gameOver = false;
+        commandIndex = 0;
+    }
+
+    public Game(String newName, int checkpoint) {
+        this.gameName = newName;
+        playerArray = new ArrayList<>();
+        trainCardDeck = new TrainCardDeck();
+        trainCardDiscard = new TrainCardDiscard();
+        destinationCardDeck = new DestinationCardDeck();
+        faceUpTrainCards = new FaceUpTrainCards(trainCardDeck, trainCardDiscard);
+        gameHistory = new ArrayList<>();
+        chatHistory = new ArrayList<>();
+        destinationCardDeck.shuffle();
+        initializeGameMap();
+        playerTurn = 1;
+        isFinalRound = false;
+        finalPlayer = 0;
+        gameOver = false;
+        commandIndex = 0;
+        this.checkpoint = checkpoint;
     }
 
     public boolean isGameOver() {return gameOver;}

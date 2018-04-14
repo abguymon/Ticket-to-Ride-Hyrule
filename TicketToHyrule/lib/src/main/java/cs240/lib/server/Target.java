@@ -58,7 +58,6 @@ public class Target implements IServer {
      */
     public static final Target SINGLETON = new Target();
     private String databaseType;
-    private int n;
     private IDatabase database;
     private ArrayList<User> registeredUsers;
     private ArrayList<Login> loggedinUsers;
@@ -73,6 +72,22 @@ public class Target implements IServer {
         activeGames = new ArrayList<>();
         commandHistory = new ArrayList<>();
         commandQueue = new LinkedList<>();
+    }
+
+    private int checkpoint;
+    private int commandIndex;
+
+    public int getCheckpoint() {
+        return checkpoint;
+    }
+
+    public void setCheckpoint(String nString) {
+        try {
+            this.checkpoint = Integer.parseInt(nString);
+        }catch (Exception e){
+            e.printStackTrace();
+            System.out.println("Second argument must be an integer");
+        }
     }
 
     public IDatabase getDatabase() {return database;}
@@ -231,6 +246,7 @@ public class Target implements IServer {
         }
         User newUser = new User(username, password);
         registeredUsers.add(newUser);
+        database.insert(newUser);
         return login(username, password);
     }
 
@@ -409,6 +425,7 @@ public class Target implements IServer {
                 availableGames.remove(i);
                 Game newGame = initializeGame(curGame);
                 activeGames.add(newGame);
+                database.insert(newGame);
                 return new StartGameResult(curGame.getPlayerArray());
             }
         }
@@ -798,7 +815,13 @@ public class Target implements IServer {
         Game game = getActiveGame(gameName);
         if (game != null) {
             int newTurn = game.endTurn();
-            game.addToGameHistory("Now " + game.getPlayerNameByTurn() + "'s turn!");
+            if (game.isGameOver()) {
+                endGame(game.getGameName());
+                database.delete(game);
+            }
+            else {
+                game.addToGameHistory("Now " + game.getPlayerNameByTurn() + "'s turn!");
+            }
             return new EndTurnResult(newTurn);
         }
         return new EndTurnResult("Game not found");
@@ -806,12 +829,12 @@ public class Target implements IServer {
 
     @Override
     public EndGameResult endGame(String gameName) {
-        String[] parameterTypeNames = {String.class.getName()};
-        Object[] parameters = {gameName};
-        Command submitCommand = new Command("endGame", parameterTypeNames, parameters);
-        commandHistory.add(submitCommand);
-        commandQueue.add(submitCommand);
-        Poller.getInstance().incrementCommandIndex();
+//        String[] parameterTypeNames = {String.class.getName()};
+//        Object[] parameters = {gameName};
+//        Command submitCommand = new Command("endGame", parameterTypeNames, parameters);
+//        commandHistory.add(submitCommand);
+//        commandQueue.add(submitCommand);
+//        Poller.getInstance().incrementCommandIndex();
 
         if (gameName == null) {
             return new EndGameResult("1 or more null fields");
@@ -888,7 +911,7 @@ public class Target implements IServer {
     }
 
     private Game initializeGame(LobbyGame gameToStart) {
-        Game game = new Game(gameToStart.getGameName());
+        Game game = new Game(gameToStart.getGameName(), checkpoint);
         initializePlayers(game, gameToStart);
         game.addToGameHistory(gameToStart.getGameName() + " started!");
         return game;
@@ -972,19 +995,6 @@ public class Target implements IServer {
         this.databaseType = databaseType;
     }
 
-    public int getN() {
-        return n;
-    }
-
-    public void setN(String nString) {
-        try {
-            this.n = Integer.parseInt(nString);
-        }catch (Exception e){
-            e.printStackTrace();
-            System.out.println("Second argument must be an integer");
-        }
-    }
-
     public void restore() {
         Object[] restoredUsers = database.readAll(new User());
         Object[] restoredGames = database.readAll(new Game("restoration"));
@@ -1027,7 +1037,12 @@ public class Target implements IServer {
         return commands;
     }
 
-    public void checkpoint() {
+    public void checkpoint(Game game) {
+        database.update(game);
+        clearCommandByGame(game.getGameName());
+    }
 
+    private void clearCommandByGame(String gameName) {
+        //needs to be implemented in the database stuff
     }
 }

@@ -124,7 +124,8 @@ public class ServerCommunicator {
     public static void main(String[] args) {
         try {
             Target.SINGLETON.setDatabaseType(args[0]);
-            Target.SINGLETON.setN(args[1]);
+            Target.SINGLETON.setCheckpoint(args[1]);
+            //decide plugin stuff and load classes from proper .jar file
 //            if (args[0].equals("SQL")) {
 //                RelationalDatabase relationalDB = new RelationalDatabase();
 //                Target.SINGLETON.setDatabase(relationalDB);
