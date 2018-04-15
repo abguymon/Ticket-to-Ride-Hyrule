@@ -229,7 +229,12 @@ public class Target implements IServer {
     }
 
     private LobbyGame convertToLobbyGame(Game game) {
-        return new LobbyGame(game.getPlayerArray().size(), game.getPlayerArray().size(), game.getGameName());
+              LobbyGame lobbyGame =  new LobbyGame(game.getPlayerArray().size(), game.getPlayerArray().size(), game.getGameName());
+              ArrayList<String> players = new ArrayList<>();
+              for (int i = 0; i < game.getPlayerArray().size(); ++i) {
+                  players.add(game.getPlayerArray().get(i).getPlayerName());
+              }
+              return lobbyGame;
     }
 
     /**

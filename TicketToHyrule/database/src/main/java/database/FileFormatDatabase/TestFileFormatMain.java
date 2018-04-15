@@ -23,8 +23,6 @@ public class TestFileFormatMain {
 
         dao.update(userAlt);
 
-        //dao.delete(user3);
-
         User userRead = (User) dao.read("savannahjane");
         System.out.println(userRead.getUsername());
         System.out.println(userRead.getPassword());
