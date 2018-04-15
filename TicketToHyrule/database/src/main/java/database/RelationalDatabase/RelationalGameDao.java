@@ -24,6 +24,11 @@ public class RelationalGameDao{
     public RelationalGameDao(Connection connection){
         this.connection = connection;
     }
+    public RelationalGameDao() {connection = null;}
+
+    public void setConnection(Connection connection) {
+        this.connection = connection;
+    }
 
     public boolean create() {
         boolean created = createGame();

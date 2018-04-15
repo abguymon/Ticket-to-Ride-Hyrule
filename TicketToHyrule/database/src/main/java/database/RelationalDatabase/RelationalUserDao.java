@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import javax.management.relation.Relation;
+
 import cs240.lib.Model.User;
 
 /**
@@ -21,11 +23,14 @@ public class RelationalUserDao {
     public RelationalUserDao(Connection connection){
         this.connection = connection;
     }
+    public RelationalUserDao() {connection = null;}
 
     public boolean create() {
         boolean created = createUser();
         return created;
     }
+
+    public void setConnection(Connection connection) {this.connection = connection;}
 
     private boolean createUser() {
         Statement statement = null;

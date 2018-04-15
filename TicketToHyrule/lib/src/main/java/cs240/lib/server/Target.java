@@ -382,12 +382,6 @@ public class Target implements IServer {
      * in the client or an error message in the case of failure
      */
     public CreateResult createGame(String username, String gameName, int maxPlayers) {
-        String[] parameterTypeNames = {String.class.getName(), String.class.getName(), int.class.getName()};
-        Object[] parameters = {username, gameName, maxPlayers};
-        Command createGameCommand = new Command("createGame", parameterTypeNames, parameters);
-        commandHistory.add(createGameCommand);
-        commandQueue.add(createGameCommand);
-        Poller.getInstance().incrementCommandIndex();
         for (int i = 0; i < availableGames.size(); ++i) {
             String curGame = availableGames.get(i).getGameName();
             if (curGame.equals(gameName)) {
@@ -400,12 +394,6 @@ public class Target implements IServer {
                 return new CreateResult("Game name already active");
             }
         }
-        for (int i = 0; i < activeGames.size(); ++i) {
-            String curGame = activeGames.get(i).getGameName();
-            if (curGame.equals(gameName)) {
-                return new CreateResult("Game name already in use");
-            }
-        }
         if (maxPlayers < 2 && maxPlayers > 5) {
             return new CreateResult("Invalid number of players");
         }
@@ -415,6 +403,13 @@ public class Target implements IServer {
         if (username.equals("") || username == null) {
             return new CreateResult("Invalid username");
         }
+        String[] parameterTypeNames = {String.class.getName(), String.class.getName(), int.class.getName()};
+        Object[] parameters = {username, gameName, maxPlayers};
+        Command createGameCommand = new Command("createGame", parameterTypeNames, parameters);
+        commandHistory.add(createGameCommand);
+        commandQueue.add(createGameCommand);
+        Poller.getInstance().incrementCommandIndex();
+
         LobbyGame newGame = new LobbyGame(maxPlayers, 0, gameName);
         int index = findPlayerIndex(username);
         registeredUsers.get(index).addGame(newGame.getGameName());

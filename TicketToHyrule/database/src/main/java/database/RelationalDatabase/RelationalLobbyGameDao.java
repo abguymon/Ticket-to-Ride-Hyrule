@@ -23,6 +23,9 @@ public class RelationalLobbyGameDao {
     public RelationalLobbyGameDao(Connection connection){
         this.connection = connection;
     }
+    public RelationalLobbyGameDao(){connection = null;}
+
+    public void setConnection(Connection connection) {this.connection = connection;}
 
     public boolean create() {
         Statement statement = null;

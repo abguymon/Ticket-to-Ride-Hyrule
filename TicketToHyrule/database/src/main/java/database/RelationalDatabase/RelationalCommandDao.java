@@ -26,7 +26,11 @@ public class RelationalCommandDao{
     public RelationalCommandDao(Connection connection){
         this.connection = connection;
     }
+    public RelationalCommandDao() {connection = null;}
 
+    public void setConnection(Connection connection) {
+        this.connection = connection;
+    }
 
     public boolean create() {
         boolean created = createCommand();
@@ -39,7 +43,7 @@ public class RelationalCommandDao{
             statement = connection.createStatement();
             String sql = "create table if not exists Commands " +
                     "(" +
-                    "Command BLOB not null" +
+                    "Command BLOB not null," +
                     "Game_Name text" +
                     ")";
 
