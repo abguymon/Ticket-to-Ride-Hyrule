@@ -41,8 +41,6 @@ public class GameActivity extends AppCompatActivity {
         {
             moveToMap();
         }
-
-        moveToPreStart();
     }
 
     //MOVE TO MAP SCREEN

@@ -1381,22 +1381,6 @@
         app:layout_constraintVertical_bias="0.92" />
 
     <ImageButton
-        android:id="@+id/b_dekp_ordv"
-        android:layout_width="24dp"
-        android:layout_height="23dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/black_circle"
-        app:layout_constraintBottom_toBottomOf="@+id/zeldaMap"
-        app:layout_constraintEnd_toEndOf="@+id/zeldaMap"
-        app:layout_constraintHorizontal_bias="0.54"
-        app:layout_constraintStart_toStartOf="@+id/zeldaMap"
-        app:layout_constraintTop_toTopOf="@+id/zeldaMap"
-        app:layout_constraintVertical_bias="0.27999997" />
-
-    <ImageButton
         android:id="@+id/b_dekp_tart_two"
         android:layout_width="23dp"
         android:layout_height="22dp"
