@@ -33,20 +33,26 @@ public class RelationalDatabase implements IDatabase {
     }
 
     public RelationalDatabase(){
-        openConnection();
-        gameDao = new RelationalGameDao(connection);
-        lobbyGameDao = new RelationalLobbyGameDao(connection);
-        commandDao = new RelationalCommandDao(connection);
-        userDao = new RelationalUserDao(connection);
+        //openConnection();
+        gameDao = new RelationalGameDao();
+        lobbyGameDao = new RelationalLobbyGameDao();
+        commandDao = new RelationalCommandDao();
+        userDao = new RelationalUserDao();
+        create(new Game("creation"));
+        create(new User("create", "create"));
+        create(new LobbyGame(0,0,"create"));
+        create(new Command("login", new String[0], new Object[0]));
     }
 
-    public void openConnection() {
+    public Connection openConnection() {
         try{
             connection = DriverManager.getConnection(URL);
             connection.setAutoCommit(false);
+            return connection;
         } catch(SQLException e){
             e.printStackTrace();
         }
+        return null;
     }
 
     public void closeConnection(boolean commit){
@@ -92,47 +98,58 @@ public class RelationalDatabase implements IDatabase {
         }
     }*/
     public boolean create(User user) {
-        openConnection();
+        Connection connection = openConnection();
+        userDao.setConnection(connection);
         boolean result = userDao.create();
+        //userDao.setConnection(null);
         closeConnection(true);
         return result;
     }
     public boolean create(Game game) {
-        openConnection();
+        Connection connection = openConnection();
+        gameDao.setConnection(connection);
         boolean result = gameDao.create();
+        //gameDao.setConnection(null);
         closeConnection(true);
         return result;
     }
     public boolean create(Command command) {
-        openConnection();
+        Connection connection = openConnection();
+        commandDao.setConnection(connection);
         boolean result = commandDao.create();
+        //commandDao.setConnection(null);
         closeConnection(true);
         return result;
     }
 
 
     public boolean create(LobbyGame lobbyGame) {
-
-        openConnection();
+        Connection connection = openConnection();
+        lobbyGameDao.setConnection(connection);
         boolean result = lobbyGameDao.create();
+        //lobbyGameDao.setConnection(null);
         closeConnection(true);
         return result;
     }
 
     public boolean insert(User user) {
-        openConnection();
+        Connection connection = openConnection();
+        userDao.setConnection(connection);
         boolean result = userDao.insert(user);
+        //userDao.setConnection(null);
         closeConnection(true);
         return result;
     }
     public boolean insert(Game game) {
-        openConnection();
+        Connection connection = openConnection();
+        gameDao.setConnection(connection);
         boolean result = gameDao.insert(game);
         closeConnection(true);
         return result;
     }
     public boolean insert(Command command) {
-        openConnection();
+        Connection connection = openConnection();
+        commandDao.setConnection(connection);
         boolean result = commandDao.insert(command);
         closeConnection(true);
         return result;
@@ -140,8 +157,8 @@ public class RelationalDatabase implements IDatabase {
 
 
     public boolean insert(LobbyGame lobbyGame) {
-
-        openConnection();
+        Connection connection = openConnection();
+        lobbyGameDao.setConnection(connection);
         boolean result = lobbyGameDao.insert(lobbyGame);
         closeConnection(true);
         return result;
@@ -149,22 +166,26 @@ public class RelationalDatabase implements IDatabase {
 
     public Object read(Object object, String toRead) {
         if(object.getClass().equals(Game.class)){
-            openConnection();
+            Connection connection = openConnection();
+            gameDao.setConnection(connection);
             Object result = gameDao.read(toRead);
             closeConnection(true);
             return result;
         }else if(object.getClass().equals(Command.class)){
-            openConnection();
+            Connection connection = openConnection();
+            commandDao.setConnection(connection);
             Object result = commandDao.read(toRead);
             closeConnection(true);
             return result;
         }else if (object.getClass().equals(User.class)){
-            openConnection();
+            Connection connection = openConnection();
+            userDao.setConnection(connection);
             Object result = userDao.read(toRead);
             closeConnection(true);
             return result;
         }else if(object.getClass().equals(LobbyGame.class)){
-            openConnection();
+            Connection connection = openConnection();
+            lobbyGameDao.setConnection(connection);
             Object result = lobbyGameDao.read(toRead);
             closeConnection(true);
             return result;
@@ -174,19 +195,22 @@ public class RelationalDatabase implements IDatabase {
     }
 
     public Object[] readAll(User user) {
-        openConnection();
+        Connection connection = openConnection();
+        userDao.setConnection(connection);
         Object[] result = userDao.readAll();
         closeConnection(true);
         return result;
     }
     public Object[] readAll(Game game) {
-        openConnection();
+        Connection connection = openConnection();
+        gameDao.setConnection(connection);openConnection();
         Object[] result = gameDao.readAll();
         closeConnection(true);
         return result;
     }
     public Object[] readAll(Command command) {
-        openConnection();
+        Connection connection = openConnection();
+        commandDao.setConnection(connection);
         Object[] result = commandDao.readAll();
         closeConnection(true);
         return result;
@@ -194,26 +218,30 @@ public class RelationalDatabase implements IDatabase {
 
 
     public Object[] readAll(LobbyGame lobbyGame) {
-        openConnection();
+        Connection connection = openConnection();
+        lobbyGameDao.setConnection(connection);
         Object[] result = lobbyGameDao.readAll();
         closeConnection(true);
         return result;
     }
 
     public boolean update(User user) {
-        openConnection();
+        Connection connection = openConnection();
+        userDao.setConnection(connection);
         boolean result = userDao.update(user);
         closeConnection(true);
         return result;
     }
     public boolean update(Game game) {
-        openConnection();
+        Connection connection = openConnection();
+        gameDao.setConnection(connection);
         boolean result = gameDao.update(game);
         closeConnection(true);
         return result;
     }
     public boolean update(Command command) {
-        openConnection();
+        Connection connection = openConnection();
+        commandDao.setConnection(connection);
         boolean result = commandDao.update(command);
         closeConnection(true);
         return result;
@@ -221,26 +249,30 @@ public class RelationalDatabase implements IDatabase {
 
 
     public boolean update(LobbyGame lobbyGame) {
-        openConnection();
+        Connection connection = openConnection();
+        lobbyGameDao.setConnection(connection);
         boolean result = lobbyGameDao.update(lobbyGame);
         closeConnection(true);
         return result;
     }
 
     public boolean delete(User user) {
-        openConnection();
+        Connection connection = openConnection();
+        userDao.setConnection(connection);
         boolean result = userDao.delete(user);
         closeConnection(true);
         return result;
     }
     public boolean delete(Game game) {
-        openConnection();
+        Connection connection = openConnection();
+        gameDao.setConnection(connection);
         boolean result = gameDao.delete(game);
         closeConnection(true);
         return result;
     }
     public boolean delete(Command command) {
-        openConnection();
+        Connection connection = openConnection();
+        commandDao.setConnection(connection);
         boolean result = commandDao.delete(command);
         closeConnection(true);
         return result;
@@ -248,7 +280,8 @@ public class RelationalDatabase implements IDatabase {
 
 
     public boolean delete(LobbyGame lobbyGame) {
-        openConnection();
+        Connection connection = openConnection();
+        lobbyGameDao.setConnection(connection);
         boolean result = lobbyGameDao.delete(lobbyGame);
         closeConnection(true);
         return result;
@@ -256,41 +289,44 @@ public class RelationalDatabase implements IDatabase {
 
 
     public boolean clearCommandByGame(String gameName) {
-        openConnection();
+        Connection connection = openConnection();
+        commandDao.setConnection(connection);
         boolean result = commandDao.clearbyGame(gameName);
         closeConnection(true);
         return result;
     }
 
     public void clear(User user) {
-        openConnection();
+        Connection connection = openConnection();
+        userDao.setConnection(connection);openConnection();
         userDao.clear();
         closeConnection(true);
     }
     public void clear(Game game) {
-        openConnection();
+        Connection connection = openConnection();
+        gameDao.setConnection(connection);
         gameDao.clear();
         closeConnection(true);
     }
     public void clear(Command command) {
-        openConnection();
+        Connection connection = openConnection();
+        commandDao.setConnection(connection);
         commandDao.clear();
         closeConnection(true);
     }
 
     public void clear(LobbyGame lobbyGame) {
-        openConnection();
+        Connection connection = openConnection();
+        lobbyGameDao.setConnection(connection);
         lobbyGameDao.clear();
         closeConnection(true);
     }
 
     public void clearAll() {
-        openConnection();
         userDao.clear();
         gameDao.clear();
         lobbyGameDao.clear();
         commandDao.clear();
-        closeConnection(true);
     }
 
     /*@Override
