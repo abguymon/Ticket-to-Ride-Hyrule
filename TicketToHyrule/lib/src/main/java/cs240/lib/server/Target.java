@@ -234,6 +234,7 @@ public class Target implements IServer {
               for (int i = 0; i < game.getPlayerArray().size(); ++i) {
                   players.add(game.getPlayerArray().get(i).getPlayerName());
               }
+              lobbyGame.setPlayerArray(players);
               return lobbyGame;
     }
 
