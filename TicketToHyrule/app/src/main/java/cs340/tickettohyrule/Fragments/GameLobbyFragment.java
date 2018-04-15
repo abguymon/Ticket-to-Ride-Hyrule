@@ -308,26 +308,26 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener,
         @Override protected void onPostExecute(Object result){
             super.onPostExecute(result);
             if(result instanceof GetGameResult){
-                boolean startedGame = false;
-                for(LobbyGame lobbyGame:CurrentUserSingleton.getInstance().getModelFacade().getJoinedGames())
-                {
-                    if (currentGame.getGameName().equals(lobbyGame.getGameName()))
-                    {
-                        startedGame = true;
-                    }
-                }
-                Player player = CurrentUserSingleton.getInstance().getModelFacade()
-                        .getGameData().getPlayer(CurrentUserSingleton.getInstance().getUserName());
+//                boolean startedGame = false;
+//                for(LobbyGame lobbyGame:CurrentUserSingleton.getInstance().getModelFacade().getJoinedGames())
+//                {
+//                    if (currentGame.getGameName().equals(lobbyGame.getGameName()))
+//                    {
+//                        startedGame = true;
+//                    }
+//                }
+//                Player player = CurrentUserSingleton.getInstance().getModelFacade()
+//                        .getGameData().getPlayer(CurrentUserSingleton.getInstance().getUserName());
 
                 Intent intent = new Intent(getActivity(), GameActivity.class);
-
-                if (player != null) {
-                    intent.putExtra("EXISTING", true);
-                }
-                else
-                {
-                    intent.putExtra("EXISTING", false);
-                }
+//
+//                if (player != null) {
+//                    intent.putExtra("EXISTING", true);
+//                }
+//                else
+//                {
+//                    intent.putExtra("EXISTING", false);
+//                }
 
                 Game gameData = ((GetGameResult) result).getGameStarted();
                 ClientFacade.getInstance().setGameData(gameData);

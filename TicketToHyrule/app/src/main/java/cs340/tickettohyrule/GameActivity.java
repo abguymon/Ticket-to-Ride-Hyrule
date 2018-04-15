@@ -31,15 +31,15 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        Intent intent = getIntent();
-        boolean existing = intent.getBooleanExtra("EXISTING", false);
-        if (!existing)
+//        Intent intent = getIntent();
+//        boolean existing = intent.getBooleanExtra("EXISTING", false);
+        if (CurrentUserSingleton.getInstance().getModelFacade().getGameData().getPlayer(CurrentUserSingleton.getInstance().getUserName()).isHasStarted())
         {
-            moveToPreStart();
+            moveToMap();
         }
         else
         {
-            moveToMap();
+            moveToPreStart();
         }
     }
 

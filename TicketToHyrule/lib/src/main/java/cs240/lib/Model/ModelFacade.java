@@ -366,6 +366,7 @@ public class ModelFacade {
             return result.getErrorMessage();
         }
         else{
+            gameData.getPlayer(currentPlayer.getPlayerName()).setHasStarted(true);
             return "";
         }
     }

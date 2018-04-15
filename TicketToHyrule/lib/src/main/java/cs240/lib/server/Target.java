@@ -694,6 +694,7 @@ public class Target implements IServer {
                     if (game.checkCheckpoint()) {
                         checkpoint(game);
                     }
+                    getGameData(gameName).getGameStarted().getPlayer(playerName).setHasStarted(true);
                     return new SubmitResult(true);
                 }
                 player.dropDestinationCard(card);
@@ -704,6 +705,7 @@ public class Target implements IServer {
                 if (game.checkCheckpoint()) {
                     checkpoint(game);
                 }
+                getGameData(gameName).getGameStarted().getPlayer(playerName).setHasStarted(true);
                 return new SubmitResult(true);
             }
             return new SubmitResult("Error: Player nor found");

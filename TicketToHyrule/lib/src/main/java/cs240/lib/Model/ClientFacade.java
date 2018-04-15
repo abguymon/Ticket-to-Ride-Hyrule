@@ -100,6 +100,7 @@ public class ClientFacade extends Observable{
             gameData.getPlayer(playerName).dropDestinationCard(dcard);
             gameData.putbackDestinationCard(dcard);
         }
+        gameData.getPlayer(playerName).setHasStarted(true);
         endTurn(playerName, gameData.getGameName());
         setChanged();
         notifyObservers();

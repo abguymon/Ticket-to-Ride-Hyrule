@@ -27,6 +27,7 @@ public class Player {
     private ArrayList<DestinationCard> drawnDestinationCards = new ArrayList<>();
     private ArrayList<TrainCard> trainCards;
     private IState state;
+    private boolean hasStarted = false;
 
     private int totalPoints;
     private int routePoints;
@@ -169,6 +170,15 @@ public class Player {
             }
         }
     }
+
+    public boolean isHasStarted() {
+        return hasStarted;
+    }
+
+    public void setHasStarted(boolean hasStarted) {
+        this.hasStarted = hasStarted;
+    }
+
     public ArrayList<DestinationCard> getDrawnDestinationCards(){
         return drawnDestinationCards;
     }
