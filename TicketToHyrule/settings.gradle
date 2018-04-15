@@ -1,1 +1,1 @@
-include ':app', ':lib', ':gson-2.6.2', ':database'
+include ':app', ':lib', ':gson-2.6.2', ':database', ':sqlite-jdbc-3.21.0'

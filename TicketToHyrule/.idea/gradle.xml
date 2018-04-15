@@ -12,6 +12,7 @@
             <option value="$PROJECT_DIR$/database" />
             <option value="$PROJECT_DIR$/gson-2.6.2" />
             <option value="$PROJECT_DIR$/lib" />
+            <option value="$PROJECT_DIR$/sqlite-jdbc-3.21.0" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

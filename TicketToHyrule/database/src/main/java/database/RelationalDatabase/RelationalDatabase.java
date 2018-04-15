@@ -90,83 +90,206 @@ public class RelationalDatabase implements IDatabase {
             return false;
         }
     }*/
-    public boolean create(User user) {return userDao.create();}
-    public boolean create(Game game) {return gameDao.create();}
-    public boolean create(Command command) {return commandDao.create();}
+    public boolean create(User user) {
+        openConnection();
+        boolean result = userDao.create();
+        closeConnection(true);
+        return result;
+    }
+    public boolean create(Game game) {
+        openConnection();
+        boolean result = gameDao.create();
+        closeConnection(true);
+        return result;
+    }
+    public boolean create(Command command) {
+        openConnection();
+        boolean result = commandDao.create();
+        closeConnection(true);
+        return result;
+    }
 
 
     public boolean create(LobbyGame lobbyGame) {
-        return lobbyGameDao.create();
+
+        openConnection();
+        boolean result = lobbyGameDao.create();
+        closeConnection(true);
+        return result;
     }
 
-    public boolean insert(User user) {return userDao.insert(user);}
-    public boolean insert(Game game) {return gameDao.insert(game);}
-    public boolean insert(Command command) {return commandDao.insert(command);}
+    public boolean insert(User user) {
+        openConnection();
+        boolean result = userDao.insert(user);
+        closeConnection(true);
+        return result;
+    }
+    public boolean insert(Game game) {
+        openConnection();
+        boolean result = gameDao.insert(game);
+        closeConnection(true);
+        return result;
+    }
+    public boolean insert(Command command) {
+        openConnection();
+        boolean result = commandDao.insert(command);
+        closeConnection(true);
+        return result;
+    }
 
 
     public boolean insert(LobbyGame lobbyGame) {
-        return lobbyGameDao.insert(lobbyGame);
+
+        openConnection();
+        boolean result = lobbyGameDao.insert(lobbyGame);
+        closeConnection(true);
+        return result;
     }
 
     public Object read(Object object, String toRead) {
         if(object.getClass().equals(Game.class)){
-            return gameDao.read(toRead);
+            openConnection();
+            Object result = gameDao.read(toRead);
+            closeConnection(true);
+            return result;
         }else if(object.getClass().equals(Command.class)){
-            return commandDao.read(toRead);
+            openConnection();
+            Object result = commandDao.read(toRead);
+            closeConnection(true);
+            return result;
         }else if (object.getClass().equals(User.class)){
-            return userDao.read(toRead);
+            openConnection();
+            Object result = userDao.read(toRead);
+            closeConnection(true);
+            return result;
         }else if(object.getClass().equals(LobbyGame.class)){
-            return lobbyGameDao.read(toRead);
+            openConnection();
+            Object result = lobbyGameDao.read(toRead);
+            closeConnection(true);
+            return result;
         }else{
             return null;
         }
     }
 
-    public Object[] readAll(User user) {return userDao.readAll();}
-    public Object[] readAll(Game game) {return gameDao.readAll();}
-    public Object[] readAll(Command command) {return commandDao.readAll();}
+    public Object[] readAll(User user) {
+        openConnection();
+        Object[] result = userDao.readAll();
+        closeConnection(true);
+        return result;
+    }
+    public Object[] readAll(Game game) {
+        openConnection();
+        Object[] result = gameDao.readAll();
+        closeConnection(true);
+        return result;
+    }
+    public Object[] readAll(Command command) {
+        openConnection();
+        Object[] result = commandDao.readAll();
+        closeConnection(true);
+        return result;
+    }
 
 
     public Object[] readAll(LobbyGame lobbyGame) {
-        return lobbyGameDao.readAll();
+        openConnection();
+        Object[] result = lobbyGameDao.readAll();
+        closeConnection(true);
+        return result;
     }
 
-    public boolean update(User user) {return userDao.update(user);}
-    public boolean update(Game game) {return gameDao.update(game);}
-    public boolean update(Command command) {return commandDao.update(command);}
+    public boolean update(User user) {
+        openConnection();
+        boolean result = userDao.update(user);
+        closeConnection(true);
+        return result;
+    }
+    public boolean update(Game game) {
+        openConnection();
+        boolean result = gameDao.update(game);
+        closeConnection(true);
+        return result;
+    }
+    public boolean update(Command command) {
+        openConnection();
+        boolean result = commandDao.update(command);
+        closeConnection(true);
+        return result;
+    }
 
 
     public boolean update(LobbyGame lobbyGame) {
-        return lobbyGameDao.update(lobbyGame);
+        openConnection();
+        boolean result = lobbyGameDao.update(lobbyGame);
+        closeConnection(true);
+        return result;
     }
 
-    public boolean delete(User user) {return userDao.delete(user);}
-    public boolean delete(Game game) {return gameDao.delete(game);}
-    public boolean delete(Command command) {return commandDao.delete(command);}
+    public boolean delete(User user) {
+        openConnection();
+        boolean result = userDao.delete(user);
+        closeConnection(true);
+        return result;
+    }
+    public boolean delete(Game game) {
+        openConnection();
+        boolean result = gameDao.delete(game);
+        closeConnection(true);
+        return result;
+    }
+    public boolean delete(Command command) {
+        openConnection();
+        boolean result = commandDao.delete(command);
+        closeConnection(true);
+        return result;
+    }
 
 
     public boolean delete(LobbyGame lobbyGame) {
-        return lobbyGameDao.delete(lobbyGame);
+        openConnection();
+        boolean result = lobbyGameDao.delete(lobbyGame);
+        closeConnection(true);
+        return result;
     }
 
 
     public boolean clearCommandByGame(String gameName) {
-        return commandDao.clearbyGame(gameName);
+        openConnection();
+        boolean result = commandDao.clearbyGame(gameName);
+        closeConnection(true);
+        return result;
     }
 
-    public void clear(User user) {userDao.clear();}
-    public void clear(Game game) {gameDao.clear();}
-    public void clear(Command command) {commandDao.clear();}
+    public void clear(User user) {
+        openConnection();
+        userDao.clear();
+        closeConnection(true);
+    }
+    public void clear(Game game) {
+        openConnection();
+        gameDao.clear();
+        closeConnection(true);
+    }
+    public void clear(Command command) {
+        openConnection();
+        commandDao.clear();
+        closeConnection(true);
+    }
 
     public void clear(LobbyGame lobbyGame) {
+        openConnection();
         lobbyGameDao.clear();
+        closeConnection(true);
     }
 
     public void clearAll() {
+        openConnection();
         userDao.clear();
         gameDao.clear();
         lobbyGameDao.clear();
         commandDao.clear();
+        closeConnection(true);
     }
 
     /*@Override

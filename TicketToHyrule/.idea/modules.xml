@@ -8,6 +8,7 @@
       <module fileurl="file://$PROJECT_DIR$/gson-2.6.2/gson-2.6.2.iml" filepath="$PROJECT_DIR$/gson-2.6.2/gson-2.6.2.iml" />
       <module fileurl="file://C:\Users\David\Documents\GitHub\Ticket-to-Ride-Hyrule\TicketToHyrule\gson-2.6.2\gson-2.6.2.iml" filepath="C:\Users\David\Documents\GitHub\Ticket-to-Ride-Hyrule\TicketToHyrule\gson-2.6.2\gson-2.6.2.iml" />
       <module fileurl="file://$PROJECT_DIR$/lib/lib.iml" filepath="$PROJECT_DIR$/lib/lib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sqlite-jdbc-3.21.0/sqlite-jdbc-3.21.0.iml" filepath="$PROJECT_DIR$/sqlite-jdbc-3.21.0/sqlite-jdbc-3.21.0.iml" />
     </modules>
   </component>
 </project>
