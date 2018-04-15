@@ -33,7 +33,7 @@ public class GameActivity extends AppCompatActivity {
 
 //        Intent intent = getIntent();
 //        boolean existing = intent.getBooleanExtra("EXISTING", false);
-        if (CurrentUserSingleton.getInstance().getModelFacade().getGameData().getPlayer(CurrentUserSingleton.getInstance().getUserName()).isHasStarted())
+        if (CurrentUserSingleton.getInstance().getModelFacade().getGameData().getPlayer(CurrentUserSingleton.getInstance().getModelFacade().getCurrentUser().getUsername()).isHasStarted())
         {
             moveToMap();
         }
