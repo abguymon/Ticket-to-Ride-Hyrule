@@ -1,12 +1,13 @@
 package cs240.lib.Model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by savannah.jane on 3/1/2018.
  */
 
-public class LobbyGame {
+public class LobbyGame implements Serializable{
     private int maxPlayers;
     private int playersJoined;
     private String gameName;

@@ -1,6 +1,7 @@
 package database.RelationalDatabase;
 
 import cs240.lib.Model.Game;
+import cs240.lib.Model.LobbyGame;
 import cs240.lib.Model.User;
 import database.FileFormatDatabase.FileFormatUserDao;
 
@@ -31,9 +32,19 @@ public class TestRelationalMain {
         User user2 = new User("savannahjane", "PiebaldPaint1");
         User user3 = new User("HyrumAlan", "chumbawumba");
 
-        database.create(user);
-        database.insert(user);
-        Object readUser = database.read(user, "philipds");
+        //database.create(user);
+        //database.insert(user);
+        //database.insert(user2);
+        //database.insert(user3);
+        //Object[] readAll = database.readAll(user);
+        //database.delete(user2);
+        database.clear(user);
+
+//        LobbyGame lg = new LobbyGame(0, 0, "gargash");
+//        LobbyGame lg2 = new LobbyGame(0,0,"Thedosia");
+//        database.insert(lg);
+//        database.insert(lg2);
+
         //database.create(user2);
         //database.create(user3);
 

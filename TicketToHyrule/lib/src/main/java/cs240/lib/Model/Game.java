@@ -1,5 +1,6 @@
 package cs240.lib.Model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import cs240.lib.Model.cards.DestinationCard;
@@ -15,11 +16,12 @@ import cs240.lib.Model.gameParts.GameMap;
 import cs240.lib.Model.gameParts.Player;
 import cs240.lib.Model.gameParts.Route;
 import cs240.lib.Model.gameParts.RouteList;
+import cs240.lib.client.ServerProxy;
 import cs240.lib.common.Command;
 import cs240.lib.common.DestinationCardResolution;
 import cs240.lib.common.LongestPathCalculator;
 
-public class Game {
+public class Game implements Serializable{
     private String gameName;
     private ArrayList<Player> playerArray;
     private TrainCardDeck trainCardDeck;

@@ -41,7 +41,7 @@ public class RelationalDatabase implements IDatabase {
         create(new Game("creation"));
         create(new User("create", "create"));
         create(new LobbyGame(0,0,"create"));
-        create(new Command("login", new String[0], new Object[0]));
+        create(new Command("create", new String[1], new Object[1]));
     }
 
     public Connection openConnection() {

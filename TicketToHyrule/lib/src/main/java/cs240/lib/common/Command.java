@@ -3,6 +3,7 @@ package cs240.lib.common;
 import com.google.gson.Gson;
 
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -14,7 +15,7 @@ import cs240.lib.server.ServerFacade;
  * Created by David on 1/13/2018.
  */
 
-public class Command {
+public class Command implements Serializable{
     private static Gson gson = new Gson();
     private String methodName;
     private String[] parameterTypeNames;
@@ -76,6 +77,8 @@ public class Command {
             parameters[i] = gson.fromJson(parametersAsJsonStrings[i], parameterTypes[i]);
         }
     }
+
+    public Command() {}
 
     public Object jsonParamterToParameter(int parameter){
         return gson.fromJson(parametersAsJsonStrings[parameter], parameterTypes[parameter]);

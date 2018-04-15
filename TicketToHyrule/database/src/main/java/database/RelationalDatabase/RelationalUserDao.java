@@ -224,6 +224,15 @@ public class RelationalUserDao {
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
+        } finally {
+            try{
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+
         }
         return true;
     }
@@ -237,6 +246,15 @@ public class RelationalUserDao {
             statement.execute(sql);
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try{
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+
         }
     }
 }
