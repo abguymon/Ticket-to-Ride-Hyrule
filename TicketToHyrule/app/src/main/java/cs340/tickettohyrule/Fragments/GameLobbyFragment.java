@@ -258,7 +258,7 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener,
         @Override protected void onPostExecute(String message){
             super.onPostExecute(message);
             if(message.equals("")){
-                inGameSingleton.setInGame(true);
+                //10inGameSingleton.setInGame(true);
                 Toast.makeText(getActivity(), "Successfully joined game", Toast.LENGTH_SHORT).show();
                 createButton.setEnabled(false);
                 joinButton.setEnabled(false);
@@ -316,12 +316,12 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener,
                         startedGame = true;
                     }
                 }
-//                Player player = CurrentUserSingleton.getInstance().getModelFacade()
-//                        .getGameData().getPlayer(CurrentUserSingleton.getInstance().getUserName());
+                Player player = CurrentUserSingleton.getInstance().getModelFacade()
+                        .getGameData().getPlayer(CurrentUserSingleton.getInstance().getUserName());
 
                 Intent intent = new Intent(getActivity(), GameActivity.class);
 
-                if (startedGame) {
+                if (player != null) {
                     intent.putExtra("EXISTING", true);
                 }
                 else
