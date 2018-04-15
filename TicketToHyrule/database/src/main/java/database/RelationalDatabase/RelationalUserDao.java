@@ -106,8 +106,8 @@ public class RelationalUserDao {
             statement.setString(1, toRead);
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                String username = resultSet.getString(2);
-                String password = resultSet.getString(3);
+                String username = resultSet.getString(1);
+                String password = resultSet.getString(2);
                 user = new User(username, password);
             }
 

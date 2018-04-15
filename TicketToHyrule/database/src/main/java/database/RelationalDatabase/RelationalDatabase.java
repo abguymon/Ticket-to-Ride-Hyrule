@@ -33,6 +33,7 @@ public class RelationalDatabase implements IDatabase {
     }
 
     public RelationalDatabase(){
+        openConnection();
         gameDao = new RelationalGameDao(connection);
         lobbyGameDao = new RelationalLobbyGameDao(connection);
         commandDao = new RelationalCommandDao(connection);
