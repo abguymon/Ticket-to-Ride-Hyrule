@@ -298,7 +298,7 @@ public class RelationalDatabase implements IDatabase {
 
     public void clear(User user) {
         Connection connection = openConnection();
-        userDao.setConnection(connection);openConnection();
+        userDao.setConnection(connection);
         userDao.clear();
         closeConnection(true);
     }
