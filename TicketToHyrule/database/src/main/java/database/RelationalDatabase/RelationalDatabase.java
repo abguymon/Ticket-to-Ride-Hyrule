@@ -323,10 +323,10 @@ public class RelationalDatabase implements IDatabase {
     }
 
     public void clearAll() {
-        userDao.clear();
-        gameDao.clear();
-        lobbyGameDao.clear();
-        commandDao.clear();
+        clear(new User("user", "pass"));
+        clear(new Game("clearing"));
+        clear(new LobbyGame(1, 1, "clearing"));
+        clear(new Command("clearing", new String[1], new Object[1]));
     }
 
     /*@Override

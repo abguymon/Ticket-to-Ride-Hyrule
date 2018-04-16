@@ -1,5 +1,7 @@
 package database.RelationalDatabase;
 
+import com.google.gson.Gson;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -22,6 +24,7 @@ import cs240.lib.common.Command;
 public class RelationalCommandDao{
 
     private Connection connection;
+    private Gson gson = new Gson();
 
     public RelationalCommandDao(Connection connection){
         this.connection = connection;
@@ -43,7 +46,7 @@ public class RelationalCommandDao{
             statement = connection.createStatement();
             String sql = "create table if not exists Commands " +
                     "(" +
-                    "Command BLOB not null," +
+                    "Command text not null," +
                     "Game_Name text" +
                     ")";
 
@@ -71,14 +74,14 @@ public class RelationalCommandDao{
     }
 
     private boolean insertCommand(Command toInsert) {
-        InputStream commandIS = writeToIS(toInsert);
+        String commandJson = gson.toJson(toInsert);
         String gameName = findGameName(toInsert);
         PreparedStatement statement = null;
         try{
-            String sql = "insert into Commands (Commnad, Game_Name) " +
+            String sql = "insert into Commands (Command, Game_Name) " +
                     "values (?, ?)";
             statement = connection.prepareStatement(sql);
-            statement.setBlob(1, commandIS);
+            statement.setString(1, commandJson);
             statement.setString(2, gameName);
 
             statement.executeUpdate();
@@ -100,37 +103,19 @@ public class RelationalCommandDao{
 
     private String findGameName(Command toInsert) {
         String gameName = null;
-        if (toInsert.getParameters().length == 1){
-            gameName = (String)toInsert.getParameters()[0];
+        if (toInsert.getParameterTypeNames().length == 1){
+            gameName = gson.fromJson(toInsert.getParametersAsJsonStrings()[0], String.class);
         }else {
             String methodName = toInsert.getMethodName().toLowerCase();
             if (methodName.equals("login") || methodName.equals("register")){
                 gameName = null;
             }else if(methodName.equals("chat")){
-                gameName = (String)toInsert.getParameters()[2];
+                gameName = gson.fromJson(toInsert.getParametersAsJsonStrings()[2], String.class);
             }else{
-                gameName = (String)toInsert.getParameters()[1];
+                gameName = gson.fromJson(toInsert.getParametersAsJsonStrings()[1], String.class);
             }
         }
         return gameName;
-    }
-
-    private InputStream writeToIS(Command toWrite) {
-        try {
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            ObjectOutputStream oos = new ObjectOutputStream(baos);
-
-            oos.writeObject(toWrite);
-
-            oos.flush();
-            oos.close();
-
-            InputStream is = new ByteArrayInputStream(baos.toByteArray());
-            return is;
-        }catch (IOException e){
-            e.printStackTrace();
-            return null;
-        }
     }
 
     public Object read(String toRead) {
@@ -155,8 +140,7 @@ public class RelationalCommandDao{
             statement = connection.prepareStatement(sql);
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                InputStream commandIS = (InputStream) resultSet.getBlob(1);
-                command = writeToCommand(commandIS);
+                command = gson.fromJson(resultSet.getString(1), Command.class);
                 commandList.add(command);
             }
 
@@ -179,20 +163,6 @@ public class RelationalCommandDao{
             commands[i] = commandList.get(i);
         }
         return commands;
-    }
-
-    private Command writeToCommand(InputStream commandIS) {
-        ObjectInputStream ois = null;
-        try {
-            ois = new ObjectInputStream(commandIS);
-            Command command = (Command)ois.readObject();
-            return command;
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 
     public boolean update(Command command) {
@@ -281,7 +251,7 @@ public class RelationalCommandDao{
             String sql = "delete from Commands where Game_Name = ?";
             statement = connection.prepareStatement(sql);
             statement.setString(1, gameName);
-            statement.execute(sql);
+            statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally{

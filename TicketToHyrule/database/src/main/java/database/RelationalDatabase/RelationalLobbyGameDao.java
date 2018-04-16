@@ -1,5 +1,7 @@
 package database.RelationalDatabase;
 
+import com.google.gson.Gson;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -20,6 +22,7 @@ import cs240.lib.Model.LobbyGame;
 
 public class RelationalLobbyGameDao {
     private Connection connection;
+    private Gson gson = new Gson();
     public RelationalLobbyGameDao(Connection connection){
         this.connection = connection;
     }
@@ -33,8 +36,8 @@ public class RelationalLobbyGameDao {
             statement = connection.createStatement();
             String sql = "create table if not exists Lobby_Games " +
                     "(" +
-                    "Game BLOB not null," +
-                    "GameName text not null" +
+                    "Game text not null," +
+                    "GameName text not null primary key" +
                     ")";
 
             statement.executeUpdate(sql);
@@ -55,14 +58,14 @@ public class RelationalLobbyGameDao {
     }
 
     public boolean insert(LobbyGame lobbyGame) {
-        InputStream gameIS = writeToIS(lobbyGame);
+        String gameJson = gson.toJson(lobbyGame);
         PreparedStatement statement = null;
         try{
             String sql = "insert into Lobby_Games (Game, GameName) " +
                     "values (?, ?)";
             statement = connection.prepareStatement(sql);
-            statement.setBlob(1, gameIS);
-            statement.setString(1, lobbyGame.getGameName());
+            statement.setString(1, gameJson);
+            statement.setString(2, lobbyGame.getGameName());
 
             statement.executeUpdate();
         }catch (SQLException e){
@@ -82,24 +85,6 @@ public class RelationalLobbyGameDao {
         return false;
     }
 
-    private InputStream writeToIS(LobbyGame toAdd) {
-        try {
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            ObjectOutputStream oos = new ObjectOutputStream(baos);
-
-            oos.writeObject(toAdd);
-
-            oos.flush();
-            oos.close();
-
-            InputStream is = new ByteArrayInputStream(baos.toByteArray());
-            return is;
-        }catch (IOException e){
-            e.printStackTrace();
-            return null;
-        }
-    }
-
     public Object read(String gameName) {
         LobbyGame game = null;
         PreparedStatement statement = null;
@@ -110,8 +95,7 @@ public class RelationalLobbyGameDao {
             statement.setString(1, gameName);
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                LobbyGame temp = (LobbyGame) resultSet.getBlob(2);
-                game = temp;
+                game = gson.fromJson(resultSet.getString(1),LobbyGame.class);
             }
 
         } catch(SQLException e){
@@ -141,8 +125,7 @@ public class RelationalLobbyGameDao {
             statement = connection.prepareStatement(sql);
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                LobbyGame temp = (LobbyGame) resultSet.getBlob(1);
-                game = temp;
+                game = gson.fromJson(resultSet.getString(1), LobbyGame.class);
                 gameList.add(game);
             }
 
@@ -169,13 +152,13 @@ public class RelationalLobbyGameDao {
 
     public boolean update(LobbyGame toUpdate) {
         PreparedStatement statement = null;
-        InputStream gameIS = writeToIS(toUpdate);
+        String gameJson = gson.toJson(toUpdate);
         try {
             String sql = "update Lobby_Games " +
                     "set Game = ?" +
                     "where GameName = ?;";
             statement = connection.prepareStatement(sql);
-            statement.setBlob(1, gameIS);
+            statement.setString(1, gameJson);
             statement.setString(2, toUpdate.getGameName());
 
             statement.executeUpdate();

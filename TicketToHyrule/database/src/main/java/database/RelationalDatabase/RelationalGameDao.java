@@ -1,5 +1,7 @@
 package database.RelationalDatabase;
 
+import com.google.gson.Gson;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -20,6 +22,7 @@ import cs240.lib.Model.Game;
 
 public class RelationalGameDao{
     private Connection connection;
+    private Gson gson = new Gson();
 
     public RelationalGameDao(Connection connection){
         this.connection = connection;
@@ -41,8 +44,8 @@ public class RelationalGameDao{
             statement = connection.createStatement();
             String sql = "create table if not exists Games " +
                     "(" +
-                    "Game BLOB not null," +
-                    "GameName text not null" +
+                    "Game text not null," +
+                    "GameName text not null primary key" +
                     ")";
 
             statement.executeUpdate(sql);
@@ -69,14 +72,14 @@ public class RelationalGameDao{
     }
 
     private boolean insertGame(Game toAdd) {
-        InputStream gameIS = writeToIS(toAdd);
+        String gameJson = gson.toJson(toAdd);
         PreparedStatement statement = null;
         try{
             String sql = "insert into Games (Game, GameName) " +
                     "values (?, ?)";
             statement = connection.prepareStatement(sql);
-            statement.setBlob(1, gameIS);
-            statement.setString(1, toAdd.getGameName());
+            statement.setString(1, gameJson);
+            statement.setString(2, toAdd.getGameName());
 
             statement.executeUpdate();
         }catch (SQLException e){
@@ -131,8 +134,7 @@ public class RelationalGameDao{
             statement.setString(1, gameName);
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                Game temp = (Game)resultSet.getBlob(2);
-                game = temp;
+                game = gson.fromJson(resultSet.getString(1), Game.class) ;
             }
 
         } catch(SQLException e){
@@ -162,8 +164,7 @@ public class RelationalGameDao{
             statement = connection.prepareStatement(sql);
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                Game temp = (Game)resultSet.getBlob(1);
-                game = temp;
+                game = gson.fromJson(resultSet.getString(1), Game.class);
                 gameList.add(game);
             }
 
@@ -196,13 +197,13 @@ public class RelationalGameDao{
 
     private boolean updateGame(Game toUpdate) {
         PreparedStatement statement = null;
-        InputStream gameIS = writeToIS(toUpdate);
+        String gameJson = gson.toJson(toUpdate);
         try {
             String sql = "update Games " +
                     "set Game = ?" +
                     "where GameName = ?;";
             statement = connection.prepareStatement(sql);
-            statement.setBlob(1, gameIS);
+            statement.setString(1, gameJson);
             statement.setString(2, toUpdate.getGameName());
 
             statement.executeUpdate();
