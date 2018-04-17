@@ -26,4 +26,6 @@ public class StateMap {
         stateMap.put(1, new TurnStarted());
         stateMap.put(2, new DrawnFirstCard());
     }
+
+    public IState getState(int i) {return stateMap.get(i);}
 }
