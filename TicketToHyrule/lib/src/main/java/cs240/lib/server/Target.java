@@ -1091,6 +1091,7 @@ public class Target implements IServer {
         this.setAvailableGames(translateLobbyGames(restoredLobbyGames));
         executeRestorationCommands(commandsToExecute);
         database.clear(new Command("restore", new String[1], new Object[1]));
+        Poller.getInstance().setIndex(commandHistory.size() - 1);
     }
 
     private void executeRestorationCommands (ArrayList<Command> commands) {

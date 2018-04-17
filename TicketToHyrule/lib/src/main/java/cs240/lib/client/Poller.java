@@ -33,6 +33,7 @@ public class Poller implements Runnable {
             System.out.println("not able to sleep");
         }
     }
+    public void setIndex(int i) {commandIndex = i;}
 
     public void fullPoll() { //throws InterruptedException {
         ClientFacade.getInstance().pollerCheckServer(commandIndex);
