@@ -742,6 +742,7 @@ public class Target implements IServer {
 
     @Override
     public GetGameResult sync(String gameName) {
+        Poller.getInstance().setIndex(commandHistory.size() - 1);
         String[] parameterTypeNames = {String.class.getName()};
         Object[] parameters = {gameName};
         Command syncCommand = new Command("sync", parameterTypeNames, parameters);
@@ -1072,8 +1073,7 @@ public class Target implements IServer {
 
     public void wipe(){database.clearAll();}
 
-    public String getDatabaseType() {
-        return databaseType;
+    public String getDatabaseType() { return databaseType;
     }
 
     public void setDatabaseType(String databaseType) {
