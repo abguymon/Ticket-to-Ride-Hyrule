@@ -13,6 +13,7 @@ import cs240.lib.common.Command;
 public class PollerResult {
     Queue<Command> myCommands;
     private String errorMessage;
+    private int commandHistory = -1;
 
     public PollerResult() {}
 
@@ -33,5 +34,13 @@ public class PollerResult {
 
     public void setErrorMessage(String errorMessage) {
         this.errorMessage = errorMessage;
+    }
+
+    public int getCommandHistory() {
+        return commandHistory;
+    }
+
+    public void setCommandHistory(int commandHistory) {
+        this.commandHistory = commandHistory;
     }
 }

@@ -279,6 +279,9 @@ public class ClientFacade extends Observable{
             try{
                 Poller.getInstance().setCommandIndex(result.getCommands().size() + Poller.getInstance().getCommandIndex());
                 updateModel(result);
+                if(result.getCommandHistory() != -1){
+                    Poller.getInstance().setCommandIndex(result.getCommandHistory());
+                }
                 return "";
             }catch(Exception ex){
                 return "EXCEPTION! " + ex;
