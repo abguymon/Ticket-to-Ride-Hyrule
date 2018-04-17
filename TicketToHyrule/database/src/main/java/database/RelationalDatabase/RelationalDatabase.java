@@ -46,8 +46,10 @@ public class RelationalDatabase implements IDatabase {
 
     public Connection openConnection() {
         try{
-            connection = DriverManager.getConnection(URL);
-            connection.setAutoCommit(false);
+            if(connection == null) {
+                connection = DriverManager.getConnection(URL);
+                connection.setAutoCommit(false);
+            }
             return connection;
         } catch(SQLException e){
             e.printStackTrace();
@@ -57,13 +59,15 @@ public class RelationalDatabase implements IDatabase {
 
     public void closeConnection(boolean commit){
         try{
-            if (commit){
-                connection.commit();
-            }else {
-                connection.rollback();
+            if(connection != null) {
+                if (commit) {
+                    connection.commit();
+                } else {
+                    connection.rollback();
+                }
+                connection.close();
+                connection = null;
             }
-            connection.close();
-            connection = null;
         } catch (SQLException e){
             e.printStackTrace();
         }
