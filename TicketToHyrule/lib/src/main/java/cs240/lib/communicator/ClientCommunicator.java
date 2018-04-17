@@ -11,9 +11,11 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import cs240.lib.client.Poller;
 import cs240.lib.common.Command;
 import cs240.lib.common.EncoderDecoder;
 import cs240.lib.common.ResultTransferObject;
+import cs240.lib.common.results.PollerResult;
 
 /**
  * Created by David on 1/13/2018.
@@ -74,6 +76,7 @@ public class ClientCommunicator {
             result.setRequestMethod(HTTP_POST);
             result.addRequestProperty("Authorization", authToken);
             result.setDoOutput(true);
+            result.setConnectTimeout(3000);
             result.connect();
         } catch (MalformedURLException e) {
             e.printStackTrace();

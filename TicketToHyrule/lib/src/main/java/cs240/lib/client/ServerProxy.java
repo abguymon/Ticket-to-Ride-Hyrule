@@ -1,6 +1,8 @@
 package cs240.lib.client;
 
 
+import java.io.IOException;
+import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 
 import cs240.lib.Model.cards.DestinationCard;
@@ -168,7 +170,9 @@ public class ServerProxy implements IServer {
         String[] parameterTypeNames = {int.class.getName()};
         Object[] parameters = {index};
         Command pollerCommand = new Command("pollerCheckServer", parameterTypeNames, parameters);
-        Object result = ClientCommunicator.SINGLETON.send(pollerCommand);
+        Object result = null;
+        result = ClientCommunicator.SINGLETON.send(pollerCommand);
+        if(result instanceof SocketTimeoutException) {result = new PollerResult(); ((PollerResult)result).setErrorMessage("THERE WAS AN EXCEPTION THROWN");}
         return (PollerResult)result;
     }
 
