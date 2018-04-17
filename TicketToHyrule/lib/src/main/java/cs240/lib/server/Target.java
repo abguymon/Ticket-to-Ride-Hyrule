@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.UUID;
@@ -591,6 +592,7 @@ public class Target implements IServer {
                     if (game.checkCheckpoint()) {
                         checkpoint(game);
                     }
+                    game.setState(2);
                     return new DrawDestinationCardResult(cardArray);
                 }
                 else {
@@ -627,6 +629,7 @@ public class Target implements IServer {
                     if (game.checkCheckpoint()) {
                         checkpoint(game);
                     }
+                    game.setState(0);
                     return new SubmitResult(true);
                 }
                 for(DestinationCard card : player.getDrawnDestinationCards()){
@@ -654,6 +657,7 @@ public class Target implements IServer {
                 if (game.checkCheckpoint()) {
                     checkpoint(game);
                 }
+                game.setState(0);
                 return new SubmitResult(true);
             }
             return new SubmitResult("Player not found");
