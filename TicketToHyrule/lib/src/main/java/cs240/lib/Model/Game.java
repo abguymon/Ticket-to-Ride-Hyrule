@@ -2,6 +2,7 @@ package cs240.lib.Model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Map;
 
 import cs240.lib.Model.cards.DestinationCard;
 import cs240.lib.Model.cards.DestinationCardDeck;
@@ -21,6 +22,7 @@ import cs240.lib.common.Command;
 import cs240.lib.common.DestinationCardResolution;
 import cs240.lib.common.LongestPathCalculator;
 
+
 public class Game implements Serializable{
     private String gameName;
     private ArrayList<Player> playerArray;
@@ -38,6 +40,7 @@ public class Game implements Serializable{
 
     private int checkpoint;
     private int commandIndex;
+    private int[] state;
 
     public int getCheckpoint() {
         return checkpoint;
@@ -58,6 +61,9 @@ public class Game implements Serializable{
         }
         return true;
     }
+    public int[] getState() {return state;}
+    public void setState(int[] state) {this.state = state;}
+    public void setState(int state) {this.state[1] = state;}
 
     public int getCommandIndex() {return commandIndex;}
     public void setCommandIndex(int commandIndex) {this.commandIndex = commandIndex;}
@@ -78,6 +84,7 @@ public class Game implements Serializable{
         finalPlayer = 0;
         gameOver = false;
         commandIndex = 0;
+        state = new int[]{1,1};
     }
 
     public Game(String newName, int checkpoint) {
@@ -97,6 +104,7 @@ public class Game implements Serializable{
         gameOver = false;
         commandIndex = 0;
         this.checkpoint = checkpoint;
+        state = new int[] {1,1};
     }
 
     public boolean isGameOver() {return gameOver;}
@@ -138,6 +146,12 @@ public class Game implements Serializable{
         if (card == null) {
             return null;
         }
+        if (state[1] == 2) {
+            setState(0);
+        }
+        else {
+            setState(2);
+        }
         return card;
     }
 
@@ -145,9 +159,13 @@ public class Game implements Serializable{
         int numPlayers = playerArray.size();
         if (playerTurn == numPlayers) {
             playerTurn = 1;
+            state[0] = 1;
+            setState(1);
         }
         else {
             ++playerTurn;
+            ++state[0];
+            setState(1);
         }
         if (playerTurn == finalPlayer && isFinalRound) {
             gameOver = true;
@@ -157,7 +175,16 @@ public class Game implements Serializable{
     }
 
     public TrainCard drawFaceUpTrainCard(int position) {
-        return faceUpTrainCards.pick(position, trainCardDeck, trainCardDiscard);
+        TrainCard card = faceUpTrainCards.pick(position, trainCardDeck, trainCardDiscard);
+        if (card != null) {
+           if (card.getColor() == TrainCardColor.WILD || state[1] == 2) {
+               setState(0);
+           }
+           else {
+               setState(2);
+           }
+        }
+        return card;
     }
 
     public Route getRoute(Route route) {
@@ -181,6 +208,7 @@ public class Game implements Serializable{
                     isFinalRound = true;
                     finalPlayer = playerTurn;
                 }
+                setState(0);
                 return true;
             }
             else {
