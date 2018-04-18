@@ -45,6 +45,11 @@ public class MapPresenter implements Observer {
 
     }
 
+    public MapPresenter ()
+    {
+        modelFacade.setCurrentPlayer(modelFacade.getGameData().getPlayer(modelFacade.getCurrentUser().getUsername()));
+    }
+
     public boolean isGameOver()
     {
         return modelFacade.getGameData().isGameOver();
