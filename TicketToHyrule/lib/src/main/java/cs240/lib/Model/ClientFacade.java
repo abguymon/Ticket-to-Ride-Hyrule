@@ -20,6 +20,7 @@ import cs240.lib.Model.states.TurnStarted;
 import cs240.lib.client.Poller;
 import cs240.lib.client.ServerProxy;
 import cs240.lib.common.Command;
+import cs240.lib.common.StateMap;
 import cs240.lib.common.results.PollerResult;
 import sun.security.krb5.internal.crypto.Des;
 
@@ -142,25 +143,31 @@ public class ClientFacade extends Observable{
     }
     public void drawFaceUpTrainCard(String playerName, String gameName, int card){
         gameData.getPlayer(playerName).addTrainCard(gameData.getFaceUpTrainCards().pick(card, gameData.getTrainCardDeck(), gameData.getTrainCardDiscard()));
-        if(gameData.getPlayer(playerName).getState() instanceof TurnStarted) gameData.getPlayer(playerName).setState(new DrawnFirstCard());
-        else endTurn(playerName, gameName);
-        setChanged();
-        notifyObservers();
+        if(gameData.getPlayer(playerName).getState() instanceof TurnStarted) {
+            gameData.getPlayer(playerName).setState(new DrawnFirstCard());
+            gameData.getState()[1] = 2;
+            setChanged();
+            notifyObservers();
+        }
+//        else endTurn(playerName, gameName);
     }
     public void drawTrainCard(String playerName, String gameName){
         TrainCard card = gameData.getTrainCardDeck().draw(gameData.getTrainCardDiscard());
         if (card != null) {
             gameData.getPlayer(playerName).addTrainCard(card);
         }
-        if(gameData.getPlayer(playerName).getState() instanceof TurnStarted) gameData.getPlayer(playerName).setState(new DrawnFirstCard());
+        if(gameData.getPlayer(playerName).getState() instanceof TurnStarted){
+            gameData.getPlayer(playerName).setState(new DrawnFirstCard());
+            setChanged();
+            notifyObservers();}
         else endTurn(playerName, gameName);
-        setChanged();
-        notifyObservers();
     }
 
     public void endTurn(String playerName, String gameName){
         int playerTurnEnded = gameData.getPlayer(playerName).getPlayerNum();
         int newPlayerTurn;
+        if(gameData.getState()[0] == gameData.getPlayerArray().size() && gameData.getState()[1] != 1) {gameData.getState()[0] = 1; gameData.getState()[1] = 1;}
+        else {gameData.getState()[0]++; gameData.getState()[1]=1;}
         gameData.getPlayer(playerName).setState(new TurnEnded());
         if (playerTurnEnded == gameData.getPlayerArray().size()){
             newPlayerTurn = 1;
@@ -189,11 +196,15 @@ public class ClientFacade extends Observable{
         setGameData(ServerProxy.SINGLETON.getGameData(gameData.getGameName()).getGameStarted());
 
         playerArray = gameData.getPlayerArray();
-        for(int i = 0; i <playerArray.size(); i++){
-            if(i == currentPlayer) playerArray.get(i).setState(oldState);
-            else playerArray.get(i).setState(new TurnEnded());
+//        for(int i = 0; i <playerArray.size(); i++){
+//            if(i == currentPlayer) playerArray.get(i).setState(oldState);
+//            else playerArray.get(i).setState(new TurnEnded());
+//        }
+        int[] stuff = gameData.getState();
+        playerArray.get(stuff[0]-1).setState(StateMap.SINGLETON.getState(stuff[1]));
+        for(int i = 0; i < stuff.length; i++){
+            if(i != stuff[0]-1) playerArray.get(i).setState(new TurnEnded());
         }
-
         setChanged();
         notifyObservers();
     }

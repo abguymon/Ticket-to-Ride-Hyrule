@@ -884,6 +884,11 @@ public class Target implements IServer {
                    if (game.checkCheckpoint()) {
                        checkpoint(game);
                    }
+//                   if(getGameData(gameName).getGameStarted().getState()[getGameData(gameName).getGameStarted().getPlayerTurn()-1] == 1){
+//                       getGameData(gameName).getGameStarted().getState()[getGameData(gameName).getGameStarted().getPlayerTurn()-1]++;}
+//                   else{
+//                       endTurn(playerName, gameName);
+//                   }
                     return new DrawFaceUpTrainCardResult(cardPicked);
                }
                else {

@@ -1,18 +1,23 @@
 package cs340.tickettohyrule;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.BundleCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import cs240.lib.Model.ClientFacade;
+import cs240.lib.Model.ModelFacade;
+import cs240.lib.common.results.GetGameResult;
 import cs340.tickettohyrule.Fragments.EndGameFragment;
 import cs340.tickettohyrule.Fragments.GameChatFragment;
 import cs340.tickettohyrule.Fragments.GameHistoryFragment;
 import cs340.tickettohyrule.Fragments.GameInfoFragment;
 import cs340.tickettohyrule.Fragments.MapFragment;
 import cs340.tickettohyrule.Fragments.PreStartFragment;
+import cs340.tickettohyrule.PhaseOnePresenters.GameLobbyPresenter;
 import cs340.tickettohyrule.PhaseTwoPresenters.GamePresenter;
 
 /**
@@ -45,6 +50,8 @@ public class GameActivity extends AppCompatActivity {
 
     //MOVE TO MAP SCREEN
     public void moveToMap() {
+        SyncAsync syncAsync = new SyncAsync();
+        syncAsync.execute();
         Fragment fragment = new MapFragment();
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.game_frame, fragment, fragment.getClass().getSimpleName()).addToBackStack(null).commit();
@@ -92,5 +99,16 @@ public class GameActivity extends AppCompatActivity {
         fragment.setArguments(bundle);
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.game_frame, fragment, fragment.getClass().getSimpleName()).addToBackStack(null).commit();
+    }
+
+    private class SyncAsync extends AsyncTask<Void, Void, Void> {
+        ModelFacade modelFacade = CurrentUserSingleton.getInstance().getModelFacade();
+        @Override
+        protected Void doInBackground(Void... params){
+            modelFacade.sync();
+            return null;
+        }
+        @Override protected void onPostExecute(Void message){
+        }
     }
 }

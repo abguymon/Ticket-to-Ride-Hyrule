@@ -12,6 +12,7 @@ import cs240.lib.Model.states.IState;
 import cs240.lib.Model.states.TurnEnded;
 import cs240.lib.Model.states.TurnStarted;
 import cs240.lib.client.ServerProxy;
+import cs240.lib.common.StateMap;
 import cs240.lib.common.results.ChatResult;
 import cs240.lib.common.results.ClaimRouteResult;
 import cs240.lib.common.results.CreateResult;
@@ -89,20 +90,25 @@ public class ModelFacade {
 
     public void updateGameData(Game newGameData){
         ArrayList<Player> playerArray = gameData.getPlayerArray();
-        int currentPlayer = 0;
-        IState oldState = new TurnEnded();
-        for(int i = 0; i < playerArray.size(); i++){
-            if(playerArray.get(i).getState() instanceof TurnEnded){}
-            else if(playerArray.get(i).getState() instanceof DrawnFirstCard){oldState = new DrawnFirstCard();currentPlayer = i;}
-            else {oldState = new TurnStarted(); currentPlayer = i;}
-        }
+//        int currentPlayer = 0;
+//        IState oldState = new TurnEnded();
+//        for(int i = 0; i < playerArray.size(); i++){
+//            if(playerArray.get(i).getState() instanceof TurnEnded){}
+//            else if(playerArray.get(i).getState() instanceof DrawnFirstCard){oldState = new DrawnFirstCard();currentPlayer = i;}
+//            else {oldState = new TurnStarted(); currentPlayer = i;}
+//        }
 
         setGameData(newGameData);
 //        gameData.setPlayerArray(playerArray);
         playerArray = gameData.getPlayerArray();
-        for(int i = 0; i <playerArray.size(); i++){
-            if(i == currentPlayer) playerArray.get(i).setState(oldState);
-            else playerArray.get(i).setState(new TurnEnded());
+//        for(int i = 0; i <playerArray.size(); i++){
+//            if(i == currentPlayer) playerArray.get(i).setState(oldState);
+//            else playerArray.get(i).setState(new TurnEnded());
+//        }
+        int[] stuff = gameData.getState();
+        playerArray.get(stuff[0]-1).setState(StateMap.SINGLETON.getState(stuff[1]));
+        for(int i = 0; i < stuff.length; i++){
+            if(i != stuff[0]-1) playerArray.get(i).setState(new TurnEnded());
         }
         this.currentPlayer = gameData.getPlayer(currentUser.getUsername());
     }
