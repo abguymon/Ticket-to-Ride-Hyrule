@@ -412,8 +412,6 @@ public class MapFragment extends Fragment implements View.OnClickListener{
         return view;
     }
 
-
-
     private void getRouteList()
     {
         this.routeList = mapPresenter.getRoutes();
@@ -435,7 +433,7 @@ public class MapFragment extends Fragment implements View.OnClickListener{
         updateRouteMap();
         for (Map.Entry<Integer, Route> entry : routeMap.entrySet()) {
             ImageButton imageButton = buttonMap.get(entry.getKey());
-            if (!entry.getValue().getOwner().equals(""))
+            if (!entry.getValue().getColor().equals("GRAY"))
             {
                 switch (entry.getValue().getOwnerColor()) {
                     case GREEN:
@@ -476,7 +474,7 @@ public class MapFragment extends Fragment implements View.OnClickListener{
             for(Map.Entry<Integer, Route> entry : routeMap.entrySet())
             {
                 if (r.getCity1Name().equals(entry.getValue().getCity1Name()) && r.getCity2Name().equals(entry.getValue().getCity2Name())
-                        && entry.getValue().getOwnerColor().equals(GRAY) && routePressed != null && routePressed.getColor().equals(entry.getValue().getColor()))
+                        && entry.getValue().getOwnerColor().equals(GRAY))
                 {
                     entry.getValue().setClaimed(r.isClaimed());
                     entry.getValue().setOwner(r.getOwner());
