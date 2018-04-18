@@ -61,6 +61,7 @@ public class ServerProxy implements IServer {
         Object[] parameters = {username, password};
         Command loginCommand = new Command("login", parameterTypeNames, parameters);
         Object result = ClientCommunicator.SINGLETON.send(loginCommand);
+        if (result instanceof SocketTimeoutException){result = new StartGameResult("Server is down");}
         return (SignInResult) result;
     }
 
@@ -81,6 +82,7 @@ public class ServerProxy implements IServer {
         Object[] parameters = {username, password};
         Command registerCommand = new Command("register", parameterTypeNames, parameters);
         Object result = ClientCommunicator.SINGLETON.send(registerCommand);
+        if (result instanceof SocketTimeoutException){result = new SignInResult("Server is down"); }
         return (SignInResult) result;
     }
 
@@ -100,6 +102,7 @@ public class ServerProxy implements IServer {
         Object[] parameters = {username, gameName};
         Command joinCommand = new Command("joinGame", parameterTypeNames, parameters);
         Object result = ClientCommunicator.SINGLETON.send(joinCommand);
+        if (result instanceof SocketTimeoutException){result = new JoinResult("Server is down");}
         return (JoinResult) result;
     }
 
@@ -118,6 +121,7 @@ public class ServerProxy implements IServer {
         Object[] parameters = {username, gameName};
         Command leaveCommand = new Command("leaveGame", parameterTypeNames, parameters);
         Object result = ClientCommunicator.SINGLETON.send(leaveCommand);
+        if (result instanceof SocketTimeoutException){result = new LeaveResult("Server is down");}
         return (LeaveResult) result;
     }
 
@@ -137,6 +141,7 @@ public class ServerProxy implements IServer {
         Object[] parameters = {username, gameName, maxPlayers};
         Command createCommand = new Command("createGame", parameterTypeNames, parameters);
         Object result = ClientCommunicator.SINGLETON.send(createCommand);
+        if (result instanceof SocketTimeoutException){result = new CreateResult("Server is down");}
         return (CreateResult) result;
     }
 
@@ -154,6 +159,7 @@ public class ServerProxy implements IServer {
         Object[] parameters = {gameName};
         Command startCommand = new Command("startGame", parameterTypeNames, parameters);
         Object result = ClientCommunicator.SINGLETON.send(startCommand);
+        if (result instanceof SocketTimeoutException){result = new StartGameResult("Server is down");}
         return (StartGameResult) result;
     }
 
@@ -190,6 +196,7 @@ public class ServerProxy implements IServer {
         Object[] parameters = {gameName};
         Command getGameHistoryCommand = new Command("getGameHistory", parameterTypenames, parameters);
         Object result = ClientCommunicator.SINGLETON.send(getGameHistoryCommand);
+        if (result instanceof SocketTimeoutException){result = new GameHistoryResult("Server is down");}
         return (GameHistoryResult)result;
     }
 
@@ -209,6 +216,7 @@ public class ServerProxy implements IServer {
         Object[] parameters = {playerName, message, gameName};
         Command chatCommand = new Command("chat", parameterTypenames, parameters);
         Object result = ClientCommunicator.SINGLETON.send(chatCommand);
+        if (result instanceof SocketTimeoutException){result = new ChatResult("Server is down");}
         return (ChatResult) result;
     }
 
@@ -218,6 +226,7 @@ public class ServerProxy implements IServer {
         Object[] parameters = {playerName, gameName, route_id, chosenCardsColor};
         Command claimRouteCommand = new Command("claimRoute", parameterTypenames, parameters);
         Object result = ClientCommunicator.SINGLETON.send(claimRouteCommand);
+        if (result instanceof SocketTimeoutException){result = new ClaimRouteResult("Server is down");}
         return (ClaimRouteResult) result;
     }
 
@@ -227,6 +236,7 @@ public class ServerProxy implements IServer {
         Object[] parameters = {playerName, gameName};
         Command drawTrainCardCommand = new Command("drawTrainCard", parameterTypenames, parameters);
         Object result = ClientCommunicator.SINGLETON.send(drawTrainCardCommand);
+        if (result instanceof SocketTimeoutException){result = new DrawTrainCardResult("Server is down");}
         return (DrawTrainCardResult) result;
     }
 
@@ -236,6 +246,7 @@ public class ServerProxy implements IServer {
         Object[] parameters = {playerName, gameName, positionPicked};
         Command drawFaceUpTrainCardCommand = new Command("drawFaceUpTrainCard", parameterTypenames, parameters);
         Object result = ClientCommunicator.SINGLETON.send(drawFaceUpTrainCardCommand);
+        if (result instanceof SocketTimeoutException){result = new DrawFaceUpTrainCardResult("Server is down");}
         return (DrawFaceUpTrainCardResult) result;
     }
 
@@ -255,6 +266,7 @@ public class ServerProxy implements IServer {
         Object[] parameters = {playerName, gameName};
         Command drawDestinationCardCommand = new Command("drawDestinationCard", parameterTypenames, parameters);
         Object result = ClientCommunicator.SINGLETON.send(drawDestinationCardCommand);
+        if (result instanceof SocketTimeoutException){result = new DrawDestinationCardResult("Server is down");}
         return (DrawDestinationCardResult) result;
     }
 
@@ -274,6 +286,7 @@ public class ServerProxy implements IServer {
         Object[] parameters = {playerName, gameName, card};
         Command submitDestinationCardsCommand = new Command("submitDestinationCards", parameterTypenames, parameters);
         Object result = ClientCommunicator.SINGLETON.send(submitDestinationCardsCommand);
+        if (result instanceof SocketTimeoutException){result = new SubmitResult("Server is down");}
         return (SubmitResult) result;
     }
 
@@ -284,6 +297,7 @@ public class ServerProxy implements IServer {
         Object[] parameters = {playerName, gameName, card1, card2};
         Command submitDestinationCardsCommand = new Command("discardDestinationCards", parameterTypenames, parameters);
         Object result = ClientCommunicator.SINGLETON.send(submitDestinationCardsCommand);
+        if (result instanceof SocketTimeoutException){result = new SubmitResult("Server is down");}
         return (SubmitResult) result;
     }
 
@@ -293,6 +307,7 @@ public class ServerProxy implements IServer {
         Object[] parameters = {playerName, gameName};
         Command endTurnCommand = new Command("endTurn", parameterTypenames, parameters);
         Object result = ClientCommunicator.SINGLETON.send(endTurnCommand);
+        if (result instanceof SocketTimeoutException){result = new EndTurnResult("Server is down");}
         return (EndTurnResult) result;
     }
 
@@ -302,6 +317,7 @@ public class ServerProxy implements IServer {
         Object[] parameters = {gameName};
         Command submitDestinationCardsCommand = new Command("endGame", parameterTypenames, parameters);
         Object result = ClientCommunicator.SINGLETON.send(submitDestinationCardsCommand);
+        if (result instanceof SocketTimeoutException){result = new EndGameResult("Server is down");}
         return (EndGameResult) result;
     }
 
@@ -319,6 +335,7 @@ public class ServerProxy implements IServer {
         Object[] parameters = {gameName};
         Command getGameCommand = new Command("getGameData", parameterTypenames, parameters);
         Object result = ClientCommunicator.SINGLETON.send(getGameCommand);
+        if (result instanceof SocketTimeoutException){result = new GetGameResult("Server is down");}
         return (GetGameResult) result;
     }
 
@@ -328,6 +345,7 @@ public class ServerProxy implements IServer {
         Object[] parameters = {gameName};
         Command syncCommand = new Command("sync", parameterTypenames, parameters);
         Object result = ClientCommunicator.SINGLETON.send(syncCommand);
+        if (result instanceof SocketTimeoutException){result = new GetGameResult("Server is down");}
         return (GetGameResult) result;
     }
 }

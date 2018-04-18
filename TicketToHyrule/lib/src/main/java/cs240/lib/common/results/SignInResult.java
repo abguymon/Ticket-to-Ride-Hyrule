@@ -15,6 +15,7 @@ public class SignInResult {
     private ArrayList<LobbyGame> userGames;
 
     public SignInResult(){}
+    public SignInResult(String errorMessage){this.errorMessage = errorMessage;}
     public SignInResult(String authToken, String errorMessage, ArrayList<LobbyGame> userGames){
         this.authToken = authToken;
         this.errorMessage = errorMessage;
