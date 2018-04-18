@@ -28,6 +28,7 @@ import cs240.lib.Model.ModelFacade;
 import cs240.lib.Model.gameParts.Player;
 import cs240.lib.Model.states.TurnEnded;
 import cs240.lib.Model.states.TurnStarted;
+import cs240.lib.common.StateMap;
 import cs240.lib.common.results.GetGameResult;
 import cs340.tickettohyrule.CurrentUserSingleton;
 import cs340.tickettohyrule.GameActivity;
@@ -331,11 +332,11 @@ public class GameLobbyFragment extends Fragment implements View.OnClickListener,
 
                 Game gameData = ((GetGameResult) result).getGameStarted();
                 ClientFacade.getInstance().setGameData(gameData);
+                ClientFacade.getInstance().getGameData().getPlayerArray().get(gameData.getState()[0]-1).setState(StateMap.SINGLETON.getState(gameData.getState()[1]));
                 for(int i = 0; i < ClientFacade.getInstance().getGameData().getPlayerArray().size(); i++){
-                    if(i == 0) ClientFacade.getInstance().getGameData().getPlayerArray().get(i).setState(new TurnStarted());
-                    else ClientFacade.getInstance().getGameData().getPlayerArray().get(i).setState(new TurnEnded());
+                    if(i != gameData.getState()[0]-1) ClientFacade.getInstance().getGameData().getPlayerArray().get(i).setState(new TurnEnded());
                 }
-                CurrentUserSingleton.getInstance().getModelFacade().setGameData(gameData);
+                CurrentUserSingleton.getInstance().getModelFacade().setGameData(ClientFacade.getInstance().getGameData());
                 startActivity(intent);
             }
             else{
